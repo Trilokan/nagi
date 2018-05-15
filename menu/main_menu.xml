@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_base_pack" name="Base" sequence="10"/>
+    <menuitem id="menu_account" name="Account" sequence="20"/>
+    <menuitem id="menu_patient" name="Patient" sequence="30"/>
+    <menuitem id="menu_employee" name="Employee" sequence="40"/>
+
+</odoo>

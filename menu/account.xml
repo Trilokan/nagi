@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Account -->
+    <menuitem id="menu_account_account"
+              name="Account"
+              parent="menu_account"
+              sequence="10"/>
+
+    <!--Account Configuration-->
+    <menuitem id="menu_account_configuration"
+              name="Configuration"
+              parent="menu_account"
+              sequence="20"/>
+
+</odoo>
