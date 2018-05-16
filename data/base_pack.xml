@@ -19,4 +19,41 @@
         <field name="number_increment">1</field>
     </record>
 
+    <record id="hos_product_sequence" model="ir.sequence">
+        <field name="name">Hospital Product</field>
+        <field name="code">hos.product</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_request_sequence" model="ir.sequence">
+        <field name="name">Store Request</field>
+        <field name="code">store.request</field>
+        <field name="prefix">SR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_issue_sequence" model="ir.sequence">
+        <field name="name">Store Issue</field>
+        <field name="code">store.issue</field>
+        <field name="prefix">SI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="stock_move_internal_sequence" model="ir.sequence">
+        <field name="name">Stock Move Internal</field>
+        <field name="code">stock.move.internal</field>
+        <field name="prefix">SMI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
+
 </odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_compoff_application_tree" model="ir.ui.view">
+        <field name="name">compoff.application.tree</field>
+        <field name="model">compoff.application</field>
+        <field name="arch" type="xml">
+            <tree string="Comp-Off Application">
+                <field name="date"/>
+                <field name="person_id"/>
+                <field name="reason"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_compoff_application_form" model="ir.ui.view">
+        <field name="name">compoff.application.form</field>
+        <field name="model">compoff.application</field>
+        <field name="arch" type="xml">
+            <form string="Comp-Off Application">
+                <header>
+                    <button name="trigger_confirmed" string="Confirm" type="object"
+                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    <button name="trigger_cancelled" string="Cancel" type="object"
+                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                    <button name="trigger_approved" string="Approve" type="object"
+                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                    <field name="progress" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <separator string="Comp-Off Application" style="text-align:center;"/>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="co_type" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="person_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                    </group>
+                    <group>
+                        <field name="reason" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_compoff_application" model="ir.actions.act_window">
+        <field name="name">Comp-Off Application</field>
+        <field name="res_model">compoff.application</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

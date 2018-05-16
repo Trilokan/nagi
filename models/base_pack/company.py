@@ -9,8 +9,10 @@ class HospitalCompany(surya.Sarpam):
     _name = "res.company"
     _inherit = "res.company"
 
-    # location_id = fields.Many2one(comodel_name="hos.location", string="Location")
-    # virtual_location_ids = fields.One2many(comodel_name="hos.location", string="Virtual Location")
+    location_id = fields.Many2one(comodel_name="hos.location", string="Location")
+    virtual_location_right = fields.Integer(string="Virtual Location Right")
+    virtual_location_left = fields.Integer(string="Virtual Location Left")
+
     name = fields.Char(string="Name", required=True)
     email = fields.Char(string="E-mail")
     mobile = fields.Char(string="Mobile", required=True)

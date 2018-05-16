@@ -12,4 +12,96 @@
               parent="menu_hr_employee"
               sequence="10"/>
 
+    <menuitem id="sub_menu_hr_department"
+              name="Department"
+              action="action_hr_department"
+              parent="menu_hr_employee"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hr_category"
+              name="Category"
+              action="action_hr_category"
+              parent="menu_hr_employee"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hr_designation"
+              name="Designation"
+              action="action_hr_designation"
+              parent="menu_hr_employee"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hr_leave"
+              name="Leave"
+              action="action_hr_leave"
+              parent="menu_hr_employee"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_hr_contact"
+              name="HR Contact"
+              action="action_hr_contact"
+              parent="menu_hr_employee"
+              sequence="60"/>
+
+    <!--Leave Management-->
+    <menuitem id="menu_leave_management"
+              name="Leave Management"
+              parent="menu_employee"
+              sequence="40"/>
+
+    <menuitem id="menu_leave_application"
+              name="Leave Application"
+              action="action_leave_application"
+              parent="menu_leave_management"
+              sequence="10"/>
+
+    <menuitem id="menu_permission_application"
+              name="Permission Application"
+              action="action_permission_application"
+              parent="menu_leave_management"
+              sequence="20"/>
+
+    <menuitem id="menu_compoff_application"
+              name="Comp-Off Application"
+              action="action_compoff_application"
+              parent="menu_leave_management"
+              sequence="30"/>
+
+    <menuitem id="menu_leave_configuration"
+              name="Leave Configuration"
+              action="action_leave_configuration"
+              parent="menu_leave_management"
+              sequence="40"/>
+
+    <!--Recruitment-->
+    <menuitem id="menu_recruitment"
+              name="Recruitment"
+              parent="menu_employee"
+              sequence="30"/>
+
+    <menuitem id="menu_resume_bank"
+              name="Resume Bank"
+              action="action_resume_bank"
+              parent="menu_recruitment"
+              sequence="10"/>
+
+    <menuitem id="menu_vacancy_position"
+              name="Vacancy Position"
+              action="action_vacancy_position"
+              parent="menu_recruitment"
+              sequence="20"/>
+
+    <menuitem id="menu_interview_schedule"
+              name="Interview Schedule"
+              action="action_interview_schedule"
+              parent="menu_recruitment"
+              sequence="30"/>
+
+    <menuitem id="menu_appointment_order"
+              name="Appointment Order"
+              action="action_appointment_order"
+              parent="menu_recruitment"
+              sequence="40"/>
+
+
+
 </odoo>

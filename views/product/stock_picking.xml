@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_stock_picking_store_issue_tree" model="ir.ui.view">
+        <field name="name">stock.picking.tree</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <tree string="Store Issue" create="false" delete="false">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="reference"/>
+                <field name="picking_type"/>
+                <field name="name"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_stock_picking_store_issue_form" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="arch" type="xml">
+            <form string="Store Issue" create="false" delete="false">
+                <header>
+                    <button name="trigger_move" string="Move" type="object"
+                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    <field name="progress" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <separator string="Store Issue" style="text-align:center;"/>
+                    <field name="name" readonly="1"/>
+                    <group col="4">
+                        <field name="date" readonly="1"/>
+                        <field name="reference" readonly="1"/>
+                        <field name="picking_type" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Issue Detail">
+                            <field name="picking_detail" attrs="{'readonly': [('progress', '!=', 'draft')]}">
+                                <tree editable="bottom" create="false" delete="false">
+                                    <field name="name" string="Description" readonly="1"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="quantity"/>
+                                    <field name="source_location_id" invisible="1"/>
+                                    <field name="destination_location_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Store Issue-->
+    <record id="action_stock_picking_store_issue" model="ir.actions.act_window">
+        <field name="name">Store Issue</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('picking_type', '=', 'internal')]</field>
+    </record>
+
+    <!-- Action GRN-->
+    <record id="action_stock_picking_material_receipt" model="ir.actions.act_window">
+        <field name="name">Material Receipt</field>
+        <field name="res_model">stock.picking</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('picking_type', '=', 'in')]</field>
+    </record>
+
+</odoo>
