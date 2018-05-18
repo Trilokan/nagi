@@ -102,6 +102,64 @@
               parent="menu_recruitment"
               sequence="40"/>
 
+    <!--Time Management-->
+    <menuitem id="menu_time_management"
+              name="Time Management"
+              parent="menu_employee"
+              sequence="20"/>
 
+    <menuitem id="menu_time_shift"
+              name="Shift"
+              action="action_time_shift"
+              parent="menu_time_management"
+              sequence="10"/>
+
+    <menuitem id="menu_week_schedule"
+              name="Week Schedule"
+              action="action_week_schedule"
+              parent="menu_time_management"
+              sequence="20"/>
+
+    <menuitem id="menu_time_attendance"
+              name="Attendance"
+              action="action_time_attendance"
+              parent="menu_time_management"
+              sequence="30"/>
+
+    <menuitem id="menu_month_attendance"
+              name="Month Attendance"
+              action="action_month_attendance"
+              parent="menu_time_management"
+              sequence="40"/>
+
+    <menuitem id="menu_shift_change"
+              name="Shift Change"
+              action="action_shift_change"
+              parent="menu_time_management"
+              sequence="60"/>
+
+    <menuitem id="menu_holiday_change"
+              name="Holiday Change"
+              action="action_holiday_change"
+              parent="menu_time_management"
+              sequence="70"/>
+
+    <menuitem id="menu_time_configuration"
+              name="Time Configuration"
+              action="action_time_configuration"
+              parent="menu_time_management"
+              sequence="80"/>
+
+    <menuitem id="menu_time_sheet"
+              name="Time Sheet"
+              action="action_time_sheet"
+              parent="menu_time_management"
+              sequence="90"/>
+
+    <menuitem id="menu_time_sheet_application"
+              name="Time Sheet Application"
+              action="action_time_sheet_application"
+              parent="menu_time_management"
+              sequence="100"/>
 
 </odoo>

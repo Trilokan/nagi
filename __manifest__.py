@@ -11,9 +11,11 @@
     'description': 'Hospital Management System',
     'depends': ['base', 'mail'],
     'data': [
+        'views/assert_backend.xml',
 
         'menu/main_menu.xml',
         'data/base_pack.xml',
+        'data/time_management.xml',
 
         # Account
         # 'views/account/account.xml',
@@ -21,6 +23,8 @@
         # Base Pack
         'views/base_pack/company.xml',
         'views/base_pack/users.xml',
+        'views/base_pack/year.xml',
+        'views/base_pack/period.xml',
 
 
         # Person
@@ -53,6 +57,15 @@
         'views/leave_management/permission.xml',
 
         # Time Management
+        'views/time_management/shift.xml',
+        'views/time_management/time_configuration.xml',
+        'views/time_management/week_schedule.xml',
+        'views/time_management/monthly_attendance.xml',
+        'views/time_management/attendance.xml',
+        'views/time_management/shift_change.xml',
+        'views/time_management/holiday_change.xml',
+        'views/time_management/time_sheet.xml',
+        'views/time_management/time_sheet_application.xml',
 
         # Product
         'views/product/product_group.xml',
@@ -75,6 +88,9 @@
     ],
     'demo': [
 
+    ],
+    'qweb': [
+        'static/src/xml/status_bar.xml',
     ],
     'installable': True,
     'auto_install': False,

@@ -10,4 +10,5 @@ from . import patient
 from . import employee
 from . import leave_management
 from . import recruitment
+from . import time_management
 from . import product

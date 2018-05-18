@@ -18,6 +18,7 @@ class HospitalCompany(surya.Sarpam):
     mobile = fields.Char(string="Mobile", required=True)
     alternate_contact = fields.Char(string="Alternate Contact")
     person_id = fields.Many2one(comodel_name="hos.person")
+    lop_id = fields.Many2one(comodel_name="leave.type", string="Leave Type")
 
     writter = fields.Text(string="Writter", track_visibility="always")
 
