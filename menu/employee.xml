@@ -162,4 +162,47 @@
               parent="menu_time_management"
               sequence="100"/>
 
+    <!--Payroll Management-->
+    <menuitem id="menu_payroll_management"
+              name="Payroll Management"
+              parent="menu_employee"
+              sequence="50"/>
+
+    <menuitem id="menu_pay_slip"
+              name="Payslip"
+              action="action_pay_slip"
+              parent="menu_payroll_management"
+              sequence="10"/>
+
+    <menuitem id="menu_payroll_generation"
+              name="Payroll Generation"
+              action="action_payroll_generation"
+              parent="menu_payroll_management"
+              sequence="20"/>
+
+    <menuitem id="menu_hr_pay"
+              name="HR Pay"
+              action="action_hr_pay"
+              parent="menu_payroll_management"
+              sequence="30"/>
+
+    <menuitem id="menu_salary_structure"
+              name="Salary Structure"
+              action="action_salary_structure"
+              parent="menu_payroll_management"
+              sequence="40"/>
+
+    <menuitem id="menu_salary_rule"
+              name="Salary Rule"
+              action="action_salary_rule"
+              parent="menu_payroll_management"
+              sequence="50"/>
+
+    <!--<menuitem id="menu_hr_pay_wizard"-->
+              <!--name="HR Pay Wizard"-->
+              <!--action="action_hr_pay_wizard"-->
+              <!--parent="menu_payroll_management"-->
+              <!--sequence="60"/>-->
+
+
 </odoo>

@@ -67,6 +67,14 @@
         'views/time_management/time_sheet.xml',
         'views/time_management/time_sheet_application.xml',
 
+        # Payroll
+        'views/payroll/hr_pay.xml',
+        'views/payroll/payslip.xml',
+        'views/payroll/payroll_generation.xml',
+        'views/payroll/salary_structure.xml',
+        'views/payroll/salary_rule.xml',
+        'views/payroll/salary_rule_slab.xml',
+
         # Product
         'views/product/product_group.xml',
         'views/product/sub_group.xml',

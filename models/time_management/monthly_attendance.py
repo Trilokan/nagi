@@ -89,13 +89,16 @@ class MonthAttendance(surya.Sarpam):
             for rec in credit_recs:
                 credit = credit + rec.credit
 
-            if debit >= credit:
+            credit_data = {"employee_id": employee_id.id,
+                           "month_id": self.id,
+                           "date": datetime.now().strftime("%Y-%m-%d"),
+                           "leave_type_id": self.env.user.company_id.lop_id.id}
 
-                credit_data = {"employee_id": employee_id.id,
-                               "month_id": self.id,
-                               "date": datetime.now().strftime("%Y-%m-%d"),
-                               "credit": debit - credit,
-                               "leave_type_id": self.env.user.company_id.lop_id.id}
+            if debit > credit:
+                credit_data["credit"] = debit - credit
+
+            else:
+                credit_data["debit"] = 0
 
                 self.env["hr.leave"].create(credit_data)
 
