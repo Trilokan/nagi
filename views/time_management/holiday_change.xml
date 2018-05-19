@@ -6,7 +6,7 @@
         <field name="name">holiday.change.tree</field>
         <field name="model">holiday.change</field>
         <field name="arch" type="xml">
-            <tree string="Shift Change">
+            <tree string="Holiday Change">
                 <field name="date"/>
                 <field name="person_id"/>
                 <field name="day_progress"/>
@@ -21,19 +21,24 @@
         <field name="name">holiday.change.form</field>
         <field name="model">holiday.change</field>
         <field name="arch" type="xml">
-            <form string="Shift Change">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                    <button name="trigger_approve" string="Approve" type="object"
-                            attrs="{'invisible': [('progress', '=', 'holiday_changed')]}"/>
-                </header>
+            <form string="Holiday Change">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Holiday Change</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+
                     <group>
                         <field name="date" attrs="{'readonly': [('progress', '=', 'holiday_changed')]}"/>
                         <field name="person_id" attrs="{'readonly': [('progress', '=', 'holiday_changed')]}"/>
                         <field name="day_progress" attrs="{'readonly': [('progress', '=', 'holiday_changed')]}"/>
                         <field name="reason" attrs="{'readonly': [('progress', '=', 'holiday_changed')]}"/>
                     </group>
+                    <footer>
+                        <button name="trigger_approve" string="Approve" type="object"
+                                attrs="{'invisible': [('progress', '=', 'holiday_changed')]}"/>
+                    </footer>
+
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
@@ -45,7 +50,7 @@
 
     <!-- Action -->
     <record id="action_holiday_change" model="ir.actions.act_window">
-        <field name="name">Shift Change</field>
+        <field name="name">Holiday Change</field>
         <field name="res_model">holiday.change</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

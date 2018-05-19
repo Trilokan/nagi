@@ -8,6 +8,9 @@
         <field name="arch" type="xml">
             <form string="Time Sheet Application">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Time Sheet Application</h1>
+                    </div>
                     <group>
                         <field name="date" invisible="1"/>
                         <button name="trigger_employee_in" string="IN" type="object"/>

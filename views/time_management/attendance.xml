@@ -20,10 +20,11 @@
         <field name="model">time.attendance</field>
         <field name="arch" type="xml">
             <form string="Attendance">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Attendance</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
                         <field name="date"/>
                         <field name="month_id"/>
@@ -61,8 +62,6 @@
                                             <field name="progress" invisible="1"/>
                                             <field name="attendance_id" invisible="1"/>
                                         </group>
-
-
                                     </sheet>
                                 </form>
                             </field>

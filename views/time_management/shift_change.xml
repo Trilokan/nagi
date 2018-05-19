@@ -22,18 +22,21 @@
         <field name="model">shift.change</field>
         <field name="arch" type="xml">
             <form string="Shift Change">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                    <button name="trigger_approve" string="Approve" type="object"
-                            attrs="{'invisible': [('progress', '=', 'shift_changed')]}"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Shift Change</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
                         <field name="date" attrs="{'readonly': [('progress', '=', 'shift_changed')]}"/>
                         <field name="person_id" attrs="{'readonly': [('progress', '=', 'shift_changed')]}"/>
                         <field name="shift_id" attrs="{'readonly': [('progress', '=', 'shift_changed')]}"/>
                         <field name="reason" attrs="{'readonly': [('progress', '=', 'shift_changed')]}"/>
                     </group>
+                    <footer>
+                        <button name="trigger_approve" string="Approve" type="object"
+                                attrs="{'invisible': [('progress', '=', 'shift_changed')]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

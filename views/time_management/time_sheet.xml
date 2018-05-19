@@ -21,10 +21,13 @@ trigger_schedule
         <field name="arch" type="xml">
             <form string="Time Sheet">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Time Sheet</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
                         <field name="date"/>
                         <field name="person_id"/>
-                        <field name="progress"/>
                     </group>
                 </sheet>
             </form>

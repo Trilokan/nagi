@@ -8,14 +8,14 @@ from lxml import etree
 
 # Week Schedule
 
-PROGRESS_INFO = [('draft', 'draft'), ('open', 'Open'), ('verified', 'verified')]
+PROGRESS_INFO = [('draft', 'draft'), ('open', 'Open'), ('closed', 'Closed')]
 
 
 class MonthAttendance(surya.Sarpam):
     _name = "month.attendance"
     _rec_name = "period_id"
 
-    period_id = fields.Many2one(comodel_name="period.period", string="Month")
+    period_id = fields.Many2one(comodel_name="period.period", string="Month", required=True)
     month_detail = fields.One2many(comodel_name="time.attendance",
                                    inverse_name="month_id",
                                    string="Month Detail")
@@ -109,7 +109,7 @@ class MonthAttendance(surya.Sarpam):
 
             self.env["hr.leave"].create(debit_date)
 
-        self.write({"progress": "verified"})
+        self.write({"progress": "closed"})
 
     @api.multi
     def trigger_open(self):

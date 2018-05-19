@@ -22,7 +22,7 @@
             <form string="Time Configuration">
                 <sheet>
                     <div id="s_header">
-                        <h1>Shift Details</h1>
+                        <h1>Time Configuration</h1>
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>

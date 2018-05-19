@@ -20,13 +20,11 @@
         <field name="model">week.schedule</field>
         <field name="arch" type="xml">
             <form string="Week Schedule">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                    <button name="trigger_schedule" string="Schedule" type="object"
-                            attrs="{'invisible': [('progress', '=', 'scheduled')]}"/>
-                </header>
                 <sheet>
-                    <separator string="Week Schedule" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Week Schedule</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="from_date" attrs="{'readonly': [('progress', '=', 'scheduled')]}"/>
                         <field name="till_date" attrs="{'readonly': [('progress', '=', 'scheduled')]}"/>
@@ -69,6 +67,10 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_schedule" string="Schedule" type="object"
+                                attrs="{'invisible': [('progress', '=', 'scheduled')]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

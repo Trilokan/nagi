@@ -24,12 +24,12 @@ class TimeAttendance(surya.Sarpam):
                                         string="Attendance Detail")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', default="draft")
 
-    present = fields.Integer(string="Present")
-    half_day_present = fields.Integer(string="Half Day Present")
-    absent = fields.Integer(string="Absent")
-    employee_count = fields.Integer(string="Employee Count")
-    week_off_count = fields.Integer(string="Week-Off Count")
-    working_count = fields.Integer(string="Working Count")
+    present = fields.Integer(string="Present", readonly=True)
+    half_day_present = fields.Integer(string="Half Day Present", readonly=True)
+    absent = fields.Integer(string="Absent", readonly=True)
+    employee_count = fields.Integer(string="Employee Count", readonly=True)
+    week_off_count = fields.Integer(string="Week-Off Count", readonly=True)
+    working_count = fields.Integer(string="Working Count", readonly=True)
 
     @api.multi
     def trigger_progress(self):

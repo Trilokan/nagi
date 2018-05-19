@@ -19,14 +19,13 @@
         <field name="model">month.attendance</field>
         <field name="arch" type="xml">
             <form string="Monthly Attendance">
-                <header>
-                    <button name="trigger_closed" string="Closed" type="object"/>
-                    <button name="trigger_open" string="Open" type="object"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Monthly Attendance</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
-                        <field name="period_id" attrs="{'readonly': [('progress', '=', 'closed')]}"/>
+                        <field name="period_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                     </group>
                     <notebook>
                         <page string="Month Details">
@@ -42,6 +41,13 @@
                             <iframe src="/yazhi/monthly_attendance" width="100%" frameborder="0"></iframe>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_closed" string="Closed" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'open')]}"/>
+                        <button name="trigger_open" string="Open" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+
+                    </footer>
                 </sheet>
             </form>
         </field>
