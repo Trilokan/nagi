@@ -19,7 +19,7 @@ class HospitalCompany(surya.Sarpam):
     alternate_contact = fields.Char(string="Alternate Contact")
     person_id = fields.Many2one(comodel_name="hos.person")
     lop_id = fields.Many2one(comodel_name="leave.type", string="Leave Type")
-
+    appointment_order_template = fields.Html(string="Appointment Order Template")
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):

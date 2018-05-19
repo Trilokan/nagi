@@ -6,7 +6,10 @@ from .. import surya
 
 
 # Permission
-PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled'), ('approved', 'Approved')]
+PROGRESS_INFO = [('draft', 'Draft'),
+                 ('confirmed', 'Waiting For Approval'),
+                 ('cancelled', 'Cancelled'),
+                 ('approved', 'Approved')]
 
 
 class Permission(surya.Sarpam):
@@ -21,22 +24,22 @@ class Permission(surya.Sarpam):
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):
-        person_id = self.env["hos.person"].search([("person_id", "=", self.env.user.person_id.id)])
+        person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
         vals["person_id"] = person_id.id
-        vals["writter"] = "Permission approved by {0}".format(self.env.user.name)
+        vals["writter"] = "Permission created by {0}".format(self.env.user.name)
         return vals
 
     @api.multi
     def trigger_confirmed(self):
         data = {"progress": "confirmed",
-                "writter": "Permission Confirmed by {0}".format(self.env.user.name)}
+                "writter": "Permission confirmed by {0}".format(self.env.user.name)}
 
         self.write(data)
 
     @api.multi
     def trigger_cancelled(self):
         data = {"progress": "cancelled",
-                "writter": "Permission Cancelled by {0}".format(self.env.user.name)}
+                "writter": "Permission cancelled by {0}".format(self.env.user.name)}
 
         self.write(data)
 

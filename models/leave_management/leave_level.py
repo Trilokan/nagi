@@ -5,17 +5,18 @@ from datetime import datetime, timedelta
 from .. import surya
 
 
-# Leave Leavel
-
-PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed')]
-
-
+# Leave Level
 class LeaveLevel(surya.Sarpam):
     _name = "leave.level"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    writter = fields.Text(string="Writter", track_visibility="always")
+
+    def default_vals_creation(self, vals):
+        vals["writter"] = "Leave level created by {0}".format(self.env.user.name)
+        return vals
+
 
 
 

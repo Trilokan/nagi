@@ -7,7 +7,6 @@ import json
 
 
 # Contacts
-
 class AppointmentContact(surya.Sarpam):
     _name = "appointment.contact"
     _inherit = "hos.address"

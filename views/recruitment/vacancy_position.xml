@@ -21,15 +21,11 @@
         <field name="model">vacancy.position</field>
         <field name="arch" type="xml">
             <form string="Vacancy Position">
-                <header>
-                    <button name="trigger_open" string="Open" type="object"
-                            attrs="{'invisible': [('progress', 'in', ['opened', 'closed'])]}"/>
-                    <button name="trigger_closed" string="Close" type="object"
-                            attrs="{'invisible': [('progress', 'in', ['draft', 'opened'])]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
-                    <separator string="Vacancy Position" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Vacancy Position</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
@@ -51,6 +47,12 @@
                         </page>
                     </notebook>
                     <field name="comment" placeholder="Comment..." attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                    <footer>
+                        <button name="trigger_open" string="Open" type="object"
+                                attrs="{'invisible': [('progress', 'in', ['opened', 'closed'])]}"/>
+                        <button name="trigger_closed" string="Close" type="object"
+                                attrs="{'invisible': [('progress', 'in', ['draft', 'opened'])]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

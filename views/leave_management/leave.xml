@@ -22,25 +22,27 @@
         <field name="model">leave.application</field>
         <field name="arch" type="xml">
             <form string="Leave Application">
-                <header>
-                    <button name="trigger_confirmed" string="Confirm" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <button name="trigger_cancelled" string="Cancel" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
-                    <button name="trigger_approved" string="Approve" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
-                    <separator string="Leave Application" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Leave Application</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="from_date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="till_date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="person_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="person_id"/>
                     </group>
                     <group>
                         <field name="reason" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                     </group>
+                    <footer>
+                        <button name="trigger_confirmed" string="Confirm" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_cancelled" string="Cancel" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                        <button name="trigger_approved" string="Approve" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                    </footer>
                 </sheet>
             </form>
         </field>

@@ -11,7 +11,6 @@
                 <field name="leave_credit"/>
                 <field name="leave_level_id"/>
                 <field name="leave_order"/>
-                <field name="progress"/>
             </tree>
         </field>
     </record>
@@ -22,10 +21,11 @@
         <field name="model">leave.configuration</field>
         <field name="arch" type="xml">
             <form string="Leave Configuration">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Leave Configuration</h1>
+                    </div>
+
                     <group>
                         <field name="leave_type_id"/>
                         <field name="leave_credit"/>

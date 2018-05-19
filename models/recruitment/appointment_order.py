@@ -32,7 +32,6 @@ class AppointmentOrder(surya.Sarpam):
     # Order Detail
     department_id = fields.Many2one(comodel_name="hr.department", string="Department", required=True)
     position_id = fields.Many2one(comodel_name="hr.designation", string="Position", required=True)
-    template = fields.Html(string="Template")
     order_preview = fields.Html(string="Order Preview", readonly=1)
     order = fields.Binary(string="Appointment Order", readonly=1)
 
@@ -47,6 +46,7 @@ class AppointmentOrder(surya.Sarpam):
 
     @api.multi
     def trigger_confirmed(self):
+        self.generate_appointment_order()
         writter = "Appointment Order Confirmed by {0}".format(self.env.user.name)
         data = {"progress": "confirmed",
                 "writter": writter}
@@ -71,6 +71,47 @@ class AppointmentOrder(surya.Sarpam):
     def default_vals_creation(self, vals):
         vals["sequence"] = self.env['ir.sequence'].sudo().next_by_code(self._name)
         return vals
+
+    def get_address(self):
+        address = []
+
+        if self.resume_id.name:
+            address.append(self.resume_id.name)
+        if self.resume_id.door_no:
+            address.append(self.resume_id.door_no)
+        if self.resume_id.building_name:
+            address.append(self.resume_id.building_name)
+        if self.resume_id.street_1:
+            address.append(self.resume_id.street_1)
+        if self.resume_id.street_2:
+            address.append(self.resume_id.street_2)
+        if self.resume_id.locality:
+            address.append(self.resume_id.locality)
+        if self.resume_id.landmark:
+            address.append(self.resume_id.landmark)
+        if self.resume_id.city:
+            address.append(self.resume_id.city)
+        if self.resume_id.state_id:
+            address.append(self.resume_id.state_id.name)
+        if self.resume_id.country_id:
+            address.append(self.resume_id.country_id.name)
+        if self.resume_id.pin_code:
+            address.append(self.resume_id.pin_code)
+
+        address = "<br>".join(address)
+
+        return address
+
+    @api.multi
+    def generate_appointment_order(self):
+        template = self.env.user.company_id.appointment_order_template
+
+        data = template.format(self.date,
+                               self.get_address(),
+                               self.position_id.name,
+                               self.department_id.name)
+
+        self.order_preview = data
 
 
 class AppointmentOrderSalary(surya.Sarpam):

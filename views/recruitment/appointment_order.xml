@@ -23,14 +23,13 @@
         <field name="model">appointment.order</field>
         <field name="arch" type="xml">
             <form string="Appointment Order">
-                <header>
-                    <button name="trigger_confirmed" string="Confirmed" type="object"
-                            attrs="{'invisible': [('progress', '=', 'confirmed')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Appointment Order</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+
                     <field name="id" invisible="1"/>
-                    <separator string="Appointment Order" style="text-align:center;"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="view_resume_bank" icon="fa-folder-open" class="oe_stat_button" string="Resume" type="object"/>
                     </div>
@@ -68,6 +67,11 @@
                                    domain="[('res_id', '=', id), ('res_model', '=', 'resume.bank')]"/>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_confirmed" string="Confirmed" type="object"
+                                attrs="{'invisible': [('progress', '=', 'confirmed')]}"/>
+                    </footer>
+
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

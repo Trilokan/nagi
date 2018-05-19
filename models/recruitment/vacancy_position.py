@@ -6,8 +6,8 @@ from .. import surya
 import json
 
 PROGRESS_INFO = [("draft", "Draft"),
-                 ("open", "Opened"),
-                 ("closed", "Closed")]
+                 ("open", "Position Opened"),
+                 ("closed", "Position Closed")]
 
 
 # Vacancy Position
@@ -19,7 +19,7 @@ class VacancyPosition(surya.Sarpam):
     date = fields.Date(string="Date")
     position_id = fields.Many2one(comodel_name="hr.designation", string="Position", required=True)
     department_id = fields.Many2one(comodel_name="hr.department", string="Department")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft", track_visibility='always')
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     roles = fields.Html(string="Roles & Responsibility")
     experience = fields.Html(string="Experience")
     preference = fields.Html(string="Preference")
@@ -44,6 +44,6 @@ class VacancyPosition(surya.Sarpam):
     def default_vals_creation(self, vals):
         if not "date" in vals:
             vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["writter"] = "Vacancy position opened by {0}".format(self.env.user.name)
+        vals["writter"] = "Vacancy position created by {0}".format(self.env.user.name)
 
         return vals

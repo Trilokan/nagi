@@ -21,6 +21,9 @@
                             <field name="virtual_location_right"/>
                         </group>
                     </page>
+                    <page string="Appoinment Order">
+                        <field name="appointment_order_template"/>
+                    </page>
                 </xpath>
             </field>
         </record>

@@ -26,10 +26,10 @@ class ResumeExperience(surya.Sarpam):
     relieving_reason = fields.Text(string="Relieving Reason", required=True)
 
 
-# Qualification
 RESULT_INFO = [('pass', 'Pass'), ('fail', 'Fail'), ('discontinued', 'Discontinued')]
 
 
+# Qualification
 class ResumeQualification(surya.Sarpam):
     _name = "resume.qualification"
 

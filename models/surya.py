@@ -19,6 +19,9 @@ class Sarpam(models.Model):
     def default_rec_creation(self, rec):
         pass
 
+    def default_vals_written(self):
+        pass
+
     def record_rights(self):
         pass
 
@@ -57,6 +60,7 @@ class Sarpam(models.Model):
     @api.multi
     def write(self, vals):
         self.check_progress_rights()
+        self.default_vals_written()
         return super(Sarpam, self).write(vals)
 
     @api.model

@@ -23,16 +23,11 @@
         <field name="model">interview.schedule</field>
         <field name="arch" type="xml">
             <form string="Interview Schedule">
-                <header>
-                    <field name="progress" widget="statusbar"/>
-                    <button name="trigger_cancel" string="Cancel" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'on_process')]}"/>
-                    <button name="trigger_confirm" string="Confirm" type="object"
-                             attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <button name="trigger_completed" string="Completed" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'on_process')]}"/>
-                </header>
                 <sheet>
+                    <div id="s_header">
+                        <h1>Interview Schedule</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
@@ -53,6 +48,14 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'on_process')]}"/>
+                        <button name="trigger_confirm" string="Confirm" type="object"
+                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_completed" string="Completed" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'on_process')]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>

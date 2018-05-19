@@ -22,7 +22,7 @@ class InterviewSchedule(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     date = fields.Date(string="Date", required=True)
-    vacancy_id = fields.Many2one(comodel_name="vacancy.position", string="Vacancy Position")
+    vacancy_id = fields.Many2one(comodel_name="vacancy.position", string="Vacancy Position", required=True)
     designation_id = fields.Many2one(comodel_name="hr.designation", string="Designation")
     progress = fields.Selection(selection=SCHEDULE_INFO, string="Progress", default='draft')
     previous_interview = fields.Many2one(comodel_name="interview.schedule", string="Previous Interview")
@@ -33,12 +33,12 @@ class InterviewSchedule(surya.Sarpam):
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):
-        vals["writter"] = "Leave Application Created by {0}".format(self.env.user.name)
+        vals["writter"] = "Interview schedule created by {0}".format(self.env.user.name)
         return vals
 
     @api.multi
     def trigger_confirm(self):
-        data = {"writter": "Interview Schedule confirmed by {0}".format(self.env.user.name),
+        data = {"writter": "Interview schedule confirmed by {0}".format(self.env.user.name),
                 "progress": "on_process"}
 
         if not self.scheduled_detail:
@@ -48,7 +48,7 @@ class InterviewSchedule(surya.Sarpam):
 
     @api.multi
     def trigger_cancel(self):
-        data = {"writter": "Interview Schedule cancelled by {0}".format(self.env.user.name),
+        data = {"writter": "Interview schedule cancelled by {0}".format(self.env.user.name),
                 "progress": "cancelled"}
         self.write(data)
 
@@ -63,7 +63,7 @@ class InterviewScheduledDetail(surya.Sarpam):
     _name = "interview.schedule.detail"
     _inherit = "mail.thread"
 
-    resume_id = fields.Many2one(comodel_name="resume.bank", string="Candidate")
+    resume_id = fields.Many2one(comodel_name="resume.bank", string="Candidate", required=True)
     candidate_uid = fields.Char(string="Candidate ID", related="resume_id.candidate_uid")
     scheduled_id = fields.Many2one(comodel_name="interview.schedule", string="Interview")
     status = fields.Selection(selection=SCHEDULE_DETAIL_INFO, string="Status")
