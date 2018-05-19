@@ -33,7 +33,7 @@ class HolidayChange(surya.Sarpam):
                                                                 ("attendance_id.date", "=", self.date)])
 
         if attendance:
-            if attendance.attendance_id.month_id.progress == "verified":
+            if attendance.attendance_id.month_id.progress == "closed":
                 raise exceptions.ValidationError("Error! Month is already closed")
 
             attendance.write({"day_progress": self.day_progress})

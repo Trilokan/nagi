@@ -32,7 +32,7 @@ class ShiftChange(surya.Sarpam):
                                                                 ("attendance_id.date", "=", self.date)])
 
         if attendance:
-            if attendance.attendance_id.month_id.progress == "verified":
+            if attendance.attendance_id.month_id.progress == "closed":
                 raise exceptions.ValidationError("Error! Month is already closed")
 
             expected_from_time = "{0} {1}:{2}:00".format(self.date,

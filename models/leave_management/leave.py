@@ -24,13 +24,22 @@ class Leave(surya.Sarpam):
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):
+        self.check_month()
         person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
         vals["person_id"] = person_id.id
         vals["writter"] = "Leave application created by {0}".format(self.env.user.name)
         return vals
 
+    def check_month(self):
+        attendance = self.env["time.attendance.detail"].search([("attendance_id.date", "=", self.from_date)])
+
+        if attendance:
+            if attendance.attendance_id.month_id.progress == "closed":
+                raise exceptions.ValidationError("Error! Month is already closed")
+
     @api.multi
     def trigger_confirmed(self):
+        self.check_month()
         data = {"progress": "confirmed",
                 "writter": "Leave application confirmed by {0}".format(self.env.user.name)}
 
@@ -38,6 +47,7 @@ class Leave(surya.Sarpam):
 
     @api.multi
     def trigger_cancelled(self):
+        self.check_month()
         data = {"progress": "cancelled",
                 "writter": "Leave application cancelled by {0}".format(self.env.user.name)}
 
@@ -45,6 +55,7 @@ class Leave(surya.Sarpam):
 
     @api.multi
     def trigger_approved(self):
+        self.check_month()
         data = {"progress": "approved",
                 "writter": "Leave application approved by {0}".format(self.env.user.name)}
 
