@@ -18,13 +18,11 @@
         <field name="model">pay.slip</field>
         <field name="arch" type="xml">
             <form string="Payslip" create="false" edit="false" delete="false">
-                <header>
-                    <button name="generate_payslip" string="Generate Payslip" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
-                    <separator string="Payslip" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Payslip</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
                         <field name="employee_id"/>
                     </group>
@@ -42,6 +40,10 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="generate_payslip" string="Generate Payslip" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    </footer>
                 </sheet>
             </form>
         </field>

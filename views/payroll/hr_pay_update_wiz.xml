@@ -8,7 +8,9 @@
         <field name="arch" type="xml">
             <form string="HR Pay" create="false" edit="false" delete="false">
                 <sheet>
-                    <separator string="HR Pay Update" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>HR Pay Update</h1>
+                    </div>
                     <group>
                         <field name="employee_id"/>
                         <field name="basic"/>
@@ -27,6 +29,7 @@
         <field name="view_type">form</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="view_hr_pay_wizard_form"/>
+        <field name="target">new</field>
     </record>
 
 </odoo>

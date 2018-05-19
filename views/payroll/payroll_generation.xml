@@ -20,13 +20,11 @@
         <field name="model">payroll.generation</field>
         <field name="arch" type="xml">
             <form string="Payroll Generation" version="7.0">
-                <header>
-                    <button name="trigger_generate" string="Generate" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
-                    <separator string="Payroll Generation" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Payroll Generation</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
                         <field name="month_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"
                                options='{"no_open": True}'/>
@@ -58,6 +56,12 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_generate" string="Generate" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <field name="progress" widget="statusbar"/>
+                    </footer>
+
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

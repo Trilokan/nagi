@@ -68,6 +68,7 @@
         'views/time_management/time_sheet_application.xml',
 
         # Payroll
+        'views/payroll/hr_pay_update_wiz.xml',
         'views/payroll/hr_pay.xml',
         'views/payroll/payslip.xml',
         'views/payroll/payroll_generation.xml',

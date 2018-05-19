@@ -30,6 +30,15 @@
                         <field name="basic" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="structure_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                     </group>
+                    <footer>
+                        <button name="trigger_confirm" string="Confirm" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button class="oe_stat_button" name="%(action_hr_pay_wizard)d" type="action"
+                                context="{'employee_id': employee_id,
+                                          'structure_id': structure_id,
+                                          'basic': basic }"
+                                string="Salary Update"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

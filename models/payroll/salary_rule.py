@@ -29,7 +29,7 @@ class SalaryRule(surya.Sarpam):
         return vals
 
     @api.multi
-    def trigger_confirrm(self):
+    def trigger_confirm(self):
         if self.rule_type == 'fixed':
             if self.fixed <= 0:
                 raise exceptions.ValidationError('Error! Fixed value is not found')

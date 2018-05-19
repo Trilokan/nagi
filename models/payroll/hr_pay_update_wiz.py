@@ -14,9 +14,12 @@ PAY_TYPE = [('allowance', 'Allowance'), ('deduction', 'Deduction')]
 class HRPayWiz(models.TransientModel):
     _name = "hr.pay.wizard"
 
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
-    basic = fields.Float(string="Basic")
-    structure_id = fields.Many2one(comodel_name="salary.structure", string="Salary Structure")
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee",
+                                  default=lambda self: self.env.context.get('employee_id', False))
+    basic = fields.Float(string="Basic",
+                         default=lambda self: self.env.context.get('basic', False))
+    structure_id = fields.Many2one(comodel_name="salary.structure", string="Salary Structure",
+                                   default=lambda self: self.env.context.get('structure_id', False))
 
     def trigger_pay_update(self):
         writter = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
