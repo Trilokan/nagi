@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_invoice_tree" model="ir.ui.view">
+        <field name="name">hos.invoice.tree</field>
+        <field name="model">hos.invoice</field>
+        <field name="arch" type="xml">
+            <tree string="Bill/ Receipt">
+                <field name="date"/>
+                <field name="person_id"/>
+                <field name="name"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_invoice_purchase_form" model="ir.ui.view">
+        <field name="name">hos.invoice.form</field>
+        <field name="model">hos.invoice</field>
+        <field name="arch" type="xml">
+            <form string="Bill/ Receipt">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Bill/ Receipt</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <h2><field name="name"/></h2>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="person_id" attrs="{'readonly': ['|',('invoice_type', '=', 'purchase_bill'), ('progress', '!=', 'draft')]}"/>
+                        <field name="reference" attrs="{'readonly': ['|',('invoice_type', '=', 'purchase_bill'), ('progress', '!=', 'draft')]}"/>
+						<field name="invoice_type" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Bill Detail">
+                            <field name="invoice_detail" attrs="{'readonly': ['|',('invoice_type', '=', 'purchase_bill'), ('progress', '!=', 'draft')]}">
+                                <tree editable="Bottom">
+                                    <field name="product_id"/>
+                                    <field name="uom_id"/>
+                                    <field name="unit_price"/>
+                                    <field name="quantity"/>
+                                    <field name="tax_id"/>
+                                    <field name="freight"/>
+                                    <field name="discount"/>
+                                    <field name="total_amount"/>
+                                </tree>
+								<form>
+									<sheet>
+										<group col="4">
+											<field name="product_id"/>
+											<field name="uom_id"/>
+											<field name="unit_price"/>
+											<field name="quantity"/>
+											<field name="tax_id"/>
+											<field name="freight"/>
+											<field name="discount"/>
+											<field name="total_amount"/>
+										</group>
+									</sheet>
+								</form>
+                            </field>
+                        </page>
+						<page string="Account Details">
+
+						</page>
+                    </notebook>
+                    <group>
+					<div style="float: left; width: 100%;">
+						<table class="o_list_view table table-condensed table-striped mask">
+							<thead>
+								<tr>
+									<th>sgst</th>
+									<th>cgst</th>
+									<th>igst</th>
+								</tr>
+							</thead>
+							<tfoot>
+								<tr><td></td><td></td><td></td></tr>
+							</tfoot>
+							<tbody>
+								<tr>
+									<td><field name="sgst" nolabel="1"/></td>
+									<td><field name="cgst" nolabel="1"/></td>
+									<td><field name="igst" nolabel="1"/></td>
+								</tr>
+								<tr>
+									<th>Freight Charges</th>
+									<td><field name="freight_amount" nolabel="1"/></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<table class="o_list_view table table-condensed table-striped mask">
+							<tr>
+								<th>Taxed Amount</th>
+								<td><field name="taxed_amount" nolabel="1"/></td>
+							</tr>
+							<tr>
+								<th>Un Taxed Amount</th>
+								<td><field name="untaxed_amount" nolabel="1"/></td>
+							</tr>
+							<tr>
+								<th>Discount Amount</th>
+								<td><field name="discount_amount" nolabel="1"/></td>
+							</tr>
+							<tr>
+								<th>Discounted Amount</th>
+								<td><field name="discounted_amount" nolabel="1"/></td>
+							</tr>
+
+						</table>
+					</div>
+
+					<div style="float: right; width: 50%;">
+						<table class="o_list_view table table-condensed table-striped mask">
+							<tr>
+								<th>Tax Amount</th>
+								<td><field name="tax_amount" nolabel="1"/></td>
+							</tr>
+							<tr>
+								<th>Round-Off</th>
+								<td><field name="round_off_amount" nolabel="1"/></td>
+							</tr>
+							<tr>
+								<th>Gross Amount</th>
+								<td><field name="gross_amount" nolabel="1"/></td>
+							</tr>
+
+						</table>
+					</div>
+					</group>
+					<footer>
+						<button name="total_calculation" string="Update" type="object"
+								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+						<button name="trigger_approved" string="Approve" type="object"
+								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+						<button name="trigger_cancel" string="Cancel" type="object"
+								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+					</footer>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+    <!-- Lab Action -->
+    <record id="action_hos_invoice" model="ir.actions.act_window">
+        <field name="name">Bill/ Receipt</field>
+        <field name="res_model">hos.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Purchase Action -->
+    <record id="action_hos_invoice_purchase_purchase" model="ir.actions.act_window">
+        <field name="name">Bill/ Receipt</field>
+        <field name="res_model">hos.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type', '=', 'purchase_bill')]</field>
+		<field name="context">{'default_invoice_type': 'purchase_bill'}</field>
+		<field name="view_id" ref="nagi.view_hos_invoice_tree"/>
+    </record>
+
+	<!-- Direct Invoice Action -->
+    <record id="action_hos_invoice_direct_purchase_purchase" model="ir.actions.act_window">
+        <field name="name">Bill/ Receipt</field>
+        <field name="res_model">hos.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type', '=', 'direct_purchase_bill')]</field>
+		<field name="context">{'default_invoice_type': 'direct_purchase_bill'}</field>
+		<field name="view_id" ref="nagi.view_hos_invoice_tree"/>
+    </record>
+
+</odoo>

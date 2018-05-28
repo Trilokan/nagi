@@ -6,5 +6,6 @@
     <menuitem id="menu_patient" name="Patient" sequence="30"/>
     <menuitem id="menu_employee" name="Employee" sequence="40"/>
     <menuitem id="menu_product" name="Product" sequence="50"/>
+    <menuitem id="menu_purchase" name="Purchase" sequence="60"/>
 
 </odoo>

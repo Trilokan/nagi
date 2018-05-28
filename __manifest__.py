@@ -16,6 +16,7 @@
         'menu/main_menu.xml',
         'data/base_pack.xml',
         'data/time_management.xml',
+        'data/purchase.xml',
 
         # Account
         # 'views/account/account.xml',
@@ -26,13 +27,11 @@
         'views/base_pack/year.xml',
         'views/base_pack/period.xml',
 
-
         # Person
         'views/person/person.xml',
 
         # Patient
         'views/patient/patient.xml',
-
 
         # Employee
         'views/employee/employee.xml',
@@ -50,7 +49,7 @@
         'views/recruitment/interview_schedule.xml',
         'views/recruitment/appointment_order.xml',
 
-        # Leave Managemnet
+        # Leave Management
         'views/leave_management/leave_configuration.xml',
         'views/leave_management/leave.xml',
         'views/leave_management/compoff.xml',
@@ -87,11 +86,21 @@
         'views/product/stock_move.xml',
         'views/product/store_request.xml',
 
+        # Purchase
+        'views/purchase/purchase_indent.xml',
+        'views/purchase/purchase_vs.xml',
+        'views/purchase/purchase_quotation.xml',
+        'views/purchase/material_receipt.xml',
+
+        # Invoice
+        'views/bills/invoice.xml',
+
         # Menu
         'menu/base_pack.xml',
         'menu/patient.xml',
         'menu/employee.xml',
         'menu/product.xml',
+        'menu/purchase.xml',
 
 
     ],

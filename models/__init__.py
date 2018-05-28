@@ -13,3 +13,5 @@ from . import recruitment
 from . import time_management
 from . import payroll
 from . import product
+from . import purchase
+from . import bills

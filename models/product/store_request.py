@@ -86,7 +86,7 @@ class StoreRequest(surya.Sarpam):
                                               "name": self.env["ir.sequence"].next_by_code("stock.move.internal"),
                                               "reference": self.name,
                                               "product_id": rec.product_id.id,
-                                              "quantity": rec.quantity,
+                                              "requested_quantity": rec.quantity,
                                               "picking_type": "internal",
                                               "source_location_id": self.env.user.company_id.location_id.id,
                                               "destination_location_id": self.env.user.location_id.id}))

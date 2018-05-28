@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_purchase_purchase"
+              name="Purchase"
+              parent="menu_purchase"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Purchase Indent"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_vs"
+              name="Vendor Selection"
+              action="action_purchase_vs"
+              parent="menu_purchase_purchase"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_quotation"
+              name="Quotation"
+              action="action_purchase_quotation"
+              parent="menu_purchase_purchase"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_invoice_purchase_purchase"
+              name="Purchase Invoice"
+              action="action_hos_invoice_purchase_purchase"
+              parent="menu_purchase_purchase"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_invoice_direct_purchase_purchase"
+              name="Direct Purchase Invoice"
+              action="action_hos_invoice_direct_purchase_purchase"
+              parent="menu_purchase_purchase"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_stock_picking_material_receipt"
+              name="Material Receipt"
+              action="action_stock_picking_material_receipt"
+              parent="menu_purchase_purchase"
+              sequence="60"/>
+
+</odoo>

@@ -17,6 +17,7 @@
                     <page string="Location Detail">
                         <group>
                             <field name="location_id"/>
+                            <field name="purchase_location_id"/>
                             <field name="virtual_location_left"/>
                             <field name="virtual_location_right"/>
                         </group>
