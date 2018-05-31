@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="sub_menu_hospital"
+              name="Hospital"
+              parent="menu_hospital"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_ward"
+              name="Wards"
+              action="action_hos_ward"
+              parent="sub_menu_hospital"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_bed"
+              name="Bed"
+              action="action_hos_bed"
+              parent="sub_menu_hospital"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_admission"
+              name="Admission"
+              action="action_hos_admission"
+              parent="sub_menu_hospital"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_discharge"
+              name="Discharge"
+              action="action_hos_discharge"
+              parent="sub_menu_hospital"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_ambulance"
+              name="Ambulance"
+              action="action_hos_ambulance"
+              parent="sub_menu_hospital"
+              sequence="50"/>
+
+
+</odoo>

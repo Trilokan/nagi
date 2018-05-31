@@ -18,11 +18,12 @@ RELATION_INFO = [('father', 'Father'),
 
 
 # Contacts
-class HRContact(surya.Sarpam):
-    _name = "hr.contact"
+class HospitalContact(surya.Sarpam):
+    _name = "hos.contact"
     _inherit = "hos.address"
 
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
+    patient_id = fields.Many2one(comodel_name="hos.patient", string="Patient")
     name = fields.Char(string="Name")
     relation = fields.Selection(selection=RELATION_INFO, string="Relation")
     mobile = fields.Char(string="Mobile")

@@ -36,9 +36,9 @@
               parent="menu_hr_employee"
               sequence="50"/>
 
-    <menuitem id="sub_menu_hr_contact"
+    <menuitem id="sub_menu_hos_contact"
               name="HR Contact"
-              action="action_hr_contact"
+              action="action_hos_contact"
               parent="menu_hr_employee"
               sequence="60"/>
 

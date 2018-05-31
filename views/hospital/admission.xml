@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_admission_tree" model="ir.ui.view">
+        <field name="name">hos.admission.tree</field>
+        <field name="model">hos.admission</field>
+        <field name="arch" type="xml">
+            <tree string="Employee">
+                <field name="name"/>
+                <field name="patient_uid"/>
+                <field name="email"/>
+                <field name="mobile"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_admission_form" model="ir.ui.view">
+        <field name="name">hos.admission.form</field>
+        <field name="model">hos.admission</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Patient Admission</h1>
+                    </div>
+                    <h2><field name="name"/></h2>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <div>
+                        <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
+                    </div>
+                    <div class="oe_right oe_button_box" name="button_box">
+                        <field name="date"/>
+                    </div>
+                    <div style="margin-left: 100px;">
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
+                            </h1>
+                            <h2><field name="patient_uid"/></h2>
+                        </div>
+                    </div>
+                    <group col="4">
+                        <field name="admission_status"/>
+                        <field name="patient_status"/>
+                        <field name="ward_id"/>
+                        <field name="bed_id"/>
+                        <field name="paid_amount"/>
+                    </group>
+                    <group>
+                        <field name="reason"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Contact Details">
+                            <group>
+                                <group>
+                                    <label for="street" string="Address"/>
+                                    <div>
+                                        <div class="address_format">
+                                            <field name="door_no" style="width: 30%" placeholder="Door No..."/>
+                                            <field name="building_name" style="width: 70%" placeholder="Building name..."/>
+                                        </div>
+                                        <field name="street_1" placeholder="Street 1..."/>
+                                        <field name="street_2" placeholder="Street 2..."/>
+                                        <field name="locality" placeholder="Locality..."/>
+                                        <field name="city" placeholder="City..."/>
+                                        <field name="landmark" placeholder="Landmark..."/>
+                                        <div class="address_format">
+                                            <field name="country_id" style="width: 45%" placeholder="Country" options="{'create': false, 'create_edit': false}" modifiers="{}"/>
+                                            <field name="state_id" style="width: 55%" options="{'create': false, 'create_edit': false}" placeholder="State" modifiers="{}"/>
+                                        </div>
+                                        <field name="pin_code" placeholder="ZIP" style="width: 55%"/>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name="email"/>
+                                    <field name="mobile"/>
+                                    <field name="admitted_id"/>
+                                    <field name="others" string="Other Information"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Billing Details">
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hos_admission" model="ir.actions.act_window">
+        <field name="name">Patient</field>
+        <field name="res_model">hos.admission</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

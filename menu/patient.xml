@@ -7,9 +7,50 @@
               sequence="10"/>
 
     <menuitem id="sub_menu_hos_patient"
-              name="Patient"
-              action="action_hos_patient"
+              name="OPT"
               parent="menu_hos_patient"
               sequence="10"/>
+
+    <menuitem id="sub_menu_patient_schedule"
+              name="Patient Schedule"
+              action="action_hos_schedule_patient_appointment"
+              parent="sub_menu_hos_patient"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_schedule_reason"
+              name="Schedule Reason"
+              action="action_hos_schedule_reason"
+              parent="sub_menu_hos_patient"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_schedule_type"
+              name="Schedule Type"
+              action="action_hos_schedule_type"
+              parent="sub_menu_hos_patient"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_ipt"
+              name="IPT"
+              parent="menu_hos_patient"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_admission"
+              name="Admission"
+              action="action_hos_admission"
+              parent="sub_menu_hos_ipt"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_discharge"
+              name="Discharge"
+              action="action_hos_discharge"
+              parent="sub_menu_hos_ipt"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_ambulance"
+              name="Ambulance"
+              action="action_hos_ambulance"
+              parent="sub_menu_hos_ipt"
+              sequence="50"/>
+
 
 </odoo>

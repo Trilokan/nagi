@@ -33,6 +33,13 @@
         # Patient
         'views/patient/patient.xml',
 
+        # Hospital
+        'views/hospital/admission.xml',
+        'views/hospital/ward.xml',
+        'views/hospital/bed.xml',
+        'views/hospital/ambulance.xml',
+        'views/hospital/discharge.xml',
+
         # Employee
         'views/employee/employee.xml',
         'views/employee/hr_department.xml',
@@ -95,12 +102,18 @@
         # Invoice
         'views/bills/invoice.xml',
 
+        # Schedule
+        'views/schedule/schedule.xml',
+        'views/schedule/schedule_reason.xml',
+        'views/schedule/schedule_type.xml',
+
         # Menu
         'menu/base_pack.xml',
         'menu/patient.xml',
         'menu/employee.xml',
         'menu/product.xml',
         'menu/purchase.xml',
+        'menu/hospital.xml',
 
 
     ],

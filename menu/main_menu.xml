@@ -7,5 +7,6 @@
     <menuitem id="menu_employee" name="Employee" sequence="40"/>
     <menuitem id="menu_product" name="Product" sequence="50"/>
     <menuitem id="menu_purchase" name="Purchase" sequence="60"/>
+    <menuitem id="menu_hospital" name="Hospital" sequence="70"/>
 
 </odoo>

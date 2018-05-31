@@ -29,6 +29,6 @@ class HRPersonnelInfo(surya.Sarpam):
     personnel_mobile = fields.Char(string="Personnel Mobile")
     personnel_email = fields.Char(string="Personnel Email")
     permanent_address = fields.Text(string="Permanent Address")
-    family_member_ids = fields.One2many(comodel_name="hr.contact",
+    family_member_ids = fields.One2many(comodel_name="hos.contact",
                                         inverse_name="employee_id",
                                         string="Family Members")

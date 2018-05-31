@@ -46,8 +46,8 @@ class Patient(surya.Sarpam):
     physically_challenged = fields.Boolean(string="Physically Challenged")
     nationality_id = fields.Many2one(comodel_name="res.country")
     language_known_ids = fields.Many2many(comodel_name="hos.language", string="Language Known")
-    family_member_ids = fields.One2many(comodel_name="hr.contact",
-                                        inverse_name="employee_id",
+    family_member_ids = fields.One2many(comodel_name="hos.contact",
+                                        inverse_name="patient_id",
                                         string="Family Members")
 
     # Medical Details
