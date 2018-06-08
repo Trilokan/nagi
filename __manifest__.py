@@ -32,11 +32,15 @@
 
         # Patient
         'views/patient/patient.xml',
+        'views/patient/opt_treatment.xml',
+        'views/patient/ipt_treatment.xml',
+        'views/patient/ipt_prescription.xml',
 
         # Hospital
         'views/hospital/admission.xml',
         'views/hospital/ward.xml',
         'views/hospital/bed.xml',
+        'views/hospital/patient_shifting.xml',
         'views/hospital/ambulance.xml',
         'views/hospital/discharge.xml',
 

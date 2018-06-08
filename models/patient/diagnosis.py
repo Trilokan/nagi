@@ -3,7 +3,6 @@
 from odoo import fields, api, exceptions, _
 from datetime import datetime
 from .. import surya
-import json
 
 
 # Diagnosis
@@ -13,4 +12,4 @@ class Diagnosis(surya.Sarpam):
 
     name = fields.Char(string="Diagnosis")
     code = fields.Char(string="Code")
-    medicine_ids = fields.Many2many(comodel_name="product.product")
+    medicine_ids = fields.Many2many(comodel_name="hos.product")

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_patient_treatment_opt_tree" model="ir.ui.view">
+        <field name="name">patient.treatment.tree</field>
+        <field name="model">patient.treatment</field>
+        <field name="arch" type="xml">
+            <tree string="Out Patient Treatment">
+                <field name="name"/>
+                <field name="patient_uid"/>
+                <field name="email"/>
+                <field name="mobile"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_patient_treatment_opt_form" model="ir.ui.view">
+        <field name="name">patient.treatment.form</field>
+        <field name="model">patient.treatment</field>
+        <field name="arch" type="xml">
+            <form string="Out Patient Treatment">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Out-Patient Treatment</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;" invisible="1"/>
+
+                    <div>
+                        <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
+                    </div>
+                    <div class="oe_right oe_button_box" name="button_box">
+                        <field name="date" attrs="{'readonly': [('progress', '=', )]}"/>
+                    </div>
+                    <field name="name" readonly="1"/>
+                    <div style="margin-left: 100px;">
+                        <div class="oe_title">
+                            <label for="patient_id" string="Name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                            </h1>
+                            <label for="patient_uid" string="Patient ID" class="oe_edit_only"/>
+                            <h2><field name="patient_uid"/></h2>
+                        </div>
+                    </div>
+                    <group col="4">
+                        <field name="email"/>
+                        <field name="mobile"/>
+                        <field name="patient_type" invisible="0"/>
+                    </group>
+                    <notebook>
+                        <page string="Treatment Detail">
+                            <group>
+                                <field name="symptoms_ids" widget="many2many_tags" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                                <field name="diagnosis_ids" widget="many2many_tags" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                                <field name="diagnosis"/>
+                            </group>
+                            <separator string="Medicine Suggestion" style="text-align:center;"/>
+                            <field name="medicine_suggestion_ids" attrs="{'readonly': [('progress', '!=', 'on_progress')]}">
+                                <tree editable="bottom" create="false">
+                                    <field name="mark"/>
+                                    <field name="product_id"/>
+                                </tree>
+                            </field>
+                            <button name="trigger_add_prescription" string="Add To Prescription" type="object"/>
+                            <separator string="Prescription" style="text-align:center;"/>
+                            <group>
+                                <field name="lab_suggestion_ids" widget="many2many_tags" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                                <field name="days" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                            </group>
+                            <field name="opt_prescription_ids" attrs="{'readonly': [('progress', '!=', 'on_progress')]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="morning"/>
+                                    <field name="noon"/>
+                                    <field name="evening"/>
+                                    <field name="days"/>
+                                    <field name="treatment_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="report">
+                            <field name="report" readonly="1"/>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="trigger_patient_history" string="Patient History" type="object"/>
+                        <button name="trigger_report" string="Report" type="object"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_patient_treatment_opt" model="ir.actions.act_window">
+        <field name="name">Out Patient Treatment</field>
+        <field name="res_model">patient.treatment</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[("patient_type", "=", "out_patient")]</field>
+        <field name="context">{"default_patient_type": "out_patient"}</field>
+    </record>
+
+
+    <record model="ir.actions.act_window.view" id="view_patient_treatment_opt_form_form">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_patient_treatment_opt_form" />
+        <field name="act_window_id" ref="action_patient_treatment_opt"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="view_patient_treatment_opt_tree_tree">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_patient_treatment_opt_tree"/>
+        <field name="act_window_id" ref="action_patient_treatment_opt"/>
+    </record>
+
+</odoo>

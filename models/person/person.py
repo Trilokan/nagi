@@ -33,6 +33,9 @@ class HospitalPerson(surya.Sarpam):
     alternate_contact = fields.Char(string="Alternate Contact")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
 
+    payable_id = fields.Many2one(comodel_name="hos.account", string="Accounts Payable")
+    receivable_id = fields.Many2one(comodel_name="hos.account", string="Accounts Receivable")
+
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def _get_company_filter(self):
@@ -55,9 +58,16 @@ class HospitalPerson(surya.Sarpam):
             if self.env["hos.patient"].search_count([("person_id", "=", rec.id)]):
                 rec.is_patient = True
 
-    @api.model
-    def create(self, vals):
+    def default_vals_creation(self, vals):
         vals["date"] = datetime.now().strftime("%Y-%m-%d"),
         vals["partner_uid"] = self.env["ir.sequence"].next_by_code(self._name)
-        return super(HospitalPerson, self).create(vals)
+        return vals
 
+    def default_rec_creation(self, rec):
+
+        data = {"name": self.name,
+                "code": 0,
+                "company_id": self.company_id.id,
+                "person_id": self.id}
+
+        self.env["hos.account"].create()

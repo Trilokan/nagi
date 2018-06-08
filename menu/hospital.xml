@@ -18,23 +18,29 @@
               parent="sub_menu_hospital"
               sequence="20"/>
 
+    <menuitem id="sub_menu_patient_shifting"
+              name="Bed Shifting"
+              action="action_patient_shifting"
+              parent="sub_menu_hospital"
+              sequence="30"/>
+
     <menuitem id="sub_menu_hos_admission"
               name="Admission"
               action="action_hos_admission"
               parent="sub_menu_hospital"
-              sequence="30"/>
+              sequence="40"/>
 
     <menuitem id="sub_menu_hos_discharge"
               name="Discharge"
               action="action_hos_discharge"
               parent="sub_menu_hospital"
-              sequence="40"/>
+              sequence="50"/>
 
     <menuitem id="sub_menu_hos_ambulance"
               name="Ambulance"
               action="action_hos_ambulance"
               parent="sub_menu_hospital"
-              sequence="50"/>
+              sequence="60"/>
 
 
 </odoo>

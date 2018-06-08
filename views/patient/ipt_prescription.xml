@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_ipt_prescription_tree" model="ir.ui.view">
+        <field name="name">ipt.prescription.tree</field>
+        <field name="model">ipt.prescription</field>
+        <field name="arch" type="xml">
+            <tree string="Prescription">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="treatment_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_ipt_prescription_form" model="ir.ui.view">
+        <field name="name">ipt.prescription.form</field>
+        <field name="model">ipt.prescription</field>
+        <field name="arch" type="xml">
+            <form string="Prescription">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Prescription</h1>
+                    </div>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <field name="name"/>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="treatment_id" string="Patient"/>
+                    </group>
+                    <notebook>
+                        <page string="Prescription Detail">
+                            <field name="prescription_ids">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
+                                    <field name="morning"/>
+                                    <field name="noon"/>
+                                    <field name="evening"/>
+                                    <field name="days"/>
+                                    <field name="ipt_treatment_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_ipt_prescription" model="ir.actions.act_window">
+        <field name="name">Prescription</field>
+        <field name="res_model">ipt.prescription</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
