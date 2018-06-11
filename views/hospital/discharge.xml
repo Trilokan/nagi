@@ -43,8 +43,8 @@
                         </div>
                     </div>
                     <group>
-                        <field name="discharge_date"/>
-                        <field name="reason"/>
+                        <field name="discharge_date" required="1"/>
+                        <field name="reason" required="1"/>
                         <field name="attachment_ids" widget="many2many_binary"/>
                     </group>
                     <notebook>
@@ -76,6 +76,14 @@
                             </group>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_discharge" string="Discharge" type="object"
+                              attrs="{'invisible': [('progress', '!=', 'account_approved')]}"/>
+                        <button name="trigger_doctor_approve" string="Doctor Approve" type="object"
+                              attrs="{'invisible': [('progress', '!=', 'doctor_approved')]}"/>
+                        <button name="trigger_account_approve" string="Account Approve" type="object"
+                              attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    </footer>
                 </sheet>
             </form>
         </field>
