@@ -6,8 +6,8 @@ from .. import surya
 
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
-                 ("cancelled", "Cancelled"),
-                 ("transfer_completed", "Transfer Completed")]
+                 ("cancel", "Cancel"),
+                 ("patient_shifted", "Patient Shifted")]
 JOURNEY_INFO = [("hospital_transfer", "Hospital Transfer"),
                 ("admission", "Admission"),
                 ("discharge", "Discharge")]

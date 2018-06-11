@@ -23,7 +23,7 @@
         <field name="name">hos.ambulance.form</field>
         <field name="model">hos.ambulance</field>
         <field name="arch" type="xml">
-            <form string="Patient">
+            <form string="Ambulance">
                 <sheet>
                     <div id="s_header">
                         <h1>Ambulance Service</h1>
@@ -33,22 +33,21 @@
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <h2><field name="name"/></h2>
                     <group col="4">
-
-                        <field name="source_location" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="destination_location" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                        <field name="driver_id" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="driver_mobile" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="patient_id" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="patient_mobile" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="source_location" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="destination_location" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="from_time" string="Start Time"
-                               attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                               attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="till_time" string="End Time"
-                               attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="driver_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="driver_mobile" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="patient_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="patient_mobile" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="staff_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="journey_type" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
-                        <field name="distance" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                               attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="staff_id" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="journey_type" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
+                        <field name="distance" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="time_taken"/>
-                        <field name="total_cost" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                        <field name="total_cost" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="is_paid"/>
                     </group>
                     <footer>
@@ -70,7 +69,7 @@
 
     <!-- Action -->
     <record id="action_hos_ambulance" model="ir.actions.act_window">
-        <field name="name">Patient</field>
+        <field name="name">Ambulance</field>
         <field name="res_model">hos.ambulance</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
