@@ -45,7 +45,13 @@ class Admission(surya.Sarpam):
     pin_code = fields.Char(string="Pincode", related="patient_id.pin_code")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string='Progress', default='draft')
+    writter = fields.Text(string="Writter", track_visibility="always")
 
+    @api.multi
+    def trigger_admitted(self):
+        writter = "Admission confirmed by {0}".format(self.env.user.name)
+        self.write({"progress": "admitted", "writter": writter})
 
-
-
+    def default_vals_creation(self, vals):
+        vals["writter"] = "Admission created by {0}".format(self.env.user.name)
+        return vals

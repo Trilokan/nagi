@@ -35,19 +35,17 @@
                     </div>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
+                            <label for="patient_id" string="Name" class="oe_edit_only"/>
                             <h1>
                                 <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
                             </h1>
+                            <label for="patient_id" string="Patient ID" class="oe_edit_only"/>
                             <h2><field name="patient_uid"/></h2>
                         </div>
                     </div>
                     <group col="4">
                         <field name="admission_status"/>
                         <field name="patient_status"/>
-                        <field name="ward_id"/>
-                        <field name="bed_id"/>
-                        <field name="paid_amount"/>
                     </group>
                     <group>
                         <field name="reason"/>
@@ -84,10 +82,18 @@
                                 </group>
                             </group>
                         </page>
-                        <page string="Billing Details">
-
+                        <page string="Admission Details">
+                            <group>
+                                <field name="ward_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                                <field name="bed_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                                <field name="paid_amount" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                            </group>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_admitted" string="Admit" type="object"
+                              attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    </footer>
                 </sheet>
             </form>
         </field>
