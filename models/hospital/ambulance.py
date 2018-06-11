@@ -21,8 +21,8 @@ class Ambulance(surya.Sarpam):
     date = fields.Date(string="Date")
     name = fields.Char(string="Name", readonly=True)
 
-    source_location = fields.Char(string="Source Location")
-    destination_location = fields.Char(string="Destination Location")
+    source_location = fields.Text(string="Source Location")
+    destination_location = fields.Text(string="Destination Location")
 
     from_time = fields.Datetime(string="From Time")
     till_time = fields.Datetime(string="Till Time")
@@ -30,6 +30,9 @@ class Ambulance(surya.Sarpam):
     driver_id = fields.Many2one(comodel_name="hos.person", string="Driver")
     patient_id = fields.Many2one(comodel_name="hos.person", string="Patient")
     staff_id = fields.Many2one(comodel_name="hos.person", string="Staff")
+
+    driver_mobile = fields.Char(string="Driver Contact")
+    patient_mobile = fields.Char(string="Patient Contact")
 
     journey_type = fields.Selection(selection=JOURNEY_INFO, string="Journey Type")
 

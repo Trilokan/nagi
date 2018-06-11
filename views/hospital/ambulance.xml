@@ -9,8 +9,9 @@
             <tree string="Ambulance">
                 <field name="date"/>
                 <field name="name"/>
-                <field name="source_location"/>
-                <field name="destination_location"/>
+                <field name="driver_id"/>
+                <field name="patient_id"/>
+                <field name="journey_type"/>
                 <field name="progress"/>
                 <field name="is_paid"/>
             </tree>
@@ -40,7 +41,9 @@
                         <field name="till_time" string="End Time"
                                attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
                         <field name="driver_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                        <field name="driver_mobile" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
                         <field name="patient_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
+                        <field name="patient_mobile" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
                         <field name="staff_id" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
                         <field name="journey_type" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
                         <field name="distance" attrs="{'readonly': [('progress', '=', ['transfer_completed', 'cancelled'])]}"/>
