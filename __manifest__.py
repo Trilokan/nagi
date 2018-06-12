@@ -17,6 +17,7 @@
         'data/base_pack.xml',
         'data/time_management.xml',
         'data/purchase.xml',
+        'data/hospital.xml',
 
         # Account
         # 'views/account/account.xml',
@@ -43,6 +44,9 @@
         'views/hospital/patient_shifting.xml',
         'views/hospital/ambulance.xml',
         'views/hospital/discharge.xml',
+        'views/hospital/ot_booking.xml',
+        'views/hospital/operation_theater.xml',
+        'views/hospital/operation.xml',
 
         # Employee
         'views/employee/employee.xml',

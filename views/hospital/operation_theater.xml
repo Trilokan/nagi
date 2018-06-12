@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_operation_theater_tree" model="ir.ui.view">
+        <field name="name">hos.operation.theater.tree</field>
+        <field name="model">hos.operation.theater</field>
+        <field name="arch" type="xml">
+            <tree string="Operation Theater">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="patient_id"/>
+                <field name="patient_uid"/>
+                <field name="operation_id"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_operation_theater_form" model="ir.ui.view">
+        <field name="name">hos.operation.theater.form</field>
+        <field name="model">hos.operation.theater</field>
+        <field name="arch" type="xml">
+            <form string="Operation Theater">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Operation</h1>
+                    </div>
+                    <h2><field name="name"/></h2>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <div>
+                        <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
+                    </div>
+                    <div class="oe_right oe_button_box" name="button_box">
+                        <field name="date"/>
+                    </div>
+                    <div style="margin-left: 100px;">
+                        <div class="oe_title">
+                            <label for="patient_id" class="oe_edit_only"/>
+                            <h1>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
+                            </h1>
+                            <label for="patient_uid" class="oe_edit_only"/>
+                            <h2><field name="patient_uid"/></h2>
+                        </div>
+                    </div>
+                    <group>
+                        <field name="doctor_detail" widget="many2many_tags" required="1"/>
+                        <field name="operation_id" required="1"/>
+                        <field name="attachment_ids" widget="many2many_binary"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hos_operation_theater" model="ir.actions.act_window">
+        <field name="name">Operation Theater</field>
+        <field name="res_model">hos.operation.theater</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('progress', 'in', ['done'])]</field>
+    </record>
+
+    <record id="action_hos_operation_theater_operation_form" model="ir.actions.act_window.view">
+        <field eval="3" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hos_operation_theater_form" />
+        <field name="act_window_id" ref="action_hos_operation_theater"/>
+    </record>
+
+    <record id="action_hos_operation_theater_operation_tree" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_hos_operation_theater_tree"/>
+        <field name="act_window_id" ref="action_hos_operation_theater"/>
+    </record>
+
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="hos_schedule_type_opt" model="hos.schedule.type">
+        <field name="name">OPT</field>
+    </record>
+
+    <record id="hos_schedule_type_operation" model="hos.schedule.type">
+        <field name="name">Operation</field>
+    </record>
+
+    <record id="hos_ambulance_sequence" model="ir.sequence">
+        <field name="name">Ambulance</field>
+        <field name="code">hos.ambulance</field>
+        <field name="prefix">HAM/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_admission_sequence" model="ir.sequence">
+        <field name="name">Admission</field>
+        <field name="code">hos.admission</field>
+        <field name="prefix">HAD/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_operation_theater_sequence" model="ir.sequence">
+        <field name="name">Operation Theater</field>
+        <field name="code">hos.operation.theater</field>
+        <field name="prefix">OT/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_discharge_sequence" model="ir.sequence">
+        <field name="name">Discharge</field>
+        <field name="code">hos.discharge</field>
+        <field name="prefix">HD/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+</odoo>

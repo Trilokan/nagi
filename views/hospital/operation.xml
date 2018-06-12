@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_operation_tree" model="ir.ui.view">
+        <field name="name">hos.operation.tree</field>
+        <field name="model">hos.operation</field>
+        <field name="arch" type="xml">
+            <tree string="Operation">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_operation_form" model="ir.ui.view">
+        <field name="name">hos.operation.form</field>
+        <field name="model">hos.operation</field>
+        <field name="arch" type="xml">
+            <form string="Operation">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hos_operation" model="ir.actions.act_window">
+        <field name="name">Operation</field>
+        <field name="res_model">hos.operation</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

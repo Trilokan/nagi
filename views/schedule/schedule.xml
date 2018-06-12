@@ -7,10 +7,8 @@
         <field name="model">hos.schedule</field>
         <field name="arch" type="xml">
             <tree string="Patient Appointment">
-                <field name="from_time"/>
-                <field name="till_time"/>
-                <field name="name"/>
-                <field name="scheduler_id"/>
+                <field name="time"/>
+                <field name="employee_id" string="Doctor"/>
                 <field name="patient_id"/>
                 <field name="reason"/>
                 <field name="progress"/>
@@ -30,17 +28,25 @@
                     <div id="s_header">
                         <h1>Patient Appointment</h1>
                     </div>
-                    <h2><field name="name"/></h2>
+                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
-                        <field name="from_time"/>
-                        <field name="till_time"/>
-                        <field name="scheduler_id" string="Doctor"/>
+                        <field name="time"/>
+                        <field name="employee_id" string="Doctor"/>
                         <field name="patient_id" required="1"/>
                         <field name="reason" required="1"/>
-                        <field name="schedule_type_id"/>
+                        <field name="schedule_type_id" string="Appointment Type"/>
+
                     </group>
                     <field name="comment" placeholder="Comment.."/>
+                    <footer>
+                        <button name="trigger_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                    </footer>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
@@ -50,7 +56,7 @@
         <field name="name">hos.schedule.calendar</field>
         <field name="model">hos.schedule</field>
         <field name="arch" type="xml">
-            <calendar color="scheduler_id" date_start="from_time" date_stop="till_time" string="Appointment" mode="month" quick_add="False">
+            <calendar color="employee_id" date_start="time" string="Appointment" mode="month" quick_add="False">
                 <field name="patient_id"/>
                 <field name="reason"/>
             </calendar>
@@ -63,6 +69,7 @@
         <field name="res_model">hos.schedule</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form</field>
+        <field name="domain">[('schedule_type_id', '=', 1)]</field>
     </record>
 
     <record id="action_hos_schedule_patient_appointment_form" model="ir.actions.act_window.view">

@@ -62,12 +62,3 @@ class HospitalPerson(surya.Sarpam):
         vals["date"] = datetime.now().strftime("%Y-%m-%d"),
         vals["partner_uid"] = self.env["ir.sequence"].next_by_code(self._name)
         return vals
-
-    def default_rec_creation(self, rec):
-
-        data = {"name": self.name,
-                "code": 0,
-                "company_id": self.company_id.id,
-                "person_id": self.id}
-
-        self.env["hos.account"].create()

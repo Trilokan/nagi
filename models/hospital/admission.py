@@ -54,4 +54,5 @@ class Admission(surya.Sarpam):
 
     def default_vals_creation(self, vals):
         vals["writter"] = "Admission created by {0}".format(self.env.user.name)
+        vals["name"] = self.env['ir.sequence'].next_by_code('hos.ambulance')
         return vals

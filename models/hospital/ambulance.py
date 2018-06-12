@@ -70,4 +70,9 @@ class Ambulance(surya.Sarpam):
         # Generate Whatsapp to the driver and staff
         pass
 
+    def default_vals_creation(self, vals):
+        writter = "Ambulance Form Created By {0}".format(self.env.user.name)
+        vals["name"] = self.env['ir.sequence'].next_by_code('hos.ambulance')
+        return vals
+
 

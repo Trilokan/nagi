@@ -61,6 +61,7 @@ class Discharge(surya.Sarpam):
 
     def default_vals_creation(self, vals):
         vals["writter"] = "Discharged Form created by {0}".format(self.env.user.name)
+        vals["name"] = self.env['ir.sequence'].next_by_code('hos.discharge')
         return vals
 
 
