@@ -5,7 +5,6 @@ from datetime import datetime
 from .. import surya
 import json
 
-PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 BLOOD_GROUP = [('a+', 'A+'), ('b+', 'B+'), ('ab+', 'AB+'), ('o+', 'O+'),
                ('a-', 'A-'), ('b-', 'B-'), ('ab-', 'AB-'), ('o-', 'O-')]
 GENDER = [('male', 'Male'), ('female', 'Female')]
@@ -21,7 +20,6 @@ class Patient(surya.Sarpam):
     patient_uid = fields.Char(string="Patient ID", readonly=True)
     image = fields.Binary(string="Image")
     small_image = fields.Binary(string="Image")
-    progress = fields.Selection(selection=PROGRESS_INFO, string='Progress', default='draft')
 
     # Contact
     email = fields.Char(string="Email", required=True)
@@ -75,17 +73,21 @@ class Patient(surya.Sarpam):
 
                 record.age = "({0}) Years ({1}) Days".format(years, (total_days-years*365))
 
+    def default_vals_written(self):
+        writter = "Hospital data is updated by {0}".format(self.env.user.name)
+        self.write({"writter": writter})
+
     def default_vals_creation(self, vals):
 
         vals["patient_uid"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["progress"] = "confirmed"
         vals["company_id"] = self.env.user.company_id.id
 
         data = {"name": vals["name"],
                 "mobile": vals["mobile"],
                 "email": vals.get("email", None),
                 "alternate_contact": vals.get("alternate_contact", None),
+                "person_uid": vals["patient_uid"],
                 "is_patient": True}
 
         person_id = self.env["hos.person"].create(data)

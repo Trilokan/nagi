@@ -7,9 +7,8 @@
         <field name="model">hos.person</field>
         <field name="arch" type="xml">
             <tree string="Person Detail">
-                <field name="date"/>
                 <field name="name"/>
-                <field name="partner_uid"/>
+                <field name="person_uid"/>
             </tree>
         </field>
     </record>
@@ -24,16 +23,13 @@
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
                     </div>
-                    <div class="oe_right oe_button_box" name="button_box">
-                        <field name="date"/>
-                    </div>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
                             <label for="name" class="oe_edit_only"/>
                             <h1>
                                 <field name="name" class="oe_inline" modifiers="{'required': true}"/>
                             </h1>
-                            <h2><field name="partner_uid"/></h2>
+                            <h2><field name="person_uid"/></h2>
                         </div>
                     </div>
                     <notebook>
@@ -107,15 +103,6 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('is_service', '=', True)]</field>
-    </record>
-
-    <!-- Action User -->
-    <record id="action_hos_person_users" model="ir.actions.act_window">
-        <field name="name">User</field>
-        <field name="res_model">hos.person</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_user', '=', True)]</field>
     </record>
 
     <!-- Action Company -->

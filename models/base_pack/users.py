@@ -10,23 +10,21 @@ class HospitalUsers(surya.Sarpam):
     _inherit = "res.users"
 
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")
-    name = fields.Char(string="Name", required=True)
-    email = fields.Char(string="E-mail")
-    mobile = fields.Char(string="Mobile", required=True)
-    alternate_contact = fields.Char(string="Alternate Contact")
-    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    name = fields.Char(string="Name", readonly=True)
+    email = fields.Char(string="E-mail", readonly=True)
+    mobile = fields.Char(string="Mobile", readonly=True)
+    alternate_contact = fields.Char(string="Alternate Contact", readonly=True)
+    person_id = fields.Many2one(comodel_name="hos.person", string="Person", required=True)
 
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):
-        data = {"name": vals["name"],
-                "mobile": vals["mobile"],
-                "email": vals.get("email", None),
-                "alternate_contact": vals.get("alternate_contact", None),
-                "is_user": True}
+        person_id = self.env["hos.person"].search([("id", "=", vals["person_id"])])
 
-        if not (vals.get("person_id", False)):
-            person_id = self.env["hos.person"].create(data)
-            vals["person_id"] = person_id.id
+        vals["name"] = person_id.name
+        vals["email"] = person_id.email
+        vals["mobile"] = person_id.mobile
+
+        person_id.write({"is_user": True})
 
         return vals

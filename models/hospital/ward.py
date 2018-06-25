@@ -20,5 +20,5 @@ class Ward(surya.Sarpam):
 
     def default_vals_creation(self, vals):
         vals["progress"] = "confirmed"
-        vals["writter"] = "State Created by {0}".format(self.env.user.name)
+        vals["writter"] = "Ward Created by {0}".format(self.env.user.name)
         return vals

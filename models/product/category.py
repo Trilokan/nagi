@@ -4,18 +4,13 @@ from odoo import fields
 from .. import surya
 
 
-STATE_INFO = [("inter_state", "Inter state"), ("outer_state", "Outer State")]
-
-
-# Tax
-class Tax(surya.Sarpam):
-    _name = "hos.tax"
+# Category
+class ProductCategory(surya.Sarpam):
+    _name = "product.category"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
-    state = fields.Selection(selection=STATE_INFO, string="State")
-    value = fields.Char(string="Value", required=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 

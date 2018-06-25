@@ -19,33 +19,29 @@
         <field name="model">hos.product</field>
         <field name="arch" type="xml">
             <form string="Product">
-                <header>
-                    <field name="progress" widget="statusbar" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                </header>
                 <sheet>
-                    <separator string="Product" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Product</h1>
+                    </div>
                     <h2><field name="code"/></h2>
                     <group col="4">
-                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="product_type" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="group_id"
-                               attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="sub_group_id"
-                               domain="[('group_id', '=', group_id)]"
-                               attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="uom_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="name"/>
+                        <field name="category_id"/>
+                        <field name="type_id"/>
+                        <field name="group_id"/>
+                        <field name="sub_group_id" domain="[('group_id', '=', group_id)]"/>
+                        <field name="uom_id"/>
                     </group>
                     <notebook>
                         <page string="Inventory">
                             <group>
-                                <field name="min_stock" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                                <field name="max_stock" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                                <field name="min_stock"/>
+                                <field name="max_stock"/>
                             </group>
                             <field name="warehouse_ids">
                                 <tree>
                                     <field name="location_id"/>
                                     <field name="quantity"/>
-
                                 </tree>
                             </field>
                         </page>

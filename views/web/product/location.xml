@@ -19,14 +19,13 @@
         <field name="model">hos.location</field>
         <field name="arch" type="xml">
             <form string="Stock Location">
-                <header>
-                    <field name="progress" widget="statusbar" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                </header>
                 <sheet>
-                    <separator string="Stock Location" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Stock Location</h1>
+                    </div>
                     <group>
-                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="code" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="name"/>
+                        <field name="code"/>
                         <field name="location_left"/>
                         <field name="location_right"/>
                     </group>

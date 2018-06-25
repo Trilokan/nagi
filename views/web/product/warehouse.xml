@@ -20,15 +20,14 @@
         <field name="model">hos.warehouse</field>
         <field name="arch" type="xml">
             <form string="Warehouse" create="false" edit="false" delete="false">
-                <header>
-                    <field name="progress" widget="statusbar" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                </header>
                 <sheet>
-                    <separator string="Warehouse" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Warehouse</h1>
+                    </div>
                     <group>
-                        <field name="product_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="location_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="quantity" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="product_id"/>
+                        <field name="location_id"/>
+                        <field name="quantity"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

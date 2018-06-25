@@ -16,15 +16,15 @@ class HospitalWarehouse(surya.Sarpam):
     product_id = fields.Many2one(comodel_name="hos.product", string="Product")
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")
     quantity = fields.Float(string="Quantity", compute="get_stock")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="progress", default="draft")
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
     _sql_constraints = [('unique_product_location', 'unique (product_id, location_id)',
                          'Error! Product location must be unique')]
 
     def default_vals_creation(self, vals):
-        vals["progress"] = "confirmed"
         vals["writter"] = "Warehouse Created by {0}".format(self.env.user.name)
+        vals["company_id"] = self.env.user.company_id.id
         return vals
 
     @api.multi

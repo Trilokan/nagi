@@ -18,6 +18,12 @@
               parent="sub_menu_hospital"
               sequence="30"/>
 
+    <menuitem id="sub_menu_hos_admission_1"
+              name="Admission New"
+              action="action_hos_admission_web"
+              parent="sub_menu_hospital"
+              sequence="30"/>
+
     <menuitem id="sub_menu_hos_ward"
               name="Wards"
               action="action_hos_ward"

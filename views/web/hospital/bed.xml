@@ -23,6 +23,10 @@
                     <group>
                         <field name="name"/>
                         <field name="ward_id"/>
+                        <field name="patient_id"/>
+                        <field name="status"/>
+                        <field name="progress"/>
+                        <field name="temperature"/>
                     </group>
                 </sheet>
             </form>

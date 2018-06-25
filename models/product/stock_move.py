@@ -14,35 +14,31 @@ class StockMove(surya.Sarpam):
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
-    name = fields.Char(string="Name", required=True)
+    name = fields.Char(string="Name", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     picking_id = fields.Many2one(comodel_name="stock.picking", string="Stock Picking")
 
-    product_id = fields.Many2one(comodel_name="hos.product", string="Product")
+    product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
     unit_price = fields.Float(string="Unit Price", required=True)
     requested_quantity = fields.Float(string="Requested Quantity", readonly=True, default=0)
-    quantity = fields.Float(string="Approved Quantity", default=0)
-    discount = fields.Float(string="Discount")
-    tax_id = fields.Many2one(comodel_name="hos.tax", string="Tax", required=True)
-    freight = fields.Float(string="Freight")
-    total_amount = fields.Float(string="Total Amount", readonly=True)
-    cgst = fields.Float(string="CGST", readonly=True)
-    sgst = fields.Float(string="SGST", readonly=True)
-    igst = fields.Float(string="IGST", readonly=True)
-    tax_amount = fields.Float(string="Tax Amount", readonly=True)
-    discount_amount = fields.Float(string="Discount Amount", readonly=True)
-    freight_amount = fields.Float(string="Freight Amount", readonly=True)
-    discounted_amount = fields.Float(string="Discounted Amount", readonly=True)
-    untaxed_amount = fields.Float(string="Untaxed Value", readonly=True)
-    taxed_amount = fields.Float(string="Taxed value", readonly=True)
-
-    source_location_id = fields.Many2one(comodel_name="hos.location",
-                                         string="Source Location",
-                                         required=True)
-    destination_location_id = fields.Many2one(comodel_name="hos.location",
-                                              string="Destination location",
-                                              required=True)
+    quantity = fields.Float(string="Approved Quantity", required=True, default=0)
+    discount = fields.Float(string="Discount", default=0)
+    tax_id = fields.Many2one(comodel_name="hos.tax", string="Tax")
+    freight = fields.Float(string="Freight", default=0)
+    total_amount = fields.Float(string="Total Amount", readonly=True, default=0)
+    cgst = fields.Float(string="CGST", readonly=True, default=0)
+    sgst = fields.Float(string="SGST", readonly=True, default=0)
+    igst = fields.Float(string="IGST", readonly=True, default=0)
+    tax_amount = fields.Float(string="Tax Amount", readonly=True, default=0)
+    discount_amount = fields.Float(string="Discount Amount", readonly=True, default=0)
+    freight_amount = fields.Float(string="Freight Amount", readonly=True, default=0)
+    discounted_amount = fields.Float(string="Discounted Amount", readonly=True, default=0)
+    untaxed_amount = fields.Float(string="Untaxed Value", readonly=True, default=0)
+    taxed_amount = fields.Float(string="Taxed value", readonly=True, default=0)
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    source_location_id = fields.Many2one(comodel_name="hos.location", string="Source Location", required=True)
+    destination_location_id = fields.Many2one(comodel_name="hos.location", string="Destination location", required=True)
     picking_type = fields.Selection(selection=PICKING_TYPE, string="Picking Type", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
@@ -81,20 +77,25 @@ class StockMove(surya.Sarpam):
 
     @api.multi
     def trigger_move(self):
-        if self.quantity > self.requested_quantity:
-            raise exceptions.ValidationError("Error! Approve Quantity is more than requested quantity")
-
         writter = "Stock Moved by {0}".format(self.env.user.name)
         quantity = self.get_balance_quantity()
 
-        if self.picking_type in ["internal", "out"]:
+        if self.picking_type in ["internal"]:
             if quantity >= self.quantity:
                 self.write({"progress": "moved", "writter": writter})
             else:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
                                              format(self.product_id.name))
+
+        elif self.picking_type in ["out"]:
+            self.write({"progress": "moved",
+                        "writter": writter,
+                        "destination_location_id": self.company_id.default_product_out})
+
         elif self.picking_type in ["in"]:
-            self.write({"progress": "moved", "writter": writter})
+            self.write({"progress": "moved",
+                        "writter": writter,
+                        "source_location_id": self.company_id.default_product_in})
 
     def default_vals_creation(self, vals):
         product_id = vals["product_id"]
@@ -115,5 +116,5 @@ class StockMove(surya.Sarpam):
         if not destination:
             warehouse.create({"product_id": product_id,
                               "location_id": destination_location_id})
-
+        vals["company_id"] = self.env.user.company_id.id
         return vals

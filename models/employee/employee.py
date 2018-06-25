@@ -6,19 +6,14 @@ from .. import surya
 import json
 
 
-PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
-
-
 class Employee(surya.Sarpam):
     _name = "hr.employee"
     _inherit = ["hr.account.info", "hr.personal.info", "hos.address", "mail.thread"]
 
-    date = fields.Date(string="Date", readonly=True)
     name = fields.Char(string="Name", required=True)
     employee_uid = fields.Char(string="Employee ID", readonly=True)
     image = fields.Binary(string="Image")
     small_image = fields.Binary(string="Image")
-    progress = fields.Selection(selection=PROGRESS_INFO, string='Progress', default='draft')
 
     # Contact
     email = fields.Char(string="Email")
@@ -60,8 +55,6 @@ class Employee(surya.Sarpam):
 
     def default_vals_creation(self, vals):
         vals["employee_uid"] = self.env['ir.sequence'].next_by_code(self._name)
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["progress"] = "confirmed"
         vals["company_id"] = self.env.user.company_id.id
 
         data = {"name": vals["name"],
@@ -69,6 +62,7 @@ class Employee(surya.Sarpam):
                 "email": vals.get("email", None),
                 "alternate_contact": vals.get("alternate_contact", None),
                 "company_id": vals["company_id"],
+                "person_uid": vals["employee_uid"],
                 "is_patient": True}
 
         person_id = self.env["hos.person"].create(data)

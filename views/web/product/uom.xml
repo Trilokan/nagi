@@ -19,14 +19,13 @@
         <field name="model">product.uom</field>
         <field name="arch" type="xml">
             <form string="Product Sub-Group">
-                <header>
-                    <field name="progress" widget="statusbar" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                </header>
                 <sheet>
-                    <separator string="Product UOM" style="text-align:center;"/>
+                    <div id="s_header">
+                        <h1>Unit Of Measurement</h1>
+                    </div>
                     <group>
-                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="code" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="name"/>
+                        <field name="code"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

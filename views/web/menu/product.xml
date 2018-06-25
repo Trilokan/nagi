@@ -7,57 +7,75 @@
               sequence="10"/>
 
     <menuitem id="sub_menu_product_group"
-              name="Product Group"
+              name="Group"
               action="action_product_group"
               parent="menu_product_product"
               sequence="10"/>
 
     <menuitem id="sub_menu_product_sub_group"
-              name="Product Sub-Group"
+              name="Sub-Group"
               action="action_product_sub_group"
               parent="menu_product_product"
               sequence="20"/>
 
     <menuitem id="sub_menu_product_uom"
-              name="Product UOM"
+              name="UOM"
               action="action_product_uom"
               parent="menu_product_product"
               sequence="30"/>
+
+    <menuitem id="sub_menu_hos_tax"
+              name="Tax"
+              action="action_hos_tax"
+              parent="menu_product_product"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_product_category"
+              name="Category"
+              action="action_product_category"
+              parent="menu_product_product"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_product_type"
+              name="Type"
+              action="action_product_type"
+              parent="menu_product_product"
+              sequence="60"/>
 
     <menuitem id="sub_menu_hos_location"
               name="Location"
               action="action_hos_location"
               parent="menu_product_product"
-              sequence="40"/>
+              sequence="70"/>
 
     <menuitem id="sub_menu_hos_warehouse"
               name="Warehouse"
               action="action_hos_warehouse"
               parent="menu_product_product"
-              sequence="50"/>
+              sequence="80"/>
 
     <menuitem id="sub_menu_hos_product"
               name="Product"
               action="action_hos_product"
               parent="menu_product_product"
-              sequence="60"/>
+              sequence="90"/>
 
     <menuitem id="sub_menu_stock_move"
               name="Stock Move"
               action="action_stock_move"
               parent="menu_product_product"
-              sequence="70"/>
+              sequence="100"/>
 
-    <menuitem id="sub_menu_store_request"
-              name="Store Request"
-              action="action_store_request"
-              parent="menu_product_product"
-              sequence="80"/>
+    <!--<menuitem id="sub_menu_store_request"-->
+              <!--name="Store Request"-->
+              <!--action="action_store_request"-->
+              <!--parent="menu_product_product"-->
+              <!--sequence="80"/>-->
 
-    <menuitem id="sub_menu_stock_picking_store_issue"
-              name="Store Issue"
-              action="action_stock_picking_store_issue"
-              parent="menu_product_product"
-              sequence="90"/>
+    <!--<menuitem id="sub_menu_stock_picking_store_issue"-->
+              <!--name="Store Issue"-->
+              <!--action="action_stock_picking_store_issue"-->
+              <!--parent="menu_product_product"-->
+              <!--sequence="90"/>-->
 
 </odoo>

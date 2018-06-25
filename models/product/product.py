@@ -4,11 +4,7 @@ from odoo import fields, api, exceptions, _
 from datetime import datetime
 from .. import surya
 import json
-
-
-# Product Group
-PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
-PRODUCT_TYPE = [("service", "Service"), ("medicine", "Medicine")]
+# Product
 
 
 class Product(surya.Sarpam):
@@ -20,14 +16,15 @@ class Product(surya.Sarpam):
     group_id = fields.Many2one(comodel_name="product.group", string="Group", required=True)
     sub_group_id = fields.Many2one(comodel_name="product.sub.group", string="Sub Group", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", required=True)
-    product_type = fields.Selection(selection=PRODUCT_TYPE, string="Product Type", required=True)
-    progress = fields.Selection(selection=PROGRESS_INFO, string="progress", default="draft")
+    category_id = fields.Many2one(comodel_name="product.category", string="Category")
+    type_id = fields.Many2one(comodel_name="product.type", string="Type")
+    # account_id = fields.Many2one(comodel_name="hos.account", string="Account")
     warehouse_ids = fields.One2many(comodel_name="hos.warehouse",
                                     inverse_name="product_id",
                                     string="Warehouse",
                                     domain=lambda self: self._get_warehouse_ids(),
                                     readonly=True)
-
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     min_stock = fields.Integer(string="Min Stock")
     max_stock = fields.Integer(string="Max Stock")
     writter = fields.Text(string="Writter", track_visibility="always")
@@ -49,20 +46,22 @@ class Product(surya.Sarpam):
 
     def default_vals_creation(self, vals):
         group_id = self.env["product.group"].search([("id", "=", vals["group_id"])])
-        sub_group_id = self.env["product.group"].search([("id", "=", vals["sub_group_id"])])
+        sub_group_id = self.env["product.sub.group"].search([("id", "=", vals["sub_group_id"])])
         code = "{0}/{1}/{2}".format(group_id.code,
                                     sub_group_id.code,
                                     self.env["ir.sequence"].next_by_code(self._name))
         vals["code"] = code
-        vals["progress"] = "confirmed"
         vals["writter"] = "Product Created by {0}".format(self.env.user.name)
+        vals["company_id"] = self.env.user.company_id.id
         return vals
 
     def default_rec_creation(self, rec):
         location_id = self.env.user.company_id.location_id
-        self.env["hos.warehouse"].create({"product_id": rec.id,
-                                          "location_id": location_id.id,
-                                          "progress": "confirmed"})
+
+        if not location_id:
+            raise exceptions.ValidationError("Default Product Location is not set")
+
+        self.env["hos.warehouse"].create({"product_id": rec.id, "location_id": location_id.id})
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
