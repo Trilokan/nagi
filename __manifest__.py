@@ -102,9 +102,10 @@
         'views/web/product/location.xml',
         'views/web/product/warehouse.xml',
         'views/web/product/product.xml',
-        # 'views/product/stock_picking.xml',
+        'views/web/product/stock_adjustment.xml',
         'views/web/product/stock_move.xml',
-        # 'views/product/store_request.xml',
+        'views/web/product/store_request.xml',
+        'views/web/product/store_issue.xml',
         #
         # # Purchase
         # 'views/purchase/purchase_indent.xml',

@@ -13,7 +13,7 @@ class StockMove(surya.Sarpam):
     _name = "stock.move"
     _inherit = "mail.thread"
 
-    date = fields.Date(string="Date", required=True)
+    date = fields.Date(string="Date", required=True, default=lambda self: self._get_date())
     name = fields.Char(string="Name", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     picking_id = fields.Many2one(comodel_name="stock.picking", string="Stock Picking")
@@ -37,11 +37,32 @@ class StockMove(surya.Sarpam):
     untaxed_amount = fields.Float(string="Untaxed Value", readonly=True, default=0)
     taxed_amount = fields.Float(string="Taxed value", readonly=True, default=0)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
-    source_location_id = fields.Many2one(comodel_name="hos.location", string="Source Location", required=True)
-    destination_location_id = fields.Many2one(comodel_name="hos.location", string="Destination location", required=True)
-    picking_type = fields.Selection(selection=PICKING_TYPE, string="Picking Type", required=True)
+    source_location_id = fields.Many2one(comodel_name="hos.location",
+                                         string="Source Location",
+                                         required=True,
+                                         default=lambda self: self._get_source_location_id())
+    destination_location_id = fields.Many2one(comodel_name="hos.location",
+                                              string="Destination location",
+                                              required=True,
+                                              default=lambda self: self._get_destination_location_id())
+    picking_type = fields.Selection(selection=PICKING_TYPE,
+                                    string="Picking Type",
+                                    required=True,
+                                    default=lambda self: self._get_picking_type())
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
+
+    def _get_date(self):
+        return self.env.context.get("date")
+
+    def _get_picking_type(self):
+        return self.env.context.get("picking_type")
+
+    def _get_source_location_id(self):
+        return self.env.context.get("source_location_id")
+
+    def _get_destination_location_id(self):
+        return self.env.context.get("destination_location_id")
 
     @api.multi
     def detail_calculation(self):
@@ -73,6 +94,7 @@ class StockMove(surya.Sarpam):
             quantity_out = quantity_out + rec.quantity
 
         balance = quantity_in - quantity_out
+
         return balance
 
     @api.multi
@@ -80,22 +102,12 @@ class StockMove(surya.Sarpam):
         writter = "Stock Moved by {0}".format(self.env.user.name)
         quantity = self.get_balance_quantity()
 
-        if self.picking_type in ["internal"]:
-            if quantity >= self.quantity:
-                self.write({"progress": "moved", "writter": writter})
-            else:
+        if self.picking_type in ["internal", "out"]:
+            if quantity < self.quantity:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
-                                             format(self.product_id.name))
+                                                 format(self.product_id.name))
 
-        elif self.picking_type in ["out"]:
-            self.write({"progress": "moved",
-                        "writter": writter,
-                        "destination_location_id": self.company_id.default_product_out})
-
-        elif self.picking_type in ["in"]:
-            self.write({"progress": "moved",
-                        "writter": writter,
-                        "source_location_id": self.company_id.default_product_in})
+        self.write({"progress": "moved", "writter": writter})
 
     def default_vals_creation(self, vals):
         product_id = vals["product_id"]

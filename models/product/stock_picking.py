@@ -15,9 +15,10 @@ class StockPicking(surya.Sarpam):
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
-    name = fields.Char(string="Name", required=True)
-    person_id = fields.Many2one(comodel_name="hos.person", string="Partner", required=True)
+    name = fields.Char(string="Name", readonly=True)
+    person_id = fields.Many2one(comodel_name="hos.person", string="Partner", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
+    reason = fields.Text(string="Reason")
     picking_detail = fields.One2many(comodel_name="stock.move",
                                      inverse_name="picking_id",
                                      string="Stock Move")
@@ -37,6 +38,13 @@ class StockPicking(surya.Sarpam):
     round_off_amount = fields.Float(string="Round-Off", readonly=True)
     gross_amount = fields.Float(stringt="Gross Amount", readonly=True)
 
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    source_location_id = fields.Many2one(comodel_name="hos.location",
+                                         string="Source Location",
+                                         required=True)
+    destination_location_id = fields.Many2one(comodel_name="hos.location",
+                                              string="Destination location",
+                                              required=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
     @api.multi
@@ -89,3 +97,16 @@ class StockPicking(surya.Sarpam):
                     "total_amount": total_amount,
                     "gross_amount": gross_amount,
                     "round_off_amount": round_off_amount})
+
+    def trigger_adjust(self):
+        recs = self.picking_detail
+        for rec in recs:
+            rec.trigger_move()
+
+        writter = "Stock Adjusted by {0}".format(self.env.user.name)
+        self.write({"progress": "moved", "writter": writter})
+
+    def default_vals_creation(self, vals):
+        vals["company_id"] = self.env.user.company_id.id
+        vals["writter"] = "Created by {0}".format(self.env.user.name)
+        return vals

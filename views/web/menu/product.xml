@@ -66,16 +66,22 @@
               parent="menu_product_product"
               sequence="100"/>
 
-    <!--<menuitem id="sub_menu_store_request"-->
-              <!--name="Store Request"-->
-              <!--action="action_store_request"-->
-              <!--parent="menu_product_product"-->
-              <!--sequence="80"/>-->
+    <menuitem id="sub_menu_stock_picking_stock_adjustment"
+              name="Stock Adjustment"
+              action="action_stock_picking_stock_adjustment"
+              parent="menu_product_product"
+              sequence="110"/>
 
-    <!--<menuitem id="sub_menu_stock_picking_store_issue"-->
-              <!--name="Store Issue"-->
-              <!--action="action_stock_picking_store_issue"-->
-              <!--parent="menu_product_product"-->
-              <!--sequence="90"/>-->
+    <menuitem id="sub_menu_store_request"
+              name="Store Request"
+              action="action_store_request"
+              parent="menu_product_product"
+              sequence="120"/>
+
+    <menuitem id="sub_menu_store_issue"
+              name="Store Issue"
+              action="action_stock_picking_store_issue"
+              parent="menu_product_product"
+              sequence="130"/>
 
 </odoo>

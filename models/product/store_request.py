@@ -88,6 +88,7 @@ class StoreRequest(surya.Sarpam):
                                               "product_id": rec.product_id.id,
                                               "requested_quantity": rec.quantity,
                                               "picking_type": "internal",
+                                              "unit_price": 0,
                                               "source_location_id": self.env.user.company_id.location_id.id,
                                               "destination_location_id": self.env.user.location_id.id}))
 
@@ -96,6 +97,8 @@ class StoreRequest(surya.Sarpam):
                 "reference": self.name,
                 "picking_type": "internal",
                 "picking_detail": picking_detail,
+                "source_location_id": self.env.user.company_id.location_id.id,
+                "destination_location_id": self.env.user.location_id.id,
                 "writter": writter}
 
         self.env["stock.picking"].create(data)

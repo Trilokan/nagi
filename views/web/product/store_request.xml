@@ -23,17 +23,12 @@
         <field name="model">store.request</field>
         <field name="arch" type="xml">
             <form string="Store Request">
-                <header>
-                    <button name="trigger_confirm" string="Confirm" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <button name="trigger_cancel" string="Cancel" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
-                    <button name="trigger_approve" string="Approve" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
                 <sheet>
-                    <field name="name"/>
+                    <div id="s_header">
+                        <h1>Store Request</h1>
+                    </div>
+                    <field name="progress" widget="statusbar"/>
+                    <h2><field name="name"/></h2>
                     <group col="4">
                         <field name="date"/>
                         <field name="requested_by"/>
@@ -53,6 +48,14 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_confirm" string="Confirm" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                        <button name="trigger_approve" string="Approve" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

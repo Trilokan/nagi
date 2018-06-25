@@ -45,7 +45,8 @@
                         <field name="destination_location_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                     </group>
                     <footer>
-                        <button name="trigger_move" string="Move" type="object"/>
+                        <button name="trigger_move" string="Move" type="object"
+                                attrs="{'invisible': [('progress', '=', 'moved')]}"/>
                     </footer>
                 </sheet>
             </form>
