@@ -84,4 +84,21 @@
               parent="menu_product_product"
               sequence="130"/>
 
+    <menuitem id="menu_purchase_purchase"
+              name="Purchase"
+              parent="menu_product"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Purchase Indent"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_vs"
+              name="Vendor Selection"
+              action="action_purchase_vs"
+              parent="menu_purchase_purchase"
+              sequence="20"/>
+
 </odoo>

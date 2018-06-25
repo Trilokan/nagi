@@ -107,9 +107,9 @@
         'views/web/product/store_request.xml',
         'views/web/product/store_issue.xml',
         #
-        # # Purchase
-        # 'views/purchase/purchase_indent.xml',
-        # 'views/purchase/purchase_vs.xml',
+        # Purchase
+        'views/web/purchase/purchase_indent.xml',
+        'views/web/purchase/purchase_vs.xml',
         # 'views/purchase/purchase_quotation.xml',
         # 'views/purchase/material_receipt.xml',
         #
