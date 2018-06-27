@@ -2,11 +2,11 @@
 <odoo>
 
     <!-- Tree -->
-    <record id="view_hos_invoice_tree" model="ir.ui.view">
+    <record id="view_hos_invoice_purchase_invoice_tree" model="ir.ui.view">
         <field name="name">hos.invoice.tree</field>
         <field name="model">hos.invoice</field>
         <field name="arch" type="xml">
-            <tree string="Bill/ Receipt">
+            <tree string="Purchase Invoice">
                 <field name="date"/>
                 <field name="person_id"/>
                 <field name="name"/>
@@ -16,14 +16,14 @@
     </record>
 
     <!-- Form -->
-    <record id="view_hos_invoice_purchase_form" model="ir.ui.view">
+    <record id="view_hos_invoice_purchase_purchase_invoice_form" model="ir.ui.view">
         <field name="name">hos.invoice.form</field>
         <field name="model">hos.invoice</field>
         <field name="arch" type="xml">
-            <form string="Bill/ Receipt">
+            <form string="Purchase Invoice">
                 <sheet>
                     <div id="s_header">
-                        <h1>Bill/ Receipt</h1>
+                        <h1>Purchase Invoice</h1>
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <h2><field name="name"/></h2>
@@ -146,34 +146,27 @@
         </field>
     </record>
 
-    <!-- Lab Action -->
-    <record id="action_hos_invoice" model="ir.actions.act_window">
-        <field name="name">Bill/ Receipt</field>
+    <!-- Action -->
+    <record id="action_hos_invoice_purchase_invoice" model="ir.actions.act_window">
+        <field name="name">Purchase Invoice</field>
         <field name="res_model">hos.invoice</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 
-	<!-- Purchase Action -->
-    <record id="action_hos_invoice_purchase_purchase" model="ir.actions.act_window">
-        <field name="name">Bill/ Receipt</field>
-        <field name="res_model">hos.invoice</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('invoice_type', '=', 'purchase_bill')]</field>
-		<field name="context">{'default_invoice_type': 'purchase_bill'}</field>
-		<field name="view_id" ref="nagi.view_hos_invoice_tree"/>
+	<record model="ir.actions.act_window.view" id="action_hos_invoice_purchase_invoice_form">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hos_invoice_purchase_purchase_invoice_form" />
+        <field name="act_window_id" ref="action_hos_invoice_purchase_invoice"/>
     </record>
 
-	<!-- Direct Invoice Action -->
-    <record id="action_hos_invoice_direct_purchase_purchase" model="ir.actions.act_window">
-        <field name="name">Bill/ Receipt</field>
-        <field name="res_model">hos.invoice</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('invoice_type', '=', 'direct_purchase_bill')]</field>
-		<field name="context">{'default_invoice_type': 'direct_purchase_bill'}</field>
-		<field name="view_id" ref="nagi.view_hos_invoice_tree"/>
+    <record model="ir.actions.act_window.view" id="action_hos_invoice_purchase_invoice_tree">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_hos_invoice_purchase_purchase_invoice_tree"/>
+        <field name="act_window_id" ref="action_hos_invoice_purchase_invoice"/>
     </record>
+
 
 </odoo>

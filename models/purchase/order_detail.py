@@ -5,19 +5,18 @@ from datetime import datetime
 from .. import surya, calculation
 
 
-
 PROGRESS_INFO = [('draft', 'Draft'),
                  ('qa', 'Quotation Approved'),
                  ('cancel', 'Cancel')]
 
 
-class VSQuoteDetail(surya.Sarpam):
-    _name = 'vs.quote.detail'
-    _description = 'Vendor Selection Quote Detail'
+class OrderDetail(surya.Sarpam):
+    _name = 'order.detail'
+    _description = 'Purchase Order Detail'
 
     vendor_id = fields.Many2one(comodel_name='hos.person', string='Vendor', readonly=True)
-    product_id = fields.Many2one(comodel_name='hos.product', string='Product', related='vs_quote_id.product_id')
-    uom_id = fields.Many2one(comodel_name='product.uom', string='UOM', related='vs_quote_id.uom_id')
+    product_id = fields.Many2one(comodel_name='hos.product', string='Product', related='quote_detail_id.product_id')
+    uom_id = fields.Many2one(comodel_name='product.uom', string='UOM', related='quote_detail_id.uom_id')
     requested_quantity = fields.Float(string='Requested Quantity', default=0, readonly=True)
     accepted_quantity = fields.Float(string='Accepted Quantity', default=0)
     unit_price = fields.Float(string='Unit Price', default=0)
@@ -35,9 +34,9 @@ class VSQuoteDetail(surya.Sarpam):
     untaxed_amount = fields.Float(string='Tax Amount', default=0, readonly=True)
     freight_amount = fields.Float(string='Freight Amount', default=0, readonly=True)
     total_amount = fields.Float(string='Total', default=0, readonly=True)
-    vs_quote_id = fields.Many2one(comodel_name='vs.detail', string='Vendor Selection')
-    quotation_id = fields.Many2one(comodel_name='purchase.quotation', string='Quotation')
-    progress = fields.Selection(PROGRESS_INFO, string='Progress', related='quotation_id.progress')
+    quote_detail_id = fields.Many2one(comodel_name='quote.detail', string='Quotation')
+    order_id = fields.Many2one(comodel_name='purchase.order', string='Purchase Order')
+    progress = fields.Selection(PROGRESS_INFO, string='Progress', related='order_id.progress')
 
     @api.multi
     def detail_calculation(self):

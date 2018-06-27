@@ -7,25 +7,25 @@ import json
 
 # Purchase Indent
 PROGRESS_INFO = [('draft', 'Draft'),
-                 ('invoice_generated', 'Invoice Generated'),
+                 ('approved', 'Approved'),
                  ('cancelled', 'Cancelled')]
 
 
-class Quotation(surya.Sarpam):
-    _name = "purchase.quotation"
+class PurchaseOrder(surya.Sarpam):
+    _name = "purchase.order"
     _inherit = "mail.thread"
 
     name = fields.Char(string='Name', readonly=True)
     date = fields.Date(string="Date", readonly=True)
     vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent", readonly=True)
-    vs_id = fields.Many2one(comodel_name="purchase.vs", string="Vendor Selection", readonly=True)
+    quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation", readonly=True)
     vendor_ref = fields.Char(string="Vendor Ref")
     processed_by = fields.Many2one(comodel_name="hos.person", string="Processed By", readonly=True)
     processed_on = fields.Date(string='Processed On', readonly=True)
-    quotation_detail = fields.One2many(comodel_name='vs.quote.detail',
-                                       inverse_name='quotation_id',
-                                       string='Quotation Detail')
+    order_detail = fields.One2many(comodel_name='order.detail',
+                                   inverse_name='order_id',
+                                   string='Order Detail')
     progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
     comment = fields.Text(string='Comment')
 
@@ -40,17 +40,18 @@ class Quotation(surya.Sarpam):
     igst = fields.Float(string='IGST', readonly=True)
     gross_amount = fields.Float(string='Gross Amount', readonly=True)
     round_off_amount = fields.Float(string='Round-Off', readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def default_vals_creation(self, vals):
         vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["date"] = datetime.now().strftime("%Y-%m-%d")
-
+        vals["company_id"] = self.env.user.company_id.id
         return vals
 
     @api.multi
     def total_calculation(self):
-        recs = self.quotation_detail
+        recs = self.order_detail
 
         if not recs:
             raise exceptions.ValidationError("Error! Bill details not found")
@@ -88,46 +89,47 @@ class Quotation(surya.Sarpam):
                     "gross_amount": gross_amount,
                     "round_off_amount": round_off_amount})
 
-    def trigger_invoice_generation(self):
+    def trigger_grn(self):
         data = {}
 
-        invoice_detail = []
-        recs = self.quotation_detail
+        stock_move = []
+        recs = self.order_detail
         for rec in recs:
             if (rec.accepted_quantity > 0) and (rec.unit_price > 0):
-                invoice_detail.append((0, 0, {"product_id": rec.product_id.id,
-                                              "unit_price": rec.unit_price,
-                                              "quantity": rec.accepted_quantity,
-                                              "discount": rec.discount,
-                                              "tax_id": rec.tax_id.id,
-                                              "freight": rec.freight,}))
+                stock_move.append((0, 0, {"reference": self.name,
+                                          "source_location_id": self.env.user.company_id.purchase_location_id.id,
+                                          "destination_location_id": self.env.user.company_id.location_id.id,
+                                          "picking_type": "in",
+                                          "product_id": rec.product_id.id,
+                                          "requested_quantity": rec.accepted_quantity}))
 
-        if invoice_detail:
-            data["date"] = datetime.now().strftime("%Y-%m-%d")
+        if stock_move:
             data["person_id"] = self.vendor_id.id
-            data["invoice_detail"] = invoice_detail
-            data["invoice_type"] = 'purchase_bill'
             data["reference"] = self.name
-
-            invoice_id = self.env["hos.invoice"].create(data)
-            invoice_id.total_calculation()
+            data["picking_detail"] = stock_move
+            data["picking_type"] = 'in'
+            data["date"] = datetime.now().strftime("%Y-%m-%d")
+            data["po_id"] = self.id
+            data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
+            data["destination_location_id"] = self.env.user.company_id.location_id.id
+            picking_id = self.env["stock.picking"].create(data)
             return True
         return False
 
     @api.multi
-    def trigger_quote_approve(self):
+    def trigger_po_approve(self):
         self.total_calculation()
 
-        if not self.trigger_invoice_generation():
+        if not self.trigger_grn():
             raise exceptions.ValidationError("Error! Please check Product lines")
 
-        writter = "Invoice generated by {0}".format(self.env.user.name)
-        self.write({"progress": "invoice_generated", "writter": writter})
+        writter = "PO approved by {0}".format(self.env.user.name)
+        self.write({"progress": "approved", "writter": writter})
 
     @api.multi
     def trigger_cancel(self):
         person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        writter = "Quotation cancelled by {0}".format(person_id.name)
+        writter = "PO cancelled by {0}".format(person_id.name)
 
         self.write({"progress": "cancelled", "writter": writter})
 

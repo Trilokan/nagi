@@ -95,10 +95,29 @@
               parent="menu_purchase_purchase"
               sequence="10"/>
 
-    <menuitem id="sub_menu_purchase_vs"
-              name="Vendor Selection"
-              action="action_purchase_vs"
+    <menuitem id="sub_menu_purchase_quote"
+              name="Quotation"
+              action="action_purchase_quote"
               parent="menu_purchase_purchase"
               sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_order"
+              name="Purchase order"
+              action="action_purchase_order"
+              parent="menu_purchase_purchase"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_material_receipt"
+              name="Material Receipt"
+              action="action_stock_picking_material_receipt"
+              parent="menu_purchase_purchase"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_purchase_invoice"
+              name="Purchase Invoice"
+              action="action_hos_invoice"
+              parent="menu_purchase_purchase"
+              sequence="50"/>
+
 
 </odoo>

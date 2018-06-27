@@ -50,7 +50,6 @@
                                     <field name="uom_id"/>
                                     <field name="requested_quantity"/>
                                     <field name="quantity"/>
-                                    <field name="unit_price" invisible="1"/>
                                     <field name="source_location_id" invisible="1"/>
                                     <field name="destination_location_id" invisible="1"/>
                                     <field name="picking_type" invisible="1"/>
@@ -60,7 +59,7 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button name="trigger_adjust" string="Adjust" type="object"
+                        <button name="trigger_move" string="Issue" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     </footer>
                 </sheet>

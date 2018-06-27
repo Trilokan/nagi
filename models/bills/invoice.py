@@ -22,13 +22,19 @@ class HospitalInvoice(surya.Sarpam):
     date = fields.Date(srring="Date", required=True)
     name = fields.Char(string="Name", readonly=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Partner", required=True)
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readdonly=True)
+    indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")
+    quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation")
+    order_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
+    picking_id = fields.Many2one(comodel_name="stock.picking", string="Material Receipt")
+    reference = fields.Char(string="Reference")
     writter = fields.Text(string="Writter", track_visibility='always')
     invoice_detail = fields.One2many(comodel_name="invoice.detail",
                                      inverse_name="invoice_id",
                                      string="Invoice detail")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
-    invoice_type = fields.Selection(selection=INVOICE_TYPE, string="Invoice Type")
+    invoice_type = fields.Selection(selection=INVOICE_TYPE, string="Invoice Type", required=True)
     discount_amount = fields.Float(string="Discount Amount", readonly=True)
     discounted_amount = fields.Float(string="Discounted Amount", readonly=True)
     tax_amount = fields.Float(string="Tax Amount", readonly=True)
@@ -41,14 +47,16 @@ class HospitalInvoice(surya.Sarpam):
     total_amount = fields.Float(string="Total Amount", readonly=True)
     round_off_amount = fields.Float(string="Round-Off", readonly=True)
     gross_amount = fields.Float(stringt="Gross Amount", readonly=True)
-    reference = fields.Char(string="Reference")
+
     # payment_detail = fields.One2many(comodel_name="invoice.detail",
     #                                  inverse_name="invoice_id",
     #                                  string="Invoice detail")
     # Account_detail
 
     def default_vals_creation(self, vals):
+        code = "{0}.{1}".format("hos.purchase.invoice", vals["invoice_type"])
         vals['name'] = self.env['ir.sequence'].next_by_code("hos.purchase.invoice")
+        vals['company_id'] = self.env.user.company_id.id
         vals['writter'] = self.env.user.name
         if vals.get('date', True):
             vals['date'] = datetime.now().strftime("%Y-%m-%d")
@@ -93,55 +101,6 @@ class HospitalInvoice(surya.Sarpam):
                     "total_amount": total_amount,
                     "gross_amount": gross_amount,
                     "round_off_amount": round_off_amount})
-
-    @api.multi
-    def create_material_receipt(self, writter):
-        picking_detail = []
-        recs = self.invoice_detail
-
-        for rec in recs:
-            if rec.quantity > 0:
-                name = self.env['ir.sequence'].next_by_code("material.receipt")
-                picking_detail.append((0, 0, {"date": datetime.now().strftime("%Y-%m-%d"),
-                                              "name": name,
-                                              "reference": self.name,
-                                              "product_id": rec.product_id.id,
-                                              "unit_price": rec.unit_price,
-                                              "requested_quantity": rec.quantity,
-                                              "discount": rec.discount,
-                                              "tax_id": rec.tax_id.id,
-                                              "freight": rec.freight,
-                                              "picking_type": "in",
-                                              "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                              "destination_location_id": self.env.user.company_id.location_id.id}))
-
-        data = {"date": datetime.now().strftime("%Y-%m-%d"),
-                "name": name,
-                "reference": self.name,
-                "person_id": self.person_id.id,
-                "picking_type": "in",
-                "picking_detail": picking_detail,
-                "writter": writter}
-
-        if not picking_detail:
-            raise exceptions.ValidationError("Error!")
-
-        self.env["stock.picking"].create(data)
-
-    @api.multi
-    def trigger_approved(self):
-        self.total_calculation()
-        if not self.gross_amount:
-            raise exceptions.ValidationError("Error! Invoice Value is 0.")
-
-        writter = "Invoice approved by {0}".format(self.env.user.name)
-        self.create_material_receipt(writter)
-        self.write({"progress": "approved", "writter": writter})
-
-    @api.multi
-    def trigger_cancel(self):
-        writter = "Invoice cancelled by {0}".format(self.env.user.name)
-        self.write({"progress": "cancelled", "writter": writter})
 
 
 class InvoiceDetail(surya.Sarpam):

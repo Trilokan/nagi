@@ -50,7 +50,6 @@
                                     <field name="product_id"/>
                                     <field name="uom_id"/>
                                     <field name="quantity" string="Adjust Quantity"/>
-                                    <field name="unit_price" string="Value"/>
                                     <field name="source_location_id" invisible="1"/>
                                     <field name="destination_location_id" invisible="1"/>
                                     <field name="picking_type" invisible="1"/>
@@ -60,7 +59,7 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button name="trigger_adjust" string="Adjust" type="object"
+                        <button name="trigger_move" string="Adjust" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     </footer>
                 </sheet>

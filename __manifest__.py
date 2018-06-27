@@ -109,12 +109,12 @@
         #
         # Purchase
         'views/web/purchase/purchase_indent.xml',
-        'views/web/purchase/purchase_vs.xml',
-        # 'views/purchase/purchase_quotation.xml',
-        # 'views/purchase/material_receipt.xml',
-        #
-        # # Invoice
-        # 'views/bills/invoice.xml',
+        'views/web/purchase/purchase_quotation.xml',
+        'views/web/purchase/purchase_order.xml',
+        'views/web/purchase/material_receipt.xml',
+
+        # Invoice
+        'views/web/bills/invoice.xml',
         #
         # # Schedule
         # 'views/schedule/schedule.xml',

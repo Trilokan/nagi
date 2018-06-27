@@ -26,6 +26,7 @@ class PurchaseIndent(surya.Sarpam):
     indent_detail = fields.One2many(comodel_name="purchase.indent.detail",
                                     inverse_name="indent_id",
                                     string="Indent Detail")
+    company_id = fields.Many2one(comodel_name="res.company", string="Company")
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def default_vals_creation(self, vals):
@@ -37,6 +38,7 @@ class PurchaseIndent(surya.Sarpam):
 
         vals["requested_by"] = requested_by.id
         vals["department_id"] = employee_id.department_id.id
+        vals["company_id"] = self.env.user.company_id.id
         return vals
 
     @api.multi
@@ -74,21 +76,21 @@ class PurchaseIndent(surya.Sarpam):
                     "writter": writter})
 
     @api.multi
-    def create_vendor_selection(self, writter):
+    def create_quote(self, writter):
 
-        selection_detail = []
+        quote_detail = []
         recs = self.indent_detail
 
         for rec in recs:
             if rec.quantity > 0:
-                selection_detail.append((0, 0, {"product_id": rec.product_id.id,
-                                                "quantity": rec.quantity}))
+                quote_detail.append((0, 0, {"product_id": rec.product_id.id,
+                                            "quantity": rec.quantity}))
 
         data = {"indent_id": self.id,
-                "selection_detail": selection_detail,
+                "quote_detail": quote_detail,
                 "writter": writter}
 
-        self.env["purchase.vs"].create(data)
+        self.env["purchase.quote"].create(data)
 
     @api.multi
     def trigger_approve(self):
@@ -98,7 +100,7 @@ class PurchaseIndent(surya.Sarpam):
         writter = "Purchase indent approved by {0} on {1}".format(approved_by.name,
                                                                   datetime.now().strftime("%d-%m-%Y %H:%M"))
 
-        self.create_vendor_selection(writter)
+        self.create_quote(writter)
         self.write({"progress": "approved",
                     "approved_by": approved_by.id,
                     "writter": writter})

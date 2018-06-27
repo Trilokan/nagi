@@ -11,6 +11,7 @@ class HospitalCompany(surya.Sarpam):
 
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")
     purchase_location_id = fields.Many2one(comodel_name="hos.location", string="Purchase Location")
+    tax_default_id = fields.Many2one(comodel_name="hos.tax", string="Default Tax")
     virtual_location_right = fields.Integer(string="Virtual Location Right")
     virtual_location_left = fields.Integer(string="Virtual Location Left")
 

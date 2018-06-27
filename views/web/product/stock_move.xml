@@ -40,7 +40,6 @@
                         <field name="picking_type" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="product_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="quantity" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
-                        <field name="unit_price" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="source_location_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="destination_location_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                     </group>

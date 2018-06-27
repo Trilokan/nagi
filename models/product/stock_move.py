@@ -17,25 +17,10 @@ class StockMove(surya.Sarpam):
     name = fields.Char(string="Name", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     picking_id = fields.Many2one(comodel_name="stock.picking", string="Stock Picking")
-
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
-    unit_price = fields.Float(string="Unit Price", required=True)
     requested_quantity = fields.Float(string="Requested Quantity", readonly=True, default=0)
     quantity = fields.Float(string="Approved Quantity", required=True, default=0)
-    discount = fields.Float(string="Discount", default=0)
-    tax_id = fields.Many2one(comodel_name="hos.tax", string="Tax")
-    freight = fields.Float(string="Freight", default=0)
-    total_amount = fields.Float(string="Total Amount", readonly=True, default=0)
-    cgst = fields.Float(string="CGST", readonly=True, default=0)
-    sgst = fields.Float(string="SGST", readonly=True, default=0)
-    igst = fields.Float(string="IGST", readonly=True, default=0)
-    tax_amount = fields.Float(string="Tax Amount", readonly=True, default=0)
-    discount_amount = fields.Float(string="Discount Amount", readonly=True, default=0)
-    freight_amount = fields.Float(string="Freight Amount", readonly=True, default=0)
-    discounted_amount = fields.Float(string="Discounted Amount", readonly=True, default=0)
-    untaxed_amount = fields.Float(string="Untaxed Value", readonly=True, default=0)
-    taxed_amount = fields.Float(string="Taxed value", readonly=True, default=0)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
                                          string="Source Location",
@@ -53,7 +38,7 @@ class StockMove(surya.Sarpam):
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def _get_date(self):
-        return self.env.context.get("date")
+        return self.env.context.get("date", datetime.now().strftime("%Y-%m-%d"))
 
     def _get_picking_type(self):
         return self.env.context.get("picking_type")
@@ -63,19 +48,6 @@ class StockMove(surya.Sarpam):
 
     def _get_destination_location_id(self):
         return self.env.context.get("destination_location_id")
-
-    @api.multi
-    def detail_calculation(self):
-        if self.requested_quantity < self.quantity:
-            raise exceptions.ValidationError("Error! Approved Quantity is more than requested quantity")
-
-        data = calculation.purchase_calculation(self.unit_price,
-                                                self.quantity,
-                                                self.discount,
-                                                self.tax_id.value,
-                                                self.freight,
-                                                self.tax_id.state)
-        self.write(data)
 
     def get_balance_quantity(self):
         destination_ids = self.env["stock.move"].search([("product_id", "=", self.product_id.id),
@@ -128,5 +100,12 @@ class StockMove(surya.Sarpam):
         if not destination:
             warehouse.create({"product_id": product_id,
                               "location_id": destination_location_id})
+
+        code = "{0}.{1}".format(self._name, vals["picking_type"])
+        vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["company_id"] = self.env.user.company_id.id
+        vals["writter"] = "Created by {0}".format(self.env.user.name)
+
         return vals
+
+
