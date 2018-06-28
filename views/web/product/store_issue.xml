@@ -44,11 +44,11 @@
                                              'picking_type': picking_type,
                                              'date': date}"
                                    attrs="{'readonly': [('progress', '=', 'moved')]}">
-                                <tree editable="bottom">
+                                <tree editable="bottom" create="false" delete="false">
                                     <field name="id" invisible="1"/>
-                                    <field name="product_id"/>
-                                    <field name="uom_id"/>
-                                    <field name="requested_quantity"/>
+                                    <field name="product_id" readonly="1"/>
+                                    <field name="uom_id" readonly="1"/>
+                                    <field name="requested_quantity" readonly="1"/>
                                     <field name="quantity"/>
                                     <field name="source_location_id" invisible="1"/>
                                     <field name="destination_location_id" invisible="1"/>

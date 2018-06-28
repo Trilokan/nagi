@@ -6,7 +6,7 @@ from .. import surya
 from .. import calculation
 
 
-PROGRESS_INFO = [('draft', 'Draft'), ('approved', 'approved'), ('cancelled', 'Cancelled')]
+PROGRESS_INFO = [('draft', 'Draft'), ('approved', 'approved'), ('cancel', 'Cancel')]
 INVOICE_TYPE = [('lab_bill', "Lab Bill"),
                 ('pharmacy_bill', 'Pharmacy Bill'),
                 ('purchase_bill', 'Purchase Bill'),
@@ -23,11 +23,13 @@ class HospitalInvoice(surya.Sarpam):
     name = fields.Char(string="Name", readonly=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Partner", required=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readdonly=True)
+
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")
     quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation")
     order_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
     picking_id = fields.Many2one(comodel_name="stock.picking", string="Material Receipt")
     reference = fields.Char(string="Reference")
+
     writter = fields.Text(string="Writter", track_visibility='always')
     invoice_detail = fields.One2many(comodel_name="invoice.detail",
                                      inverse_name="invoice_id",
@@ -61,6 +63,20 @@ class HospitalInvoice(surya.Sarpam):
         if vals.get('date', True):
             vals['date'] = datetime.now().strftime("%Y-%m-%d")
         return vals
+
+    @api.multi
+    def trigger_approve(self):
+        self.total_calculation()
+
+        writter = "Invoice approved by {0}".format(self.env.user.name)
+        self.write({"progress": "approved", "writter": writter})
+
+    @api.multi
+    def trigger_cancel(self):
+        self.total_calculation()
+
+        writter = "Invoice cancel by {0}".format(self.env.user.name)
+        self.write({"progress": "cancel", "writter": writter})
 
     @api.multi
     def total_calculation(self):
@@ -108,17 +124,17 @@ class InvoiceDetail(surya.Sarpam):
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Description", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
-    unit_price = fields.Float(string="Unit Price", required=True)
+
+    unit_price = fields.Float(string="Unit Price")
     quantity = fields.Float(string="Quantity", required=True)
     discount = fields.Float(string="Discount")
-    tax_id = fields.Many2one(comodel_name="hos.tax", string="Tax", required=True)
+    tax_id = fields.Many2one(comodel_name="hos.tax", string="Tax")
     freight = fields.Float(string="Freight")
-    total_amount = fields.Float(string="Total Amount", readonly=True)
 
+    total_amount = fields.Float(string="Total Amount", readonly=True)
     cgst = fields.Float(string="CGST", readonly=True)
     sgst = fields.Float(string="SGST", readonly=True)
     igst = fields.Float(string="IGST", readonly=True)
-
     tax_amount = fields.Float(string="Tax Amount", readonly=True)
     discount_amount = fields.Float(string="Discount Amount", readonly=True)
     freight_amount = fields.Float(string="Freight Amount", readonly=True)

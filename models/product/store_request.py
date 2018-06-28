@@ -120,9 +120,9 @@ class StoreRequest(surya.Sarpam):
 class StoreRequestDetail(surya.Sarpam):
     _name = "store.request.detail"
 
-    product_id = fields.Many2one(comodel_name="hos.product", string="Product")
+    product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
-    quantity = fields.Float(string="Quantity")
+    quantity = fields.Float(string="Quantity", required=True)
     request_id = fields.Many2one(comodel_name="store.request", string="Store Request")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="request_id.progress")
 

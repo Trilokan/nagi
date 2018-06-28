@@ -51,6 +51,7 @@ class StockPicking(surya.Sarpam):
         vals["writter"] = "Created by {0}".format(self.env.user.name)
         return vals
 
+    @api.multi
     def trigger_create_invoice(self):
         data = {}
 
@@ -82,4 +83,27 @@ class StockPicking(surya.Sarpam):
 
             invoice_id = self.env["hos.invoice"].create(data)
             invoice_id.total_calculation()
+
+    @api.multi
+    def trigger_create_direct_invoice(self):
+        data = {}
+
+        invoice_detail = []
+        recs = self.picking_detail
+        for rec in recs:
+            if rec.quantity > 0:
+                invoice_detail.append((0, 0, {"product_id": rec.product_id.id,
+                                              "quantity": rec.quantity}))
+
+        if invoice_detail:
+            data["date"] = datetime.now().strftime("%Y-%m-%d")
+            data["person_id"] = self.person_id.id
+            data["reference"] = self.name
+            data["invoice_detail"] = invoice_detail
+            data["invoice_type"] = 'direct_purchase_bill'
+            data["picking_id"] = self.id
+
+            invoice_id = self.env["hos.invoice"].create(data)
+            invoice_id.total_calculation()
+
 

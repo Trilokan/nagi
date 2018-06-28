@@ -109,7 +109,7 @@ class PurchaseIndent(surya.Sarpam):
 class PurchaseIndentDetail(surya.Sarpam):
     _name = "purchase.indent.detail"
 
-    product_id = fields.Many2one(comodel_name="hos.product", string="Product")
+    product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
     quantity = fields.Float(string="Quantity")
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")

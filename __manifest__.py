@@ -112,9 +112,11 @@
         'views/web/purchase/purchase_quotation.xml',
         'views/web/purchase/purchase_order.xml',
         'views/web/purchase/material_receipt.xml',
+        'views/web/purchase/direct_material_receipt.xml',
 
         # Invoice
-        'views/web/bills/invoice.xml',
+        'views/web/bills/purchase_invoice.xml',
+        # 'views/web/bills/direct_purchase_invoice.xml',
         #
         # # Schedule
         # 'views/schedule/schedule.xml',

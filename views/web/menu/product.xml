@@ -87,7 +87,7 @@
     <menuitem id="menu_purchase_purchase"
               name="Purchase"
               parent="menu_product"
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="sub_menu_purchase_indent"
               name="Purchase Indent"
@@ -113,11 +113,17 @@
               parent="menu_purchase_purchase"
               sequence="40"/>
 
-    <menuitem id="sub_menu_purchase_invoice"
-              name="Purchase Invoice"
-              action="action_hos_invoice"
+    <menuitem id="sub_menu_direct_material_receipt"
+              name="Direct Material Receipt"
+              action="action_stock_picking_direct_material_receipt"
               parent="menu_purchase_purchase"
               sequence="50"/>
+
+    <menuitem id="sub_menu_purchase_invoice"
+              name="Purchase Invoice"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_purchase_purchase"
+              sequence="60"/>
 
 
 </odoo>

@@ -40,7 +40,7 @@
                             <field name="indent_detail" attrs="{'readonly': [('progress', 'in', ['approved', 'cancelled'])]}">
                                 <tree editable="bottom">
                                     <field name="product_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                                    <field name="uom_id"/>
+                                    <field name="uom_id" readonly="1"/>
                                     <field name="quantity"/>
                                     <field name="indent_id" invisible="1"/>
                                     <field name="progress" invisible="1"/>
