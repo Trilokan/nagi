@@ -40,4 +40,22 @@
               action="action_appointment_order"
               parent="menu_employee_recruitment"
               sequence="40"/>
+
+    <menuitem id="menu_employee_time"
+              name="Time Management"
+              parent="menu_employee"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_time_shift"
+              name="Shift Timing"
+              action="action_time_shift"
+              parent="menu_employee_time"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_week_schedule"
+              name="Week Schedule"
+              action="action_week_schedule"
+              parent="menu_employee_time"
+              sequence="20"/>
+
 </odoo>

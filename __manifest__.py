@@ -72,11 +72,11 @@
         # 'views/leave_management/leave.xml',
         # 'views/leave_management/compoff.xml',
         # 'views/leave_management/permission.xml',
-        #
-        # # Time Management
-        # 'views/time_management/shift.xml',
-        # 'views/time_management/time_configuration.xml',
-        # 'views/time_management/week_schedule.xml',
+
+        # Time Management
+        'views/web/time_management/shift.xml',
+        'views/web/time_management/time_configuration.xml',
+        'views/web/time_management/week_schedule.xml',
         # 'views/time_management/monthly_attendance.xml',
         # 'views/time_management/attendance.xml',
         # 'views/time_management/shift_change.xml',
@@ -117,7 +117,6 @@
 
         # Invoice
         'views/web/bills/purchase_invoice.xml',
-        # 'views/web/bills/direct_purchase_invoice.xml',
         #
         # # Schedule
         # 'views/schedule/schedule.xml',
