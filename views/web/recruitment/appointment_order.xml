@@ -34,10 +34,10 @@
                         <button name="view_resume_bank" icon="fa-folder-open" class="oe_stat_button" string="Resume" type="object"/>
                     </div>
 
-                    <h2><field name="sequence"/></h2>
+                    <h2><field name="name"/></h2>
                     <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image_medium'}"/>
                     <div class="oe_title">
-                        <label for="name" class="oe_edit_only"/>
+                        <label for="resume_id" string="Name" class="oe_edit_only"/>
                         <h2>
                             <field name="resume_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
                         </h2>
@@ -57,7 +57,12 @@
                         </page>
 
                         <page string="Salary Details">
-                            <field name="salary_detail" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
+                            <field name="salary_detail" attrs="{'readonly': [('progress', '=', 'confirmed')]}">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="amount"/>
+                                </tree>
+                            </field>
                         </page>
 
                         <page string="Attachment">

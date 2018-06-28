@@ -8,7 +8,7 @@ PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
                  ("completed", "Completed")]
 
-STATUS_INFO = [("draft", "Draft"), ("completed", "Completed")]
+STATUS_INFO = [("not_completed", "Not Completed"), ("completed", "Completed")]
 BILL_INFO = [("not_paid", "Not Paid"), ("partially_paid", "Partially Paid"), ("fully_paid", "Fully Paid")]
 
 
@@ -18,7 +18,7 @@ class LabForm(surya.Sarpam):
 
     date = fields.Date(string="Date")
     name = fields.Char(string="Name", readonly=True)
-    patient_id = fields.Many2one(comodel_name="hos.person", string="Patient")
+    person_id = fields.Many2one(comodel_name="hos.person", string="Patient")
     lab_form_detail = fields.One2many(comodel_name="lab.form.detail",
                                       inverse_name="lab_form_id",
                                       string="Lab Form Detail")

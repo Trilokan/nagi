@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Recruitment : Resume Bank -->
+    <record id="resume_bank_sequence" model="ir.sequence">
+        <field name="name">Resume Bank</field>
+        <field name="code">resume.bank</field>
+        <field name="prefix">RB/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!-- Recruitment : Appointment Order -->
+    <record id="appointment_order_sequence" model="ir.sequence">
+        <field name="name">Appointment Order</field>
+        <field name="code">appointment.order</field>
+        <field name="prefix">AO/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
+</odoo>

@@ -49,7 +49,6 @@ class ResumeBank(surya.Sarpam):
 
     # Resume
     resume = fields.Binary(string="Resume")
-
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):

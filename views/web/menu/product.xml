@@ -125,5 +125,17 @@
               parent="menu_purchase_purchase"
               sequence="60"/>
 
+    <!--<menuitem id="sub_menu_lab_form"-->
+              <!--name="Lab Form"-->
+              <!--action="action_lab_form"-->
+              <!--parent="menu_purchase_purchase"-->
+              <!--sequence="70"/>-->
+
+    <!--<menuitem id="sub_menu_lab_test"-->
+              <!--name="Lab Test"-->
+              <!--action="action_lab_test"-->
+              <!--parent="menu_purchase_purchase"-->
+              <!--sequence="80"/>-->
+
 
 </odoo>

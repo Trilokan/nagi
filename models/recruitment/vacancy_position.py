@@ -6,7 +6,7 @@ from .. import surya
 import json
 
 PROGRESS_INFO = [("draft", "Draft"),
-                 ("open", "Position Opened"),
+                 ("opened", "Position Opened"),
                  ("closed", "Position Closed")]
 
 

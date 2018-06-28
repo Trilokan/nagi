@@ -14,10 +14,11 @@
         'views/assert_backend.xml',
 
         'menu/main_menu.xml',
-        'data/base_pack.xml',
-        'data/time_management.xml',
+        # 'data/base_pack.xml',
+        # 'data/time_management.xml',
         'data/purchase.xml',
         'data/hospital.xml',
+        'data/employee.xml',
 
         # # Account
         # # 'views/account/account.xml',
@@ -32,7 +33,7 @@
         # 'views/person/person.xml',
         #
         # Patient
-        'views/web/patient/patient.xml',
+        # 'views/web/patient/patient.xml',
         # 'views/patient/opt_treatment.xml',
         # 'views/patient/ipt_treatment.xml',
         # 'views/patient/ipt_prescription.xml',
@@ -59,12 +60,12 @@
         # 'views/employee/hr_experience.xml',
         # 'views/employee/hr_qualification.xml',
         # 'views/employee/hr_leave.xml',
-        #
-        # # Recruitment
-        # 'views/recruitment/vacancy_position.xml',
-        # 'views/recruitment/resume_bank.xml',
-        # 'views/recruitment/interview_schedule.xml',
-        # 'views/recruitment/appointment_order.xml',
+
+        # Recruitment
+        'views/web/recruitment/vacancy_position.xml',
+        'views/web/recruitment/resume_bank.xml',
+        'views/web/recruitment/interview_schedule.xml',
+        'views/web/recruitment/appointment_order.xml',
         #
         # # Leave Management
         # 'views/leave_management/leave_configuration.xml',
@@ -91,7 +92,7 @@
         # 'views/payroll/salary_structure.xml',
         # 'views/payroll/salary_rule.xml',
         # 'views/payroll/salary_rule_slab.xml',
-        #
+
         # Product
         'views/web/product/product_group.xml',
         'views/web/product/sub_group.xml',
@@ -106,7 +107,7 @@
         'views/web/product/stock_move.xml',
         'views/web/product/store_request.xml',
         'views/web/product/store_issue.xml',
-        #
+
         # Purchase
         'views/web/purchase/purchase_indent.xml',
         'views/web/purchase/purchase_quotation.xml',
@@ -123,14 +124,19 @@
         # 'views/schedule/schedule_reason.xml',
         # 'views/schedule/schedule_type.xml',
         #
+        # Laboratory
+        # 'views/web/laboratory/lab_form.xml',
+        # 'views/web/laboratory/lab_test.xml',
+
         # # Menu
         # 'menu/base_pack.xml',
         # 'menu/patient.xml',
         # 'menu/employee.xml',
         'views/web/menu/product.xml',
+        'views/web/menu/employee.xml',
         # 'menu/purchase.xml',
         # 'menu/hospital.xml',
-        'menu/reception.xml',
+        # 'menu/reception.xml',
 
 
     ],

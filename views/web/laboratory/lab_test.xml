@@ -8,9 +8,7 @@
         <field name="arch" type="xml">
             <tree string="Lab Test">
                 <field name="product_id"/>
-                <field name="name"/>
-                <field name="patient_id"/>
-                <field name="progress"/>
+                <field name="price"/>
             </tree>
         </field>
     </record>
@@ -27,13 +25,17 @@
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
-                        <field name="date"/>
-                        <field name="name"/>
-                        <field name="patient_id"/>
+                        <field name="product_id"/>
+                        <field name="price"/>
+                        <field name="description"/>
+                        <field name="reference"/>
                     </group>
-                    <field name="lab_test_detail">
+                    <field name="test_detail">
                         <tree editable="form">
-                            <field name="test_id"/>
+                            <field name="name"/>
+                            <field name="description"/>
+                            <field name="reference"/>
+                            <field name="test_id" invisible="1"/>
                         </tree>
                     </field>
                 </sheet>
