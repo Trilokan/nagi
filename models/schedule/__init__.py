@@ -3,4 +3,5 @@
 from . import schedule
 from . import schedule_reason
 from . import schedule_type
+from . import doctor_availability
 

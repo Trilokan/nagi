@@ -85,23 +85,29 @@
               parent="menu_reception"
               sequence="30"/>
 
+    <menuitem id="sub_menu_hos_doctor_availability"
+              name="Doctor Availability"
+              action="action_hos_doctor_availability"
+              parent="menu_reception_appointment"
+              sequence="10"/>
+
     <menuitem id="sub_menu_hos_schedule_appointment"
               name="Appointment"
               action="action_hos_schedule_patient_appointment"
               parent="menu_reception_appointment"
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="sub_menu_hos_notes_appointment"
               name="Notes"
               action="action_hos_notes"
               parent="menu_reception_appointment"
-              sequence="20"/>
+              sequence="30"/>
 
     <menuitem id="sub_menu_hos_notification_appointment"
               name="Reminder"
               action="action_hos_notification"
               parent="menu_reception_appointment"
-              sequence="30"/>
+              sequence="40"/>
 
 
 </odoo>

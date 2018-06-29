@@ -129,6 +129,7 @@
         'views/web/schedule/schedule.xml',
         'views/web/schedule/schedule_reason.xml',
         'views/web/schedule/schedule_type.xml',
+        'views/web/schedule/doctor_availability.xml',
 
         # Laboratory
         'views/web/laboratory/lab_form.xml',
