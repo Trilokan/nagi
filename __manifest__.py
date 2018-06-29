@@ -29,9 +29,15 @@
         # 'views/base_pack/year.xml',
         # 'views/base_pack/period.xml',
 
+        # Person
+        'views/web/person/person.xml',
+
         # Patient
         'views/web/patient/patient.xml',
+        'views/web/patient/symptoms.xml',
+        'views/web/patient/diagnosis.xml',
         'views/web/patient/opt_treatment.xml',
+        'views/web/patient/opt_prescription.xml',
         'views/web/patient/ipt_treatment.xml',
         'views/web/patient/ipt_prescription.xml',
 
@@ -45,6 +51,8 @@
         'views/web/hospital/ot_booking.xml',
         'views/web/hospital/operation_theater.xml',
         'views/web/hospital/operation.xml',
+        'views/web/hospital/notes.xml',
+        'views/web/hospital/notification.xml',
 
         # Reception
         'views/web/reception/contact.xml',
@@ -115,11 +123,12 @@
 
         # Invoice
         'views/web/bills/purchase_invoice.xml',
+        'views/web/bills/patient_invoice.xml',
 
-        # # Schedule
-        # 'views/schedule/schedule.xml',
-        # 'views/schedule/schedule_reason.xml',
-        # 'views/schedule/schedule_type.xml',
+        # Schedule
+        'views/web/schedule/schedule.xml',
+        'views/web/schedule/schedule_reason.xml',
+        'views/web/schedule/schedule_type.xml',
 
         # Laboratory
         'views/web/laboratory/lab_form.xml',

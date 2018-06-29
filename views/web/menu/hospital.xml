@@ -39,13 +39,27 @@
 
     <!-- Contact -->
     <menuitem id="menu_contact_contact"
-              name="Contact"
+              name="Master"
               parent="menu_hospital"
               sequence="20"/>
 
-    <!--Patient-->
-    <!--Employee-->
-    <!--Vendor/Customer-->
+    <menuitem id="sub_menu_hos_patient_contact"
+              name="Patient"
+              action="action_hos_patient"
+              parent="menu_contact_contact"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_employee_contact"
+              name="Employee"
+              action="action_hr_employee"
+              parent="menu_contact_contact"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_person_contact"
+              name="Vendor"
+              action="action_hos_person"
+              parent="menu_contact_contact"
+              sequence="30"/>
 
     <!-- Operation Theater -->
     <menuitem id="menu_hospital_operation_theater"
@@ -83,10 +97,47 @@
               parent="menu_hospital_patient_shifting"
               sequence="10"/>
 
+    <!--Billing-->
+    <menuitem id="menu_hospital_bills"
+              name="Billing"
+              parent="menu_hospital"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_patient_bill"
+              name="Patient Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_bills"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_purchase_bill"
+              name="Purchase Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_bills"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_pharmacy_bill"
+              name="Pharmacy Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_bills"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_service_bill"
+              name="Service Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_bills"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_hos_lab_bill"
+              name="Laboratory Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_bills"
+              sequence="60"/>
+
     <menuitem id="sub_menu_hos_ambulance_bill"
               name="Ambulance Bill"
               action="action_hos_invoice_purchase_invoice"
-              parent="menu_hospital_patient_shifting"
-              sequence="20"/>
+              parent="menu_hospital_bills"
+              sequence="70"/>
+
 
 </odoo>

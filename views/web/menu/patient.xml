@@ -19,15 +19,23 @@
               parent="menu_patient"
               sequence="20"/>
 
+    <menuitem id="sub_menu_hos_schedule_patient_appointment"
+              name="Appointment"
+              action="action_hos_schedule_patient_appointment"
+              parent="menu_patient_opt"
+              sequence="10"/>
+
     <menuitem id="sub_menu_patient_treatment_opt"
               name="OPT Treatment"
               action="action_patient_treatment_opt"
               parent="menu_patient_opt"
-              sequence="10"/>
+              sequence="20"/>
 
-    <!--Appointment-->
-    <!--Prescription-->
-    <!--Bill-->
+    <menuitem id="sub_menu_opt_prescription"
+              name="Prescription"
+              action="action_opt_prescription"
+              parent="menu_patient_opt"
+              sequence="30"/>
 
     <!-- IPT -->
     <menuitem id="menu_patient_ipt"
@@ -47,13 +55,49 @@
               parent="menu_patient_ipt"
               sequence="20"/>
 
-    <!--Notes-->
-    <!--Reminder-->
-    <!--Prescription-->
-    <!--Bill-->
+    <menuitem id="sub_menu_hos_notes_ipt"
+              name="Notes"
+              action="action_hos_notes"
+              parent="menu_patient_ipt"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_notification_ipt"
+              name="Reminder"
+              action="action_hos_notification"
+              parent="menu_patient_ipt"
+              sequence="40"/>
+
+    <!--Billing-->
+    <menuitem id="menu_patient_bill"
+              name="Billing"
+              parent="menu_patient"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_invoice_patient_invoice"
+              name="Bill"
+              action="action_hos_invoice_patient_invoice"
+              parent="menu_patient_bill"
+              sequence="10"/>
+
+    <!--Balance-->
 
     <!--Configuration: -->
-    <!---->
+    <menuitem id="menu_patient_configuration"
+              name="Configuration"
+              parent="menu_patient"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_patient_symptoms_ipt"
+              name="Symptoms"
+              action="action_patient_symptoms"
+              parent="menu_patient_configuration"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_patient_diagnosis_ipt"
+              name="Diagnosis"
+              action="action_patient_diagnosis"
+              parent="menu_patient_configuration"
+              sequence="40"/>
 
 
 </odoo>

@@ -49,10 +49,59 @@
               parent="menu_reception_contact"
               sequence="70"/>
 
+    <!-- Hospital -->
+    <menuitem id="menu_reception_hospital"
+              name="Hospital"
+              parent="menu_reception"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_admission_reception"
+              name="Admission"
+              action="action_hos_admission"
+              parent="menu_reception_hospital"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_ward_reception"
+              name="Ward"
+              action="action_hos_ward"
+              parent="menu_reception_hospital"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_bed_reception"
+              name="Bed"
+              action="action_hos_bed"
+              parent="menu_reception_hospital"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_discharge_reception"
+              name="Discharge"
+              action="action_hos_discharge"
+              parent="menu_reception_hospital"
+              sequence="40"/>
 
     <!--Appointment-->
-    <!--Notes-->
-    <!--Reminder-->
+    <menuitem id="menu_reception_appointment"
+              name="Appointment"
+              parent="menu_reception"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_schedule_appointment"
+              name="Appointment"
+              action="action_hos_schedule_patient_appointment"
+              parent="menu_reception_appointment"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_notes_appointment"
+              name="Notes"
+              action="action_hos_notes"
+              parent="menu_reception_appointment"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_notification_appointment"
+              name="Reminder"
+              action="action_hos_notification"
+              parent="menu_reception_appointment"
+              sequence="30"/>
 
 
 </odoo>
