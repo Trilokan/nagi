@@ -28,70 +28,68 @@
         # 'views/base_pack/users.xml',
         # 'views/base_pack/year.xml',
         # 'views/base_pack/period.xml',
-        #
-        # # Person
-        # 'views/person/person.xml',
-        #
+
         # Patient
-        # 'views/web/patient/patient.xml',
-        # 'views/patient/opt_treatment.xml',
-        # 'views/patient/ipt_treatment.xml',
-        # 'views/patient/ipt_prescription.xml',
-        #
-        # # Hospital
-        # 'views/hospital/admission.xml',
-        # 'views/hospital/ward.xml',
-        # 'views/hospital/bed.xml',
-        # 'views/hospital/patient_shifting.xml',
-        # 'views/hospital/ambulance.xml',
-        # 'views/hospital/discharge.xml',
-        # 'views/hospital/ot_booking.xml',
-        # 'views/hospital/operation_theater.xml',
-        # 'views/hospital/operation.xml',
-        #
-        # 'views/web/hospital/admission.xml',
-        #
+        'views/web/patient/patient.xml',
+        'views/web/patient/opt_treatment.xml',
+        'views/web/patient/ipt_treatment.xml',
+        'views/web/patient/ipt_prescription.xml',
+
+        # Hospital
+        'views/web/hospital/admission.xml',
+        'views/web/hospital/ward.xml',
+        'views/web/hospital/bed.xml',
+        'views/web/hospital/patient_shifting.xml',
+        'views/web/hospital/ambulance.xml',
+        'views/web/hospital/discharge.xml',
+        'views/web/hospital/ot_booking.xml',
+        'views/web/hospital/operation_theater.xml',
+        'views/web/hospital/operation.xml',
+
+        # Reception
+        'views/web/reception/contact.xml',
+
         # Employee
         'views/web/employee/employee.xml',
-        # 'views/employee/hr_department.xml',
-        # 'views/employee/hr_category.xml',
-        # 'views/employee/hr_designation.xml',
-        # 'views/employee/hr_contact.xml',
-        # 'views/employee/hr_experience.xml',
-        # 'views/employee/hr_qualification.xml',
-        # 'views/employee/hr_leave.xml',
+        'views/web/employee/hr_department.xml',
+        'views/web/employee/hr_category.xml',
+        'views/web/employee/hr_designation.xml',
+        'views/web/employee/hr_contact.xml',
+        'views/web/employee/hr_experience.xml',
+        'views/web/employee/hr_qualification.xml',
+        'views/web/employee/hr_leave.xml',
 
         # Recruitment
         'views/web/recruitment/vacancy_position.xml',
         'views/web/recruitment/resume_bank.xml',
         'views/web/recruitment/interview_schedule.xml',
         'views/web/recruitment/appointment_order.xml',
-        #
-        # # Leave Management
-        # 'views/leave_management/leave_configuration.xml',
-        # 'views/leave_management/leave.xml',
-        # 'views/leave_management/compoff.xml',
-        # 'views/leave_management/permission.xml',
 
         # Time Management
         'views/web/time_management/shift.xml',
         'views/web/time_management/time_configuration.xml',
         'views/web/time_management/week_schedule.xml',
-        # 'views/time_management/monthly_attendance.xml',
-        # 'views/time_management/attendance.xml',
-        # 'views/time_management/shift_change.xml',
-        # 'views/time_management/holiday_change.xml',
-        # 'views/time_management/time_sheet.xml',
-        # 'views/time_management/time_sheet_application.xml',
-        #
-        # # Payroll
-        # 'views/payroll/hr_pay_update_wiz.xml',
-        # 'views/payroll/hr_pay.xml',
-        # 'views/payroll/payslip.xml',
-        # 'views/payroll/payroll_generation.xml',
-        # 'views/payroll/salary_structure.xml',
-        # 'views/payroll/salary_rule.xml',
-        # 'views/payroll/salary_rule_slab.xml',
+        'views/web/time_management/monthly_attendance.xml',
+        'views/web/time_management/attendance.xml',
+        'views/web/time_management/shift_change.xml',
+        'views/web/time_management/holiday_change.xml',
+        'views/web/time_management/time_sheet.xml',
+        'views/web/time_management/time_sheet_application.xml',
+
+        # # Leave Management
+        'views/web/leave_management/leave_configuration.xml',
+        'views/web/leave_management/leave.xml',
+        'views/web/leave_management/compoff.xml',
+        'views/web/leave_management/permission.xml',
+
+        # Payroll
+        'views/web/payroll/hr_pay_update_wiz.xml',
+        'views/web/payroll/hr_pay.xml',
+        'views/web/payroll/payslip.xml',
+        'views/web/payroll/payroll_generation.xml',
+        'views/web/payroll/salary_structure.xml',
+        'views/web/payroll/salary_rule.xml',
+        'views/web/payroll/salary_rule_slab.xml',
 
         # Product
         'views/web/product/product_group.xml',
@@ -117,26 +115,26 @@
 
         # Invoice
         'views/web/bills/purchase_invoice.xml',
-        #
+
         # # Schedule
         # 'views/schedule/schedule.xml',
         # 'views/schedule/schedule_reason.xml',
         # 'views/schedule/schedule_type.xml',
-        #
+
         # Laboratory
-        # 'views/web/laboratory/lab_form.xml',
-        # 'views/web/laboratory/lab_test.xml',
+        'views/web/laboratory/lab_form.xml',
+        'views/web/laboratory/lab_test.xml',
 
-        # # Menu
+        # Menu
         # 'menu/base_pack.xml',
-        # 'menu/patient.xml',
-        # 'menu/employee.xml',
-        'views/web/menu/product.xml',
+        'views/web/menu/hospital.xml',
+        'views/web/menu/reception.xml',
+        'views/web/menu/patient.xml',
         'views/web/menu/employee.xml',
-        # 'menu/purchase.xml',
-        # 'menu/hospital.xml',
-        # 'menu/reception.xml',
-
+        'views/web/menu/product.xml',
+        'views/web/menu/procurement.xml',
+        'views/web/menu/inventory.xml',
+        'views/web/menu/laboratory.xml',
 
     ],
     'demo': [

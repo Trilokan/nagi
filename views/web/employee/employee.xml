@@ -151,49 +151,4 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <!-- Action Doctor Contact-->
-    <record id="action_hr_employee_doctor" model="ir.actions.act_window">
-        <field name="name">Doctor</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_doctor', '=', True)]</field>
-    </record>
-
-    <!-- Action Nurse Contact-->
-    <record id="action_hr_employee_nurse" model="ir.actions.act_window">
-        <field name="name">Nurse</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_nurse', '=', True)]</field>
-    </record>
-
-    <!-- Action Contract Contact-->
-    <record id="action_hr_employee_contract" model="ir.actions.act_window">
-        <field name="name">Contract</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_contract', '=', True)]</field>
-    </record>
-
-    <!-- Action Admin Staff Contact-->
-    <record id="action_hr_employee_admin_staff" model="ir.actions.act_window">
-        <field name="name">Admin Staff</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_admin_staff', '=', True)]</field>
-    </record>
-
-    <!-- Action Ambulance Driver Contact-->
-    <record id="action_hr_employee_ambulance_driver" model="ir.actions.act_window">
-        <field name="name">Ambulance Driver</field>
-        <field name="res_model">hr.employee</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_ambulance_driver', '=', True)]</field>
-    </record>
-
 </odoo>

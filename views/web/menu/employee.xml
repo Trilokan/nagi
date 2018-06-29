@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Employee -->
     <menuitem id="menu_employee_employee"
               name="Employee"
               parent="menu_employee"
@@ -12,6 +13,49 @@
               parent="menu_employee_employee"
               sequence="10"/>
 
+    <menuitem id="sub_menu_hr_department"
+              name="Department"
+              action="action_hr_department"
+              parent="menu_employee_employee"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hr_category"
+              name="Employee category"
+              action="action_hr_category"
+              parent="menu_employee_employee"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hr_designation"
+              name="Designation"
+              action="action_hr_designation"
+              parent="menu_employee_employee"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_contact"
+              name="Employee Family Detail"
+              action="action_hos_contact"
+              parent="menu_employee_employee"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_hr_experience"
+              name="Experience"
+              action="action_hr_experience"
+              parent="menu_employee_employee"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_hr_qualification"
+              name="Qualification"
+              action="action_hr_qualification"
+              parent="menu_employee_employee"
+              sequence="70"/>
+
+    <menuitem id="sub_menu_hr_leave"
+              name="Employee leave Detail"
+              action="action_hr_leave"
+              parent="menu_employee_employee"
+              sequence="80"/>
+
+    <!-- Recruitment -->
     <menuitem id="menu_employee_recruitment"
               name="Recruitment"
               parent="menu_employee"
@@ -41,7 +85,8 @@
               parent="menu_employee_recruitment"
               sequence="40"/>
 
-    <menuitem id="menu_employee_time"
+    <!-- Time Management -->
+    <menuitem id="menu_employee_time_management"
               name="Time Management"
               parent="menu_employee"
               sequence="30"/>
@@ -49,13 +94,134 @@
     <menuitem id="sub_menu_time_shift"
               name="Shift Timing"
               action="action_time_shift"
-              parent="menu_employee_time"
+              parent="menu_employee_time_management"
               sequence="10"/>
+
+    <menuitem id="sub_menu_time_configuration"
+              name="Time Configuration"
+              action="action_time_configuration"
+              parent="menu_employee_time_management"
+              sequence="20"/>
 
     <menuitem id="sub_menu_week_schedule"
               name="Week Schedule"
               action="action_week_schedule"
-              parent="menu_employee_time"
+              parent="menu_employee_time_management"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_month_attendance"
+              name="Month Attendance"
+              action="action_month_attendance"
+              parent="menu_employee_time_management"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_time_attendance"
+              name="Attendance"
+              action="action_time_attendance"
+              parent="menu_employee_time_management"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_shift_change"
+              name="Shift Change"
+              action="action_shift_change"
+              parent="menu_employee_time_management"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_holiday_change"
+              name="Holiday Change"
+              action="action_holiday_change"
+              parent="menu_employee_time_management"
+              sequence="70"/>
+
+    <menuitem id="sub_menu_time_sheet"
+              name="Time Sheet"
+              action="action_time_sheet"
+              parent="menu_employee_time_management"
+              sequence="80"/>
+
+    <menuitem id="sub_menu_time_sheet_application"
+              name="Time Sheet Application"
+              action="action_time_sheet_application"
+              parent="menu_employee_time_management"
+              sequence="90"/>
+
+    <!-- Leave Management -->
+    <menuitem id="menu_employee_leave_management"
+              name="Leave Management"
+              parent="menu_employee"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_leave_configuration"
+              name="Leave Configuration"
+              action="action_leave_configuration"
+              parent="menu_employee_leave_management"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_leave_application"
+              name="Leave Application"
+              action="action_leave_application"
+              parent="menu_employee_leave_management"
               sequence="20"/>
+
+    <menuitem id="sub_menu_compoff_application"
+              name="Comp-Off Application"
+              action="action_compoff_application"
+              parent="menu_employee_leave_management"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_permission_application"
+              name="Permission Application"
+              action="action_permission_application"
+              parent="menu_employee_leave_management"
+              sequence="40"/>
+
+    <!-- Payroll -->
+    <menuitem id="menu_employee_payroll"
+              name="Payroll Management"
+              parent="menu_employee"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_hr_pay_wizard"
+              name="Employee Pay Update"
+              action="action_hr_pay_wizard"
+              parent="menu_employee_payroll"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_pay"
+              name="Employee Pay"
+              action="action_hr_pay"
+              parent="menu_employee_payroll"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_pay_slip"
+              name="Payslip"
+              action="action_pay_slip"
+              parent="menu_employee_payroll"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_payroll_generation"
+              name="Payroll Generation"
+              action="action_payroll_generation"
+              parent="menu_employee_payroll"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_salary_structure"
+              name="Salary Structure"
+              action="action_salary_structure"
+              parent="menu_employee_payroll"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_salary_rule"
+              name="Salary Rule"
+              action="action_salary_rule"
+              parent="menu_employee_payroll"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_salary_rule_slab"
+              name="Salary Slab"
+              action="action_salary_rule_slab"
+              parent="menu_employee_payroll"
+              sequence="70"/>
+
 
 </odoo>

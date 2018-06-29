@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Patient -->
+    <menuitem id="menu_patient_patient"
+              name="Patient"
+              parent="menu_patient"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_patient"
+              name="Patient"
+              action="action_hos_patient"
+              parent="menu_patient_patient"
+              sequence="10"/>
+
+    <!-- OPT -->
+    <menuitem id="menu_patient_opt"
+              name="OUT Patient"
+              parent="menu_patient"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_patient_treatment_opt"
+              name="OPT Treatment"
+              action="action_patient_treatment_opt"
+              parent="menu_patient_opt"
+              sequence="10"/>
+
+    <!--Appointment-->
+    <!--Prescription-->
+    <!--Bill-->
+
+    <!-- IPT -->
+    <menuitem id="menu_patient_ipt"
+              name="IN Patient"
+              parent="menu_patient"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_patient_treatment_ipt"
+              name="IPT Treatment"
+              action="action_patient_treatment_ipt"
+              parent="menu_patient_ipt"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_ipt_prescription"
+              name="Prescription"
+              action="action_ipt_prescription"
+              parent="menu_patient_ipt"
+              sequence="20"/>
+
+    <!--Notes-->
+    <!--Reminder-->
+    <!--Prescription-->
+    <!--Bill-->
+
+    <!--Configuration: -->
+    <!---->
+
+
+</odoo>

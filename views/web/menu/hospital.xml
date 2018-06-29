@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Hospital -->
+    <menuitem id="menu_hospital_hospital"
+              name="Hospital"
+              parent="menu_hospital"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_admission"
+              name="Admission"
+              action="action_hos_admission"
+              parent="menu_hospital_hospital"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_ward"
+              name="Ward"
+              action="action_hos_ward"
+              parent="menu_hospital_hospital"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hos_bed"
+              name="Bed"
+              action="action_hos_bed"
+              parent="menu_hospital_hospital"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_patient_shifting"
+              name="Patient Shifting"
+              action="action_patient_shifting"
+              parent="menu_hospital_hospital"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_hos_discharge"
+              name="Discharge"
+              action="action_hos_discharge"
+              parent="menu_hospital_hospital"
+              sequence="100"/>
+
+    <!-- Contact -->
+    <menuitem id="menu_contact_contact"
+              name="Contact"
+              parent="menu_hospital"
+              sequence="20"/>
+
+    <!--Patient-->
+    <!--Employee-->
+    <!--Vendor/Customer-->
+
+    <!-- Operation Theater -->
+    <menuitem id="menu_hospital_operation_theater"
+              name="Operation Theater"
+              parent="menu_hospital"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_operation_theater_booking"
+              name="OT Booking"
+              action="action_hos_operation_theater_booking"
+              parent="menu_hospital_operation_theater"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_operation_theater"
+              name="Operation Theater"
+              action="action_hos_operation_theater"
+              parent="menu_hospital_operation_theater"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_operation"
+              name="Operation"
+              action="action_hos_operation"
+              parent="menu_hospital_operation_theater"
+              sequence="30"/>
+
+    <!-- Patient Shifting -->
+    <menuitem id="menu_hospital_patient_shifting"
+              name="Patient Shifting"
+              parent="menu_hospital"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_ambulance"
+              name="Ambulance"
+              action="action_hos_ambulance"
+              parent="menu_hospital_patient_shifting"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_ambulance_bill"
+              name="Ambulance Bill"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_hospital_patient_shifting"
+              sequence="20"/>
+
+</odoo>

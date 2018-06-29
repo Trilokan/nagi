@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_purchase_purchase"
+              name="Procurement"
+              parent="menu_procurement"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Purchase Indent"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_quote"
+              name="Quotation"
+              action="action_purchase_quote"
+              parent="menu_purchase_purchase"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_order"
+              name="Purchase order"
+              action="action_purchase_order"
+              parent="menu_purchase_purchase"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_material_receipt"
+              name="Material Receipt"
+              action="action_stock_picking_material_receipt"
+              parent="menu_purchase_purchase"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_direct_material_receipt"
+              name="Direct Material Receipt"
+              action="action_stock_picking_direct_material_receipt"
+              parent="menu_purchase_purchase"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_purchase_invoice"
+              name="Purchase Invoice"
+              action="action_hos_invoice_purchase_invoice"
+              parent="menu_purchase_purchase"
+              sequence="60"/>
+
+    <!--Incoming Shipment-->
+
+    <menuitem id="menu_purchase_product"
+              name="Product"
+              parent="menu_procurement"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_hos_product"
+              name="Product"
+              action="action_hos_product"
+              parent="menu_purchase_product"
+              sequence="10"/>
+
+    <!--Stock-->
+    <!--Purchase History-->
+    <!--Vendor Detail-->
+
+</odoo>

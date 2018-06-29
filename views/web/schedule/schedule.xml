@@ -65,7 +65,7 @@
 
     <!-- Action -->
     <record id="action_hos_schedule_patient_appointment" model="ir.actions.act_window">
-        <field name="name">Patient Appointment</field>
+        <field name="name">Appointment</field>
         <field name="res_model">hos.schedule</field>
         <field name="view_type">form</field>
         <field name="view_mode">calendar,tree,form</field>

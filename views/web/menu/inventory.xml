@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_store_store"
+              name="Inventory"
+              parent="menu_inventory"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_stock_picking_stock_adjustment"
+              name="Stock Adjustment"
+              action="action_stock_picking_stock_adjustment"
+              parent="menu_store_store"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_store_request"
+              name="Store Request"
+              action="action_store_request"
+              parent="menu_store_store"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_store_issue"
+              name="Store Issue"
+              action="action_stock_picking_store_issue"
+              parent="menu_store_store"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_stock_move"
+              name="Stock Move"
+              action="action_stock_move"
+              parent="menu_store_store"
+              sequence="40"/>
+
+    <menuitem id="menu_inventory_product"
+              name="Product"
+              parent="menu_inventory"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_inventory_hos_product"
+              name="Product"
+              action="action_hos_product"
+              parent="menu_inventory_product"
+              sequence="10"/>
+
+
+
+</odoo>
