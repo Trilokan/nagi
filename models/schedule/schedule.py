@@ -11,6 +11,7 @@ PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed"), ("cancel", "Can
 class HospitalSchedule(surya.Sarpam):
     _name = "hos.schedule"
     _inherit = "mail.thread"
+    _rec_name = "employee_id"
 
     employee_id = fields.Many2one(comodel_name="hos.person", string="Scheduler", required=True)
     patient_id = fields.Many2one(comodel_name="hos.person", string="Patient")

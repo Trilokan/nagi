@@ -6,7 +6,7 @@
         <field name="name">hos.admission.tree</field>
         <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <tree string="Employee">
+            <tree string="Patient Admission">
                 <field name="name"/>
                 <field name="patient_uid"/>
                 <field name="email"/>
@@ -20,36 +20,61 @@
         <field name="name">hos.admission.form</field>
         <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <form string="Patient">
+            <form string="Patient Admission">
                 <sheet>
                     <div id="s_header">
                         <h1>Patient Admission</h1>
                     </div>
+                    <div id="p_header">
+                        <field name="admission_progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="smart_view_patient"
+                                string="Patient"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-user"
+                                attrs="{'invisible': [('admission_progress', '=', 'draft')]}"/>
+                        <button name="update_patient_info"
+                                string="Update Patient Info"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-user"
+                                attrs="{'invisible': [('admission_progress', '!=', 'draft')]}"/>
+                        <button name="smart_view_patient_bill"
+                                string="Bills"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-edit"/>
+                        <button name="smart_view_patient_payment"
+                                string="Payments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-rupee"/>
+                    </div>
                     <h2><field name="name"/></h2>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
-                    </div>
-                    <div class="oe_right oe_button_box" name="button_box">
-                        <field name="date"/>
                     </div>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
                             <label for="patient_id" string="Name" class="oe_edit_only"/>
                             <h1>
-                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                             </h1>
                             <label for="patient_id" string="Patient ID" class="oe_edit_only"/>
                             <h2><field name="patient_uid"/></h2>
                         </div>
                     </div>
                     <group col="4">
-                        <field name="admission_status"/>
-                        <field name="patient_status"/>
+                        <field name="admission_date" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                        <field name="admission_status" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                     </group>
                     <group>
-                        <field name="reason"/>
-                        <field name="attachment_ids" widget="many2many_binary"/>
+                        <field name="admission_reason" placeholder="Reason For Admission.."
+                               attrs="{'readonly': [('admission_progress', '!=', 'draft')]}" string="Reason"/>
+                        <field name="admission_attachment_ids" widget="many2many_binary" string="Attachment"/>
                     </group>
 
                     <notebook>
@@ -59,40 +84,47 @@
                                     <label for="street" string="Address"/>
                                     <div>
                                         <div class="address_format">
-                                            <field name="door_no" style="width: 30%" placeholder="Door No..."/>
-                                            <field name="building_name" style="width: 70%" placeholder="Building name..."/>
+                                            <field name="door_no" style="width: 30%" placeholder="Door No..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                            <field name="building_name" style="width: 70%" placeholder="Building name..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                         </div>
-                                        <field name="street_1" placeholder="Street 1..."/>
-                                        <field name="street_2" placeholder="Street 2..."/>
-                                        <field name="locality" placeholder="Locality..."/>
-                                        <field name="city" placeholder="City..."/>
-                                        <field name="landmark" placeholder="Landmark..."/>
+                                        <field name="street_1" placeholder="Street 1..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                        <field name="street_2" placeholder="Street 2..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                        <field name="locality" placeholder="Locality..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                        <field name="city" placeholder="City..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                        <field name="landmark" placeholder="Landmark..." attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                         <div class="address_format">
-                                            <field name="country_id" style="width: 45%" placeholder="Country" options="{'create': false, 'create_edit': false}" modifiers="{}"/>
-                                            <field name="state_id" style="width: 55%" options="{'create': false, 'create_edit': false}" placeholder="State" modifiers="{}"/>
+                                            <field name="country_id" style="width: 45%"
+                                                   placeholder="Country" options="{'create': false, 'create_edit': false}" modifiers="{}"
+                                                   attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                            <field name="state_id" style="width: 55%"
+                                                   options="{'create': false, 'create_edit': false}" placeholder="State" modifiers="{}"
+                                                   attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                         </div>
-                                        <field name="pin_code" placeholder="ZIP" style="width: 55%"/>
+                                        <field name="pin_code" placeholder="ZIP" style="width: 55%" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                     </div>
                                 </group>
                                 <group>
-                                    <field name="email"/>
-                                    <field name="mobile"/>
-                                    <field name="admitted_id"/>
-                                    <field name="others" string="Other Information"/>
+                                    <field name="email" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                    <field name="mobile" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                    <field name="admitted_id" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                    <field name="others" string="Other Information" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                 </group>
                             </group>
                         </page>
                         <page string="Admission Details">
-                            <group>
-                                <field name="ward_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                                <field name="bed_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                                <field name="paid_amount" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                            <group col="4">
+                                <field name="ward_id" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                <field name="bed_id" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
+                                <field name="paid_amount" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                             </group>
                         </page>
                     </notebook>
                     <footer>
                         <button name="trigger_admitted" string="Admit" type="object"
-                              attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                              attrs="{'invisible': [('admission_progress', '!=', 'draft')]}"
+                                style="background-color:#4CAF50;"/>
+                        <button name="reset_to_draft" string="Reset to Draft" type="object"
+                              attrs="{'invisible': [('admission_progress', '=', 'draft')]}"/>
                     </footer>
                 </sheet>
                 <div class="oe_chatter">
@@ -103,12 +135,27 @@
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_hos_admission" model="ir.actions.act_window">
-        <field name="name">Patient</field>
+    <!-- Action Patient Admission-->
+    <record id="action_hos_admission_admission" model="ir.actions.act_window">
+        <field name="name">Patient Admission</field>
         <field name="res_model">hos.admission</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_hos_admission_tree"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_admission_admission_form">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hos_admission_form" />
+        <field name="act_window_id" ref="action_hos_admission_admission"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_admission_admission_tree">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_hos_admission_tree"/>
+        <field name="act_window_id" ref="action_hos_admission_admission"/>
     </record>
 
 </odoo>

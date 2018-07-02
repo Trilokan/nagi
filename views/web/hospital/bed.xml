@@ -20,13 +20,15 @@
         <field name="arch" type="xml">
             <form string="Bed">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Hospital Bed</h1>
+                    </div>
                     <group>
                         <field name="name"/>
                         <field name="ward_id"/>
                         <field name="patient_id"/>
                         <field name="status"/>
                         <field name="progress"/>
-                        <field name="temperature"/>
                     </group>
                 </sheet>
             </form>

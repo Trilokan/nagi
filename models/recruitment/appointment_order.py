@@ -55,7 +55,7 @@ class AppointmentOrder(surya.Sarpam):
 
     @api.multi
     def view_resume_bank(self):
-        view = self.env.ref('yazhi.view_resume_bank_form')
+        view = self.env.ref('nagi.view_resume_bank_form')
 
         return {
             'name': 'Resume',

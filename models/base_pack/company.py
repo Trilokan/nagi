@@ -7,7 +7,7 @@ from .. import surya
 
 class HospitalCompany(surya.Sarpam):
     _name = "res.company"
-    _inherit = ["res.company", "mail.thread"]
+    _inherit = "res.company"
 
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")
     purchase_location_id = fields.Many2one(comodel_name="hos.location", string="Purchase Location")

@@ -13,7 +13,7 @@ MARITAL_STATUS = [('single', 'Single'), ('married', 'Married'), ('divorced', 'Di
 
 class Patient(surya.Sarpam):
     _name = "hos.patient"
-    _inherit = ["hos.address", "mail.thread"]
+    _inherit = "hos.address"
 
     date = fields.Date(string="Date", readonly=True)
     name = fields.Char(string="Name", required=True)
@@ -72,10 +72,6 @@ class Patient(surya.Sarpam):
                     years = int(total_days/365)
 
                 record.age = "({0}) Years ({1}) Days".format(years, (total_days-years*365))
-
-    def default_vals_written(self):
-        writter = "Hospital data is updated by {0}".format(self.env.user.name)
-        self.write({"writter": writter})
 
     def default_vals_creation(self, vals):
 

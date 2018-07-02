@@ -19,6 +19,9 @@
         <field name="arch" type="xml">
             <form string="Ward">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Hospital Ward</h1>
+                    </div>
                     <group>
                         <field name="name"/>
                     </group>
@@ -44,6 +47,16 @@
                                         </t>
                                     </templates>
                                 </kanban>
+                                <form>
+                                    <sheet>
+                                        <div id="s_header">
+                                            <h1>Hospital Bed</h1>
+                                        </div>
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                    </sheet>
+                                </form>
                             </field>
                         </page>
                     </notebook>

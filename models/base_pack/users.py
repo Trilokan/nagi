@@ -16,8 +16,6 @@ class HospitalUsers(surya.Sarpam):
     alternate_contact = fields.Char(string="Alternate Contact", readonly=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Person", required=True)
 
-    writter = fields.Text(string="Writter", track_visibility="always")
-
     def default_vals_creation(self, vals):
         person_id = self.env["hos.person"].search([("id", "=", vals["person_id"])])
 

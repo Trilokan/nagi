@@ -9,7 +9,7 @@
 
     <menuitem id="sub_menu_hos_admission"
               name="Admission"
-              action="action_hos_admission"
+              action="action_hos_admission_admission"
               parent="menu_hospital_hospital"
               sequence="30"/>
 
@@ -33,7 +33,7 @@
 
     <menuitem id="sub_menu_hos_discharge"
               name="Discharge"
-              action="action_hos_discharge"
+              action="action_hos_admission_discharge"
               parent="menu_hospital_hospital"
               sequence="100"/>
 

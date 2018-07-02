@@ -21,9 +21,12 @@
         <field name="arch" type="xml">
             <form string="Notes">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Personnel Notes</h1>
+                    </div>
                     <group>
                         <field name="date"/>
-                        <field name="person_id"/>
+                        <field name="person_id" invisible="1"/>
                         <field name="message"/>
                     </group>
                 </sheet>

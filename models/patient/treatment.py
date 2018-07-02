@@ -53,6 +53,7 @@ class Treatment(surya.Sarpam):
 
     patient_type = fields.Selection(selection=PATIENT_TYPE, string="Type")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="on_process")
+    admission_id = ""
 
     @api.multi
     def trigger_add_prescription(self):

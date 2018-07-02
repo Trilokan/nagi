@@ -24,16 +24,15 @@
 
 /* Header CSS */
 #s_header {
-    padding-top: 12px;
-    padding-left: 12px;
-    padding-bottom: 12px;
-    padding-bottom: 24px;
     text-align: left;
     background-color: #4CAF50;
     color: white;
     border: 3px solid #ddd;
     padding: 8px;
 }
+
+#p_header {height: 80px;}
+
 
 
 

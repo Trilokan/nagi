@@ -90,7 +90,25 @@
                                 <field name="nationality_id"/>
                                 <field name="language_known_ids" widget="many2many_tags"/>
                             </group>
-                            <field name="family_member_ids"/>
+                            <div><h3>Relatives Details</h3></div>
+                            <field name="family_member_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="relation"/>
+                                    <field name="mobile"/>
+                                    <field name="email"/>
+                                    <field name="door_no"/>
+                                    <field name="building_name"/>
+                                    <field name="street_1"/>
+                                    <field name="street_2"/>
+                                    <field name="locality"/>
+                                    <field name="city"/>
+                                    <field name="landmark"/>
+                                    <field name="pin_code"/>
+                                    <field name="state_id"/>
+                                    <field name="country_id"/>
+                                </tree>
+                            </field>
                         </page>
 
                         <page string="Attachments">

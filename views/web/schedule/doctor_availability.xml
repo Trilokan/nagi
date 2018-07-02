@@ -34,6 +34,7 @@
                     </group>
                     <footer>
                         <button name="trigger_cancel" string="Cancel" type="object"
+                                style="background-color:#ec8080;"
                                 attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
                     </footer>
                 </sheet>

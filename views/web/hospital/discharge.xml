@@ -3,10 +3,10 @@
 
     <!-- Tree -->
     <record id="view_hos_discharge_tree" model="ir.ui.view">
-        <field name="name">hos.discharge.tree</field>
-        <field name="model">hos.discharge</field>
+        <field name="name">hos.admission.tree</field>
+        <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <tree string="Discharge">
+            <tree string="Patient Discharge">
                 <field name="name"/>
                 <field name="patient_uid"/>
                 <field name="email"/>
@@ -17,36 +17,71 @@
 
     <!-- Form -->
     <record id="view_hos_discharge_form" model="ir.ui.view">
-        <field name="name">hos.discharge.form</field>
-        <field name="model">hos.discharge</field>
+        <field name="name">hos.admission.form</field>
+        <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <form string="Discharge">
+            <form string="Patient Discharge">
+                <header>
+                    <button name="trigger_doctor_approve" string="Doctor Approve" type="object"
+                          attrs="{'invisible': [('discharge_progress', '!=', 'draft')]}"/>
+                    <button name="trigger_account_approve" string="Account Approve" type="object"
+                          attrs="{'invisible': [('discharge_progress', '!=', 'doctor_approved')]}"/>
+                    <button name="trigger_discharge" string="Discharge" type="object"
+                          attrs="{'invisible': [('discharge_progress', '!=', 'account_approved')]}"/>
+                </header>
                 <sheet>
                     <div id="s_header">
                         <h1>Patient Discharge</h1>
                     </div>
+                    <div id="p_header">
+                        <field name="discharge_progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
+
+                    <div class="oe_button_box" name="button_box">
+                        <button name="smart_view_patient"
+                                string="Patient"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-user"/>
+                        <button name="smart_view_patient_bill"
+                                string="Bills"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-edit"/>
+                        <button name="smart_view_patient_payment"
+                                string="Payments"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-rupee"/>
+                        <button name="smart_view_patient_report"
+                                string="Reports"
+                                type="object"
+                                class="oe_stat_button"
+                                icon="fa-file-o"/>
+                    </div>
                     <h2><field name="name"/></h2>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
                     </div>
-                    <div class="oe_right oe_button_box" name="button_box">
-                        <field name="date"/>
-                    </div>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
-                            <label for="name" class="oe_edit_only"/>
+                            <label for="patient_id" string="Name" class="oe_edit_only"/>
                             <h1>
-                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}" attrs="{'readonly': [('discharge_progress', '!=', 'draft')]}"/>
                             </h1>
+                            <label for="patient_id" string="Patient ID" class="oe_edit_only"/>
                             <h2><field name="patient_uid"/></h2>
                         </div>
                     </div>
                     <group>
-                        <field name="discharge_date" required="1"/>
-                        <field name="reason" required="1"/>
-                        <field name="attachment_ids" widget="many2many_binary"/>
+                        <field name="discharge_date" attrs="{'readonly': [('discharge_progress', '!=', 'draft')]}"/>
                     </group>
+                    <group>
+                        <field name="discharge_reason" placeholder="Reason For Discharge.."
+                               attrs="{'readonly': [('discharge_progress', '!=', 'draft')]}" atring="Reason"/>
+                        <field name="discharge_attachment_ids" widget="many2many_binary" string="Attachment"/>
+                    </group>
+
                     <notebook>
                         <page string="Contact Details">
                             <group>
@@ -54,47 +89,56 @@
                                     <label for="street" string="Address"/>
                                     <div>
                                         <div class="address_format">
-                                            <field name="door_no" style="width: 30%" placeholder="Door No..."/>
-                                            <field name="building_name" style="width: 70%" placeholder="Building name..."/>
+                                            <field name="door_no" style="width: 30%" readonly="1"/>
+                                            <field name="building_name" style="width: 70%" readonly="1"/>
                                         </div>
-                                        <field name="street_1" placeholder="Street 1..."/>
-                                        <field name="street_2" placeholder="Street 2..."/>
-                                        <field name="locality" placeholder="Locality..."/>
-                                        <field name="city" placeholder="City..."/>
-                                        <field name="landmark" placeholder="Landmark..."/>
+                                        <field name="street_1" readonly="1"/>
+                                        <field name="street_2" readonly="1"/>
+                                        <field name="locality" readonly="1"/>
+                                        <field name="city" readonly="1"/>
+                                        <field name="landmark" readonly="1"/>
                                         <div class="address_format">
-                                            <field name="country_id" style="width: 45%" placeholder="Country" options="{'create': false, 'create_edit': false}" modifiers="{}"/>
-                                            <field name="state_id" style="width: 55%" options="{'create': false, 'create_edit': false}" placeholder="State" modifiers="{}"/>
+                                            <field name="country_id" style="width: 45%" readonly="1"/>
+                                            <field name="state_id" style="width: 55%" readonly="1"/>
                                         </div>
-                                        <field name="pin_code" placeholder="ZIP" style="width: 55%"/>
+                                        <field name="pin_code" style="width: 55%" readonly="1"/>
                                     </div>
-                                </group>
-                                <group>
-                                    <field name="email"/>
-                                    <field name="mobile"/>
                                 </group>
                             </group>
                         </page>
                     </notebook>
-                    <footer>
-                        <button name="trigger_discharge" string="Discharge" type="object"
-                              attrs="{'invisible': [('progress', '!=', 'account_approved')]}"/>
-                        <button name="trigger_doctor_approve" string="Doctor Approve" type="object"
-                              attrs="{'invisible': [('progress', '!=', 'doctor_approved')]}"/>
-                        <button name="trigger_account_approve" string="Account Approve" type="object"
-                              attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    </footer>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_hos_discharge" model="ir.actions.act_window">
-        <field name="name">Discharge</field>
-        <field name="res_model">hos.discharge</field>
+    <!-- Action Patient Discharge-->
+    <record id="action_hos_admission_discharge" model="ir.actions.act_window">
+        <field name="name">Patient Discharge</field>
+        <field name="res_model">hos.admission</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('admission_progress', '=', 'admitted')]</field>
+        <field name="view_id" ref="view_hos_discharge_tree"/>
     </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_admission_discharge_form">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hos_discharge_form" />
+        <field name="act_window_id" ref="action_hos_admission_discharge"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_admission_discharge_tree">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_hos_discharge_tree"/>
+        <field name="act_window_id" ref="action_hos_admission_discharge"/>
+    </record>
+
 
 </odoo>
