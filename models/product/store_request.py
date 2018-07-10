@@ -96,6 +96,7 @@ class StoreRequest(surya.Sarpam):
                 "name": self.env['ir.sequence'].next_by_code("store.issue"),
                 "reference": self.name,
                 "picking_type": "internal",
+                "picking_category": "store_issue",
                 "picking_detail": picking_detail,
                 "source_location_id": self.env.user.company_id.location_id.id,
                 "destination_location_id": self.env.user.location_id.id,

@@ -7,6 +7,8 @@ import json
 
 PROGRESS_INFO = [("draft", "Draft"), ("moved", "Moved")]
 PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
+PICKING_CATEGORY = [("stock_adjustment", "Stock Adjustment"),
+                    ("store_issue", "Store Issue")]
 
 
 # Stock Picking
@@ -23,6 +25,7 @@ class HosPicking(surya.Sarpam):
                                      inverse_name="picking_id",
                                      string="Stock Move")
     picking_type = fields.Selection(selection=PICKING_TYPE, string="Picking Type", required=True)
+    picking_category = fields.Selection(selection=PICKING_CATEGORY, string="Picking Category")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
@@ -45,7 +48,7 @@ class HosPicking(surya.Sarpam):
         self.write({"progress": "moved", "writter": writter})
 
     def default_vals_creation(self, vals):
-        code = "{0}.{1}".format(self._name, vals["picking_type"])
+        code = "{0}.{1}.{2}".format(vals["picking_category"], self._name, vals["picking_type"])
         vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["company_id"] = self.env.user.company_id.id
         vals["writter"] = "Created by {0}".format(self.env.user.name)

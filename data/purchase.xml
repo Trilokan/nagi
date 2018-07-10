@@ -30,8 +30,17 @@
 
     <record id="material_receipt_sequence" model="ir.sequence">
         <field name="name">Material Receipt</field>
-        <field name="code">material.receipt</field>
+        <field name="code">hos.picking.in</field>
         <field name="prefix">MR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="material_receipt_line_sequence" model="ir.sequence">
+        <field name="name">Material Receipt Line</field>
+        <field name="code">hos.move.in</field>
+        <field name="prefix">MRL/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
@@ -39,8 +48,17 @@
 
     <record id="stock_adjustment_sequence" model="ir.sequence">
         <field name="name">Stock Adjustment</field>
-        <field name="code">stock.adjustment</field>
+        <field name="code">stock_adjustment.hos.picking.in</field>
         <field name="prefix">SA/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="stock_adjustment_line_sequence" model="ir.sequence">
+        <field name="name">Stock Adjustment Line</field>
+        <field name="code">hos.move.in</field>
+        <field name="prefix">SAL/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
@@ -57,8 +75,17 @@
 
     <record id="store_issue_sequence" model="ir.sequence">
         <field name="name">Store Issue</field>
-        <field name="code">store.issue</field>
+        <field name="code">store_issue.hos.picking.internal</field>
         <field name="prefix">SI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_issue_line_sequence" model="ir.sequence">
+        <field name="name">Store Issue Line</field>
+        <field name="code">hos.move.internal</field>
+        <field name="prefix">SIM/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
@@ -68,6 +95,15 @@
         <field name="name">Store Return</field>
         <field name="code">store.return</field>
         <field name="prefix">SRT/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_return_line_sequence" model="ir.sequence">
+        <field name="name">Store Return Line</field>
+        <field name="code">store.return.line</field>
+        <field name="prefix">SRL/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>

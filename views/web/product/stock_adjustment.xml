@@ -27,16 +27,20 @@
                     <div id="s_header">
                         <h1>Stock Adjustment</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
+
                     <h2><field name="name" readonly="1"/></h2>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
-                        <field name="reference" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
-                        <field name="reason" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
-                        <field name="picking_type" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
+                        <field name="reason" attrs="{'readonly': [('progress', '=', 'moved')]}" required="1"/>
                         <field name="source_location_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="destination_location_id" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                     </group>
+                    <field name="reference" invisible="1"/>
+                    <field name="picking_type" invisible="1"/>
+                    <field name="picking_category" invisible="1"/>
                     <notebook>
                         <page string="Issue Detail">
                             <field name="picking_detail"
@@ -73,7 +77,8 @@
         <field name="res_model">hos.picking</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{'default_picking_type': 'in'}</field>
+        <field name="context">{'default_picking_type': 'in', 'default_picking_category': 'stock_adjustment'}</field>
+        <field name="domain">[('picking_category', '=', 'stock_adjustment')]</field>
     </record>
 
     <record model="ir.actions.act_window.view" id="action_hos_picking_stock_adjustment_form">

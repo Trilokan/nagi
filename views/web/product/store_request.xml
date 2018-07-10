@@ -27,7 +27,9 @@
                     <div id="s_header">
                         <h1>Store Request</h1>
                     </div>
-                    <field name="progress" widget="statusbar"/>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
                     <h2><field name="name"/></h2>
                     <group col="4">
                         <field name="date"/>
