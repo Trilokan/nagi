@@ -14,6 +14,7 @@ class ProductSubGroup(surya.Sarpam):
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
     group_id = fields.Many2one(comodel_name="product.group", string="Group", required=True)
+    account_id = fields.Many2one(comodel_name="hos.account", string="Account")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
@@ -24,3 +25,4 @@ class ProductSubGroup(surya.Sarpam):
         vals["writter"] = "Product Sub-Group Created by {0}".format(self.env.user.name)
         vals["company_id"] = self.env.user.company_id.id
         return vals
+

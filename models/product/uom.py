@@ -8,7 +8,7 @@ from .. import surya
 
 
 class UOM(surya.Sarpam):
-    _name = "product.uom"
+    _name = "hos.uom"
     _rec_name = "code"
     _inherit = "mail.thread"
 
@@ -24,4 +24,3 @@ class UOM(surya.Sarpam):
         vals["writter"] = "Product UOM Created by {0}".format(self.env.user.name)
         vals["company_id"] = self.env.user.company_id.id
         return vals
-

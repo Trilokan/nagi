@@ -19,7 +19,7 @@ class JournalEntry(surya.Sarpam):
     person_id = fields.Many2one(comodel_name="hos.person", string="Person")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
 
-    entry_detail = fields.One2many(comodel_name="journal.entry.detail",
+    entry_detail = fields.One2many(comodel_name="journal.item",
                                    inverse_name="entry_id",
                                    string="Journal Entry Detail")
 

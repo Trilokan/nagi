@@ -10,8 +10,8 @@ PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
 
 
 # Stock Picking
-class StockPicking(surya.Sarpam):
-    _name = "stock.picking"
+class HosPicking(surya.Sarpam):
+    _name = "hos.picking"
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
@@ -19,7 +19,7 @@ class StockPicking(surya.Sarpam):
     person_id = fields.Many2one(comodel_name="hos.person", string="Partner", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     reason = fields.Text(string="Reason")
-    picking_detail = fields.One2many(comodel_name="stock.move",
+    picking_detail = fields.One2many(comodel_name="hos.move",
                                      inverse_name="picking_id",
                                      string="Stock Move")
     picking_type = fields.Selection(selection=PICKING_TYPE, string="Picking Type", required=True)

@@ -55,6 +55,12 @@
                                 <field name="is_service"/>
                             </group>
                         </page>
+                        <page string="Account Details">
+                            <group>
+                                <field name="payable_id"/>
+                                <field name="receivable_id"/>
+                            </group>
+                        </page>
                     </notebook>
                 </sheet>
             </form>

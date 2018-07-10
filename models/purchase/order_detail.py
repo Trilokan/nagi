@@ -16,7 +16,7 @@ class OrderDetail(surya.Sarpam):
 
     vendor_id = fields.Many2one(comodel_name='hos.person', string='Vendor', readonly=True)
     product_id = fields.Many2one(comodel_name='hos.product', string='Product', related='quote_detail_id.product_id')
-    uom_id = fields.Many2one(comodel_name='product.uom', string='UOM', related='quote_detail_id.uom_id')
+    uom_id = fields.Many2one(comodel_name='hos.uom', string='UOM', related='quote_detail_id.uom_id')
     requested_quantity = fields.Float(string='Requested Quantity', default=0, readonly=True)
     accepted_quantity = fields.Float(string='Accepted Quantity', default=0)
     unit_price = fields.Float(string='Unit Price', default=0)

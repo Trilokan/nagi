@@ -27,7 +27,7 @@ class HospitalInvoice(surya.Sarpam):
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")
     quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation")
     order_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
-    picking_id = fields.Many2one(comodel_name="stock.picking", string="Material Receipt")
+    picking_id = fields.Many2one(comodel_name="hos.picking", string="Material Receipt")
     reference = fields.Char(string="Reference")
 
     writter = fields.Text(string="Writter", track_visibility='always')
@@ -123,7 +123,7 @@ class InvoiceDetail(surya.Sarpam):
     _name = "invoice.detail"
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Description", required=True)
-    uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
+    uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
 
     unit_price = fields.Float(string="Unit Price")
     quantity = fields.Float(string="Quantity", required=True)

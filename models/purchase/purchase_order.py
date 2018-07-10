@@ -92,27 +92,27 @@ class PurchaseOrder(surya.Sarpam):
     def trigger_grn(self):
         data = {}
 
-        stock_move = []
+        hos_move = []
         recs = self.order_detail
         for rec in recs:
             if (rec.accepted_quantity > 0) and (rec.unit_price > 0):
-                stock_move.append((0, 0, {"reference": self.name,
+                hos_move.append((0, 0, {"reference": self.name,
                                           "source_location_id": self.env.user.company_id.purchase_location_id.id,
                                           "destination_location_id": self.env.user.company_id.location_id.id,
                                           "picking_type": "in",
                                           "product_id": rec.product_id.id,
                                           "requested_quantity": rec.accepted_quantity}))
 
-        if stock_move:
+        if hos_move:
             data["person_id"] = self.vendor_id.id
             data["reference"] = self.name
-            data["picking_detail"] = stock_move
+            data["picking_detail"] = hos_move
             data["picking_type"] = 'in'
             data["date"] = datetime.now().strftime("%Y-%m-%d")
             data["po_id"] = self.id
             data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
             data["destination_location_id"] = self.env.user.company_id.location_id.id
-            picking_id = self.env["stock.picking"].create(data)
+            picking_id = self.env["hos.picking"].create(data)
             return True
         return False
 

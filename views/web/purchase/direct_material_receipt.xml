@@ -2,9 +2,9 @@
 <odoo>
 
     <!-- Tree -->
-    <record id="view_stock_picking_direct_material_receipt_tree" model="ir.ui.view">
-        <field name="name">stock.picking.tree</field>
-        <field name="model">stock.picking</field>
+    <record id="view_hos_picking_direct_material_receipt_tree" model="ir.ui.view">
+        <field name="name">hos.picking.tree</field>
+        <field name="model">hos.picking</field>
         <field name="arch" type="xml">
             <tree string="Material Receipt">
                 <field name="date"/>
@@ -18,9 +18,9 @@
     </record>
 
     <!-- Form -->
-    <record id="view_stock_picking_direct_material_receipt_form" model="ir.ui.view">
-        <field name="name">stock.picking.form</field>
-        <field name="model">stock.picking</field>
+    <record id="view_hos_picking_direct_material_receipt_form" model="ir.ui.view">
+        <field name="name">hos.picking.form</field>
+        <field name="model">hos.picking</field>
         <field name="arch" type="xml">
             <form string="Material Receipt">
                 <sheet>
@@ -72,28 +72,28 @@
     </record>
 
     <!-- Action GRN-->
-    <record id="action_stock_picking_direct_material_receipt" model="ir.actions.act_window">
+    <record id="action_hos_picking_direct_material_receipt" model="ir.actions.act_window">
         <field name="name">Direct Material Receipt</field>
-        <field name="res_model">stock.picking</field>
+        <field name="res_model">hos.picking</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('picking_type', '=', 'in')]</field>
         <field name="context">{'default_picking_type': 'in'}</field>
-        <field name="view_id" ref="view_stock_picking_direct_material_receipt_tree"/>
+        <field name="view_id" ref="view_hos_picking_direct_material_receipt_tree"/>
     </record>
 
-    <record model="ir.actions.act_window.view" id="action_stock_picking_direct_material_receipt_form">
+    <record model="ir.actions.act_window.view" id="action_hos_picking_direct_material_receipt_form">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_stock_picking_direct_material_receipt_form" />
-        <field name="act_window_id" ref="action_stock_picking_direct_material_receipt"/>
+        <field name="view_id" ref="view_hos_picking_direct_material_receipt_form" />
+        <field name="act_window_id" ref="action_hos_picking_direct_material_receipt"/>
     </record>
 
-    <record model="ir.actions.act_window.view" id="action_stock_picking_direct_material_receipt_tree">
+    <record model="ir.actions.act_window.view" id="action_hos_picking_direct_material_receipt_tree">
         <field eval="1" name="sequence"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_stock_picking_direct_material_receipt_tree"/>
-        <field name="act_window_id" ref="action_stock_picking_direct_material_receipt"/>
+        <field name="view_id" ref="view_hos_picking_direct_material_receipt_tree"/>
+        <field name="act_window_id" ref="action_hos_picking_direct_material_receipt"/>
     </record>
 
 </odoo>

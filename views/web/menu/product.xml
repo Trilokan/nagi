@@ -18,9 +18,9 @@
               parent="menu_product_product"
               sequence="20"/>
 
-    <menuitem id="sub_menu_product_uom"
+    <menuitem id="sub_menu_hos_uom"
               name="UOM"
-              action="action_product_uom"
+              action="action_hos_uom"
               parent="menu_product_product"
               sequence="30"/>
 
@@ -30,9 +30,9 @@
               parent="menu_product_product"
               sequence="40"/>
 
-    <menuitem id="sub_menu_product_category"
+    <menuitem id="sub_menu_hos_product_category"
               name="Category"
-              action="action_product_category"
+              action="action_hos_product_category"
               parent="menu_product_product"
               sequence="50"/>
 

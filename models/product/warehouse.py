@@ -30,11 +30,11 @@ class HospitalWarehouse(surya.Sarpam):
     @api.multi
     def get_stock(self):
         for record in self:
-            destination_ids = self.env["stock.move"].search([("product_id", "=", record.product_id.id),
+            destination_ids = self.env["hos.move"].search([("product_id", "=", record.product_id.id),
                                                              ("destination_location_id", "=", record.location_id.id),
                                                              ("progress", "=", "moved")])
 
-            source_ids = self.env["stock.move"].search([("product_id", "=", record.product_id.id),
+            source_ids = self.env["hos.move"].search([("product_id", "=", record.product_id.id),
                                                         ("source_location_id", "=", record.location_id.id),
                                                         ("progress", "=", "moved")])
             quantity_in = quantity_out = 0

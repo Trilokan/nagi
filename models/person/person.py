@@ -40,4 +40,21 @@ class HospitalPerson(surya.Sarpam):
     def default_vals_creation(self, vals):
         if "person_uid" not in vals:
             vals["person_uid"] = self.env["ir.sequence"].next_by_code(self._name)
+
+        account = {}
+        account["name"] = vals["name"]
+        account["code"] = self.env['ir.sequence'].next_by_code("hos.account")
+        account["company_id"] = self.env.user.company_id.id
+
+        # Sundry Creditor
+        account["parent_id"] = self.env.user.company_id.sundry_creditor_id.id
+        payable_id = self.env["hos.account"].create(account)
+
+        # Sundry Debitor
+        account["parent_id"] = self.env.user.company_id.sundry_debitor_id.id
+        receivable_id = self.env["hos.account"].create(account)
+
+        vals["payable_id"] = payable_id.id
+        vals["receivable_id"] = receivable_id.id
+
         return vals

@@ -20,6 +20,14 @@
                             <field name="purchase_location_id"/>
                             <field name="virtual_location_left"/>
                             <field name="virtual_location_right"/>
+                            <field name="default_product_in"/>
+                            <field name="default_product_out"/>
+                        </group>
+                    </page>
+                    <page string="Accounting">
+                        <group>
+                            <field name="sundry_creditor_id"/>
+                            <field name="sundry_debitor_id"/>
                         </group>
                     </page>
                     <page string="Appoinment Order">

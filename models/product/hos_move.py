@@ -10,15 +10,15 @@ PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
 
 # Stock Move
 class StockMove(surya.Sarpam):
-    _name = "stock.move"
+    _name = "hos.move"
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True, default=lambda self: self._get_date())
     name = fields.Char(string="Name", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
-    picking_id = fields.Many2one(comodel_name="stock.picking", string="Stock Picking")
+    picking_id = fields.Many2one(comodel_name="hos.picking", string="Stock Picking")
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
-    uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
+    uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
     requested_quantity = fields.Float(string="Requested Quantity", readonly=True, default=0)
     quantity = fields.Float(string="Approved Quantity", required=True, default=0)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
@@ -50,11 +50,11 @@ class StockMove(surya.Sarpam):
         return self.env.context.get("destination_location_id")
 
     def get_balance_quantity(self):
-        destination_ids = self.env["stock.move"].search([("product_id", "=", self.product_id.id),
+        destination_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
                                                          ("destination_location_id", "=", self.source_location_id.id),
                                                          ("progress", "=", "moved")])
 
-        source_ids = self.env["stock.move"].search([("product_id", "=", self.product_id.id),
+        source_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
                                                     ("source_location_id", "=", self.source_location_id.id),
                                                     ("progress", "=", "moved")])
         quantity_in = quantity_out = 0

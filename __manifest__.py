@@ -12,22 +12,26 @@
     'depends': ['base', 'mail'],
     'data': [
         'views/assert_backend.xml',
-
         'menu/main_menu.xml',
         # 'data/base_pack.xml',
         # 'data/time_management.xml',
         'data/purchase.xml',
         'data/hospital.xml',
         'data/employee.xml',
+        'data/account.xml',
 
-        # # Account
-        # # 'views/account/account.xml',
-        #
-        # # Base Pack
-        # 'views/base_pack/company.xml',
-        # 'views/base_pack/users.xml',
-        # 'views/base_pack/year.xml',
-        # 'views/base_pack/period.xml',
+        # Account
+        'views/web/account/account.xml',
+        'views/web/account/pre_defined_account.xml',
+        'views/web/account/journal.xml',
+        'views/web/account/journal_entry.xml',
+        'views/web/account/journal_item.xml',
+
+        # Base Pack
+        'views/web/base_pack/company.xml',
+        'views/web/base_pack/users.xml',
+        'views/web/base_pack/year.xml',
+        'views/web/base_pack/period.xml',
 
         # Person
         'views/web/person/person.xml',
@@ -110,7 +114,7 @@
         'views/web/product/warehouse.xml',
         'views/web/product/product.xml',
         'views/web/product/stock_adjustment.xml',
-        'views/web/product/stock_move.xml',
+        'views/web/product/hos_move.xml',
         'views/web/product/store_request.xml',
         'views/web/product/store_issue.xml',
 
@@ -136,7 +140,6 @@
         'views/web/laboratory/lab_test.xml',
 
         # Menu
-        # 'menu/base_pack.xml',
         'views/web/menu/hospital.xml',
         'views/web/menu/reception.xml',
         'views/web/menu/patient.xml',
@@ -145,6 +148,7 @@
         'views/web/menu/procurement.xml',
         'views/web/menu/inventory.xml',
         'views/web/menu/laboratory.xml',
+        'views/web/menu/account.xml',
 
     ],
     'demo': [

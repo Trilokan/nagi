@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
+from odoo import fields, api
 from .. import surya
 
 
@@ -14,8 +14,8 @@ class Tax(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
-    state = fields.Selection(selection=STATE_INFO, string="State")
-    value = fields.Char(string="Value", required=True)
+    state = fields.Selection(selection=STATE_INFO, string="State", required=True)
+    value = fields.Float(string="Value", required=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
@@ -26,3 +26,11 @@ class Tax(surya.Sarpam):
         vals["writter"] = "Product Group Created by {0}".format(self.env.user.name)
         vals["company_id"] = self.env.user.company_id.id
         return vals
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "{0} - {1}".format(record.name, record.value)
+            result.append((record.id, name))
+        return result

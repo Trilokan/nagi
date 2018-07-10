@@ -6,7 +6,7 @@ from .. import surya
 
 # Category
 class ProductCategory(surya.Sarpam):
-    _name = "product.category"
+    _name = "hos.product.category"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", required=True)

@@ -83,7 +83,7 @@ class StoreRequest(surya.Sarpam):
         for rec in recs:
             if rec.quantity > 0:
                 picking_detail.append((0, 0, {"date": datetime.now().strftime("%Y-%m-%d"),
-                                              "name": self.env["ir.sequence"].next_by_code("stock.move.internal"),
+                                              "name": self.env["ir.sequence"].next_by_code("hos.move.internal"),
                                               "reference": self.name,
                                               "product_id": rec.product_id.id,
                                               "requested_quantity": rec.quantity,
@@ -101,7 +101,7 @@ class StoreRequest(surya.Sarpam):
                 "destination_location_id": self.env.user.location_id.id,
                 "writter": writter}
 
-        self.env["stock.picking"].create(data)
+        self.env["hos.picking"].create(data)
 
     @api.multi
     def trigger_approve(self):
@@ -121,7 +121,7 @@ class StoreRequestDetail(surya.Sarpam):
     _name = "store.request.detail"
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
-    uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
+    uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
     quantity = fields.Float(string="Quantity", required=True)
     request_id = fields.Many2one(comodel_name="store.request", string="Store Request")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="request_id.progress")

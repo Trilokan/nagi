@@ -54,9 +54,9 @@
         <field name="number_increment">1</field>
     </record>
 
-    <record id="stock_move_internal_sequence" model="ir.sequence">
-        <field name="name">Stock Move Internal</field>
-        <field name="code">stock.move.internal</field>
+    <record id="hos_move_internal_sequence" model="ir.sequence">
+        <field name="name">Hos Move Internal</field>
+        <field name="code">hos.move.internal</field>
         <field name="prefix">SMI/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>

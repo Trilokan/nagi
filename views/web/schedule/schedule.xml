@@ -75,7 +75,7 @@
     <record id="action_hos_schedule_patient_appointment_form" model="ir.actions.act_window.view">
         <field eval="3" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_hos_schedule_patient_appointment_form" />
+        <field name="view_id" ref="view_hos_schedule_patient_appointment_form"/>
         <field name="act_window_id" ref="action_hos_schedule_patient_appointment"/>
     </record>
 

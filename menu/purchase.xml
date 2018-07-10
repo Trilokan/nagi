@@ -36,9 +36,9 @@
               parent="menu_purchase_purchase"
               sequence="50"/>
 
-    <menuitem id="sub_menu_stock_picking_material_receipt"
+    <menuitem id="sub_menu_hos_picking_material_receipt"
               name="Material Receipt"
-              action="action_stock_picking_material_receipt"
+              action="action_hos_picking_material_receipt"
               parent="menu_purchase_purchase"
               sequence="60"/>
 

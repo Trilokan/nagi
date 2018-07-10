@@ -67,7 +67,6 @@ class Employee(surya.Sarpam):
 
         person_id = self.env["hos.person"].create(data)
         vals["person_id"] = person_id.id
-
         vals["writter"] = "Employee record created by {0}".format(self.env.user.name)
 
         return vals

@@ -9,7 +9,6 @@
     <menuitem id="menu_procurement" name="Procurement" sequence="100"/>
     <menuitem id="menu_inventory" name="Inventory" sequence="100"/>
     <menuitem id="menu_lab" name="Laboratory" sequence="110"/>
-
     <menuitem id="menu_account" name="Account" sequence="120"/>
     <menuitem id="menu_base_pack" name="Base" sequence="130"/>
 

@@ -7,8 +7,8 @@ PROGRESS_INFO = [("draft", "Draft"), ("posted", "Posted")]
 
 
 # Journal Entry Detail
-class JournalEntryDetail(surya.Sarpam):
-    _name = "journal.entry.detail"
+class JournalItem(surya.Sarpam):
+    _name = "journal.item"
 
     date = fields.Date(string="Date", required=True)
     period_id = fields.Many2one(comodel_name="period.period", string="Period", required=True)
@@ -23,9 +23,8 @@ class JournalEntryDetail(surya.Sarpam):
     debit = fields.Float(string="Debit")
     reconcile_amount = fields.Float(string="Reconcile Amount")
     balance_amount = fields.Float(string="Balance Amount")
-    reconcile_id = fields.Many2one(comodel_name="journal.entry.detail", string="Reconcile Id")
-    partial_reconcile_id = fields.Many2one(comodel_name="journal.entry.detail", string="Partial Reconcile Id")
+    reconcile_id = fields.Many2one(comodel_name="hos.reconcile", string="Reconcile Id")
     account_id = fields.Many2one(comodel_name="hos.account", string="Account")
-    entry_id = fields.Many2one(comodel_name="entry.detail", string="Journal Entry")
+    entry_id = fields.Many2one(comodel_name="journal.entry", string="Journal Entry")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="entry_id.progress")
-
+    comment = fields.Text(string="Comment")

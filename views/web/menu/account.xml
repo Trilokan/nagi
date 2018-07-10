@@ -1,15 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!--Account-->
-    <!--Journal-->
+    <menuitem id="menu_account_account"
+              name="Account"
+              parent="menu_account"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_account"
+              name="Account"
+              action="action_hos_account"
+              parent="menu_account_account"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hos_journal"
+              name="Journal"
+              action="action_hos_journal"
+              parent="menu_account_account"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_journal_entry"
+              name="Journal Entry"
+              action="action_journal_entry"
+              parent="menu_account_account"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_journal_item"
+              name="Journal Items"
+              action="action_journal_item"
+              parent="menu_account_account"
+              sequence="40"/>
+
+
     <!--Payment Received-->
     <!--Voucher-->
     <!--Customer Ageing-->
     <!--Vendor Ageing-->
 
-    <!--Journal Entries-->
-    <!--Journal Items-->
     <!--Ledger-->
     <!--Chart of accounts-->
     <!--Balance Sheet-->

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_assert_tree" model="ir.ui.view">
+        <field name="name">hos.assert.tree</field>
+        <field name="model">hos.assert</field>
+        <field name="arch" type="xml">
+            <tree string="Assert">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_assert_form" model="ir.ui.view">
+        <field name="name">hos.assert.form</field>
+        <field name="model">hos.assert</field>
+        <field name="arch" type="xml">
+            <form string="Assert">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Assert</h1>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="responsible_id"/>
+                        <field name="is_working"/>
+                        <field name="is_condem"/>
+                    </group>
+                    <notebook>
+                        <page string="Manufacturing Details">
+                            <field name="product_id"/>
+                            <field name="manufacturer"/>
+                            <field name="manufactured_date"/>
+                            <field name="expiry_date"/>
+                            <field name="serial_no"/>
+                            <field name="model_no"/>
+                            <field name="warranty_date"/>
+                        </page>
+                        <page string="Vendor Details">
+                            <field name="vendor_id"/>
+                            <field name="purchase_date"/>
+                        </page>
+                        <page string="Service Details">
+                            <field name="service_id"/>
+                            <field name="service_details">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="person_id"/>
+                                    <field name="description"/>
+                                    <field name="comment"/>
+                                    <field name="assert_id" invisible="1"/>
+                                </tree>
+                            </field>
+                            <field name="notification_details">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="person_id"/>
+                                    <field name="description"/>
+                                    <field name="comment"/>
+                                    <field name="assert_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Accounting">
+                            <field name="account_id"/>
+                            <field name="depreciation_percentage"/>
+                            <field name="responsible_details">
+                                <tree editable="bottom">
+                                    <field name="date"/>
+                                    <field name="person_id"/>
+                                    <field name="assert_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hos_assert" model="ir.actions.act_window">
+        <field name="name">Assert</field>
+        <field name="res_model">hos.assert</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

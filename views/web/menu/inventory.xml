@@ -6,9 +6,9 @@
               parent="menu_inventory"
               sequence="20"/>
 
-    <menuitem id="sub_menu_stock_picking_stock_adjustment"
+    <menuitem id="sub_menu_hos_picking_stock_adjustment"
               name="Stock Adjustment"
-              action="action_stock_picking_stock_adjustment"
+              action="action_hos_picking_stock_adjustment"
               parent="menu_store_store"
               sequence="10"/>
 
@@ -20,13 +20,13 @@
 
     <menuitem id="sub_menu_store_issue"
               name="Store Issue"
-              action="action_stock_picking_store_issue"
+              action="action_hos_picking_store_issue"
               parent="menu_store_store"
               sequence="30"/>
 
-    <menuitem id="sub_menu_stock_move"
+    <menuitem id="sub_menu_hos_move"
               name="Stock Move"
-              action="action_stock_move"
+              action="action_hos_move"
               parent="menu_store_store"
               sequence="40"/>
 
