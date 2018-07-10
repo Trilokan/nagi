@@ -23,3 +23,11 @@ class ProductGroup(surya.Sarpam):
         vals["writter"] = "Product Group Created by {0}".format(self.env.user.name)
         vals["company_id"] = self.env.user.company_id.id
         return vals
+
+    @api.multi
+    def name_get(self):
+        result = []
+        for record in self:
+            name = "[{0}] {1}".format(record.code, record.name)
+            result.append((record.id, name))
+        return result

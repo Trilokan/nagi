@@ -21,7 +21,7 @@
             <form string="Category">
                 <sheet>
                     <div id="s_header">
-                        <h1>Category</h1>
+                        <h1>Product Category</h1>
                     </div>
                     <group>
                         <field name="name"/>

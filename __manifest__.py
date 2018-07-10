@@ -26,6 +26,7 @@
         'views/web/account/journal.xml',
         'views/web/account/journal_entry.xml',
         'views/web/account/journal_item.xml',
+        'views/web/account/tax.xml',
 
         # Base Pack
         'views/web/base_pack/company.xml',
@@ -107,7 +108,6 @@
         'views/web/product/product_group.xml',
         'views/web/product/sub_group.xml',
         'views/web/product/uom.xml',
-        'views/web/product/tax.xml',
         'views/web/product/product_category.xml',
         'views/web/product/product_type.xml',
         'views/web/product/location.xml',
