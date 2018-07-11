@@ -127,6 +127,7 @@
 
         # Invoice
         'views/web/bills/purchase_invoice.xml',
+        'views/web/bills/sale_invoice.xml',
         'views/web/bills/patient_invoice.xml',
 
         # Schedule
@@ -138,6 +139,15 @@
         # Laboratory
         'views/web/laboratory/lab_form.xml',
         'views/web/laboratory/lab_test.xml',
+
+        # Assert
+        'views/web/assert/hos_assert.xml',
+        'views/web/assert/assert_service.xml',
+        'views/web/assert/assert_notification.xml',
+
+        # Pharmacy
+        'views/web/pharmacy/retail.xml',
+        'views/web/pharmacy/home.xml',
 
         # Menu
         'views/web/menu/hospital.xml',

@@ -105,37 +105,37 @@
 
     <menuitem id="sub_menu_hos_patient_bill"
               name="Patient Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="20"/>
 
     <menuitem id="sub_menu_hos_purchase_bill"
               name="Purchase Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="30"/>
 
     <menuitem id="sub_menu_hos_pharmacy_bill"
               name="Pharmacy Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="40"/>
 
     <menuitem id="sub_menu_hos_service_bill"
               name="Service Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="50"/>
 
     <menuitem id="sub_menu_hos_lab_bill"
               name="Laboratory Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="60"/>
 
     <menuitem id="sub_menu_hos_ambulance_bill"
               name="Ambulance Bill"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_hospital_bills"
               sequence="70"/>
 

@@ -18,3 +18,4 @@ from . import bills
 from . import schedule
 from . import hospital
 from . import laboratory
+from . import pharmacy

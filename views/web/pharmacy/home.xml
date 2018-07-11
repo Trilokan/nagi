@@ -2,13 +2,12 @@
 <odoo>
 
     <!-- Tree -->
-    <record id="view_hos_invoice_purchase_tree" model="ir.ui.view">
-        <field name="name">hos.invoice.tree</field>
-        <field name="model">hos.invoice</field>
+    <record id="view_sale_order_home_tree" model="ir.ui.view">
+        <field name="name">sale.order.tree</field>
+        <field name="model">sale.order</field>
         <field name="arch" type="xml">
-            <tree string="Purchase Invoice">
+            <tree string="Sale Order">
                 <field name="date"/>
-                <field name="person_id"/>
                 <field name="name"/>
                 <field name="progress"/>
             </tree>
@@ -16,55 +15,38 @@
     </record>
 
     <!-- Form -->
-    <record id="view_hos_invoice_purchase_form" model="ir.ui.view">
-        <field name="name">hos.invoice.form</field>
-        <field name="model">hos.invoice</field>
+    <record id="view_sale_order_home_form" model="ir.ui.view">
+        <field name="name">sale.order.form</field>
+        <field name="model">sale.order</field>
         <field name="arch" type="xml">
-            <form string="Purchase Invoice">
+            <form string="Sale Order">
                 <sheet>
                     <div id="s_header">
-                        <h1>Purchase Invoice</h1>
+                        <h1>Sale Order</h1>
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <h2><field name="name"/></h2>
                     <group col="4">
-                        <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="person_id" readonly="1"/>
-                        <field name="reference" readonly="1"/>
-						<field name="invoice_type" readonly="1"/>
+                        <field name="date"/>
+                        <field name="person_id"/>
+                        <field name="category" invisible="1"/>
                     </group>
                     <notebook>
-                        <page string="Bill Detail">
-                            <field name="invoice_detail" attrs="{'readonly': [('progress', '!=', 'draft')]}">
-                                <tree editable="Bottom" create="false" delete="false">
-                                    <field name="product_id" readonly="1"/>
+                        <page string="Order Detail">
+                            <field name="order_detail" attrs="{'readonly': [('progress', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="product_id"/>
                                     <field name="uom_id" readonly="1"/>
-                                    <field name="unit_price" required="1"/>
-                                    <field name="quantity" readonly="1"/>
-                                    <field name="tax_id" required="1"/>
-                                    <field name="freight"/>
+                                    <field name="quantity"/>
+                                    <field name="unit_price"/>
                                     <field name="discount"/>
+                                    <field name="tax_id"/>
+                                    <field name="freight"/>
                                     <field name="total_amount"/>
+                                    <field name="progress" invisible="1"/>
                                 </tree>
-								<form>
-									<sheet>
-										<group col="4">
-											<field name="product_id"/>
-											<field name="uom_id"/>
-											<field name="unit_price"/>
-											<field name="quantity"/>
-											<field name="tax_id"/>
-											<field name="freight"/>
-											<field name="discount"/>
-											<field name="total_amount"/>
-										</group>
-									</sheet>
-								</form>
                             </field>
                         </page>
-						<page string="Account Details">
-
-						</page>
                     </notebook>
                     <group>
 					<div style="float: left; width: 100%;">
@@ -89,7 +71,6 @@
 									<th>Freight Charges</th>
 									<td><field name="freight_amount" nolabel="1"/></td>
 								</tr>
-
 							</tbody>
 						</table>
 
@@ -121,51 +102,55 @@
 								<td><field name="tax_amount" nolabel="1"/></td>
 							</tr>
 							<tr>
-								<th>Round-Off</th>
-								<td><field name="round_off_amount" nolabel="1"/></td>
-							</tr>
-							<tr>
 								<th>Gross Amount</th>
 								<td><field name="gross_amount" nolabel="1"/></td>
 							</tr>
-
+							<tr>
+								<th>Round-Off</th>
+								<td><field name="round_off_amount" nolabel="1"/></td>
+							</tr>
 						</table>
 					</div>
 					</group>
-					<footer>
-						<button name="total_calculation" string="Update" type="object"
-								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-						<button name="trigger_approved" string="Approve" type="object"
-								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-						<button name="trigger_cancel" string="Cancel" type="object"
-								attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-					</footer>
+                    <footer>
+                        <button name="total_calculation" string="Total Calculation" type="object"/>
+                        <button name="trigger_cancel" string="Cancel" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_po_approve" string="PO Approve" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    </footer>
                 </sheet>
-
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
 
-    <!-- Action -->
-    <record id="action_hos_invoice_purchase" model="ir.actions.act_window">
-        <field name="name">Purchase Invoice</field>
-        <field name="res_model">hos.invoice</field>
+    <!-- Action Sale Order Retail-->
+    <record id="action_sale_order_home" model="ir.actions.act_window">
+        <field name="name">Sale Order</field>
+        <field name="res_model">sale.order</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+        <field name="domain">[('category', '=', 'home')]</field>
+        <field name="context">{'default_category': 'home'}</field>
+        <field name="view_id" ref="view_sale_order_home_tree"/>
     </record>
 
-	<record model="ir.actions.act_window.view" id="action_hos_invoice_purchase_form">
+    <record model="ir.actions.act_window.view" id="action_sale_order_home_form">
         <field eval="2" name="sequence"/>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_hos_invoice_purchase_form" />
-        <field name="act_window_id" ref="action_hos_invoice_purchase"/>
+        <field name="view_id" ref="view_sale_order_home_form"/>
+        <field name="act_window_id" ref="action_sale_order_home"/>
     </record>
 
-    <record model="ir.actions.act_window.view" id="action_hos_invoice_purchase_tree">
+    <record model="ir.actions.act_window.view" id="action_sale_order_home_tree">
         <field eval="1" name="sequence"/>
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_hos_invoice_purchase_tree"/>
-        <field name="act_window_id" ref="action_hos_invoice_purchase"/>
+        <field name="view_id" ref="view_sale_order_home_tree"/>
+        <field name="act_window_id" ref="action_sale_order_home"/>
     </record>
 
 

@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
-from .. import surya
-
-PROGRESS_INFO = [("draft", "Draft"), ("posted", "Posted")]
+from odoo import fields, exceptions, api, _
+from .. import surya, calculation
 
 
 # Sale order
 class SaleOrderDetail(surya.Sarpam):
-    _name = "sale.order.detail"
+    _name = "sale.detail"
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Description", required=True)
     uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
@@ -28,4 +26,16 @@ class SaleOrderDetail(surya.Sarpam):
     untaxed_amount = fields.Float(string="Untaxed Value", readonly=True)
     taxed_amount = fields.Float(string="Taxed value", readonly=True)
     order_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="invoice_id.progress")
+
+    @api.multi
+    def detail_calculation(self):
+        if self.quantity < 0:
+            raise exceptions.ValidationError("Error! please check quantity")
+
+        data = calculation.purchase_calculation(self.unit_price,
+                                                self.quantity,
+                                                self.discount,
+                                                self.tax_id.value,
+                                                self.freight,
+                                                self.tax_id.state)
+        self.write(data)

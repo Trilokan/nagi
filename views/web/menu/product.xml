@@ -60,5 +60,29 @@
               parent="menu_product_product"
               sequence="90"/>
 
+    <menuitem id="menu_hos_assert"
+              name="Assert"
+              parent="menu_product"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hos_assert"
+              name="Assert"
+              action="action_hos_assert"
+              parent="menu_hos_assert"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_assert_service"
+              name="Assert Service"
+              action="action_assert_service"
+              parent="menu_hos_assert"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_assert_reminder"
+              name="Assert Reminder"
+              action="action_assert_reminder"
+              parent="menu_hos_assert"
+              sequence="30"/>
+
+
 
 </odoo>

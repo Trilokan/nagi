@@ -23,7 +23,7 @@ class PurchaseOrder(surya.Sarpam):
     vendor_ref = fields.Char(string="Vendor Ref")
     processed_by = fields.Many2one(comodel_name="hos.person", string="Processed By", readonly=True)
     processed_on = fields.Date(string='Processed On', readonly=True)
-    order_detail = fields.One2many(comodel_name='order.detail',
+    order_detail = fields.One2many(comodel_name='purchase.detail',
                                    inverse_name='order_id',
                                    string='Order Detail')
     progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
@@ -97,11 +97,11 @@ class PurchaseOrder(surya.Sarpam):
         for rec in recs:
             if (rec.accepted_quantity > 0) and (rec.unit_price > 0):
                 hos_move.append((0, 0, {"reference": self.name,
-                                          "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                          "destination_location_id": self.env.user.company_id.location_id.id,
-                                          "picking_type": "in",
-                                          "product_id": rec.product_id.id,
-                                          "requested_quantity": rec.accepted_quantity}))
+                                        "source_location_id": self.env.user.company_id.purchase_location_id.id,
+                                        "destination_location_id": self.env.user.company_id.location_id.id,
+                                        "picking_type": "in",
+                                        "product_id": rec.product_id.id,
+                                        "requested_quantity": rec.accepted_quantity}))
 
         if hos_move:
             data["person_id"] = self.vendor_id.id
@@ -112,6 +112,7 @@ class PurchaseOrder(surya.Sarpam):
             data["po_id"] = self.id
             data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
             data["destination_location_id"] = self.env.user.company_id.location_id.id
+            data["picking_category"] = "po"
             picking_id = self.env["hos.picking"].create(data)
             return True
         return False

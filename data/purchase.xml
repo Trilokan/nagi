@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <record id="sale_order_retail_sequence" model="ir.sequence">
+        <field name="name">Sale Order Retail</field>
+        <field name="code">sale.order.retail</field>
+        <field name="prefix">SOR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="sale_order_home_sequence" model="ir.sequence">
+        <field name="name">Sale Order Home Delivery</field>
+        <field name="code">sale.order.home</field>
+        <field name="prefix">SOH/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
     <record id="purchase_indent_sequence" model="ir.sequence">
         <field name="name">Purchase Indent</field>
         <field name="code">purchase.indent</field>
@@ -30,7 +48,7 @@
 
     <record id="material_receipt_sequence" model="ir.sequence">
         <field name="name">Material Receipt</field>
-        <field name="code">hos.picking.in</field>
+        <field name="code">purchase_order.hos.picking.in</field>
         <field name="prefix">MR/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>

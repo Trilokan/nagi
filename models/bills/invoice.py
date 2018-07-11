@@ -7,11 +7,11 @@ from .. import calculation
 
 
 PROGRESS_INFO = [('draft', 'Draft'), ('approved', 'approved'), ('cancel', 'Cancel')]
-INVOICE_TYPE = [('lab_bill', "Lab Bill"),
-                ('pharmacy_bill', 'Pharmacy Bill'),
-                ('purchase_bill', 'Purchase Bill'),
-                ('direct_purchase_bill', 'Direct Purchase Bill'),
-                ('service_bill', 'Service Bill')]
+INVOICE_TYPE = [("dpo", "Direct Purchase Bill"),
+                ("po", "Purchase Bill"),
+                ("por", "Purchase Return Bill"),
+                ("so", "Sale Bill"),
+                ("sor", "Sale Return Bill")]
 
 
 # Bills
@@ -26,7 +26,8 @@ class HospitalInvoice(surya.Sarpam):
 
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")
     quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation")
-    order_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
+    po_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
+    so_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
     picking_id = fields.Many2one(comodel_name="hos.picking", string="Material Receipt")
     reference = fields.Char(string="Reference")
 

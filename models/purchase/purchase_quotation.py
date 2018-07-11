@@ -52,7 +52,7 @@ class QuoteDetail(surya.Sarpam):
     uom_id = fields.Many2one(comodel_name='hos.uom', string='UOM', related="product_id.uom_id")
     quantity = fields.Float(string='Quantity', readonly=True)
     vendor_ids = fields.Many2many(comodel_name='hos.person', string='Vendors')
-    po_detail = fields.One2many(comodel_name='order.detail',
+    po_detail = fields.One2many(comodel_name='purchase.detail',
                                 inverse_name='quote_detail_id',
                                 string='Purchase Order Detail')
     comment = fields.Text(string='Comment')
@@ -65,23 +65,24 @@ class QuoteDetail(surya.Sarpam):
                                                        ("vendor_id", "=", vendor.id)])
 
             if order:
-                order_detail = self.env["order.detail"].search([("product_id", "=", self.product_id.id),
+                order_detail = self.env["purchase.detail"].search([("product_id", "=", self.product_id.id),
                                                                 ("order_id", "=", order.id)])
 
                 if not order_detail:
-                    self.env["order.detail"].create({"vendor_id": vendor.id,
-                                                     "product_id": self.product_id.id,
-                                                     "uom_id": self.uom_id.id,
-                                                     "requested_quantity": self.quantity,
-                                                     "quote_detail_id": self.id,
-                                                     "tax_id": self.env.user.company_id.tax_default_id.id,
-                                                     "order_id": order.id})
+                    self.env["purchase.detail"].create({"vendor_id": vendor.id,
+                                                        "product_id": self.product_id.id,
+                                                        "uom_id": self.uom_id.id,
+                                                        "requested_quantity": self.quantity,
+                                                        "quote_detail_id": self.id,
+                                                        "tax_id": self.env.user.company_id.tax_default_id.id,
+                                                        "order_id": order.id})
 
             else:
                 order_detail = [(0, 0, {"vendor_id": vendor.id,
                                         "product_id": self.product_id.id,
                                         "uom_id": self.uom_id.id,
                                         "quote_detail_id": self.id,
+                                        "tax_id": self.env.user.company_id.tax_default_id.id,
                                         "requested_quantity": self.quantity})]
 
                 data = {"indent_id": self.quote_id.indent_id.id,

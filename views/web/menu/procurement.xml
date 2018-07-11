@@ -38,7 +38,7 @@
 
     <menuitem id="sub_menu_purchase_invoice"
               name="Purchase Invoice"
-              action="action_hos_invoice_purchase_invoice"
+              action="action_hos_invoice_purchase"
               parent="menu_purchase_purchase"
               sequence="60"/>
 
@@ -54,6 +54,24 @@
               action="action_hos_product"
               parent="menu_purchase_product"
               sequence="10"/>
+
+    <!--Sale-->
+    <menuitem id="menu_sale_sale"
+              name="Sale"
+              parent="menu_procurement"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_sale_order_retail"
+              name="Sale R"
+              action="action_sale_order_retail"
+              parent="menu_sale_sale"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_sale_order_home"
+              name="Sale H"
+              action="action_sale_order_home"
+              parent="menu_sale_sale"
+              sequence="20"/>
 
     <!--Stock-->
     <!--Purchase History-->

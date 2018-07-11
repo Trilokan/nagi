@@ -10,6 +10,64 @@
         <field name="number_increment">1</field>
     </record>
 
+    <record id="hos_assert_sequence" model="ir.sequence">
+        <field name="name">Hos Assert</field>
+        <field name="code">hos.assert</field>
+        <field name="prefix">HAA/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
 
+    <!--Journal-->
+    <record id="sales_journal" model="hos.journal">
+        <field name="name">Sales</field>
+        <field name="code">SAL</field>
+    </record>
+
+    <record id="sales_refund_journal" model="hos.journal">
+        <field name="name">Sales Refund</field>
+        <field name="code">SALR</field>
+    </record>
+
+    <record id="purchase_journal" model="hos.journal">
+        <field name="name">Purchase</field>
+        <field name="code">PU</field>
+    </record>
+
+    <record id="purchase_refund_journal" model="hos.journal">
+        <field name="name">Purchase Refund</field>
+        <field name="code">PUR</field>
+    </record>
+
+    <record id="assert_journal" model="hos.journal">
+        <field name="name">Assert</field>
+        <field name="code">ASST</field>
+    </record>
+
+    <record id="stores_journal" model="hos.journal">
+        <field name="name">Stores</field>
+        <field name="code">ST</field>
+    </record>
+
+    <record id="bank_journal" model="hos.journal">
+        <field name="name">Bank</field>
+        <field name="code">BNK</field>
+    </record>
+
+    <record id="cash_journal" model="hos.journal">
+        <field name="name">Cash</field>
+        <field name="code">CASH</field>
+    </record>
+
+    <record id="miscellaneous_journal" model="hos.journal">
+        <field name="name">miscellaneous</field>
+        <field name="code">MISC</field>
+    </record>
+
+    <record id="Payroll_journal" model="hos.journal">
+        <field name="name">Payroll</field>
+        <field name="code">PAY</field>
+    </record>
 
 </odoo>

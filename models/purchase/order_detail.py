@@ -10,8 +10,8 @@ PROGRESS_INFO = [('draft', 'Draft'),
                  ('cancel', 'Cancel')]
 
 
-class OrderDetail(surya.Sarpam):
-    _name = 'order.detail'
+class PurchaseDetail(surya.Sarpam):
+    _name = 'purchase.detail'
     _description = 'Purchase Order Detail'
 
     vendor_id = fields.Many2one(comodel_name='hos.person', string='Vendor', readonly=True)

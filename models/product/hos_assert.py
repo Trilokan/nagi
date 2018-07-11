@@ -3,16 +3,17 @@
 from odoo import fields
 from .. import surya
 
+PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed')]
+
 
 # Assert
 class Assert(surya.Sarpam):
     _name = "hos.assert"
     _inherit = "mail.thread"
 
-    name = fields.Char(string="Name", required=True)
-    code = fields.Char(string="Code", required=True)
+    date = fields.Date(string="Date")
+    name = fields.Char(string="Name", readonly=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
-    writter = fields.Text(string="Writter", track_visibility="always")
 
     # Manufacturing Details
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
@@ -36,7 +37,7 @@ class Assert(surya.Sarpam):
     service_details = fields.One2many(comodel_name="assert.service",
                                       inverse_name="assert_id",
                                       string="Service Details")
-    notification_details = fields.One2many(comodel_name="assert.notification",
+    notification_details = fields.One2many(comodel_name="assert.reminder",
                                            inverse_name="assert_id",
                                            string="Notification Details")
 
@@ -44,19 +45,20 @@ class Assert(surya.Sarpam):
     account_id = fields.Many2one(comodel_name="hos.account", string="Account")
     depreciation_percentage = fields.Float(string="Depreciation Percentage")
     responsible_id = fields.Many2one(comodel_name="hos.person", string="Responsible Person")
-    responsible_details = fields.One2many(comodel_name="hos.person",
-                                          inverse_name="assert_id",
-                                          string="Responsible Person")
     is_working = fields.Boolean(string="Is Working")
     is_condem = fields.Boolean(string="Is Condemed")
     # attachment = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
+
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    writter = fields.Text(string="Writter", track_visibility="always")
 
     _sql_constraints = [('unique_code', 'unique (code)', 'Error! Group Code must be unique'),
                         ('unique_name', 'unique (name)', 'Error! Group must be unique')]
 
     def default_vals_creation(self, vals):
-        vals["writter"] = "Product Group Created by {0}".format(self.env.user.name)
+        vals["name"] = self.env["ir.sequence"].next_by_code(self._name)
         vals["company_id"] = self.env.user.company_id.id
+        vals["writter"] = "Assert Created by {0}".format(self.env.user.name)
         return vals
 
 
@@ -64,28 +66,32 @@ class AssertService(surya.Sarpam):
     _name = "assert.service"
     _inherit = "mail.thread"
 
+    date = fields.Date(string="Date")
     assert_id = fields.Many2one(comodel_name="hos.assert", string="Assert")
     person_id = fields.Many2one(comodel_name="hos.person", string="Service")
-    date = fields.Date(string="Date")
     description = fields.Text(string="Description")
-    comment = fields.Text(string="Comment")
+    attachment = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
 
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    writter = fields.Text(string="Writter", track_visibility="always")
 
-class AssertResponsible(surya.Sarpam):
-    _name = "assert.service"
-    _inherit = "mail.thread"
-
-    assert_id = fields.Many2one(comodel_name="hos.assert", string="Assert")
-    person_id = fields.Many2one(comodel_name="hos.person", string="Service")
-    date = fields.Date(string="Date")
+    def default_vals_creation(self, vals):
+        vals["writter"] = "Assert Service Created by {0}".format(self.env.user.name)
+        return vals
 
 
 class AssertNotification(surya.Sarpam):
-    _name = "assert.notification"
+    _name = "assert.reminder"
     _inherit = "mail.thread"
 
+    date = fields.Date(string="Date")
     assert_id = fields.Many2one(comodel_name="hos.assert", string="Assert")
     person_id = fields.Many2one(comodel_name="hos.person", string="Notify")
-    date = fields.Date(string="Date")
     description = fields.Text(string="Description")
-    comment = fields.Text(string="Comment")
+
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    writter = fields.Text(string="Writter", track_visibility="always")
+
+    def default_vals_creation(self, vals):
+        vals["writter"] = "Assert reminder Created by {0}".format(self.env.user.name)
+        return vals

@@ -10,5 +10,9 @@ class Journal(surya.Sarpam):
 
     name = fields.Char(string="Journal", required=True)
     code = fields.Char(string="Code")
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
-    writter = fields.Text(string="Writter", track_visibility="always")
+
+    def generate_journal_entries(self, obj):
+        category = obj.picking_category
+
+        if category == '':
+            pass

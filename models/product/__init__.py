@@ -11,3 +11,4 @@ from . import hos_move
 from . import store_request
 from . import category
 from . import product_type
+from . import hos_assert

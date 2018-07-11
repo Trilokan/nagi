@@ -7,8 +7,12 @@ import json
 
 PROGRESS_INFO = [("draft", "Draft"), ("moved", "Moved")]
 PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
-PICKING_CATEGORY = [("stock_adjustment", "Stock Adjustment"),
-                    ("store_issue", "Store Issue")]
+PICKING_CATEGORY = [("sa", "Stock Adjustment"),
+                    ("si", "Store Issue"),
+                    ("po", "Purchase Order"),
+                    ("por", "Purchase Order Return"),
+                    ("so", "Sale Order"),
+                    ("sor", "Sale Order Return")]
 
 
 # Stock Picking
@@ -36,26 +40,19 @@ class HosPicking(surya.Sarpam):
                                               required=True)
     writter = fields.Text(string="Writter", track_visibility='always')
     po_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
-
-    @api.multi
-    def trigger_move(self):
-        writter = "Stock Picked by {0}".format(self.env.user.name)
-        recs = self.picking_detail
-
-        for rec in recs:
-            rec.trigger_move()
-
-        self.write({"progress": "moved", "writter": writter})
+    so_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
+    back_order_id = fields.Many2one(comodel_name="hos.picking", string="Back Order")
 
     def default_vals_creation(self, vals):
-        code = "{0}.{1}.{2}".format(vals["picking_category"], self._name, vals["picking_type"])
+        code = "picking.{0}".format(vals["picking_category"])
         vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["company_id"] = self.env.user.company_id.id
         vals["writter"] = "Created by {0}".format(self.env.user.name)
         return vals
 
+    # Purchase
     @api.multi
-    def trigger_create_invoice(self):
+    def trigger_create_purchase_invoice(self):
         data = {}
 
         invoice_detail = []
@@ -63,8 +60,8 @@ class HosPicking(surya.Sarpam):
         for rec in recs:
             if rec.quantity > 0:
 
-                order_detail = self.env["order.detail"].search([("product_id", "=", rec.product_id.id),
-                                                                ("order_id", "=", self.po_id.id)])
+                order_detail = self.env["purchase.detail"].search([("product_id", "=", rec.product_id.id),
+                                                                   ("order_id", "=", self.po_id.id)])
 
                 invoice_detail.append((0, 0, {"product_id": rec.product_id.id,
                                               "quantity": rec.quantity,
@@ -78,7 +75,7 @@ class HosPicking(surya.Sarpam):
             data["person_id"] = self.person_id.id
             data["reference"] = self.name
             data["invoice_detail"] = invoice_detail
-            data["invoice_type"] = 'purchase_bill'
+            data["invoice_type"] = self.picking_category
             data["indent_id"] = self.po_id.indent_id.id
             data["quote_id"] = self.po_id.quote_id.id
             data["order_id"] = self.po_id.id
@@ -103,10 +100,83 @@ class HosPicking(surya.Sarpam):
             data["person_id"] = self.person_id.id
             data["reference"] = self.name
             data["invoice_detail"] = invoice_detail
-            data["invoice_type"] = 'direct_purchase_bill'
+            data["invoice_type"] = self.picking_category
             data["picking_id"] = self.id
 
             invoice_id = self.env["hos.invoice"].create(data)
             invoice_id.total_calculation()
 
+    def generate_incoming_shipment(self):
+        data = {}
 
+        hos_move = []
+        recs = self.picking_detail
+        for rec in recs:
+            quantity = rec.requested_quantity - rec.quantity
+            if quantity > 0:
+                hos_move.append((0, 0, {"reference": rec.reference,
+                                        "source_location_id": rec.source_location_id.id,
+                                        "destination_location_id": rec.destination_location_id.id,
+                                        "picking_type": rec.picking_type,
+                                        "product_id": rec.product_id.id,
+                                        "requested_quantity": quantity}))
+
+        if hos_move:
+            data["date"] = datetime.now().strftime("%Y-%m-%d")
+            data["person_id"] = self.person_id.id
+            data["reference"] = self.reference
+            data["picking_detail"] = hos_move
+            data["picking_type"] = self.picking_type
+            data["source_location_id"] = self.source_location_id.id
+            data["destination_location_id"] = self.destination_location_id.id
+            data["picking_category"] = self.picking_category
+            data["back_order_id"] = self.id
+
+            if self.po_id:
+                data["po_id"] = self.po_id.id
+            if self.so_id:
+                data["so_id"] = self.so_id.id
+
+            self.env["hos.picking"].create(data)
+
+    # Sale
+    @api.multi
+    def trigger_create_sale_invoice(self):
+        data = {}
+
+        invoice_detail = []
+        recs = self.picking_detail
+        for rec in recs:
+            if rec.quantity > 0:
+                order_detail = self.env["purchase.detail"].search([("product_id", "=", rec.product_id.id),
+                                                                   ("order_id", "=", self.po_id.id)])
+
+                invoice_detail.append((0, 0, {"product_id": rec.product_id.id,
+                                              "quantity": rec.quantity,
+                                              "unit_price": order_detail.unit_price,
+                                              "discount": order_detail.discount,
+                                              "tax_id": order_detail.tax_id.id,
+                                              "freight": order_detail.freight}))
+
+        if invoice_detail:
+            data["date"] = datetime.now().strftime("%Y-%m-%d")
+            data["person_id"] = self.person_id.id
+            data["reference"] = self.name
+            data["invoice_detail"] = invoice_detail
+            data["invoice_type"] = self.picking_category
+            data["so_id"] = self.so_id.id
+            data["picking_id"] = self.id
+
+            invoice_id = self.env["hos.invoice"].create(data)
+            invoice_id.total_calculation()
+
+    @api.multi
+    def trigger_move(self):
+        writter = "Stock Picked by {0}".format(self.env.user.name)
+        recs = self.picking_detail
+
+        for rec in recs:
+            rec.trigger_move()
+
+        self.generate_incoming_shipment()
+        self.write({"progress": "moved", "writter": writter})

@@ -65,6 +65,7 @@
                     <footer>
                         <button name="trigger_move" string="Issue" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="generate_journal_entries" string="Journal" type="object"/>
                     </footer>
                 </sheet>
             </form>
