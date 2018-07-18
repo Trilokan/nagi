@@ -73,6 +73,18 @@
               parent="menu_sale_sale"
               sequence="20"/>
 
+    <menuitem id="sub_menu_hos_picking_material_delivery"
+              name="material Delivery"
+              action="action_hos_picking_material_delivery"
+              parent="menu_sale_sale"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hos_invoice_sale"
+              name="Sale invoice"
+              action="action_hos_invoice_sale"
+              parent="menu_sale_sale"
+              sequence="40"/>
+
     <!--Stock-->
     <!--Purchase History-->
     <!--Vendor Detail-->

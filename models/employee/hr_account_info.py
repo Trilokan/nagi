@@ -10,7 +10,7 @@ import json
 class HRAccountInfo(surya.Sarpam):
     _name = "hr.account.info"
 
-    bank = fields.Char(string="Bank", required=True)
+    bank = fields.Char(string="Bank")
     account_no = fields.Char(string="Account No")
     aadhar_card = fields.Char(string="Aadhar Card")
     pan_card = fields.Char(string="Pan Card")

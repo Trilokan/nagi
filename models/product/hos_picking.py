@@ -148,8 +148,8 @@ class HosPicking(surya.Sarpam):
         recs = self.picking_detail
         for rec in recs:
             if rec.quantity > 0:
-                order_detail = self.env["purchase.detail"].search([("product_id", "=", rec.product_id.id),
-                                                                   ("order_id", "=", self.po_id.id)])
+                order_detail = self.env["sale.detail"].search([("product_id", "=", rec.product_id.id),
+                                                               ("order_id", "=", self.so_id.id)])
 
                 invoice_detail.append((0, 0, {"product_id": rec.product_id.id,
                                               "quantity": rec.quantity,

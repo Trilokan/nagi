@@ -27,8 +27,9 @@
                     <div id="s_header">
                         <h1>Appointment Order</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
-
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
                     <field name="id" invisible="1"/>
                     <div class="oe_button_box" name="button_box">
                         <button name="view_resume_bank" icon="fa-folder-open" class="oe_stat_button" string="Resume" type="object"/>
