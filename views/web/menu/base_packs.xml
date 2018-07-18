@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_base_base_pack"
+              name="Base"
+              parent="menu_base_pack"
+              sequence="10"/>
+
+    <!--<menuitem id="sub_menu_hos_person"-->
+              <!--name="Partner"-->
+              <!--action="action_hos_person"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="10"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_employee"-->
+              <!--name="Employee"-->
+              <!--action="action_hos_person_employee"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="30"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_patient"-->
+              <!--name="Patient"-->
+              <!--action="action_hos_person_patient"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="40"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_supplier"-->
+              <!--name="Supplier"-->
+              <!--action="action_hos_person_supplier"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="50"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_service"-->
+              <!--name="Service"-->
+              <!--action="action_hos_person_service"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="60"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_users"-->
+              <!--name="User"-->
+              <!--action="action_hos_person_users"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="70"/>-->
+
+    <!--<menuitem id="sub_menu_hos_person_company"-->
+              <!--name="Company"-->
+              <!--action="action_hos_person_company"-->
+              <!--parent="menu_base_base_pack"-->
+              <!--sequence="80"/>-->
+
+    <menuitem id="sub_menu_year_year"
+              name="Year"
+              action="action_year_year"
+              parent="menu_base_base_pack"
+              sequence="90"/>
+
+    <menuitem id="sub_menu_period_period"
+              name="Period"
+              action="action_period_period"
+              parent="menu_base_base_pack"
+              sequence="100"/>
+
+</odoo>
