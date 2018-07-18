@@ -25,7 +25,9 @@
                     <div id="s_header">
                         <h1>Comp-Off Application</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="co_type" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>

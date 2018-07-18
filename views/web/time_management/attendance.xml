@@ -6,7 +6,7 @@
         <field name="name">time.attendance.tree</field>
         <field name="model">time.attendance</field>
         <field name="arch" type="xml">
-            <tree string="Attendance">
+            <tree string="Daily Attendance">
                 <field name="date"/>
                 <field name="month_id"/>
                 <field name="progress"/>
@@ -19,10 +19,10 @@
         <field name="name">time.attendance.form</field>
         <field name="model">time.attendance</field>
         <field name="arch" type="xml">
-            <form string="Attendance">
+            <form string="Daily Attendance">
                 <sheet>
                     <div id="s_header">
-                        <h1>Attendance</h1>
+                        <h1>Daily Attendance</h1>
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group>
@@ -67,12 +67,12 @@
                             </field>
                         </page>
                         <page string="Report">
-                            <group col="4">
-                                <field name="employee_count"/>
-                                <field name="week_off_count"/>
-                                <field name="working_count"/>
-                                <field name="present"/>
-                                <field name="half_day_present"/>
+                            <group>
+                                <field name="employee_count" string="Total Employees"/>
+                                <field name="week_off_count" invisible="1"/>
+                                <field name="working_count" invisible="1"/>
+                                <field name="present" string="Full Day Present"/>
+                                <field name="half_day_present" string="Half Day Present"/>
                                 <field name="absent"/>
                             </group>
                         </page>
@@ -89,7 +89,7 @@
 
     <!-- Action -->
     <record id="action_time_attendance" model="ir.actions.act_window">
-        <field name="name">Week Schedule</field>
+        <field name="name">Daily Attendance</field>
         <field name="res_model">time.attendance</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>

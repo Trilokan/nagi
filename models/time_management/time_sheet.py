@@ -17,13 +17,16 @@ PROCESS_INFO = [('manual', 'Manual'), ('automatic', 'Automatic')]
 class TimeSheet(surya.Sarpam):
     _name = "time.sheet"
     _rec_name = "person_id"
+    _inherit = "mail.thread"
 
-    date = fields.Datetime(string="Date", readonly=True)
-    person_id = fields.Many2one(comodel_name="hos.person", string="Employee", readonly=True)
-    progress = fields.Selection(PROGRESS_INFO, string='Progress', readonly=True)
-    process = fields.Selection(PROCESS_INFO, string='Process', default="automatic", readonly=True)
+    date = fields.Datetime(string="Date")
+    person_id = fields.Many2one(comodel_name="hos.person", string="Employee")
+    progress = fields.Selection(PROGRESS_INFO, string='Progress')
+    process = fields.Selection(PROCESS_INFO, string='Process', default="manual", readonly=True)
+    writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):
+        vals["writter"] = "Time sheet Updated by {0}".format(self.writter)
         current_time = datetime.strptime(vals['date'], "%Y-%m-%d %H:%M:%S")
         time = current_time.strftime("%Y-%m-%d %H:%M:%S")
 

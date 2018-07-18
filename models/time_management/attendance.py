@@ -33,8 +33,8 @@ class TimeAttendance(surya.Sarpam):
 
     @api.multi
     def trigger_progress(self):
-        self.get_report()
         self.get_availability_progress()
+        self.get_report()
 
     @api.multi
     def trigger_verify(self):
