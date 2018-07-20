@@ -94,6 +94,8 @@
         'views/web/leave_management/leave.xml',
         'views/web/leave_management/compoff.xml',
         'views/web/leave_management/permission.xml',
+        'views/web/leave_management/leave_journal.xml',
+        'views/web/leave_management/leave_voucher.xml',
 
         # Payroll
         'views/web/payroll/hr_pay_update_wiz.xml',

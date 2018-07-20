@@ -175,7 +175,45 @@ class MonthAttendance(surya.Sarpam):
 
                         debit = 0
 
+    # Update as per accounting
+    @api.multi
+    def trigger_month_open(self):
+        # Leave Credits from leave configuration
+        employees = self.env["hr.employee"].search([])
+
+        leave_item = {}
+        for employee in employees:
+            configs = self.env["leave.configuration"].search([("leave_level_id", "=", employee.leave_level_id.id)])
+
+            for config in configs:
+                leave_item["date"] = datetime.now().strftime("%Y-%m-%d")
+                leave_item["period_id"] = self.period_id.id
+                leave_item["name"] = self.env['ir.sequence'].next_by_code("leave.item")
+                leave_item["company_id"] = self.env.user.company_id.id
+                leave_item["person_id"] = employee.person_id.id
+                leave_item["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
+                leave_item["credit"] = config.leave_credit
+
+            for config in configs:
+                leave_item["date"] = datetime.now().strftime("%Y-%m-%d")
+                leave_item["period_id"] = self.period_id.id
+                leave_item["name"] = self.env['ir.sequence'].next_by_code("leave.item")
+                leave_item["company_id"] = self.env.user.company_id.id
+                leave_item["person_id"] = employee.person_id.id
+                leave_item["description"] = "Leave Debit"
+                leave_item["debit"] = config.leave_credit
+                leave_item["leave"] = True
 
 
+            journal = {}
 
+            journal["date"] = datetime.now().strftime("%Y-%m-%d")
+            journal["period_id"] = self.period_id.id
+            journal["name"] = self.env['ir.sequence'].next_by_code("leave.journal")
+            journal["company_id"] = self.env.user.company_id.id
+            journal["person_id"] = employee.person_id.id
+            journal["entry_detail"] = leave_item
+            journal["progress"] = "posted"
+
+            self.env["leave.journal"].create(journal)
 

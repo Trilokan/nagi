@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_leave_journal_tree" model="ir.ui.view">
+        <field name="name">leave.journal.tree</field>
+        <field name="model">leave.journal</field>
+        <field name="arch" type="xml">
+            <tree string="Leave Journal">
+                <field name="date"/>
+                <field name="period_id"/>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_leave_journal_form" model="ir.ui.view">
+        <field name="name">leave.journal.form</field>
+        <field name="model">leave.journal</field>
+        <field name="arch" type="xml">
+            <form string="Leave Journal">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Leave Journal</h1>
+                    </div>
+                    <group col="4">
+                        <field name="date"/>
+                        <field name="period_id"/>
+                        <field name="name"/>
+                        <field name="reference"/>
+                        <field name="company_id"/>
+                        <field name="person_id"/>
+                        <field name="progress"/>
+                    </group>
+                    <field name="journal_detail">
+                        <tree editable="bottom">
+                            <field name="date"/>
+                            <field name="period_id"/>
+                            <field name="name"/>
+                            <field name="reference"/>
+                            <field name="company_id"/>
+                            <field name="person_id"/>
+                            <field name="description"/>
+                            <field name="credit"/>
+                            <field name="debit"/>
+                            <field name="reconcile_id"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_leave_journal" model="ir.actions.act_window">
+        <field name="name">Leave Journal</field>
+        <field name="res_model">leave.journal</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

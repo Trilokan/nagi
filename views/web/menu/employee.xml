@@ -175,6 +175,18 @@
               parent="menu_employee_leave_management"
               sequence="40"/>
 
+    <menuitem id="sub_menu_leave_journal"
+              name="Leave Journal"
+              action="action_leave_journal"
+              parent="menu_employee_leave_management"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_leave_voucher"
+              name="Leave Voucher"
+              action="action_leave_voucher"
+              parent="menu_employee_leave_management"
+              sequence="60"/>
+
     <!-- Payroll -->
     <menuitem id="menu_employee_payroll"
               name="Payroll Management"
