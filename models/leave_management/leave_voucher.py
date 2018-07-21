@@ -47,29 +47,43 @@ class LeaveVoucher(surya.Sarpam):
             rec.leave_reconcile = 0
 
         for cr in cr_line:
-            if (cr.credit - cr.leave_reconcile) > 0:
-                if (cr.credit - cr.leave_reconcile) >= count:
+            cr_diff = cr.credit - cr.leave_reconcile
+            if cr_diff > 0:
+                if cr_diff >= count:
                     cr.leave_reconcile = cr.leave_reconcile + count
                     cr.reconcile = True
 
-                elif (cr.credit - cr.leave_reconcile) < count:
+                elif cr_diff < count:
                     cr.reconcile = True
-                    cr.leave_reconcile = cr.leave_reconcile + (cr.credit - cr.leave_reconcile)
+                    cr.leave_reconcile = cr.leave_reconcile + cr_diff
 
         for dr in dr_line:
             for cr in cr_line:
-                if (cr.credit - cr.leave_reconcile) > 0:
-                    if (cr.credit - cr.leave_reconcile) >= (dr.debit - dr.leave_reconcile):
-                        cr.leave_reconcile = cr.leave_reconcile + (dr.debit - dr.leave_reconcile)
-                        dr.leave_reconcile = dr.leave_reconcile + (dr.debit - dr.leave_reconcile)
+                cr_diff = cr.credit - cr.leave_reconcile
+                dr_diff = dr.debit - dr.leave_reconcile
+                if cr_diff > 0:
+                    if cr_diff >= dr_diff:
+                        cr.leave_reconcile = cr.leave_reconcile + dr_diff
+                        dr.leave_reconcile = dr.leave_reconcile + dr_diff
                         cr.reconcile = True
                         dr.reconcile = True
 
-                    elif (cr.credit - cr.leave_reconcile) < (dr.debit - dr.leave_reconcile):
+                    elif cr_diff < dr_diff:
                         cr.reconcile = True
                         dr.reconcile = True
-                        dr.leave_reconcile = dr.leave_reconcile + (cr.credit - cr.leave_reconcile)
-                        cr.leave_reconcile = cr.leave_reconcile + (cr.credit - cr.leave_reconcile)
+                        dr.leave_reconcile = dr.leave_reconcile + cr_diff
+                        cr.leave_reconcile = cr.leave_reconcile + cr_diff
+
+        # Get Difference
+        for rec in cr_line:
+            if rec.reconcile:
+                count = count - rec.credit
+
+        for rec in dr_line:
+            if rec.reconcile:
+                count = count + rec.debit
+
+        self.difference = count
 
     @api.onchange("person_id")
     def get_cr_dr_lines(self):
@@ -114,32 +128,7 @@ class LeaveVoucher(surya.Sarpam):
             self.debit_lines = res_dr
 
     def generate_journal(self):
-        # Create leave days
-
-        reconcile_data = {"date": self.date,
-                          "name": "",
-                          "reconcile_type": "manual" if self.is_manual else "automatic"}
-
-        reconcile_id = self.env["leave.reconcile"].create(reconcile_data)
-
-        detail = []
-
-        data = {}
-
-        data["date"] = self.date
-        data["period_id"] = ""
-        data["reference"] = self.name
-        data["company_id"] = self.env.user.company_id.id
-        data["person_id"] = self.person_id.id
-        data["description"] = ""
-        data["credit"] = ""
-        data["debit"] = ""
-        data["reconcile_id"] = ""
-        data["reconcile_partial_id"] = ""
-        data["leave_id"] = ""
-        data["leave_id"] = ""
-        data["journal_id"] = ""
-        data["progress"] = ""
+        pass
 
     @api.multi
     def trigger_posting(self):
