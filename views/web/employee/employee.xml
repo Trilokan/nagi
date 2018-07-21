@@ -50,6 +50,7 @@
                         <field name="reporting_to_id"/>
                         <field name="employee_category_id"/>
                         <field name="user_id"/>
+                        <field name="leave_account_id"/>
                     </group>
                     <notebook>
                         <page string="Contact Details">

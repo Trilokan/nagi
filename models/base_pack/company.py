@@ -31,6 +31,7 @@ class HospitalCompany(surya.Sarpam):
     # Account
     sundry_creditor_id = fields.Many2one(comodel_name="hos.account", string="Sundry Creditor")
     sundry_debitor_id = fields.Many2one(comodel_name="hos.account", string="Sundry Debitor")
+    default_leave_account_id = fields.Many2one(comodel_name="leave.account", string="Dafault leave credit")
 
     def default_vals_creation(self, vals):
         vals["company_uid"] = self.env['ir.sequence'].next_by_code(self._name)

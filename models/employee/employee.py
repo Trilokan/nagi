@@ -38,6 +38,7 @@ class Employee(surya.Sarpam):
                                 string="Leave")
 
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level")
+    leave_account_id = fields.Many2one(comodel_name="leave.account", string="Leave Account")
     user_id = fields.Many2one(comodel_name="res.users", string="User")
 
     # Filter Details
@@ -57,6 +58,11 @@ class Employee(surya.Sarpam):
         vals["employee_uid"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["company_id"] = self.env.user.company_id.id
 
+        leave_account = {"name": "{0} leave account".format(self.name),
+                         "code": "111"}
+
+        leave_account_id = self.env["leave.account"].create(leave_account)
+
         data = {"name": vals["name"],
                 "mobile": vals["mobile"],
                 "email": vals.get("email", None),
@@ -67,6 +73,7 @@ class Employee(surya.Sarpam):
 
         person_id = self.env["hos.person"].create(data)
         vals["person_id"] = person_id.id
+        vals["leave_account_id"] = leave_account_id.id
         vals["writter"] = "Employee record created by {0}".format(self.env.user.name)
 
         return vals

@@ -186,7 +186,7 @@ class LeaveVoucherLine(surya.Sarpam):
     reconcile = fields.Boolean(string="Reconcile")
     journal_id = fields.Many2one(comodel_name="leave.item", string="Journal Item")
     leave_reconcile = fields.Float(string="Leave Reconcile")
-
+    difference = fields.Float(string="Difference")
 
 
 

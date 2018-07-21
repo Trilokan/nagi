@@ -193,6 +193,7 @@ class MonthAttendance(surya.Sarpam):
                 leave_item["person_id"] = employee.person_id.id
                 leave_item["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
                 leave_item["credit"] = config.leave_credit
+                leave_item["leave_account_id"] = self.env.user.company_id.default_leave_account_id.id
 
             for config in configs:
                 leave_item["date"] = datetime.now().strftime("%Y-%m-%d")
@@ -202,8 +203,7 @@ class MonthAttendance(surya.Sarpam):
                 leave_item["person_id"] = employee.person_id.id
                 leave_item["description"] = "Leave Debit"
                 leave_item["debit"] = config.leave_credit
-                leave_item["leave"] = True
-
+                leave_item["leave_account_id"] = employee.leave_account_id.id
 
             journal = {}
 
@@ -212,7 +212,7 @@ class MonthAttendance(surya.Sarpam):
             journal["name"] = self.env['ir.sequence'].next_by_code("leave.journal")
             journal["company_id"] = self.env.user.company_id.id
             journal["person_id"] = employee.person_id.id
-            journal["entry_detail"] = leave_item
+            journal["journal_detail"] = leave_item
             journal["progress"] = "posted"
 
             self.env["leave.journal"].create(journal)

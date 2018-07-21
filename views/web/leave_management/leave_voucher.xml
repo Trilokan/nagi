@@ -42,6 +42,7 @@
                             <field name="credit"/>
                             <field name="reconcile"/>
                             <field name="leave_reconcile"/>
+                            <field name="difference"/>
                         </tree>
                     </field>
                     <field name="debit_lines">
@@ -53,6 +54,7 @@
                             <field name="debit"/>
                             <field name="reconcile"/>
                             <field name="leave_reconcile"/>
+                            <field name="difference"/>
                         </tree>
                     </field>
                 </sheet>

@@ -29,4 +29,24 @@
         <field name="progress">confirmed</field>
     </record>
 
+    <record id="monthly_leave_credit" model="leave.account">
+        <field name="name">Monthly Leave Credit</field>
+        <field name="code">103</field>
+    </record>
+
+    <record id="monthly_leave_taken" model="leave.account">
+        <field name="name">Monthly Leave Taken</field>
+        <field name="code">105</field>
+    </record>
+
+    <record id="leave_journal_sequence" model="ir.sequence">
+        <field name="name">Leave Journal</field>
+        <field name="code">leave.journal</field>
+        <field name="prefix">LJ/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
 </odoo>
