@@ -24,10 +24,12 @@
             <form string="Patient Shifting">
                 <sheet>
                     <div id="s_header">
-                        <h1>Ptient Shifting</h1>
+                        <h1>Patient Shifting</h1>
+                    </div>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     </div>
                     <h2><field name="name"/></h2>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="treatment_id" sttring="Patient" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>

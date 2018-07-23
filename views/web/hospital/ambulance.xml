@@ -27,12 +27,12 @@
                 <sheet>
                     <div id="s_header">
                         <h1>Ambulance Service</h1>
-                        <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"
-                               style="float: right;padding: 20px;"/>
+
                     </div>
                     <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <h2><field name="name"/></h2>
                     <group col="4">
+                        <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="driver_id" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="driver_mobile" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>
                         <field name="patient_id" attrs="{'readonly': [('progress', '=', ['patient_shifted', 'cancel'])]}"/>

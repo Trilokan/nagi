@@ -22,9 +22,10 @@ class OTBooking(surya.Sarpam):
     patient_id = fields.Many2one(comodel_name="hos.patient", string="Patient")
     patient_uid = fields.Char(string="Patient UID", related="patient_id.patient_uid")
     doctor_detail = fields.Many2many(comodel_name="hos.person", string="Doctor Detail")
-    operation_id = fields.Many2one(comodel_name="hos.operation", required=True)
+    operation_id = fields.Many2one(comodel_name="hos.operation", string="Operation", required=True)
     duration = fields.Float(string="Duration")
     attachment_ids = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
 
     @api.multi

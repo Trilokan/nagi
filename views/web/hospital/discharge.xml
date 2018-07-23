@@ -6,7 +6,7 @@
         <field name="name">hos.admission.tree</field>
         <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <tree string="Patient Discharge">
+            <tree string="Patient Discharge" create="false" edit="false" delete="false">
                 <field name="name"/>
                 <field name="patient_uid"/>
                 <field name="email"/>
@@ -20,7 +20,7 @@
         <field name="name">hos.admission.form</field>
         <field name="model">hos.admission</field>
         <field name="arch" type="xml">
-            <form string="Patient Discharge">
+            <form string="Patient Discharge" create="false" edit="false" delete="false">
                 <header>
                     <button name="trigger_doctor_approve" string="Doctor Approve" type="object"
                           attrs="{'invisible': [('discharge_progress', '!=', 'draft')]}"/>
