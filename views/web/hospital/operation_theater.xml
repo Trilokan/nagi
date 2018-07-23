@@ -25,10 +25,12 @@
             <form string="Operation Theater">
                 <sheet>
                     <div id="s_header">
-                        <h1>Operation</h1>
+                        <h1>Operation Theater</h1>
+                    </div>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     </div>
                     <h2><field name="name"/></h2>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
                     </div>

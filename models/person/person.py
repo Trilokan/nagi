@@ -5,6 +5,15 @@ from datetime import datetime
 from .. import surya
 
 
+PERSON_TYPE = [("patient", "Patient"),
+               ("doctor", "Doctor"),
+               ("staff", "Staff"),
+               ("driver", "Driver"),
+               ("supplier", "Supplier"),
+               ("customer", "Customer"),
+               ("service", "Service")]
+
+
 class HospitalPerson(surya.Sarpam):
     _name = "hos.person"
     _inherit = "mail.thread"
@@ -16,10 +25,8 @@ class HospitalPerson(surya.Sarpam):
 
     is_company = fields.Boolean(string="Is Company")
     is_user = fields.Boolean(string="Is User")
-    is_employee = fields.Boolean(string="Is Employee")
-    is_patient = fields.Boolean(string="Is Patient")
-    is_supplier = fields.Boolean(string="Is Supplier")
-    is_service = fields.Boolean(string="Is Service")
+
+    person_type = fields.Selection(selection=PERSON_TYPE, string="Person Type")
 
     gst_no = fields.Char(string="GST No")
     license_no = fields.Char(string="License No")

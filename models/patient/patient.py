@@ -84,7 +84,7 @@ class Patient(surya.Sarpam):
                 "email": vals.get("email", None),
                 "alternate_contact": vals.get("alternate_contact", None),
                 "person_uid": vals["patient_uid"],
-                "is_patient": True}
+                "person_type": "patient"}
 
         person_id = self.env["hos.person"].create(data)
         vals["person_id"] = person_id.id

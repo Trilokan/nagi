@@ -26,7 +26,7 @@ class Employee(surya.Sarpam):
     department_id = fields.Many2one(comodel_name="hr.department", string="Department")
     designation_id = fields.Many2one(comodel_name="hr.designation", string="Designation")
     reporting_to_id = fields.Many2one(comodel_name="hr.employee", string="Reporting To")
-    employee_category_id = fields.Many2one(comodel_name="hr.category", string="Employee Category")
+    employee_category_id = fields.Many2one(comodel_name="hr.category", string="Employee Category", required=True)
     qualification_ids = fields.One2many(comodel_name="hr.qualification",
                                         inverse_name="employee_id",
                                         string="Qualification")
@@ -40,13 +40,6 @@ class Employee(surya.Sarpam):
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level")
     leave_account_id = fields.Many2one(comodel_name="leave.account", string="Leave Account")
     user_id = fields.Many2one(comodel_name="res.users", string="User")
-
-    # Filter Details
-    is_doctor = fields.Boolean(string="Doctor")
-    is_nurse = fields.Boolean(string="Nurse")
-    is_contract = fields.Boolean(string="Contract")
-    is_admin_staff = fields.Boolean(string="Admin Staff")
-    is_ambulance_driver = fields.Boolean(string="Ambulance Driver")
 
     attachment_ids = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
     person_id = fields.Many2one(comodel_name="hos.person", string="Partner")
@@ -62,6 +55,7 @@ class Employee(surya.Sarpam):
                          "code": "111"}
 
         leave_account_id = self.env["leave.account"].create(leave_account)
+        employee_category_id = self.env["hr.category"].search([("id", "=", vals["employee_category_id"])])
 
         data = {"name": vals["name"],
                 "mobile": vals["mobile"],
@@ -69,7 +63,7 @@ class Employee(surya.Sarpam):
                 "alternate_contact": vals.get("alternate_contact", None),
                 "company_id": vals["company_id"],
                 "person_uid": vals["employee_uid"],
-                "is_patient": True}
+                "person_type": employee_category_id.name.lower()}
 
         person_id = self.env["hos.person"].create(data)
         vals["person_id"] = person_id.id

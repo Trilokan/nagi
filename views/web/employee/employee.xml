@@ -126,16 +126,6 @@
                         <page string="Professional Details">
                             <field name="experience_ids"/>
                         </page>
-                        <page string="Filter">
-                            <group>
-                                <field name="is_doctor"/>
-                                <field name="is_nurse"/>
-                                <field name="is_contract"/>
-                                <field name="is_admin_staff"/>
-                                <field name="is_ambulance_driver"/>
-                            </group>
-                        </page>
-
                     </notebook>
                 </sheet>
             </form>

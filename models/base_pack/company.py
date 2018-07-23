@@ -40,8 +40,8 @@ class HospitalCompany(surya.Sarpam):
                 "mobile": vals["mobile"],
                 "email": vals.get("email", None),
                 "alternate_contact": vals.get("alternate_contact", None),
-                "person_uid": vals["company_uid"],
-                "is_company": True}
+                "is_company": True,
+                "person_uid": vals["company_uid"]}
 
         person_id = self.env["hos.person"].create(data)
 

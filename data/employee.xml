@@ -21,5 +21,17 @@
         <field name="number_increment">1</field>
     </record>
 
+    <record id="employee_category_doctor" model="hr.category">
+        <field name="name">Doctor</field>
+    </record>
+
+    <record id="employee_category_staff" model="hr.category">
+        <field name="name">Staff</field>
+    </record>
+
+    <record id="employee_category_driver" model="hr.category">
+        <field name="name">Driver</field>
+    </record>
+
 
 </odoo>

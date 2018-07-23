@@ -59,9 +59,6 @@
         'views/web/hospital/notes.xml',
         'views/web/hospital/notification.xml',
 
-        # Reception
-        'views/web/reception/contact.xml',
-
         # Employee
         'views/web/employee/employee.xml',
         'views/web/employee/hr_department.xml',

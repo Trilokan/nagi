@@ -49,10 +49,6 @@
                             <group>
                                 <field name="is_company"/>
                                 <field name="is_user"/>
-                                <field name="is_employee"/>
-                                <field name="is_supplier"/>
-                                <field name="is_patient"/>
-                                <field name="is_service"/>
                             </group>
                         </page>
                         <page string="Account Details">
@@ -82,7 +78,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'patient')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -92,7 +88,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'doctor')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -102,7 +98,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'staff')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -112,7 +108,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'driver')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -122,7 +118,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_supplier', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'supplier')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -132,7 +128,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_supplier', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'customer')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -142,7 +138,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_service', '=', True)]</field>
+        <field name="domain">[('person_type', '=', 'service')]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
@@ -152,7 +148,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="domain">[('person_type', '=', False), ('is_company', '=', False)]</field>
         <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
