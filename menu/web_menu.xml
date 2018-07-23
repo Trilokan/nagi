@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_hospital" name="Hospital" sequence="10"/>
-    <menuitem id="menu_reception" name="Reception" sequence="10"/>
+    <menuitem id="menu_hospital" name="Hospital Management" sequence="10"/>
+    <menuitem id="menu_reception" name="Reception" sequence="20"/>
     <menuitem id="menu_patient" name="Patient" sequence="30"/>
     <menuitem id="menu_employee" name="Employee" sequence="40"/>
     <menuitem id="menu_product" name="Product" sequence="90"/>

@@ -73,15 +73,7 @@
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-    </record>
-
-    <!-- Action Employee -->
-    <record id="action_hos_person_employee" model="ir.actions.act_window">
-        <field name="name">Employee</field>
-        <field name="res_model">hos.person</field>
-        <field name="view_type">form</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_employee', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
     <!-- Action Patient -->
@@ -91,6 +83,37 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
+    </record>
+
+    <!-- Action Doctor -->
+    <record id="action_hos_person_doctor" model="ir.actions.act_window">
+        <field name="name">Doctor</field>
+        <field name="res_model">hos.person</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
+    </record>
+
+    <!-- Action Staff -->
+    <record id="action_hos_person_staff" model="ir.actions.act_window">
+        <field name="name">Staff</field>
+        <field name="res_model">hos.person</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
+    </record>
+
+    <!-- Action Driver -->
+    <record id="action_hos_person_driver" model="ir.actions.act_window">
+        <field name="name">Driver</field>
+        <field name="res_model">hos.person</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
     <!-- Action supplier -->
@@ -100,6 +123,17 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('is_supplier', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
+    </record>
+
+    <!-- Action Customer -->
+    <record id="action_hos_person_customer" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="res_model">hos.person</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('is_supplier', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
     <!-- Action Service -->
@@ -109,15 +143,17 @@
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('is_service', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
-    <!-- Action Company -->
-    <record id="action_hos_person_company" model="ir.actions.act_window">
-        <field name="name">Company</field>
+    <!-- Action Others -->
+    <record id="action_hos_person_others" model="ir.actions.act_window">
+        <field name="name">Others</field>
         <field name="res_model">hos.person</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('is_company', '=', True)]</field>
+        <field name="domain">[('is_patient', '=', True)]</field>
+        <field name="view_id" ref="view_hos_person_tree"/>
     </record>
 
 </odoo>

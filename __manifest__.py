@@ -12,7 +12,7 @@
     'depends': ['base', 'mail'],
     'data': [
         'views/assert_backend.xml',
-        'menu/main_menu.xml',
+        'menu/web_menu.xml',
         # 'data/base_pack.xml',
         'data/time_management.xml',
         'data/purchase.xml',
@@ -153,8 +153,8 @@
         'views/web/pharmacy/material_delivery.xml',
 
         # Menu
-        # 'views/web/menu/hospital.xml',
-        # 'views/web/menu/reception.xml',
+        'views/web/menu/hospital.xml',
+        'views/web/menu/reception.xml',
         # 'views/web/menu/patient.xml',
         'views/web/menu/employee.xml',
         'views/web/menu/base_packs.xml',
