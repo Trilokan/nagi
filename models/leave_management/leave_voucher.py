@@ -160,7 +160,6 @@ class LeaveVoucherCreditLine(surya.Sarpam):
     difference = fields.Float(string="Difference")
 
 
-
 class LeaveVoucherDebitLine(surya.Sarpam):
     _name = "leave.voucher.debit.line"
 

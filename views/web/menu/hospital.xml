@@ -1,142 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Hospital -->
-    <menuitem id="menu_hospital_hospital"
-              name="Hospital"
+    <!--Contact-->
+    <menuitem id="sub_menu_hospital_contact"
+              name="Contact"
               parent="menu_hospital"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_admission"
-              name="Admission"
-              action="action_hos_admission_admission"
-              parent="menu_hospital_hospital"
+    <menuitem id="list_contact_hos_person_patient"
+              name="Patient"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="20"/>
+
+    <menuitem id="list_contact_hos_person_doctor"
+              name="Doctor"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="20"/>
+
+    <menuitem id="list_contact_hos_person_staff"
+              name="Staff"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="20"/>
+
+    <menuitem id="list_contact_hos_person_driver"
+              name="Driver"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_ward"
-              name="Ward"
-              action="action_hos_ward"
-              parent="menu_hospital_hospital"
-              sequence="40"/>
-
-    <menuitem id="sub_menu_hos_bed"
-              name="Bed"
-              action="action_hos_bed"
-              parent="menu_hospital_hospital"
-              sequence="50"/>
-
-    <menuitem id="sub_menu_patient_shifting"
-              name="Patient Shifting"
-              action="action_patient_shifting"
-              parent="menu_hospital_hospital"
-              sequence="60"/>
-
-    <menuitem id="sub_menu_hos_discharge"
-              name="Discharge"
-              action="action_hos_admission_discharge"
-              parent="menu_hospital_hospital"
-              sequence="100"/>
-
-    <!-- Contact -->
-    <menuitem id="menu_contact_contact"
-              name="Master"
-              parent="menu_hospital"
-              sequence="20"/>
-
-    <menuitem id="sub_menu_hos_patient_contact"
-              name="Patient"
-              action="action_hos_patient"
-              parent="menu_contact_contact"
-              sequence="10"/>
-
-    <menuitem id="sub_menu_hr_employee_contact"
-              name="Employee"
-              action="action_hr_employee"
-              parent="menu_contact_contact"
-              sequence="20"/>
-
-    <menuitem id="sub_menu_hos_person_contact"
+    <menuitem id="list_contact_hos_person_vendor"
               name="Vendor"
               action="action_hos_person"
-              parent="menu_contact_contact"
+              parent="sub_menu_hospital_contact"
+              sequence="40"/>
+
+    <menuitem id="list_contact_hos_person_supplier"
+              name="Supplier"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="50"/>
+
+    <menuitem id="list_contact_hos_person_service"
+              name="Service"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="60"/>
+
+    <menuitem id="list_contact_hos_person_others"
+              name="Others"
+              action="action_hos_person"
+              parent="sub_menu_hospital_contact"
+              sequence="70"/>
+
+    <!--Hospitality-->
+    <menuitem id="sub_menu_hospital_hospitality"
+              name="Hospitality"
+              parent="menu_hospital"
+              sequence="20"/>
+
+    <menuitem id="list_hos_admission"
+              name="Admission"
+              action="action_hos_admission"
+              parent="sub_menu_hospital_hospitality"
+              sequence="10"/>
+
+    <menuitem id="list_hos_discharge"
+              name="Discharge"
+              action="action_hos_discharge"
+              parent="sub_menu_hospital_hospitality"
+              sequence="20"/>
+
+    <menuitem id="list_hos_ward"
+              name="Ward"
+              action="action_hos_ward"
+              parent="sub_menu_hospital_hospitality"
               sequence="30"/>
 
+    <menuitem id="list_hos_bed"
+              name="Bed"
+              action="action_hos_bed"
+              parent="sub_menu_hospital_hospitality"
+              sequence="40"/>
+
+    <menuitem id="list_patient_shifting"
+              name="Patient Shifting"
+              action="action_patient_shifting"
+              parent="sub_menu_hospital_hospitality"
+              sequence="50"/>
+
     <!-- Operation Theater -->
-    <menuitem id="menu_hospital_operation_theater"
+    <menuitem id="sub_menu_hospital_ot"
               name="Operation Theater"
               parent="menu_hospital"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_operation_theater_booking"
+    <menuitem id="list_hos_operation_theater_booking"
               name="OT Booking"
               action="action_hos_operation_theater_booking"
-              parent="menu_hospital_operation_theater"
+              parent="sub_menu_hospital_ot"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_operation_theater"
+    <menuitem id="list_hos_operation_theater"
               name="Operation Theater"
               action="action_hos_operation_theater"
-              parent="menu_hospital_operation_theater"
+              parent="sub_menu_hospital_ot"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_operation"
-              name="Operation"
+    <menuitem id="list_hos_operation"
+              name="Operation List"
               action="action_hos_operation"
-              parent="menu_hospital_operation_theater"
+              parent="sub_menu_hospital_ot"
               sequence="30"/>
 
-    <!-- Patient Shifting -->
-    <menuitem id="menu_hospital_patient_shifting"
-              name="Patient Shifting"
+    <!--Service-->
+    <menuitem id="sub_menu_hospital_service"
+              name="Service"
               parent="menu_hospital"
               sequence="30"/>
 
     <menuitem id="sub_menu_hos_ambulance"
               name="Ambulance"
               action="action_hos_ambulance"
-              parent="menu_hospital_patient_shifting"
+              parent="sub_menu_hospital_service"
               sequence="10"/>
 
+    <!--<menuitem id="sub_menu_hos_food"-->
+              <!--name="Food"-->
+              <!--action="action_hos_food"-->
+              <!--parent="sub_menu_service"-->
+              <!--sequence="10"/>-->
+
     <!--Billing-->
-    <menuitem id="menu_hospital_bills"
+    <menuitem id="sub_menu_hospital_bills"
               name="Billing"
               parent="menu_hospital"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_patient_bill"
+    <menuitem id="list_hos_patient_bill"
               name="Patient Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_purchase_bill"
+    <menuitem id="list_hos_purchase_bill"
               name="Purchase Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_pharmacy_bill"
+    <menuitem id="lost_hos_pharmacy_bill"
               name="Pharmacy Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="40"/>
 
-    <menuitem id="sub_menu_hos_service_bill"
+    <menuitem id="list_hos_service_bill"
               name="Service Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="50"/>
 
-    <menuitem id="sub_menu_hos_lab_bill"
+    <menuitem id="list_hos_lab_bill"
               name="Laboratory Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="60"/>
 
-    <menuitem id="sub_menu_hos_ambulance_bill"
+    <menuitem id="list_hos_ambulance_bill"
               name="Ambulance Bill"
               action="action_hos_invoice_purchase"
-              parent="menu_hospital_bills"
+              parent="sub_menu_hospital_bills"
               sequence="70"/>
 
 

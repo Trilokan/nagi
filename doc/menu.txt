@@ -1,0 +1,65 @@
+1. Menu:
+    Hospital management
+    Reception
+    Patient Management
+    Employee Management
+    Procurement and Inventory
+    Accounting
+    Dashboard
+
+
+2. Hospital Management
+        2.1 Contact
+            2.1.2 Patient
+            2.1.3 Doctor
+            2.1.4 Staff
+            2.1.5 Driver
+            2.1.6 Vendor
+            2.1.7 Supplier
+            2.1.8 Service
+            2.1.9 Others
+
+        2.2 Hospitality
+            2.2.1 Admission
+            2.2.2 Discharge
+            2.2.3 Ambulance
+            2.2.4 Food
+
+        2.3 Patient
+            2.3.1 Ward
+            2.3.2 Bed
+            2.3.3 Patient Shifting
+
+        2.4 Operation Theater
+            2.4.1 OT Booking
+            2.4.2 Operation
+
+        2.5 Billing
+            2.5.1 Patient Bill
+            2.5.1 Pharmacy Bill
+            2.5.1 Laboratory Bill
+            2.5.1 Ambulance Bill
+            2.5.1 Purchase Bill
+            2.5.1 Service Bill
+
+3. Reception
+
+        3.1 Contact
+            3.1.2 Patient
+            3.1.3 Doctor
+            3.1.4 Staff
+            3.1.5 Driver
+            3.1.6 Vendor
+            3.1.7 Supplier
+            3.1.8 Service
+            3.1.9 Others
+
+        3.2 Patient Details
+            3.2.1 Admission
+            3.2.2 Discharge
+
+        3.3 Appointment
+            3.3.1 Doctor Availability
+            3.3.2 Appointment
+            3.3.1 Notes
+            3.3.1 Reminder

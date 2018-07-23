@@ -2,111 +2,99 @@
 <odoo>
 
     <!-- Contact -->
-    <menuitem id="menu_reception_contact"
+    <menuitem id="sub_menu_reception_contact"
               name="Contact"
               parent="menu_reception"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_person_doctor"
+    <menuitem id="list_reception_hos_person_doctor"
               name="Doctor"
-              action="action_hos_person_doctor"
-              parent="menu_reception_contact"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_person_nurse"
-              name="Nurse"
-              action="action_hos_person_nurse"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_staff"
+              name="Staff"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_person_staff"
-              name="Staff"
-              action="action_hos_person_staff"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_vendor"
+              name="Vendor"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_person_others"
-              name="Others"
-              action="action_hos_person_others"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_supplier"
+              name="Supplier"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="40"/>
 
-    <menuitem id="sub_menu_hos_person_patient"
-              name="Patient"
-              action="action_hos_person_patient"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_service"
+              name="Service"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="50"/>
 
-    <menuitem id="sub_menu_hos_person_supplier"
-              name="Supplier"
-              action="action_hos_person_supplier"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_driver"
+              name="Driver"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="60"/>
 
-    <menuitem id="sub_menu_hos_person_service"
-              name="Service"
-              action="action_hos_person_service"
-              parent="menu_reception_contact"
+    <menuitem id="list_reception_hos_person_others"
+              name="Others"
+              action="action_hos_person"
+              parent="sub_menu_reception_contact"
               sequence="70"/>
 
-    <!-- Hospital -->
-    <menuitem id="menu_reception_hospital"
-              name="Hospital"
+    <!-- Patient Details -->
+    <menuitem id="sub_menu_reception_patient"
+              name="patient Details"
               parent="menu_reception"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_admission_reception"
+    <menuitem id="list_reception_hos_admission"
               name="Admission"
-              action="action_hos_admission_admission"
-              parent="menu_reception_hospital"
+              action="action_hos_admission"
+              parent="sub_menu_reception_patient"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_ward_reception"
-              name="Ward"
-              action="action_hos_ward"
-              parent="menu_reception_hospital"
-              sequence="20"/>
-
-    <menuitem id="sub_menu_hos_bed_reception"
-              name="Bed"
-              action="action_hos_bed"
-              parent="menu_reception_hospital"
-              sequence="30"/>
-
-    <menuitem id="sub_menu_hos_discharge_reception"
+    <menuitem id="list_reception_hos_discharge"
               name="Discharge"
-              action="action_hos_admission_discharge"
-              parent="menu_reception_hospital"
-              sequence="40"/>
+              action="action_hos_discharge"
+              parent="sub_menu_reception_patient"
+              sequence="30"/>
 
     <!--Appointment-->
-    <menuitem id="menu_reception_appointment"
+    <menuitem id="sub_menu_reception_appointment"
               name="Appointment"
               parent="menu_reception"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_doctor_availability"
+    <menuitem id="list_appointment_hos_doctor_availability"
               name="Doctor Availability"
               action="action_hos_doctor_availability"
-              parent="menu_reception_appointment"
+              parent="sub_menu_reception_appointment"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_schedule_appointment"
+    <menuitem id="list_appointment_hos_schedule"
               name="Appointment"
               action="action_hos_schedule_patient_appointment"
-              parent="menu_reception_appointment"
+              parent="sub_menu_reception_appointment"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_notes_appointment"
+    <menuitem id="list_appointment_hos_notes"
               name="Notes"
               action="action_hos_notes"
-              parent="menu_reception_appointment"
+              parent="sub_menu_reception_appointment"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_notification_appointment"
+    <menuitem id="list_appointment_hos_notification"
               name="Reminder"
               action="action_hos_notification"
-              parent="menu_reception_appointment"
+              parent="sub_menu_reception_appointment"
               sequence="40"/>
 
 
