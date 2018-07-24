@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_account_account"
+    <menuitem id="sub_menu_account_account"
               name="Account"
               parent="menu_account"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_account"
+    <menuitem id="account_account_hos_account"
               name="Account"
               action="action_hos_account"
-              parent="menu_account_account"
+              parent="sub_menu_account_account"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_journal"
+    <menuitem id="account_account_hos_journal"
               name="Journal"
               action="action_hos_journal"
-              parent="menu_account_account"
+              parent="sub_menu_account_account"
               sequence="20"/>
 
-    <menuitem id="sub_menu_journal_entry"
+    <menuitem id="account_account_journal_entry"
               name="Journal Entry"
               action="action_journal_entry"
-              parent="menu_account_account"
+              parent="sub_menu_account_account"
               sequence="30"/>
 
-    <menuitem id="sub_menu_journal_item"
+    <menuitem id="account_account_journal_item"
               name="Journal Items"
               action="action_journal_item"
-              parent="menu_account_account"
+              parent="sub_menu_account_account"
               sequence="40"/>
+
+    <menuitem id="account_account_hos_voucher"
+              name="Payment Received"
+              action="action_hos_voucher_payment_received"
+              parent="sub_menu_account_account"
+              sequence="50"/>
 
 
     <!--Payment Received-->

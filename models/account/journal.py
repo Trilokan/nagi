@@ -11,8 +11,4 @@ class Journal(surya.Sarpam):
     name = fields.Char(string="Journal", required=True)
     code = fields.Char(string="Code")
 
-    def generate_journal_entries(self, obj):
-        category = obj.picking_category
 
-        if category == '':
-            pass

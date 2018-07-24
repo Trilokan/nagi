@@ -19,6 +19,33 @@
         <field name="number_increment">1</field>
     </record>
 
+    <record id="journal_entry_sequence" model="ir.sequence">
+        <field name="name">Journal Entry</field>
+        <field name="code">journal.entry</field>
+        <field name="prefix">JE/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="journal_item_sequence" model="ir.sequence">
+        <field name="name">Journal Item</field>
+        <field name="code">journal.item</field>
+        <field name="prefix">JI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_voucher_sequence" model="ir.sequence">
+        <field name="name">Hos Voucher</field>
+        <field name="code">hos.voucher</field>
+        <field name="prefix">HV/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
     <!--Journal-->
     <record id="sales_journal" model="hos.journal">
         <field name="name">Sales</field>

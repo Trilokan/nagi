@@ -19,15 +19,28 @@
         <field name="arch" type="xml">
             <form string="Journal Entry">
                 <sheet>
-                    <group>
-                        <field name="name"/>
+                    <div class="s_header">
+                        <h1>Journal Entry</h1>
+                    </div>
+                    <h1><field name="name"/></h1>
+                    <group col="4">
                         <field name="date"/>
-                        <field name="period_id"/>
                         <field name="reference"/>
+                        <field name="period_id"/>
                         <field name="company_id"/>
                         <field name="journal_id"/>
                         <field name="person_id"/>
                     </group>
+                    <field name="entry_detail">
+                        <tree editable="bottom">
+                            <field name="person_id"/>
+                            <field name="account_id"/>
+                            <field name="description"/>
+                            <field name="credit"/>
+                            <field name="debit"/>
+                            <field name="reconcile_id"/>
+                        </tree>
+                    </field>
                 </sheet>
             </form>
         </field>
