@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_lab_lab"
+    <menuitem id="sub_menu_lab_lab"
               name="Laboratory"
               parent="menu_lab"
               sequence="10"/>
@@ -13,11 +13,27 @@
               sequence="10"/>
 
     <menuitem id="sub_menu_lab_test"
-              name="Lab Test"
+              name="Test Details"
               action="action_lab_test"
               parent="menu_lab_lab"
               sequence="20"/>
 
-    <!--Billing-->
+    <menuitem id="sub_menu_lab_test"
+              name="Pricing"
+              action="action_lab_test"
+              parent="menu_lab_lab"
+              sequence="20"/>
+
+    <menuitem id="menu_lab_test"
+              name="Laboratory Test"
+              parent="menu_lab"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_lab_form"
+              name="Tests"
+              action="action_lab_form"
+              parent="menu_lab_lab"
+              sequence="10"/>
+
 
 </odoo>

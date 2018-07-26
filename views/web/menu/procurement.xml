@@ -1,92 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_purchase_purchase"
+    <menuitem id="sub_menu_purchase_purchase"
               name="Procurement"
               parent="menu_procurement"
               sequence="10"/>
 
-    <menuitem id="sub_menu_purchase_indent"
+    <menuitem id="purchase_purchase_purchase_indent"
               name="Purchase Indent"
               action="action_purchase_indent"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="10"/>
 
-    <menuitem id="sub_menu_purchase_quote"
+    <menuitem id="purchase_purchase_purchase_quote"
               name="Quotation"
               action="action_purchase_quote"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="20"/>
 
-    <menuitem id="sub_menu_purchase_order"
+    <menuitem id="purchase_purchase_purchase_order"
               name="Purchase order"
               action="action_purchase_order"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="30"/>
 
-    <menuitem id="sub_menu_material_receipt"
+    <menuitem id="purchase_purchase_material_receipt"
               name="Material Receipt"
               action="action_hos_picking_material_receipt"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="40"/>
 
-    <menuitem id="sub_menu_direct_material_receipt"
+    <menuitem id="purchase_purchase_direct_material_receipt"
               name="Direct Material Receipt"
               action="action_hos_picking_direct_material_receipt"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="50"/>
 
-    <menuitem id="sub_menu_purchase_invoice"
+    <menuitem id="purchase_purchase_purchase_invoice"
               name="Purchase Invoice"
               action="action_hos_invoice_purchase"
-              parent="menu_purchase_purchase"
+              parent="sub_menu_purchase_purchase"
               sequence="60"/>
 
-    <!--Incoming Shipment-->
-
-    <menuitem id="menu_purchase_product"
+    <menuitem id="sub_menu_purchase_product"
               name="Product"
               parent="menu_procurement"
               sequence="20"/>
 
-    <menuitem id="sub_menu_purchase_hos_product"
+    <menuitem id="purchase_product_hos_product"
               name="Product"
               action="action_hos_product"
-              parent="menu_purchase_product"
+              parent="sub_menu_purchase_product"
               sequence="10"/>
 
-    <!--Sale-->
-    <menuitem id="menu_sale_sale"
-              name="Sale"
-              parent="menu_procurement"
-              sequence="10"/>
-
-    <menuitem id="sub_menu_sale_order_retail"
-              name="Sale R"
-              action="action_sale_order_retail"
-              parent="menu_sale_sale"
-              sequence="10"/>
-
-    <menuitem id="sub_menu_sale_order_home"
-              name="Sale H"
-              action="action_sale_order_home"
-              parent="menu_sale_sale"
+    <menuitem id="purchase_product_hos_warehouse"
+              name="Stock"
+              action="action_hos_warehouse"
+              parent="sub_menu_purchase_product"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_picking_material_delivery"
-              name="material Delivery"
-              action="action_hos_picking_material_delivery"
-              parent="menu_sale_sale"
-              sequence="30"/>
+    <!--<menuitem id="purchase_product_hos_product"-->
+              <!--name="Purchase History"-->
+              <!--action="action_hos_product"-->
+              <!--parent="menu_purchase_product"-->
+              <!--sequence="30"/>-->
 
-    <menuitem id="sub_menu_hos_invoice_sale"
-              name="Sale invoice"
-              action="action_hos_invoice_sale"
-              parent="menu_sale_sale"
+    <menuitem id="purchase_product_vendors"
+              name="Vendors"
+              action="action_hos_person_supplier"
+              parent="sub_menu_purchase_product"
               sequence="40"/>
 
-    <!--Stock-->
-    <!--Purchase History-->
-    <!--Vendor Detail-->
 
 </odoo>

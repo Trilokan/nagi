@@ -26,7 +26,7 @@
               sequence="10"/>
 
     <menuitem id="sub_menu_patient_treatment_opt"
-              name="OPT Treatment"
+              name="Treatment"
               action="action_patient_treatment_opt"
               parent="menu_patient_opt"
               sequence="20"/>
@@ -44,7 +44,7 @@
               sequence="30"/>
 
     <menuitem id="sub_menu_patient_treatment_ipt"
-              name="IPT Treatment"
+              name="Treatment"
               action="action_patient_treatment_ipt"
               parent="menu_patient_ipt"
               sequence="10"/>
@@ -79,7 +79,11 @@
               parent="menu_patient_bill"
               sequence="10"/>
 
-    <!--Balance-->
+    <menuitem id="sub_menu_hos_invoice_patient_invoice"
+              name="Balance"
+              action="action_hos_invoice_patient_invoice"
+              parent="menu_patient_bill"
+              sequence="20"/>
 
     <!--Configuration: -->
     <menuitem id="menu_patient_configuration"

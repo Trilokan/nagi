@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!--Masters-->
     <menuitem id="sub_menu_account_account"
               name="Account"
               parent="menu_account"
@@ -18,34 +19,101 @@
               parent="sub_menu_account_account"
               sequence="20"/>
 
-    <menuitem id="account_account_journal_entry"
-              name="Journal Entry"
-              action="action_journal_entry"
+    <menuitem id="account_account_hos_tax"
+              name="Tax"
+              action="action_hos_tax"
               parent="sub_menu_account_account"
               sequence="30"/>
 
-    <menuitem id="account_account_journal_item"
-              name="Journal Items"
-              action="action_journal_item"
-              parent="sub_menu_account_account"
+    <!--Transaction-->
+    <menuitem id="sub_menu_account_transaction"
+              name="Transaction"
+              parent="menu_account"
+              sequence="20"/>
+
+    <!--<menuitem id="account_transaction_hos_voucher_customer_payment"-->
+              <!--name="Customer Payments"-->
+              <!--action="action_hos_voucher_customer_payment"-->
+              <!--parent="sub_menu_account_transaction"-->
+              <!--sequence="10"/>-->
+
+    <!--<menuitem id="account_transaction_hos_voucher_vendor_payment"-->
+              <!--name="Vendor Payments"-->
+              <!--action="action_hos_voucher_vendor_payment"-->
+              <!--parent="sub_menu_account_transaction"-->
+              <!--sequence="20"/>-->
+
+    <!--<menuitem id="account_transaction_hos_ledger"-->
+              <!--name="Ledger"-->
+              <!--action="action_hos_ledger"-->
+              <!--parent="sub_menu_account_transaction"-->
+              <!--sequence="30"/>-->
+
+    <menuitem id="account_transaction_journal_entry"
+              name="Journal Entry"
+              action="action_journal_entry"
+              parent="sub_menu_account_transaction"
               sequence="40"/>
 
-    <menuitem id="account_account_hos_voucher"
-              name="Payment Received"
-              action="action_hos_voucher_payment_received"
-              parent="sub_menu_account_account"
+    <menuitem id="account_transaction_journal_item"
+              name="Journal Items"
+              action="action_journal_item"
+              parent="sub_menu_account_transaction"
               sequence="50"/>
 
+    <!--Report-->
+    <menuitem id="sub_menu_account_report"
+              name="Report"
+              parent="menu_account"
+              sequence="30"/>
 
-    <!--Payment Received-->
-    <!--Voucher-->
-    <!--Customer Ageing-->
-    <!--Vendor Ageing-->
+    <!--<menuitem id="account_report_customer_ageing"-->
+              <!--name="Customer Ageing"-->
+              <!--action="action_customer_ageing"-->
+              <!--parent="sub_menu_account_report"-->
+              <!--sequence="10"/>-->
 
-    <!--Ledger-->
-    <!--Chart of accounts-->
-    <!--Balance Sheet-->
-    <!--Profit Loss-->
+    <!--<menuitem id="account_report_vendor_ageing"-->
+              <!--name="Vendor Ageing"-->
+              <!--action="action_vendor_ageing"-->
+              <!--parent="sub_menu_account_report"-->
+              <!--sequence="20"/>-->
+
+    <!--<menuitem id="account_report_chart_of_accounts"-->
+              <!--name="Chart Of Accounts"-->
+              <!--action="action_chart_of_accounts"-->
+              <!--parent="sub_menu_account_report"-->
+              <!--sequence="30"/>-->
+
+    <!--<menuitem id="account_report_balance_sheet"-->
+              <!--name="Balance Sheet"-->
+              <!--action="action_balance_sheet"-->
+              <!--parent="sub_menu_account_report"-->
+              <!--sequence="40"/>-->
+
+    <!--<menuitem id="account_report_profit_loss"-->
+              <!--name="Profit Loss"-->
+              <!--action="action_profit_loss"-->
+              <!--parent="sub_menu_account_report"-->
+              <!--sequence="50"/>-->
+
+    <!--Configuration-->
+    <menuitem id="sub_menu_account_configuration"
+              name="Configuration"
+              parent="menu_account"
+              sequence="30"/>
+
+    <menuitem id="account_configuration_year_year"
+              name="Year"
+              action="action_year_year"
+              parent="sub_menu_account_configuration"
+              sequence="10"/>
+
+    <menuitem id="account_configuration_period_period"
+              name="Period"
+              action="action_period_period"
+              parent="sub_menu_account_configuration"
+              sequence="20"/>
 
 
 </odoo>

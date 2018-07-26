@@ -1,88 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <menuitem id="menu_product_product"
+    <!--Product-->
+    <menuitem id="sub_menu_product_product"
               name="Product"
               parent="menu_product"
               sequence="10"/>
 
-    <menuitem id="sub_menu_product_group"
+    <menuitem id="product_product_product_group"
               name="Group"
               action="action_product_group"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="10"/>
 
-    <menuitem id="sub_menu_product_sub_group"
+    <menuitem id="product_product_product_sub_group"
               name="Sub-Group"
               action="action_product_sub_group"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_uom"
+    <menuitem id="product_product_hos_uom"
               name="UOM"
               action="action_hos_uom"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="30"/>
 
-    <menuitem id="sub_menu_hos_tax"
+    <menuitem id="product_product_hos_tax"
               name="Tax"
               action="action_hos_tax"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="40"/>
 
-    <menuitem id="sub_menu_hos_product_category"
+    <menuitem id="product_product_hos_product_category"
               name="Category"
               action="action_hos_product_category"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="50"/>
 
-    <menuitem id="sub_menu_product_type"
+    <menuitem id="product_product_product_type"
               name="Type"
               action="action_product_type"
-              parent="menu_product_product"
+              parent="sub_menu_product_product"
               sequence="60"/>
 
-    <menuitem id="sub_menu_hos_location"
-              name="Location"
-              action="action_hos_location"
-              parent="menu_product_product"
-              sequence="70"/>
-
-    <menuitem id="sub_menu_hos_warehouse"
-              name="Warehouse"
-              action="action_hos_warehouse"
-              parent="menu_product_product"
-              sequence="80"/>
-
-    <menuitem id="sub_menu_hos_product"
-              name="Product"
-              action="action_hos_product"
-              parent="menu_product_product"
-              sequence="90"/>
-
-    <menuitem id="menu_hos_assert"
-              name="Assert"
+    <!--Inventory-->
+    <menuitem id="sub_menu_product_inventory"
+              name="Inventory"
               parent="menu_product"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_assert"
-              name="Assert"
-              action="action_hos_assert"
-              parent="menu_hos_assert"
+    <menuitem id="product_inventory_hos_picking_stock_adjustment"
+              name="Stock Adjustment"
+              action="action_hos_picking_stock_adjustment"
+              parent="sub_menu_product_inventory"
               sequence="10"/>
 
-    <menuitem id="sub_menu_assert_service"
-              name="Assert Service"
-              action="action_assert_service"
-              parent="menu_hos_assert"
+    <menuitem id="product_inventory_store_request"
+              name="Store Request"
+              action="action_store_request"
+              parent="sub_menu_product_inventory"
               sequence="20"/>
 
-    <menuitem id="sub_menu_assert_reminder"
-              name="Assert Reminder"
-              action="action_assert_reminder"
-              parent="menu_hos_assert"
+    <menuitem id="product_inventory_store_issue"
+              name="Store Issue"
+              action="action_hos_picking_store_issue"
+              parent="sub_menu_product_inventory"
               sequence="30"/>
 
+    <menuitem id="product_inventory_hos_move"
+              name="Stock Move"
+              action="action_hos_move"
+              parent="sub_menu_product_inventory"
+              sequence="40"/>
+
+    <menuitem id="product_inventory_hos_location"
+              name="Location"
+              action="action_hos_location"
+              parent="sub_menu_product_inventory"
+              sequence="50"/>
+
+    <menuitem id="product_inventory_hos_warehouse"
+              name="Warehouse"
+              action="action_hos_warehouse"
+              parent="sub_menu_product_inventory"
+              sequence="60"/>
+
+    <!--Assert-->
+    <menuitem id="sub_menu_product_assert"
+              name="Assert"
+              parent="menu_product"
+              sequence="30"/>
+
+    <menuitem id="product_assert_hos_assert"
+              name="Assert"
+              action="action_hos_assert"
+              parent="sub_menu_product_assert"
+              sequence="10"/>
+
+    <menuitem id="product_assert_assert_service"
+              name="Assert Service"
+              action="action_assert_service"
+              parent="sub_menu_product_assert"
+              sequence="20"/>
+
+    <menuitem id="product_assert_assert_reminder"
+              name="Assert Reminder"
+              action="action_assert_reminder"
+              parent="sub_menu_product_assert"
+              sequence="30"/>
 
 
 </odoo>

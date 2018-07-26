@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="sub_menu_pharmacy"
+              name="Pharmacy"
+              parent="menu_procurement"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Pharmacy"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Home Delivery"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Delivery Details"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_purchase_indent"
+              name="Bills"
+              action="action_purchase_indent"
+              parent="menu_purchase_purchase"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_pharmacy_product"
+              name="Product"
+              parent="menu_procurement"
+              sequence="20"/>
+
+    <menuitem id="pharmacy_product_hos_product"
+              name="Product"
+              action="action_purchase_indent"
+              parent="sub_menu_pharmacy_product"
+              sequence="10"/>
+
+    <menuitem id="pharmacy_product_hos_product"
+              name="Stock"
+              action="action_purchase_indent"
+              parent="sub_menu_pharmacy_product"
+              sequence="20"/>
+
+    <menuitem id="pharmacy_product_store_request"
+              name="Medicine Request"
+              action="action_purchase_indent"
+              parent="sub_menu_pharmacy_product"
+              sequence="30"/>
+
+
+</odoo>
