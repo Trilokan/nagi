@@ -191,9 +191,9 @@ class MonthAttendance(surya.Sarpam):
                 journal_detail["period_id"] = self.period_id.id
                 journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
                 journal_detail["company_id"] = self.env.user.company_id.id
-                journal_detail["person_id"] = employee.person_id.id
+                journal_detail["employee_id"] = employee.id
                 journal_detail["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
-                journal_detail["credit"] = config.leave_credit
+                journal_detail["debit"] = config.leave_credit
                 journal_detail["leave_account_id"] = employee.leave_account_id.id
 
                 leave_item.append((0, 0, journal_detail))
@@ -204,9 +204,9 @@ class MonthAttendance(surya.Sarpam):
                 journal_detail["period_id"] = self.period_id.id
                 journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
                 journal_detail["company_id"] = self.env.user.company_id.id
-                journal_detail["person_id"] = employee.person_id.id
+                journal_detail["employee_id"] = employee.id
                 journal_detail["description"] = "Leave Credit"
-                journal_detail["debit"] = config.leave_credit
+                journal_detail["credit"] = config.leave_credit
                 journal_detail["leave_account_id"] = self.env.user.company_id.leave_credit_id.id
 
                 leave_item.append((0, 0, journal_detail))

@@ -16,7 +16,7 @@ class LeaveItem(surya.Sarpam):
     name = fields.Char(string="Name")
     reference = fields.Char(string="Reference")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", required=True)
-    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
     description = fields.Text(string="Description")
     credit = fields.Float(string="Credit")
     debit = fields.Float(string="Debit")
@@ -28,7 +28,6 @@ class LeaveItem(surya.Sarpam):
 
     def default_vals_creation(self, vals):
 
-        print vals
         vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["date"] = datetime.now().strftime("%Y-%m-%d")
         return vals

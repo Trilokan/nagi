@@ -15,7 +15,7 @@ class LeaveJournal(surya.Sarpam):
     name = fields.Char(string="Name", required=True)
     reference = fields.Char(string="Reference")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", required=True)
-    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     journal_detail = fields.One2many(comodel_name="leave.item",
                                      inverse_name="journal_id",
