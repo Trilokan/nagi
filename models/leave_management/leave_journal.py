@@ -22,37 +22,5 @@ class LeaveJournal(surya.Sarpam):
                                      string="Journal Entry Detail")
 
     def default_vals_creation(self, vals):
-
-        print vals
         vals["company_id"] = self.env.user.company_id.id
-
-        person_id = self.env["hos.person"].search([("id", "=", vals["person_id"])])
-        employee_id = self.env["hr.employee"].search([("person_id", "=", person_id.id)])
-
-        credit = debit = 0
-        recs = vals["journal_detail"]
-
-        for rec in recs:
-            if rec["credit"] > 0:
-                credit = credit + rec["credit"]
-
-            if rec["debit"] > 0:
-                debit = debit + rec["debit"]
-
-        data = {"period_id": vals["period_id"],
-                "company_id": self.env.user.company_id.id,
-                "person_id": person_id.id,
-                "description": "Monthly Leave Credit",
-                "leave_account_id": employee_id.leave_account_id.id}
-
-        if credit > debit:
-            credit_dict = {"credit": credit}
-            credit_dict.update(data)
-            vals["journal_detail"].append(credit_dict)
-
-        if debit > credit:
-            debit_dict = {"debit": debit}
-            debit_dict.update(data)
-            vals["journal_detail"].append(debit_dict)
-
         return vals

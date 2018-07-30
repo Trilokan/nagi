@@ -34,8 +34,13 @@
         <field name="code">103</field>
     </record>
 
-    <record id="monthly_leave_taken" model="leave.account">
-        <field name="name">Monthly Leave Taken</field>
+    <record id="monthly_leave_lop" model="leave.account">
+        <field name="name">Monthly Leave LOP</field>
+        <field name="code">104</field>
+    </record>
+
+    <record id="monthly_leave_debit" model="leave.account">
+        <field name="name">Monthly Leave Debit</field>
         <field name="code">105</field>
     </record>
 
@@ -43,6 +48,15 @@
         <field name="name">Leave Journal</field>
         <field name="code">leave.journal</field>
         <field name="prefix">LJ/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_account_sequence" model="ir.sequence">
+        <field name="name">Leave Account</field>
+        <field name="code">leave.account</field>
+        <field name="prefix">LA/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>

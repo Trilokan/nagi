@@ -187,6 +187,24 @@
               parent="menu_employee_leave_management"
               sequence="60"/>
 
+    <menuitem id="sub_menu_leave_account"
+              name="Leave Account"
+              action="action_leave_account"
+              parent="menu_employee_leave_management"
+              sequence="70"/>
+
+    <menuitem id="sub_menu_leave_type"
+              name="Leave Type"
+              action="action_leave_type"
+              parent="menu_employee_leave_management"
+              sequence="80"/>
+
+    <menuitem id="sub_menu_leave_level"
+              name="Leave Level"
+              action="action_leave_level"
+              parent="menu_employee_leave_management"
+              sequence="90"/>
+
     <!-- Payroll -->
     <menuitem id="menu_employee_payroll"
               name="Payroll Management"

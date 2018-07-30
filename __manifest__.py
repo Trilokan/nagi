@@ -28,6 +28,7 @@
         'views/web/account/journal_item.xml',
         'views/web/account/voucher.xml',
         'views/web/account/tax.xml',
+        'views/web/account/leave.xml',
 
         # Base Pack
         'views/web/base_pack/company.xml',
@@ -94,6 +95,8 @@
         'views/web/leave_management/permission.xml',
         'views/web/leave_management/leave_journal.xml',
         'views/web/leave_management/leave_voucher.xml',
+        'views/web/leave_management/leave_type.xml',
+        'views/web/leave_management/leave_level.xml',
 
         # Payroll
         'views/web/payroll/hr_pay_update_wiz.xml',
@@ -155,7 +158,7 @@
         # 'views/web/menu/hospital.xml',
         # 'views/web/menu/reception.xml',
         # 'views/web/menu/patient.xml',
-        # 'views/web/menu/employee.xml',
+        'views/web/menu/employee.xml',
         # 'views/web/menu/product.xml',
         # 'views/web/menu/procurement.xml',
         # 'views/web/menu/laboratory.xml',

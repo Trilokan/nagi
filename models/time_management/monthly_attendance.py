@@ -181,29 +181,35 @@ class MonthAttendance(surya.Sarpam):
         # Leave Credits from leave configuration
         employees = self.env["hr.employee"].search([])
 
-        leave_item = {}
+        leave_item = []
         for employee in employees:
             configs = self.env["leave.configuration"].search([("leave_level_id", "=", employee.leave_level_id.id)])
 
             for config in configs:
-                leave_item["date"] = datetime.now().strftime("%Y-%m-%d")
-                leave_item["period_id"] = self.period_id.id
-                leave_item["name"] = self.env['ir.sequence'].next_by_code("leave.item")
-                leave_item["company_id"] = self.env.user.company_id.id
-                leave_item["person_id"] = employee.person_id.id
-                leave_item["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
-                leave_item["credit"] = config.leave_credit
-                leave_item["leave_account_id"] = self.env.user.company_id.default_leave_account_id.id
+                journal_detail = {}
+                journal_detail["date"] = datetime.now().strftime("%Y-%m-%d")
+                journal_detail["period_id"] = self.period_id.id
+                journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
+                journal_detail["company_id"] = self.env.user.company_id.id
+                journal_detail["person_id"] = employee.person_id.id
+                journal_detail["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
+                journal_detail["credit"] = config.leave_credit
+                journal_detail["leave_account_id"] = employee.leave_account_id.id
+
+                leave_item.append((0, 0, journal_detail))
 
             for config in configs:
-                leave_item["date"] = datetime.now().strftime("%Y-%m-%d")
-                leave_item["period_id"] = self.period_id.id
-                leave_item["name"] = self.env['ir.sequence'].next_by_code("leave.item")
-                leave_item["company_id"] = self.env.user.company_id.id
-                leave_item["person_id"] = employee.person_id.id
-                leave_item["description"] = "Leave Debit"
-                leave_item["debit"] = config.leave_credit
-                leave_item["leave_account_id"] = employee.leave_account_id.id
+                journal_detail = {}
+                journal_detail["date"] = datetime.now().strftime("%Y-%m-%d")
+                journal_detail["period_id"] = self.period_id.id
+                journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
+                journal_detail["company_id"] = self.env.user.company_id.id
+                journal_detail["person_id"] = employee.person_id.id
+                journal_detail["description"] = "Leave Credit"
+                journal_detail["debit"] = config.leave_credit
+                journal_detail["leave_account_id"] = self.env.user.company_id.leave_credit_id.id
+
+                leave_item.append((0, 0, journal_detail))
 
             journal = {}
 

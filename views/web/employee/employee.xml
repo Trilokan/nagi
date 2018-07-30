@@ -120,6 +120,7 @@
                         <page string="Leave Details">
                             <group>
                                 <field name="leave_level_id"/>
+                                <field name="leave_account_id"/>
                             </group>
                             <field name="leave_ids"/>
                         </page>

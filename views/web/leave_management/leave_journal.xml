@@ -37,6 +37,7 @@
                         <tree editable="bottom">
                             <field name="date"/>
                             <field name="period_id"/>
+                            <field name="leave_account_id"/>
                             <field name="name"/>
                             <field name="reference"/>
                             <field name="company_id"/>

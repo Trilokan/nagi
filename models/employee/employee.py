@@ -51,8 +51,8 @@ class Employee(surya.Sarpam):
         vals["employee_uid"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["company_id"] = self.env.user.company_id.id
 
-        leave_account = {"name": "{0} leave account".format(self.name),
-                         "code": "111"}
+        leave_account = {"name": vals["name"],
+                         "code": self.env['ir.sequence'].next_by_code("leave.account")}
 
         leave_account_id = self.env["leave.account"].create(leave_account)
         employee_category_id = self.env["hr.category"].search([("id", "=", vals["employee_category_id"])])

@@ -29,11 +29,17 @@
                             <field name="tax_default_id"/>
                             <field name="sundry_creditor_id"/>
                             <field name="sundry_debitor_id"/>
-                            <field name="default_leave_account_id"/>
                         </group>
                     </page>
                     <page string="Appoinment Order">
                         <field name="appointment_order_template"/>
+                    </page>
+                    <page string="Leave">
+                        <group>
+                            <field name="leave_credit_id"/>
+                            <field name="leave_debit_id"/>
+                            <field name="leave_lop_id"/>
+                        </group>
                     </page>
                 </xpath>
             </field>

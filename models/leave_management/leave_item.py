@@ -27,6 +27,8 @@ class LeaveItem(surya.Sarpam):
     comment = fields.Text(string="Comment")
 
     def default_vals_creation(self, vals):
+
+        print vals
         vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["date"] = datetime.now().strftime("%Y-%m-%d")
         return vals
