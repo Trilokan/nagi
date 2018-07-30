@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api
+from odoo import fields, api, exceptions
 from .. import surya
 from datetime import datetime
 
@@ -52,9 +52,18 @@ class LeaveVoucher(surya.Sarpam):
 
         self.difference = count
 
+    def check_pending(self):
+        pending = self.env["leave.voucher"].search([("employee_id", "=", self.employee_id.id),
+                                                    ("progress", "=", "draft")])
+
+        if pending:
+            raise exceptions.ValidationError("Error! Some records in pending please check")
+
     @api.onchange("employee_id")
     def get_cr_lines(self):
         if self.employee_id:
+
+            self.check_pending()
             self.credit_lines.unlink()
             res_cr = []
 
