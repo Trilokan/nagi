@@ -69,7 +69,6 @@
         'views/web/employee/hr_contact.xml',
         'views/web/employee/hr_experience.xml',
         'views/web/employee/hr_qualification.xml',
-        'views/web/employee/hr_leave.xml',
 
         # Recruitment
         'views/web/recruitment/vacancy_position.xml',

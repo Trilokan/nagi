@@ -8,6 +8,7 @@
         <field name="arch" type="xml">
             <tree string="Leave Level">
                 <field name="name"/>
+                <field name="code"/>
             </tree>
         </field>
     </record>
@@ -20,10 +21,11 @@
             <form string="Leave Level">
                 <sheet>
                     <div id="s_header">
-                        <h1>Leave Type</h1>
+                        <h1>Leave Level</h1>
                     </div>
                     <group>
                         <field name="name"/>
+                        <field name="code"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

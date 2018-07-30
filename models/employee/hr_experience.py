@@ -9,6 +9,7 @@ import json
 # Experience
 class HRExperience(surya.Sarpam):
     _name = "hr.experience"
+    _inherit = "mail.thread"
 
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
     name = fields.Char(string="Name", required=True)

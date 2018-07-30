@@ -31,7 +31,7 @@
         <field name="name">hos.contact.form</field>
         <field name="model">hos.contact</field>
         <field name="arch" type="xml">
-            <form string="Contact">
+            <form string="Family/Relation Details">
                 <sheet>
                     <group>
                         <field name="employee_id"/>

@@ -49,12 +49,6 @@
               parent="menu_employee_employee"
               sequence="70"/>
 
-    <menuitem id="sub_menu_hr_leave"
-              name="Employee leave Detail"
-              action="action_hr_leave"
-              parent="menu_employee_employee"
-              sequence="80"/>
-
     <!-- Recruitment -->
     <menuitem id="menu_employee_recruitment"
               name="Recruitment"
@@ -151,57 +145,57 @@
               parent="menu_employee"
               sequence="40"/>
 
-    <menuitem id="sub_menu_leave_configuration"
-              name="Leave Configuration"
-              action="action_leave_configuration"
-              parent="menu_employee_leave_management"
-              sequence="10"/>
-
-    <menuitem id="sub_menu_leave_application"
-              name="Leave Application"
-              action="action_leave_application"
-              parent="menu_employee_leave_management"
-              sequence="20"/>
-
-    <menuitem id="sub_menu_compoff_application"
-              name="Comp-Off Application"
-              action="action_compoff_application"
-              parent="menu_employee_leave_management"
-              sequence="30"/>
-
-    <menuitem id="sub_menu_permission_application"
-              name="Permission Application"
-              action="action_permission_application"
-              parent="menu_employee_leave_management"
-              sequence="40"/>
-
-    <menuitem id="sub_menu_leave_journal"
-              name="Leave Journal"
-              action="action_leave_journal"
-              parent="menu_employee_leave_management"
-              sequence="50"/>
-
-    <menuitem id="sub_menu_leave_voucher"
-              name="Leave Voucher"
-              action="action_leave_voucher"
-              parent="menu_employee_leave_management"
-              sequence="60"/>
-
     <menuitem id="sub_menu_leave_account"
               name="Leave Account"
               action="action_leave_account"
               parent="menu_employee_leave_management"
-              sequence="70"/>
+              sequence="10"/>
+
+    <menuitem id="sub_menu_leave_level"
+              name="Leave Level"
+              action="action_leave_level"
+              parent="menu_employee_leave_management"
+              sequence="20"/>
 
     <menuitem id="sub_menu_leave_type"
               name="Leave Type"
               action="action_leave_type"
               parent="menu_employee_leave_management"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_leave_configuration"
+              name="Leave Configuration"
+              action="action_leave_configuration"
+              parent="menu_employee_leave_management"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_leave_application"
+              name="Leave Application"
+              action="action_leave_application"
+              parent="menu_employee_leave_management"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_compoff_application"
+              name="Comp-Off Application"
+              action="action_compoff_application"
+              parent="menu_employee_leave_management"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_permission_application"
+              name="Permission Application"
+              action="action_permission_application"
+              parent="menu_employee_leave_management"
+              sequence="70"/>
+
+    <menuitem id="sub_menu_leave_journal"
+              name="Leave Journal"
+              action="action_leave_journal"
+              parent="menu_employee_leave_management"
               sequence="80"/>
 
-    <menuitem id="sub_menu_leave_level"
-              name="Leave Level"
-              action="action_leave_level"
+    <menuitem id="sub_menu_leave_voucher"
+              name="Leave Voucher"
+              action="action_leave_voucher"
               parent="menu_employee_leave_management"
               sequence="90"/>
 

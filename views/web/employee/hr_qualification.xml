@@ -24,6 +24,9 @@
         <field name="arch" type="xml">
             <form string="Qualification">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Employee Qualification</h1>
+                    </div>
                     <group>
                         <field name="employee_id"/>
                         <field name="name"/>

@@ -10,7 +10,8 @@ class LeaveLevel(surya.Sarpam):
     _name = "leave.level"
     _inherit = "mail.thread"
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Level", required=True)
+    code = fields.Char(string="Code", required=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def default_vals_creation(self, vals):

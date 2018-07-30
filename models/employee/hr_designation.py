@@ -11,6 +11,7 @@ PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 # Designation
 class HRDesignation(surya.Sarpam):
     _name = "hr.designation"
+    _inherit = "mail.thread"
 
     name = fields.Char(string="Designation", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")

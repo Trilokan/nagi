@@ -27,6 +27,7 @@ class WeekSchedule(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
 
+    @api.constrains("from_date", "till_date")
     def check_date(self):
         """ From Date < Till Date """
         from_date = datetime.strptime(self.from_date, "%Y-%m-%d")
@@ -34,21 +35,18 @@ class WeekSchedule(surya.Sarpam):
         if from_date > till_date:
             raise exceptions.ValidationError("Error! From Date should be greater than Till Date")
 
-        """ From Date is a week start """
-        from_date_current_week = from_date.strftime("%W")
-        last_week = from_date - timedelta(days=1)
-        from_date_last_week = last_week.strftime("%W")
+        days = (till_date - from_date).days + 1
 
-        if from_date_current_week != from_date_last_week:
-            raise exceptions.ValidationError("Error! From Date should be a week start")
+        if days != 7:
+            raise exceptions.ValidationError("Error! From Date and Till Date should be within a week")
 
-        """ Till Date is a week end """
-        till_date_current_week = till_date.strftime("%W")
-        next_week = from_date + timedelta(days=1)
-        till_date_next_week = next_week.strftime("%W")
+        if from_date.weekday() != 0:
+            raise exceptions.ValidationError("Error! Week should start from Monday")
 
-        if till_date_current_week != till_date_next_week:
-            raise exceptions.ValidationError("Error! Till Date should be a week end")
+        week_schedule = self.env["week.schedule"].search_count([("from_date", "=", self.from_date),
+                                                                ("till_date", "=", self.till_date)])
+        if week_schedule > 1:
+            raise exceptions.ValidationError("Error! Duplicate Week Schedule")
 
     def generate_attendance(self):
         from_date = datetime.strptime(self.from_date, "%Y-%m-%d")

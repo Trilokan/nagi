@@ -33,9 +33,6 @@ class Employee(surya.Sarpam):
     experience_ids = fields.One2many(comodel_name="hr.experience",
                                      inverse_name="employee_id",
                                      string="Experience")
-    leave_ids = fields.One2many(comodel_name="hr.leave",
-                                inverse_name="employee_id",
-                                string="Leave")
 
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level")
     leave_account_id = fields.Many2one(comodel_name="leave.account", string="Leave Account")

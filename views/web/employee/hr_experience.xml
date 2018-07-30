@@ -23,6 +23,9 @@
         <field name="arch" type="xml">
             <form string="Experience">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Employee Experience</h1>
+                    </div>
                     <group>
                         <field name="employee_id"/>
                         <field name="name"/>
@@ -31,6 +34,10 @@
                         <field name="relieving_reason"/>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

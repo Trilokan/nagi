@@ -11,6 +11,7 @@ PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 # Department
 class HRDepartment(surya.Sarpam):
     _name = "hr.department"
+    _inherit = "mail.thread"
 
     name = fields.Char(string="Department", required=True)
     head_id = fields.Many2one(comodel_name="hr.employee", string="Department Head")
