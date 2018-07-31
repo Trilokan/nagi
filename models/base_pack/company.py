@@ -22,6 +22,7 @@ class HospitalCompany(surya.Sarpam):
     leave_lop_id = fields.Many2one(comodel_name="leave.account", string="Loss Of Pay")
     leave_credit_id = fields.Many2one(comodel_name="leave.account", string="Leave Credit")
     leave_debit_id = fields.Many2one(comodel_name="leave.account", string="Leave Debit")
+    monthly_attendance_report = fields.Html(string="Monthly Attendance Report")
 
     # Stock
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")

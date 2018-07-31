@@ -36,9 +36,73 @@ class MonthAttendance(surya.Sarpam):
 
         return absent + (0.5 * half_day)
 
+    def generate_header(self, date_list):
+        header = ""
+
+        header_list = ["Employee"] + date_list + ["Total Days",
+                                                  "Present Days",
+                                                  "Absent Days",
+                                                  "Holidays",
+                                                  "Holidays Present"]
+
+        for rec in header_list:
+            header = "{0}\n<th>{1}</th>".format(header, rec)
+
+        header = "<tr>{0}</tr>".format(header)
+        return header
+
+    def generate_body(self, date_list, person_list):
+        body = ""
+
+        for person in person_list:
+            person_id = self.env["hos.person"].search([("id", "=", person)])
+            body = "{0}\n<tr><td>{1}</td>".format(body, person_id.name)
+
+            for date in date_list:
+                attendance = self.env["time.attendance.detail"].search([("person_id", "=", person),
+                                                                        ("attendance_id.date", "=", date)])
+                body = "{0}\n<td>{1}</td>".format(body, attendance.availability_progress)
+
+            body = """{0}<td>{1}</td>
+                         <td>{2}</td>
+                         <td>{3}</td>
+                         <td>{4}</td>
+                         <td>{5}</td></tr>""".format(body, 0, 0, 0, 0, 0)
+
+        return body
+
     def trigger_preview(self):
+        recs = self.month_detail
+
         date_list = []
-        employee_list = []
+        person_list = []
+        for rec in recs:
+            date_list.append(rec.date)
+
+        recs = self.env["time.attendance.detail"].search([("attendance_id.month_id", "=", self.id)])
+
+        for rec in recs:
+            if rec.person_id.id not in person_list:
+                person_list.append(rec.person_id.id)
+
+        header = self.generate_header(date_list)
+        body = self.generate_body(date_list, person_list)
+
+        html = self.env.user.company_id.monthly_attendance_report
+        report = html.format(header, body)
+
+        view = self.env.ref('nagi.view_month_attendance_wiz_form')
+
+        return {
+            'name': 'Monthly Attendance',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view.id,
+            'res_model': 'month.attendance.wiz',
+            'target': 'new',
+            'type': 'ir.actions.act_window',
+            'context': {'report': report}
+        }
 
     @api.multi
     def trigger_closed(self):

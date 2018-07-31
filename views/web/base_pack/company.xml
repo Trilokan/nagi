@@ -39,6 +39,7 @@
                             <field name="leave_credit_id"/>
                             <field name="leave_debit_id"/>
                             <field name="leave_lop_id"/>
+                            <field name="monthly_attendance_report"/>
                         </group>
                     </page>
                 </xpath>

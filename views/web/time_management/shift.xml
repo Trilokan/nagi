@@ -64,6 +64,10 @@
                     <button name="trigger_calculate" string="Check" type="object" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     <button name="trigger_confirm" string="Confirm" type="object" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

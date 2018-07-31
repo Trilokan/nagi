@@ -27,6 +27,10 @@ class WeekSchedule(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
 
+    def check_lines(self):
+        if not self.schedule_detail:
+            raise exceptions.ValidationError("Error! Atleast One employee required for schedule approve")
+
     @api.constrains("from_date", "till_date")
     def check_date(self):
         """ From Date < Till Date """
@@ -107,6 +111,7 @@ class WeekSchedule(surya.Sarpam):
 
     @api.multi
     def trigger_schedule(self):
+        self.check_lines()
         self.check_date()
         self.generate_attendance()
         self.write({'progress': 'scheduled'})

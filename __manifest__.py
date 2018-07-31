@@ -81,6 +81,7 @@
         'views/web/time_management/time_configuration.xml',
         'views/web/time_management/week_schedule.xml',
         'views/web/time_management/monthly_attendance.xml',
+        'views/web/time_management/monthly_attendance_wiz.xml',
         'views/web/time_management/attendance.xml',
         'views/web/time_management/shift_change.xml',
         'views/web/time_management/add_employee_to_shift.xml',

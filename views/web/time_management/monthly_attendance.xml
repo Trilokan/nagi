@@ -37,15 +37,13 @@
                                 </tree>
                             </field>
                         </page>
-                        <page string="Report">
-                            <iframe src="/yazhi/monthly_attendance" width="100%" frameborder="0"></iframe>
-                        </page>
                     </notebook>
                     <footer>
                         <button name="trigger_closed" string="Closed" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'open')]}"/>
                         <button name="trigger_open" string="Open" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_preview" string="Preview" type="object"/>
                     </footer>
                 </sheet>
             </form>
