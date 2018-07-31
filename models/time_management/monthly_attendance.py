@@ -36,6 +36,10 @@ class MonthAttendance(surya.Sarpam):
 
         return absent + (0.5 * half_day)
 
+    def trigger_preview(self):
+        date_list = []
+        employee_list = []
+
     @api.multi
     def trigger_closed(self):
         draft = self.env["time.attendance"].search_count([("month_id", "=", self.id), ("progress", "!=", "verified")])
@@ -43,14 +47,14 @@ class MonthAttendance(surya.Sarpam):
         if draft:
             raise exceptions.ValidationError("Error! Daily attendance report is not verified")
 
-        person_ids = self.env["hos.person"].search([])
+        employees = self.env["hr.employee"].search([])
 
-        for person in person_ids:
-            total_absent = self.total_absent(person)
+        for employee in employees:
+            total_absent = self.total_absent(employee.person_id)
 
             voucher = {}
             voucher["period_id"] = self.period_id.id
-            voucher["person_id"] = person.id
+            voucher["person_id"] = employee.person_id.id
             voucher["count"] = total_absent
 
             voucher_id = self.env["leave.voucher"].create(voucher)
@@ -68,8 +72,8 @@ class MonthAttendance(surya.Sarpam):
         # Leave Credits from leave configuration
         employees = self.env["hr.employee"].search([])
 
-        leave_item = []
         for employee in employees:
+            leave_item = []
             configs = self.env["leave.configuration"].search([("leave_level_id", "=", employee.leave_level_id.id)])
 
             # Credit Detail - Employee

@@ -127,17 +127,23 @@
               parent="menu_employee_time_management"
               sequence="70"/>
 
+    <menuitem id="sub_menu_add_employee_to_shift"
+              name="Add Employee To Shift"
+              action="action_add_employee_to_shift"
+              parent="menu_employee_time_management"
+              sequence="80"/>
+
     <menuitem id="sub_menu_time_sheet"
               name="Time Sheet"
               action="action_time_sheet"
               parent="menu_employee_time_management"
-              sequence="80"/>
+              sequence="90"/>
 
     <menuitem id="sub_menu_time_sheet_application"
               name="Time Sheet Application"
               action="action_time_sheet_application"
               parent="menu_employee_time_management"
-              sequence="90"/>
+              sequence="100"/>
 
     <!-- Leave Management -->
     <menuitem id="menu_employee_leave_management"

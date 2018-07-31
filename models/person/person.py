@@ -25,6 +25,7 @@ class HospitalPerson(surya.Sarpam):
 
     is_company = fields.Boolean(string="Is Company")
     is_user = fields.Boolean(string="Is User")
+    is_employee = fields.Boolean(string="Is Employee")
 
     person_type = fields.Selection(selection=PERSON_TYPE, string="Person Type")
 

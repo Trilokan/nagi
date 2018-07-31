@@ -133,7 +133,8 @@ class WeekScheduleDetail(surya.Sarpam):
     _name = "week.schedule.detail"
 
     shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", required=True)
-    person_ids = fields.Many2many(comodel_name="hos.person", string="Employee", required=True)
+    person_ids = fields.Many2many(comodel_name="hos.person", string="Employee", required=True,
+                                  domain=[("is_employee", "=", True)])
     schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
 
@@ -142,7 +143,8 @@ class WeekOffDetail(surya.Sarpam):
     _name = "week.off.detail"
 
     date = fields.Date(string="Date", required=True)
-    person_ids = fields.Many2many(comodel_name="hos.person", string="Employee", required=True)
+    person_ids = fields.Many2many(comodel_name="hos.person", string="Employee", required=True,
+                                  domain=[("is_employee", "=", True)])
     schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
 

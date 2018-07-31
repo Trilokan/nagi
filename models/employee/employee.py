@@ -60,6 +60,7 @@ class Employee(surya.Sarpam):
                 "alternate_contact": vals.get("alternate_contact", None),
                 "company_id": vals["company_id"],
                 "person_uid": vals["employee_uid"],
+                "is_employee": True,
                 "person_type": employee_category_id.name.lower()}
 
         person_id = self.env["hos.person"].create(data)
