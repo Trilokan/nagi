@@ -46,10 +46,6 @@
                                 attrs="{'invisible': [('progress', '!=', 'open')]}"/>
                         <button name="trigger_open" string="Open" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-
-                        <button name="trigger_month_open" string="M - Open" type="object"
-                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-
                     </footer>
                 </sheet>
             </form>

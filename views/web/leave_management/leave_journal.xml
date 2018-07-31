@@ -30,18 +30,14 @@
                         <field name="name"/>
                         <field name="reference"/>
                         <field name="company_id"/>
-                        <field name="employee_id"/>
+                        <field name="person_id"/>
                         <field name="progress"/>
                     </group>
                     <field name="journal_detail">
                         <tree editable="bottom">
                             <field name="date"/>
-                            <field name="period_id"/>
                             <field name="leave_account_id"/>
-                            <field name="name"/>
-                            <field name="reference"/>
-                            <field name="company_id"/>
-                            <field name="employee_id"/>
+                            <field name="person_id"/>
                             <field name="description"/>
                             <field name="credit"/>
                             <field name="debit"/>

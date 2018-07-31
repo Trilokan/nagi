@@ -12,15 +12,16 @@ VOUCHER_INFO = [("credit", "Credit"), ("debit", "Debit")]
 class LeaveVoucher(surya.Sarpam):
     _name = "leave.voucher"
 
-    date = fields.Date(string="Date", required=True)
+    date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
+    name = fields.Char(string="Name", readonly=True)
     period_id = fields.Many2one(comodel_name="period.period", string="Period")
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", required=True)
+    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     count = fields.Float(string="Count")
     difference = fields.Float(string="Difference")
-    credit_lines = fields.One2many(comodel_name="leave.voucher.line",
-                                   inverse_name="voucher_id",
-                                   string="Leave Voucher Line")
+    voucher_detail = fields.One2many(comodel_name="leave.voucher.line",
+                                     inverse_name="voucher_id",
+                                     string="Leave Voucher Line")
 
     is_manual = fields.Boolean(string="Is Manual")
 
@@ -29,63 +30,66 @@ class LeaveVoucher(surya.Sarpam):
 
     @api.onchange("count")
     def update_count(self):
-        cr_line = self.credit_lines
+        recs = self.voucher_detail
 
         count = self.count
 
-        for rec in cr_line:
+        for rec in recs:
             rec.reconcile = False
             rec.leave_reconcile = 0
 
-        for cr in cr_line:
-            cr_diff = cr.credit - cr.leave_reconcile
-            if (cr_diff > 0) and (count > 0):
-                if cr_diff >= count:
-                    cr.leave_reconcile = cr.leave_reconcile + count
+        for rec in recs:
+            diff = rec.leave_available - rec.leave_reconcile
+            if (diff > 0) and (count > 0):
+                if diff >= count:
+                    rec.leave_reconcile = rec.leave_reconcile + count
                     count = 0
-                    cr.reconcile = True
+                    rec.reconcile = True
 
-                elif cr_diff < count:
-                    cr.reconcile = True
-                    cr.leave_reconcile = cr.leave_reconcile + cr_diff
-                    count = count - cr_diff
+                elif diff < count:
+                    rec.reconcile = True
+                    rec.leave_reconcile = rec.leave_reconcile + diff
+                    count = count - diff
 
         self.difference = count
 
     def check_pending(self):
-        pending = self.env["leave.voucher"].search([("employee_id", "=", self.employee_id.id),
-                                                    ("progress", "=", "draft")])
+        pending = self.env["leave.voucher"].search([("person_id", "=", self.person_id.id),
+                                                    ("progress", "=", "draft"),
+                                                    ("id", "!=", self.id)])
 
+        print pending
         if pending:
             raise exceptions.ValidationError("Error! Some records in pending please check")
 
-    @api.onchange("employee_id")
+    @api.onchange("person_id")
     def get_cr_lines(self):
-        if self.employee_id:
+        if self.person_id:
 
             self.check_pending()
-            self.credit_lines.unlink()
+            self.voucher_detail.unlink()
             res_cr = []
 
-            leave_account_id = self.employee_id.leave_account_id.id
+            employee_id = self.env["hr.employee"].search([("person_id", "=", self.person_id.id)])
+            leave_account_id = employee_id.leave_account_id.id
 
-            recs_cr = self.env["leave.item"].search([("leave_account_id", "=", leave_account_id),
-                                                     ("debit", ">", 0),
-                                                     ("reconcile_id", "=", False)])
+            recs = self.env["leave.item"].search([("leave_account_id", "=", leave_account_id),
+                                                  ("debit", ">", 0),
+                                                  ("reconcile_id", "=", False)])
 
-            for rec in recs_cr:
+            for rec in recs:
                 data = {}
 
                 data["date"] = rec.date
                 data["name"] = rec.name
-                data["employee_id"] = self.employee_id.id
+                data["person_id"] = self.person_id.id
                 data["description"] = rec.description
-                data["credit"] = rec.debit
+                data["leave_available"] = rec.debit
                 data["item_id"] = rec.id
                 data["voucher_type"] = "credit"
                 res_cr.append(data)
 
-            self.credit_lines = res_cr
+            self.voucher_detail = res_cr
 
     def generate_journal_leave_debit(self):
         leave_item = []
@@ -95,7 +99,7 @@ class LeaveVoucher(surya.Sarpam):
         journal_detail["period_id"] = self.period_id.id
         journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
         journal_detail["company_id"] = self.env.user.company_id.id
-        journal_detail["employee_id"] = self.employee_id.id
+        journal_detail["person_id"] = self.person_id.id
         journal_detail["description"] = "Leave Debit"
         journal_detail["debit"] = self.count
         journal_detail["leave_account_id"] = self.env.user.company_id.leave_debit_id.id
@@ -112,7 +116,7 @@ class LeaveVoucher(surya.Sarpam):
         journal_detail["period_id"] = self.period_id.id
         journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
         journal_detail["company_id"] = self.env.user.company_id.id
-        journal_detail["employee_id"] = self.employee_id.id
+        journal_detail["person_id"] = self.person_id.id
         journal_detail["description"] = "Leave Debit"
         journal_detail["credit"] = self.difference
         journal_detail["leave_account_id"] = self.env.user.company_id.leave_lop_id.id
@@ -124,7 +128,9 @@ class LeaveVoucher(surya.Sarpam):
     def generate_journal_leave_credit(self, reconcile_id):
         leave_item = []
         # Create Journal for reconcillation
-        recs = self.credit_lines
+        recs = self.voucher_detail
+
+        employee_id = self.env["hr.employee"].search([("person_id", "=", self.person_id.id)])
 
         for rec in recs:
             if rec.reconcile and (rec.leave_reconcile > 0):
@@ -135,10 +141,10 @@ class LeaveVoucher(surya.Sarpam):
                 journal_detail["period_id"] = self.period_id.id
                 journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
                 journal_detail["company_id"] = self.env.user.company_id.id
-                journal_detail["employee_id"] = self.employee_id.id
+                journal_detail["person_id"] = self.person_id.id
                 journal_detail["description"] = "Leave Debit"
-                journal_detail["debit"] = rec.credit
-                journal_detail["leave_account_id"] = self.employee_id.leave_account_id.id
+                journal_detail["debit"] = rec.leave_available
+                journal_detail["leave_account_id"] = employee_id.leave_account_id.id
                 journal_detail["reconcile_id"] = reconcile_id.id
 
                 leave_item.append((0, 0, journal_detail))
@@ -151,10 +157,10 @@ class LeaveVoucher(surya.Sarpam):
                     journal_detail["period_id"] = self.period_id.id
                     journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
                     journal_detail["company_id"] = self.env.user.company_id.id
-                    journal_detail["employee_id"] = self.employee_id.id
+                    journal_detail["person_id"] = self.person_id.id
                     journal_detail["description"] = "Leave Debit"
-                    journal_detail["credit"] = rec.credit
-                    journal_detail["leave_account_id"] = self.employee_id.leave_account_id.id
+                    journal_detail["credit"] = rec.leave_available
+                    journal_detail["leave_account_id"] = employee_id.leave_account_id.id
                     journal_detail["reconcile_id"] = reconcile_id.id
 
                     leave_item.append((0, 0, journal_detail))
@@ -164,10 +170,10 @@ class LeaveVoucher(surya.Sarpam):
                     journal_detail["period_id"] = self.period_id.id
                     journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
                     journal_detail["company_id"] = self.env.user.company_id.id
-                    journal_detail["employee_id"] = self.employee_id.id
+                    journal_detail["person_id"] = self.person_id.id
                     journal_detail["description"] = "Leave Debit"
-                    journal_detail["debit"] = rec.credit - rec.leave_reconcile
-                    journal_detail["leave_account_id"] = self.employee_id.leave_account_id.id
+                    journal_detail["debit"] = rec.leave_available - rec.leave_reconcile
+                    journal_detail["leave_account_id"] = employee_id.leave_account_id.id
 
                     leave_item.append((0, 0, journal_detail))
 
@@ -192,7 +198,7 @@ class LeaveVoucher(surya.Sarpam):
         journal["period_id"] = self.period_id.id
         journal["name"] = self.env['ir.sequence'].next_by_code("leave.journal")
         journal["company_id"] = self.env.user.company_id.id
-        journal["employee_id"] = self.employee_id.id
+        journal["person_id"] = self.person_id.id
         journal["journal_detail"] = leave_item
         journal["progress"] = "posted"
 
@@ -209,7 +215,7 @@ class LeaveVoucher(surya.Sarpam):
     def default_vals_creation(self, vals):
         vals["company_id"] = self.env.user.company_id.id
         vals["writter"] = "Leave Voucher created by {0}".format(self.env.user.name)
-
+        vals["name"] = self.env['ir.sequence'].next_by_code("leave.voucher")
         return vals
 
 
@@ -217,11 +223,12 @@ class LeaveVoucherLine(surya.Sarpam):
     _name = "leave.voucher.line"
 
     date = fields.Date(string="Date", required=True)
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
     name = fields.Char(string="Name")
     description = fields.Text(string="Description")
-    voucher_id = fields.Many2one(comodel_name="leave.voucher", string="Leave Voucher")
-    credit = fields.Float(string="Credit")
-    reconcile = fields.Boolean(string="Reconcile")
     item_id = fields.Many2one(comodel_name="leave.item", string="Journal Item")
+    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    voucher_id = fields.Many2one(comodel_name="leave.voucher", string="Leave Voucher")
+    leave_available = fields.Float(string="Leave Available")
+    reconcile = fields.Boolean(string="Reconcile")
     leave_reconcile = fields.Float(string="Leave Reconcile")
+
