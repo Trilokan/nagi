@@ -60,8 +60,17 @@ class AddEmployeeToShift(surya.Sarpam):
         else:
             raise exceptions.ValidationError("Error! please check")
 
+    def check_duplicate(self):
+        attendance = self.env["time.attendance"].search([("date", "=", self.date)])
+        attendance_detail = self.env["time.attendance.detail"].search([("person_id", "=", self.person_id.id),
+                                                                       ("attendance_id", "=", attendance.id)])
+
+        if attendance_detail:
+            raise exceptions.ValidationError("Error! please check employee is already in shift")
+
     @api.multi
     def trigger_approve(self):
+        self.check_duplicate()
         self.add_attendance()
         self.write({'progress': 'employee_added_to_shift'})
 

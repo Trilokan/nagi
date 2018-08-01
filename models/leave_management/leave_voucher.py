@@ -14,8 +14,8 @@ class LeaveVoucher(surya.Sarpam):
 
     date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     name = fields.Char(string="Name", readonly=True)
-    period_id = fields.Many2one(comodel_name="period.period", string="Period")
-    person_id = fields.Many2one(comodel_name="hos.person", string="Person")
+    period_id = fields.Many2one(comodel_name="period.period", string="Period", required=True)
+    person_id = fields.Many2one(comodel_name="hos.person", string="Person", required=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     count = fields.Float(string="Count")
     difference = fields.Float(string="Difference")
@@ -54,18 +54,16 @@ class LeaveVoucher(surya.Sarpam):
         self.difference = count
 
     def check_pending(self):
-        pending = self.env["leave.voucher"].search([("person_id", "=", self.person_id.id),
-                                                    ("progress", "=", "draft"),
-                                                    ("id", "!=", self.id)])
+        pending = self.env["leave.voucher"].search_count([("person_id", "=", self.person_id.id),
+                                                          ("progress", "=", "draft")])
 
-        if pending:
+        if pending > 1:
             raise exceptions.ValidationError("Error! Some records in pending please check")
 
-        duplicate = self.env["leave.voucher"].search([("person_id", "=", self.person_id.id),
-                                                      ("period_id", "=", self.period_id.id),
-                                                      ("id", "!=", self.id)])
+        duplicate = self.env["leave.voucher"].search_count([("person_id", "=", self.person_id.id),
+                                                            ("period_id", "=", self.period_id.id)])
 
-        if duplicate:
+        if duplicate > 1:
             raise exceptions.ValidationError("Error! Duplicate please check")
 
     @api.onchange("person_id")

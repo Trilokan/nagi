@@ -25,15 +25,29 @@ class Payslip(surya.Sarpam):
 
     _sql_constraints = [('payslip_uniq', 'unique(employee_id, month_id)', 'Payslip is already generated')]
 
-    @api.multi
-    def generate_payslip(self):
-        self.payslip_details.unlink()
-        pay = self.update_payslip_dict()
-
+    def check_items(self):
         hr_pay = self.env["hr.pay"].search([("employee_id", "=", self.employee_id.id)])
+        lop = self.env["leave.item"].search([("person_id", "=", self.employee_id.person_id.id),
+                                             ("period_id", "=", self.month_id.period_id.id),
+                                             ("leave_account_id", "=", self.env.user.company_id.leave_lop_id.id)])
 
         if not hr_pay:
             raise exceptions.ValidationError("Error! Pay details is not configured")
+
+        if self.month_id.progress != "closed":
+            raise exceptions.ValidationError("Error! Monthly attendance is not closed")
+
+        if not lop:
+            raise exceptions.ValidationError("Error! LOP is not calculated")
+
+    @api.multi
+    def generate_payslip(self):
+        self.check_items()
+        self.payslip_details.unlink()
+
+        pay = self.update_payslip_dict()
+
+        hr_pay = self.env["hr.pay"].search([("employee_id", "=", self.employee_id.id)])
 
         recs = hr_pay.structure_id.detail_ids
         sorted(recs, key=lambda x: x.sequence)
@@ -48,9 +62,6 @@ class Payslip(surya.Sarpam):
         lop = self.env["leave.item"].search([("person_id", "=", person.id),
                                              ("period_id", "=", self.month_id.period_id.id),
                                              ("leave_account_id", "=", self.env.user.company_id.leave_lop_id.id)])
-
-        if not lop:
-            raise exceptions.ValidationError("Error! LOP is not calculated")
 
         for rec in recs:
             if rec.is_need:

@@ -36,7 +36,7 @@
                         <field name="difference"/>
                     </group>
                     <field name="voucher_detail">
-                        <tree>
+                        <tree create="false" delete="false">
                             <field name="date"/>
                             <field name="name"/>
                             <field name="person_id"/>
@@ -47,7 +47,8 @@
                             <field name="item_id"/>
                         </tree>
                     </field>
-                    <button name="generate_journal" string="GJ" type="object"/>
+                    <button name="trigger_posting" string="Confirm" type="object"
+                            attrs="{'invisible': [('progress', '=', 'posted')]}"/>
                 </sheet>
             </form>
         </field>
