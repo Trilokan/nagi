@@ -63,20 +63,53 @@ class CompOff(surya.Sarpam):
 
         employee_id = self.env["hr.employee"].search([("person_id", "=", self.person_id.id)])
 
-        hr_leave = {}
-
-        hr_leave["date"] = self.date
-        hr_leave["month_id"] = attendance.attendance_id.month_id.id
-        hr_leave["employee_id"] = employee_id.id
-        hr_leave["leave_type_id"] = self.env.user.company_id.comp_off_id
-        hr_leave["credit"] = 1
-        hr_leave["leave_order"] = 1
-        hr_leave["allocation_type"] = "current_month"
-
-        self.env["hr.leave"].create(hr_leave)
-
+        self.generate_journal(attendance, employee_id)
         data = {"progress": "approved",
                 "writter": "Comp-Off application approved by {0}".format(self.env.user.name)}
 
         self.write(data)
+
+    @api.multi
+    def generate_journal(self, attendance, employee):
+        period_id = attendance.month_id.period_id
+
+        leave_item = []
+
+        if self.co_type == "full_day":
+            value = 1
+        elif self.co_type == "half_day":
+            value = 1
+        else:
+            value = 0
+
+        # Credit Detail - Employee
+        journal_detail = {}
+        journal_detail["period_id"] = period_id.id
+        journal_detail["person_id"] = employee.person_id.id
+        journal_detail["leave_account_id"] = employee.leave_account_id.id
+        journal_detail["description"] = "Comp-Off Credit"
+        journal_detail["debit"] = value
+        journal_detail["reference"] = period_id.name
+
+        leave_item.append((0, 0, journal_detail))
+
+        # Credit Detail - Monthly
+        journal_detail = {}
+        journal_detail["period_id"] = period_id.id
+        journal_detail["person_id"] = employee.person_id.id
+        journal_detail["leave_account_id"] = self.env.user.company_id.leave_co_id.id
+        journal_detail["description"] = "Comp-Off Credit"
+        journal_detail["credit"] = value
+        journal_detail["reference"] = period_id.name
+
+        leave_item.append((0, 0, journal_detail))
+
+        journal = {}
+        journal["period_id"] = period_id.id
+        journal["person_id"] = employee.person_id.id
+        journal["journal_detail"] = leave_item
+        journal["progress"] = "posted"
+        journal["reference"] = period_id.name
+
+        self.env["leave.journal"].create(journal)
 

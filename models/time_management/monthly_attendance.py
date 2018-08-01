@@ -171,10 +171,15 @@ class MonthAttendance(surya.Sarpam):
             voucher["person_id"] = employee.person_id.id
             voucher["count"] = total_absent
 
-            voucher_id = self.env["leave.voucher"].create(voucher)
-            voucher_id.get_cr_lines()
-            voucher_id.update_count()
-            voucher_id.trigger_posting()
+            # Check already voucher is created
+            check_voucher = self.env["leave.voucher"].search([("period_id", "=", self.period_id.id),
+                                                              ("person_id", "=", employee.person_id.id)])
+
+            if not check_voucher:
+                voucher_id = self.env["leave.voucher"].create(voucher)
+                voucher_id.get_cr_lines()
+                voucher_id.update_count()
+                voucher_id.trigger_posting()
 
         self.write({"progress": "closed"})
 
