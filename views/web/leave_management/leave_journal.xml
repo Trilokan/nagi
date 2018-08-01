@@ -6,7 +6,7 @@
         <field name="name">leave.journal.tree</field>
         <field name="model">leave.journal</field>
         <field name="arch" type="xml">
-            <tree string="Leave Journal">
+            <tree string="Leave Journal" create="false" edit="false" delete="false">
                 <field name="date"/>
                 <field name="period_id"/>
                 <field name="name"/>
@@ -19,7 +19,7 @@
         <field name="name">leave.journal.form</field>
         <field name="model">leave.journal</field>
         <field name="arch" type="xml">
-            <form string="Leave Journal">
+            <form string="Leave Journal" create="false" edit="false" delete="false">
                 <sheet>
                     <div id="s_header">
                         <h1>Leave Journal</h1>

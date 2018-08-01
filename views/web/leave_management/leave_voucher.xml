@@ -6,7 +6,7 @@
         <field name="name">leave.voucher.tree</field>
         <field name="model">leave.voucher</field>
         <field name="arch" type="xml">
-            <tree string="Leave Voucher">
+            <tree string="Leave Voucher" create="false" edit="false" delete="false">
                 <field name="date"/>
                 <field name="person_id"/>
                 <field name="progress"/>
@@ -19,7 +19,7 @@
         <field name="name">leave.voucher.form</field>
         <field name="model">leave.voucher</field>
         <field name="arch" type="xml">
-            <form string="Leave Journal">
+            <form string="Leave Journal" create="false" edit="false" delete="false">
                 <sheet>
                     <div id="s_header">
                         <h1>Leave Voucher</h1>
@@ -32,8 +32,8 @@
                         <field name="period_id"/>
                         <field name="person_id"/>
                         <field name="company_id"/>
-                        <field name="count"/>
-                        <field name="difference"/>
+                        <field name="count" string="Leave Taken"/>
+                        <field name="difference" string="Balance"/>
                     </group>
                     <field name="voucher_detail">
                         <tree create="false" delete="false">

@@ -28,7 +28,6 @@
                         <field name="name"/>
                         <field name="code"/>
                         <field name="group_id"/>
-                        <field name="account_id"/>
                     </group>
                 </sheet>
                 <div class="oe_chatter">

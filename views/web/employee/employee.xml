@@ -107,23 +107,20 @@
                             </group>
                             <field name="family_member_ids"/>
                         </page>
-
-                        <page string="Attachments">
-                            <field name="attachment_ids" widget="many2many_binary"/>
-                        </page>
-
                         <page string="Education Details">
                             <field name="qualification_ids"/>
                         </page>
-
+                        <page string="Professional Details">
+                            <field name="experience_ids"/>
+                        </page>
                         <page string="Leave Details">
                             <group>
                                 <field name="leave_level_id"/>
                                 <field name="leave_account_id"/>
                             </group>
                         </page>
-                        <page string="Professional Details">
-                            <field name="experience_ids"/>
+                        <page string="Attachments">
+                            <field name="attachment_ids" widget="many2many_binary"/>
                         </page>
                     </notebook>
                 </sheet>

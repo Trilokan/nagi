@@ -36,7 +36,7 @@
                         <page string="Structure Detail">
                             <field name="detail_ids" attrs="{'readonly': [('progress', '!=', 'draft')]}">
                                 <tree editable="bottom">
-                                    <field name="rule_id"/>
+                                    <field name="rule_id" domain="[('progress', '=', 'confirmed')]"/>
                                     <field name="code"/>
                                     <field name="sequence"/>
                                     <field name="pay_type"/>
