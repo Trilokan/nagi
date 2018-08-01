@@ -23,7 +23,26 @@ class MonthAttendance(surya.Sarpam):
 
     _sql_constraints = [('unique_period_id', 'unique (period_id)', 'Error! Month must be unique')]
 
-    def total_absent(self, person):
+    def get_total_days(self, person):
+        total_days = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                      ("attendance_id.month_id", "=", self.id),
+                                                                      ("day_progress", "in",
+                                                                       ["working_day", "holiday"])])
+
+        return total_days
+
+    def get_present_days(self, person):
+        full_day = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                    ("attendance_id.month_id", "=", self.id),
+                                                                    ("availability_progress", "=", "full_day")])
+
+        half_day = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                    ("attendance_id.month_id", "=", self.id),
+                                                                    ("availability_progress", "=", "half_day")])
+
+        return full_day + (0.5 * half_day)
+
+    def get_absent_days(self, person):
         absent = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
                                                                   ("attendance_id.month_id", "=", self.id),
                                                                   ("day_progress", "=", "working_day"),
@@ -35,6 +54,26 @@ class MonthAttendance(surya.Sarpam):
                                                                     ("availability_progress", "=", "half_day")])
 
         return absent + (0.5 * half_day)
+
+    def get_holidays(self, person):
+        holiday = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                   ("attendance_id.month_id", "=", self.id),
+                                                                   ("day_progress", "=", "holiday")])
+
+        return holiday
+
+    def get_holidays_present(self, person):
+        full_day = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                    ("attendance_id.month_id", "=", self.id),
+                                                                    ("day_progress", "=", "holiday"),
+                                                                    ("availability_progress", "=", "full_day")])
+
+        half_day = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                    ("attendance_id.month_id", "=", self.id),
+                                                                    ("day_progress", "=", "holiday"),
+                                                                    ("availability_progress", "=", "half_day")])
+
+        return full_day + (0.5 * half_day)
 
     def generate_header(self, date_list):
         header = ""
@@ -63,11 +102,22 @@ class MonthAttendance(surya.Sarpam):
                                                                         ("attendance_id.date", "=", date)])
                 body = "{0}\n<td>{1}</td>".format(body, attendance.availability_progress)
 
+            total_days = self.get_total_days(person_id)
+            present_days = self.get_present_days(person_id)
+            absent_days = self.get_absent_days(person_id)
+            holidays = self.get_holidays(person_id)
+            holiday_present = self.get_holidays_present(person_id)
+
             body = """{0}<td>{1}</td>
                          <td>{2}</td>
                          <td>{3}</td>
                          <td>{4}</td>
-                         <td>{5}</td></tr>""".format(body, 0, 0, 0, 0, 0)
+                         <td>{5}</td></tr>""".format(body,
+                                                     total_days,
+                                                     present_days,
+                                                     absent_days,
+                                                     holidays,
+                                                     holiday_present)
 
         return body
 
@@ -114,7 +164,7 @@ class MonthAttendance(surya.Sarpam):
         employees = self.env["hr.employee"].search([])
 
         for employee in employees:
-            total_absent = self.total_absent(employee.person_id)
+            total_absent = self.get_absent_days(employee.person_id)
 
             voucher = {}
             voucher["period_id"] = self.period_id.id

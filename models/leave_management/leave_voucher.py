@@ -58,9 +58,15 @@ class LeaveVoucher(surya.Sarpam):
                                                     ("progress", "=", "draft"),
                                                     ("id", "!=", self.id)])
 
-        print pending
         if pending:
             raise exceptions.ValidationError("Error! Some records in pending please check")
+
+        duplicate = self.env["leave.voucher"].search([("person_id", "=", self.person_id.id),
+                                                      ("period_id", "=", self.period_id.id),
+                                                      ("id", "!=", self.id)])
+
+        if duplicate:
+            raise exceptions.ValidationError("Error! Duplicate please check")
 
     @api.onchange("person_id")
     def get_cr_lines(self):
@@ -151,19 +157,6 @@ class LeaveVoucher(surya.Sarpam):
 
                 if rec.leave_reconcile > 0:
                     rec.item_id.write({"reconcile_id": reconcile_id.id})
-
-                    journal_detail = {}
-                    journal_detail["date"] = datetime.now().strftime("%Y-%m-%d")
-                    journal_detail["period_id"] = self.period_id.id
-                    journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
-                    journal_detail["company_id"] = self.env.user.company_id.id
-                    journal_detail["person_id"] = self.person_id.id
-                    journal_detail["description"] = "Leave Debit"
-                    journal_detail["credit"] = rec.leave_available
-                    journal_detail["leave_account_id"] = employee_id.leave_account_id.id
-                    journal_detail["reconcile_id"] = reconcile_id.id
-
-                    leave_item.append((0, 0, journal_detail))
 
                     journal_detail = {}
                     journal_detail["date"] = datetime.now().strftime("%Y-%m-%d")

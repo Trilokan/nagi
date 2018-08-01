@@ -39,17 +39,18 @@ class Payslip(surya.Sarpam):
         sorted(recs, key=lambda x: x.sequence)
 
         person = self.employee_id.person_id
-        total_days = self.month_id.calc_total_days()
-        total_present = self.month_id.calc_total_present(person)
-        total_absent = self.month_id.calc_total_absent(person)
-        total_working_days = self.month_id.calc_total_working_days(person)
-        total_holidays = self.month_id.calc_total_holidays(person)
+        total_days = self.month_id.get_total_days(person)
+        total_present = self.month_id.get_present_days(person)
+        total_absent = self.month_id.get_absent_days(person)
+        total_holidays = self.month_id.get_holidays(person)
+        total_holiday_present = self.month_id.get_holidays_present(person)
 
-        lop_recs = self.env["hr.leave"].search([("employee_id", "=", self.employee_id.id),
-                                                ("leave_type_id", "=", self.env.user.company_id.lop_id.id)])
-        lop_days = 0
-        for lop_rec in lop_recs:
-            lop_days = lop_days + lop_rec.credit
+        lop = self.env["leave.item"].search([("person_id", "=", person.id),
+                                             ("period_id", "=", self.month_id.period_id.id),
+                                             ("leave_account_id", "=", self.env.user.company_id.leave_lop_id.id)])
+
+        if not lop:
+            raise exceptions.ValidationError("Error! LOP is not calculated")
 
         for rec in recs:
             if rec.is_need:
@@ -58,10 +59,11 @@ class Payslip(surya.Sarpam):
                         "payslip_id": self.id,
                         "pay_order": rec.sequence,
                         "total_days": total_days,
-                        "lop_days": lop_days,
+                        "lop_days": lop.credit,
                         "present_days": total_present,
                         "absent_days": total_absent,
                         "total_holidays": total_holidays,
+                        "holiday_present": total_holiday_present,
                         "pay_type": rec.pay_type}
                 payslip_detail = self.env["payslip.detail"].create(data)
                 payslip_detail.calculate_amount()
@@ -75,7 +77,7 @@ class Payslip(surya.Sarpam):
         recs = hr_pay.structure_id.detail_ids
         sorted(recs, key=lambda x: x.sequence)
 
-        pay = {"BASE": hr_pay.basic}
+        pay = {"BASIC": hr_pay.basic}
 
         for rec in recs:
             if rec.rule_id.rule_type == "fixed":
@@ -111,6 +113,7 @@ class PayslipDetail(surya.Sarpam):
     present_days = fields.Float(string="Present Days", readonly=True)
     absent_days = fields.Float(string="Absent Days", readonly=True)
     total_holidays = fields.Float(string="Total Holidays", readonly=True)
+    holiday_present = fields.Float(string="Holiday Present", readonly=True)
     payslip_id = fields.Many2one(comodel_name="pay.slip", string="payslip")
 
     def calculate_amount(self):
