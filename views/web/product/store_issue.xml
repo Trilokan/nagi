@@ -65,7 +65,6 @@
                     <footer>
                         <button name="trigger_move" string="Issue" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                        <button name="generate_journal_entries" string="Journal" type="object"/>
                     </footer>
                 </sheet>
             </form>
@@ -78,7 +77,7 @@
         <field name="res_model">hos.picking</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('picking_category', '=', 'store_issue')]</field>
+        <field name="domain">[('picking_category', '=', 'si')]</field>
     </record>
 
     <record model="ir.actions.act_window.view" id="action_hos_picking_store_issue_form">

@@ -16,9 +16,7 @@ class Product(surya.Sarpam):
     group_id = fields.Many2one(comodel_name="product.group", string="Group", required=True)
     sub_group_id = fields.Many2one(comodel_name="product.sub.group", string="Sub Group", required=True)
     uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", required=True)
-    category_id = fields.Many2one(comodel_name="hos.product.category", string="Category")
-    type_id = fields.Many2one(comodel_name="product.type", string="Type")
-    # account_id = fields.Many2one(comodel_name="hos.account", string="Account")
+    category_id = fields.Many2one(comodel_name="hos.product.category", string="Category", required=True)
     warehouse_ids = fields.One2many(comodel_name="hos.warehouse",
                                     inverse_name="product_id",
                                     string="Warehouse",

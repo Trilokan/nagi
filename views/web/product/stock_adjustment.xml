@@ -77,8 +77,8 @@
         <field name="res_model">hos.picking</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{'default_picking_type': 'in', 'default_picking_category': 'stock_adjustment'}</field>
-        <field name="domain">[('picking_category', '=', 'stock_adjustment')]</field>
+        <field name="context">{'default_picking_type': 'in', 'default_picking_category': 'sa'}</field>
+        <field name="domain">[('picking_category', '=', 'sa')]</field>
     </record>
 
     <record model="ir.actions.act_window.view" id="action_hos_picking_stock_adjustment_form">

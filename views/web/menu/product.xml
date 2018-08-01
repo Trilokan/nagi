@@ -7,41 +7,47 @@
               parent="menu_product"
               sequence="10"/>
 
+    <menuitem id="product_product_hos_product"
+              name="Product"
+              action="action_hos_product"
+              parent="sub_menu_product_product"
+              sequence="10"/>
+
     <menuitem id="product_product_product_group"
               name="Group"
               action="action_product_group"
               parent="sub_menu_product_product"
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="product_product_product_sub_group"
               name="Sub-Group"
               action="action_product_sub_group"
               parent="sub_menu_product_product"
-              sequence="20"/>
+              sequence="30"/>
 
     <menuitem id="product_product_hos_uom"
               name="UOM"
               action="action_hos_uom"
               parent="sub_menu_product_product"
-              sequence="30"/>
+              sequence="40"/>
 
     <menuitem id="product_product_hos_tax"
               name="Tax"
               action="action_hos_tax"
               parent="sub_menu_product_product"
-              sequence="40"/>
+              sequence="50"/>
 
     <menuitem id="product_product_hos_product_category"
               name="Category"
               action="action_hos_product_category"
               parent="sub_menu_product_product"
-              sequence="50"/>
+              sequence="60"/>
 
     <menuitem id="product_product_product_type"
               name="Type"
               action="action_product_type"
               parent="sub_menu_product_product"
-              sequence="60"/>
+              sequence="70"/>
 
     <!--Inventory-->
     <menuitem id="sub_menu_product_inventory"

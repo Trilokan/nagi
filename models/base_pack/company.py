@@ -25,11 +25,15 @@ class HospitalCompany(surya.Sarpam):
     monthly_attendance_report = fields.Html(string="Monthly Attendance Report")
 
     # Stock
-    location_id = fields.Many2one(comodel_name="hos.location", string="Location")
-    purchase_location_id = fields.Many2one(comodel_name="hos.location", string="Purchase Location")
+    location_id = fields.Many2one(comodel_name="hos.location", string="Location",
+                                  help="Default Stores Location; Product on creation create a location in warehouse")
+    purchase_location_id = fields.Many2one(comodel_name="hos.location", string="Purchase Location",
+                                           help="Virtual Purchase location of product")
     tax_default_id = fields.Many2one(comodel_name="hos.tax", string="Default Tax")
-    virtual_location_right = fields.Integer(string="Virtual Location Right")
-    virtual_location_left = fields.Integer(string="Virtual Location Left")
+    virtual_location_right = fields.Integer(string="Virtual Location Right",
+                                            help="Filter the location in report stock to remove in view")
+    virtual_location_left = fields.Integer(string="Virtual Location Left",
+                                           help="Filter the location in report stock to remove in view")
     default_product_in = fields.Integer(string="default IN")
     default_product_out = fields.Integer(string="default OUT")
 

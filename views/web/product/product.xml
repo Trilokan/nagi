@@ -27,7 +27,6 @@
                     <group col="4">
                         <field name="name"/>
                         <field name="category_id"/>
-                        <field name="type_id"/>
                         <field name="group_id"/>
                         <field name="sub_group_id" domain="[('group_id', '=', group_id)]"/>
                         <field name="uom_id"/>

@@ -8,6 +8,7 @@ from .. import surya
 class ProductCategory(surya.Sarpam):
     _name = "hos.product.category"
     _inherit = "mail.thread"
+    _description = "Lab-test/Product/Ambulance/Treatment"
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
