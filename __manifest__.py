@@ -113,7 +113,6 @@
         'views/web/product/sub_group.xml',
         'views/web/product/uom.xml',
         'views/web/product/product_category.xml',
-        'views/web/product/product_type.xml',
         'views/web/product/location.xml',
         'views/web/product/warehouse.xml',
         'views/web/product/product.xml',

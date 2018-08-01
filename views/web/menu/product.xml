@@ -43,12 +43,6 @@
               parent="sub_menu_product_product"
               sequence="60"/>
 
-    <menuitem id="product_product_product_type"
-              name="Type"
-              action="action_product_type"
-              parent="sub_menu_product_product"
-              sequence="70"/>
-
     <!--Inventory-->
     <menuitem id="sub_menu_product_inventory"
               name="Inventory"
