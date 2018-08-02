@@ -50,3 +50,10 @@ class PurchaseDetail(surya.Sarpam):
                                                 self.freight,
                                                 self.tax_id.state)
         self.write(data)
+
+    @api.constrains("requested_quantity", "accepted_quantity")
+    def check_requested_quantity_greater_than_quantity(self):
+        for rec in self:
+            if rec.requested_quantity >= rec.accepted_quantity:
+                raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
+

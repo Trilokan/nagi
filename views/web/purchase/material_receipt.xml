@@ -34,6 +34,7 @@
                         <field name="person_id" readonly="1"/>
                         <field name="reference" readonly="1"/>
                         <field name="picking_type" readonly="1"/>
+                        <field name="po_id" readonly="1"/>
                     </group>
                     <notebook>
                         <page string="Material Detail">
