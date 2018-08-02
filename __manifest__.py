@@ -149,8 +149,7 @@
         'views/web/assert/assert_notification.xml',
 
         # Pharmacy
-        'views/web/pharmacy/retail.xml',
-        'views/web/pharmacy/home.xml',
+        'views/web/pharmacy/sale_order.xml',
         'views/web/pharmacy/material_delivery.xml',
 
         # Menu
@@ -161,6 +160,7 @@
         'views/web/menu/employee.xml',
         'views/web/menu/product.xml',
         'views/web/menu/procurement.xml',
+        'views/web/menu/pharmacy.xml',
         # 'views/web/menu/laboratory.xml',
 
 

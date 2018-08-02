@@ -85,10 +85,6 @@
 									<td><field name="cgst" nolabel="1"/></td>
 									<td><field name="igst" nolabel="1"/></td>
 								</tr>
-								<tr>
-									<th>Freight Charges</th>
-									<td><field name="freight_amount" nolabel="1"/></td>
-								</tr>
 
 							</tbody>
 						</table>
@@ -110,7 +106,10 @@
 								<th>Discounted Amount</th>
 								<td><field name="discounted_amount" nolabel="1"/></td>
 							</tr>
-
+							<tr>
+								<th>Freight Charges</th>
+								<td><field name="freight_amount" nolabel="1"/></td>
+							</tr>
 						</table>
 					</div>
 

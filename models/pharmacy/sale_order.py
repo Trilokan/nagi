@@ -5,7 +5,6 @@ from .. import surya
 from datetime import datetime
 
 PROGRESS_INFO = [("draft", "Draft"), ("confirm", "Confirm"), ("cancel", "Cancel")]
-CATEGORY = [('retail', 'Retail'), ('home', 'Home Delivery')]
 
 
 # Sale order
@@ -17,7 +16,6 @@ class SaleOrder(surya.Sarpam):
     name = fields.Char(string="Name", readonly=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Partner", required=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readdonly=True)
-    category = fields.Selection(selection=CATEGORY, string="Category")
     order_detail = fields.One2many(comodel_name="sale.detail",
                                    inverse_name="order_id",
                                    string="Sale detail")
@@ -39,8 +37,7 @@ class SaleOrder(surya.Sarpam):
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def default_vals_creation(self, vals):
-        code = "{0}.{1}".format(self._name, vals["category"])
-        vals["name"] = self.env['ir.sequence'].next_by_code(code)
+        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
         vals["date"] = datetime.now().strftime("%Y-%m-%d")
         vals["company_id"] = self.env.user.company_id.id
         vals["progress"] = "draft"
@@ -114,52 +111,11 @@ class SaleOrder(surya.Sarpam):
             return True
         return False
 
-    def trigger_gsn_direct(self):
-        data = {}
-
-        hos_move = []
-        recs = self.order_detail
-        for rec in recs:
-            if (rec.quantity > 0) and (rec.unit_price > 0):
-                hos_move.append((0, 0, {"reference": self.name,
-                                        "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                        "destination_location_id": self.env.user.company_id.location_id.id,
-                                        "picking_type": "in",
-                                        "product_id": rec.product_id.id,
-                                        "requested_quantity": rec.quantity,
-                                        "quantity": rec.quantity}))
-
-        if hos_move:
-            data["person_id"] = self.person_id.id
-            data["reference"] = self.name
-            data["picking_detail"] = hos_move
-            data["picking_type"] = 'out'
-            data["date"] = datetime.now().strftime("%Y-%m-%d")
-            data["so_id"] = self.id
-            data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
-            data["destination_location_id"] = self.env.user.company_id.location_id.id
-            data["picking_category"] = "so"
-            picking_id = self.env["hos.picking"].create(data)
-            picking_id.trigger_move()
-
-            return True
-        return False
-
     @api.multi
-    def trigger_retail_confirm(self):
+    def trigger_confirm(self):
         self.total_calculation()
 
         if not self.trigger_gsn():
-            raise exceptions.ValidationError("Error! Please check Product lines")
-
-        writter = "SO confirm by {0}".format(self.env.user.name)
-        self.write({"progress": "confirm", "writter": writter})
-
-    @api.multi
-    def trigger_home_confirm(self):
-        self.total_calculation()
-
-        if not self.trigger_gsn_direct():
             raise exceptions.ValidationError("Error! Please check Product lines")
 
         writter = "SO confirm by {0}".format(self.env.user.name)

@@ -48,6 +48,8 @@ class Product(surya.Sarpam):
         code = "{0}/{1}/{2}".format(group_id.code,
                                     sub_group_id.code,
                                     self.env["ir.sequence"].next_by_code(self._name))
+
+        print code
         vals["code"] = code
         vals["writter"] = "Product Created by {0}".format(self.env.user.name)
         vals["company_id"] = self.env.user.company_id.id
