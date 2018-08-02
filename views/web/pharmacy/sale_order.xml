@@ -119,6 +119,8 @@
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                         <button name="trigger_confirm" string="Confirm" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                        <button name="trigger_paid" string="Paid" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     </footer>
                 </sheet>
                 <div class="oe_chatter">

@@ -24,28 +24,28 @@
               parent="sub_menu_pharmacy_pharmacy"
               sequence="30"/>
 
-    <!--<menuitem id="sub_menu_pharmacy_product"-->
-              <!--name="Product"-->
-              <!--parent="menu_pharmacy"-->
-              <!--sequence="20"/>-->
+    <menuitem id="sub_menu_pharmacy_product"
+              name="Product"
+              parent="menu_pharmacy"
+              sequence="20"/>
 
-    <!--<menuitem id="pharmacy_product_hos_product"-->
-              <!--name="Product"-->
-              <!--action="action_purchase_indent"-->
-              <!--parent="sub_menu_pharmacy_product"-->
-              <!--sequence="10"/>-->
+    <menuitem id="pharmacy_product_hos_product"
+              name="Product"
+              action="action_hos_product"
+              parent="sub_menu_pharmacy_product"
+              sequence="10"/>
 
-    <!--<menuitem id="pharmacy_product_hos_product"-->
-              <!--name="Stock"-->
-              <!--action="action_purchase_indent"-->
-              <!--parent="sub_menu_pharmacy_product"-->
-              <!--sequence="20"/>-->
+    <menuitem id="pharmacy_product_hos_warehouse"
+              name="Stock"
+              action="action_hos_warehouse"
+              parent="sub_menu_pharmacy_product"
+              sequence="20"/>
 
-    <!--<menuitem id="pharmacy_product_store_request"-->
-              <!--name="Medicine Request"-->
-              <!--action="action_purchase_indent"-->
-              <!--parent="sub_menu_pharmacy_product"-->
-              <!--sequence="30"/>-->
+    <menuitem id="pharmacy_product_store_request"
+              name="Material Request"
+              action="action_store_request"
+              parent="sub_menu_pharmacy_product"
+              sequence="30"/>
 
 
 </odoo>
