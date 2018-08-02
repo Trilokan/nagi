@@ -6,7 +6,7 @@ from .. import surya
 
 # Journal Reconcile
 class JournalReconcile(surya.Sarpam):
-    _name = "journal.reconcile"
+    _name = "hos.reconcile"
 
     date = fields.Date(string="Date")
     name = fields.Char(string="Name")

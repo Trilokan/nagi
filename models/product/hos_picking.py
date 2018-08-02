@@ -180,3 +180,4 @@ class HosPicking(surya.Sarpam):
 
         self.generate_incoming_shipment()
         self.write({"progress": "moved", "writter": writter})
+
