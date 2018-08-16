@@ -2,28 +2,34 @@
 <odoo>
 
     <!-- Patient -->
-    <menuitem id="menu_patient_patient"
+    <menuitem id="sub_menu_patient_patient"
               name="Patient"
               parent="menu_patient"
               sequence="10"/>
 
-    <menuitem id="sub_menu_hos_patient"
+    <menuitem id="patient_patient_hos_patient"
               name="Patient"
               action="action_hos_patient"
-              parent="menu_patient_patient"
+              parent="sub_menu_patient_patient"
               sequence="10"/>
 
     <!-- OPT -->
-    <menuitem id="menu_patient_opt"
+    <menuitem id="sub_menu_patient_opt"
               name="OUT Patient"
               parent="menu_patient"
               sequence="20"/>
 
-    <menuitem id="sub_menu_hos_schedule_patient_appointment"
+    <menuitem id="patient_opt_hos_doctor_availability"
+              name="Doctor Availability"
+              action="action_hos_doctor_availability"
+              parent="sub_menu_patient_opt"
+              sequence="10"/>
+
+    <menuitem id="patient_opt_hos_schedule_patient_appointment"
               name="Appointment"
               action="action_hos_schedule_patient_appointment"
-              parent="menu_patient_opt"
-              sequence="10"/>
+              parent="sub_menu_patient_opt"
+              sequence="20"/>
 
     <menuitem id="sub_menu_patient_treatment_opt"
               name="Treatment"
@@ -31,77 +37,78 @@
               parent="menu_patient_opt"
               sequence="20"/>
 
-    <menuitem id="sub_menu_opt_prescription"
-              name="Prescription"
-              action="action_opt_prescription"
-              parent="menu_patient_opt"
-              sequence="30"/>
+    <!---->
+    <!--&lt;!&ndash; IPT &ndash;&gt;-->
+    <!--<menuitem id="menu_patient_ipt"-->
+              <!--name="IN Patient"-->
+              <!--parent="menu_patient"-->
+              <!--sequence="30"/>-->
 
-    <!-- IPT -->
-    <menuitem id="menu_patient_ipt"
-              name="IN Patient"
-              parent="menu_patient"
-              sequence="30"/>
+    <!--<menuitem id="sub_menu_patient_treatment_ipt"-->
+              <!--name="Treatment"-->
+              <!--action="action_patient_treatment_ipt"-->
+              <!--parent="menu_patient_ipt"-->
+              <!--sequence="10"/>-->
+    <!---->
+    <!--<menuitem id="sub_menu_hos_notes_ipt"-->
+              <!--name="Notes"-->
+              <!--action="action_hos_notes"-->
+              <!--parent="menu_patient_ipt"-->
+              <!--sequence="30"/>-->
 
-    <menuitem id="sub_menu_patient_treatment_ipt"
-              name="Treatment"
-              action="action_patient_treatment_ipt"
-              parent="menu_patient_ipt"
-              sequence="10"/>
+    <!--<menuitem id="sub_menu_hos_notification_ipt"-->
+              <!--name="Reminder"-->
+              <!--action="action_hos_notification"-->
+              <!--parent="menu_patient_ipt"-->
+              <!--sequence="40"/>-->
+    <!---->
+    <!--&lt;!&ndash;Prescription&ndash;&gt;-->
+    <!--<menuitem id="menu_patient_prescription"-->
+              <!--name="IN Patient"-->
+              <!--parent="menu_patient"-->
+              <!--sequence="30"/>-->
 
-    <menuitem id="sub_menu_ipt_prescription"
-              name="Prescription"
-              action="action_ipt_prescription"
-              parent="menu_patient_ipt"
-              sequence="20"/>
+    <!--<menuitem id="sub_menu_ipt_prescription"-->
+              <!--name="Prescription"-->
+              <!--action="action_ipt_prescription"-->
+              <!--parent="menu_patient_ipt"-->
+              <!--sequence="20"/>-->
 
-    <menuitem id="sub_menu_hos_notes_ipt"
-              name="Notes"
-              action="action_hos_notes"
-              parent="menu_patient_ipt"
-              sequence="30"/>
+    <!--&lt;!&ndash;Billing&ndash;&gt;-->
+    <!--<menuitem id="menu_patient_bill"-->
+              <!--name="Billing"-->
+              <!--parent="menu_patient"-->
+              <!--sequence="40"/>-->
 
-    <menuitem id="sub_menu_hos_notification_ipt"
-              name="Reminder"
-              action="action_hos_notification"
-              parent="menu_patient_ipt"
-              sequence="40"/>
+    <!--<menuitem id="sub_menu_hos_invoice_patient_invoice"-->
+              <!--name="Bill"-->
+              <!--action="action_hos_invoice_patient_invoice"-->
+              <!--parent="menu_patient_bill"-->
+              <!--sequence="10"/>-->
 
-    <!--Billing-->
-    <menuitem id="menu_patient_bill"
-              name="Billing"
-              parent="menu_patient"
-              sequence="40"/>
+    <!--<menuitem id="sub_menu_hos_invoice_patient_invoice"-->
+              <!--name="Balance"-->
+              <!--action="action_hos_invoice_patient_invoice"-->
+              <!--parent="menu_patient_bill"-->
+              <!--sequence="20"/>-->
 
-    <menuitem id="sub_menu_hos_invoice_patient_invoice"
-              name="Bill"
-              action="action_hos_invoice_patient_invoice"
-              parent="menu_patient_bill"
-              sequence="10"/>
+    <!--&lt;!&ndash;Configuration: &ndash;&gt;-->
+    <!--<menuitem id="menu_patient_configuration"-->
+              <!--name="Configuration"-->
+              <!--parent="menu_patient"-->
+              <!--sequence="50"/>-->
 
-    <menuitem id="sub_menu_hos_invoice_patient_invoice"
-              name="Balance"
-              action="action_hos_invoice_patient_invoice"
-              parent="menu_patient_bill"
-              sequence="20"/>
+    <!--<menuitem id="sub_menu_patient_symptoms_ipt"-->
+              <!--name="Symptoms"-->
+              <!--action="action_patient_symptoms"-->
+              <!--parent="menu_patient_configuration"-->
+              <!--sequence="40"/>-->
 
-    <!--Configuration: -->
-    <menuitem id="menu_patient_configuration"
-              name="Configuration"
-              parent="menu_patient"
-              sequence="50"/>
-
-    <menuitem id="sub_menu_patient_symptoms_ipt"
-              name="Symptoms"
-              action="action_patient_symptoms"
-              parent="menu_patient_configuration"
-              sequence="40"/>
-
-    <menuitem id="sub_menu_patient_diagnosis_ipt"
-              name="Diagnosis"
-              action="action_patient_diagnosis"
-              parent="menu_patient_configuration"
-              sequence="40"/>
+    <!--<menuitem id="sub_menu_patient_diagnosis_ipt"-->
+              <!--name="Diagnosis"-->
+              <!--action="action_patient_diagnosis"-->
+              <!--parent="menu_patient_configuration"-->
+              <!--sequence="40"/>-->
 
 
 </odoo>

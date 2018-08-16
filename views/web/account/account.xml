@@ -27,7 +27,6 @@
                         <field name="company_id"/>
                         <field name="is_company"/>
                         <field name="parent_id"/>
-                        <field name="account_type"/>
                         <field name="credit"/>
                         <field name="debit"/>
                         <field name="balance"/>

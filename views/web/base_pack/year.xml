@@ -20,6 +20,9 @@
         <field name="arch" type="xml">
             <form string="Year">
                 <sheet>
+                    <div id="s_header">
+                        <h1>Year</h1>
+                    </div>
                     <group>
                         <field name="name"/>
                         <field name="financial_year"/>

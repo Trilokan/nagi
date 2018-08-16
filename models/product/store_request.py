@@ -89,7 +89,7 @@ class StoreRequest(surya.Sarpam):
                                               "requested_quantity": rec.quantity,
                                               "picking_type": "internal",
                                               "unit_price": 0,
-                                              "source_location_id": self.env.user.company_id.location_id.id,
+                                              "source_location_id": self.env.user.company_id.store_location_id.id,
                                               "destination_location_id": self.env.user.location_id.id}))
 
         data = {"date": datetime.now().strftime("%Y-%m-%d"),
@@ -98,7 +98,7 @@ class StoreRequest(surya.Sarpam):
                 "picking_type": "internal",
                 "picking_category": "si",
                 "picking_detail": picking_detail,
-                "source_location_id": self.env.user.company_id.location_id.id,
+                "source_location_id": self.env.user.company_id.store_location_id.id,
                 "destination_location_id": self.env.user.location_id.id,
                 "writter": writter}
 

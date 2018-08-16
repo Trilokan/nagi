@@ -15,7 +15,6 @@ class Account(surya.Sarpam):
     company_id = fields.Many2one(comodel_name="res.company", string="Company")
     is_company = fields.Boolean(string="Is Company")
     parent_id = fields.Many2one(comodel_name="hos.account", string="Parent")
-    account_type = fields.Many2one(comodel_name="hos.account.type", string="Account Type")
     credit = fields.Float(string="Credit")
     debit = fields.Float(string="Debit")
     balance = fields.Float(string="Balance")

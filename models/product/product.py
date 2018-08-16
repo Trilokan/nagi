@@ -56,7 +56,7 @@ class Product(surya.Sarpam):
         return vals
 
     def default_rec_creation(self, rec):
-        location_id = self.env.user.company_id.location_id
+        location_id = self.env.user.company_id.store_location_id
 
         if not location_id:
             raise exceptions.ValidationError("Default Product Location is not set")

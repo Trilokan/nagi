@@ -54,6 +54,18 @@
         </field>
     </record>
 
+    <record id="view_hos_product_search" model="ir.ui.view">
+			<field name="name">hos.product.search</field>
+			<field name="model">hos.product</field>
+			<field name="arch" type="xml">
+				<search string="Product">
+					<field name="name"/>
+					<field name="group_id"/>
+					<field name="sub_group_id"/>
+				</search>
+			</field>
+		</record>
+
     <!-- Action -->
     <record id="action_hos_product" model="ir.actions.act_window">
         <field name="name">Product</field>

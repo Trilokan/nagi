@@ -35,6 +35,10 @@
         'views/web/base_pack/users.xml',
         'views/web/base_pack/year.xml',
         'views/web/base_pack/period.xml',
+        'views/web/base_pack/country.xml',
+        'views/web/base_pack/state.xml',
+        'views/web/base_pack/religion.xml',
+        'views/web/base_pack/language.xml',
 
         # Person
         'views/web/person/person.xml',
@@ -43,10 +47,10 @@
         'views/web/patient/patient.xml',
         'views/web/patient/symptoms.xml',
         'views/web/patient/diagnosis.xml',
-        'views/web/patient/opt_treatment.xml',
-        'views/web/patient/opt_prescription.xml',
-        'views/web/patient/ipt_treatment.xml',
-        'views/web/patient/ipt_prescription.xml',
+        # 'views/web/patient/opt_treatment.xml',
+        # 'views/web/patient/opt_prescription.xml',
+        # 'views/web/patient/ipt_treatment.xml',
+        # 'views/web/patient/ipt_prescription.xml',
 
         # Hospital
         'views/web/hospital/admission.xml',
@@ -157,10 +161,11 @@
         # 'views/web/menu/hospital.xml',
         # 'views/web/menu/reception.xml',
         # 'views/web/menu/patient.xml',
-        'views/web/menu/employee.xml',
+        # 'views/web/menu/employee.xml',
         'views/web/menu/product.xml',
         'views/web/menu/procurement.xml',
-        'views/web/menu/pharmacy.xml',
+        'views/web/menu/base_packs.xml',
+        # 'views/web/menu/pharmacy.xml',
         # 'views/web/menu/laboratory.xml',
 
 

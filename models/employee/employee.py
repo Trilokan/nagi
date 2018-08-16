@@ -13,7 +13,6 @@ class Employee(surya.Sarpam):
     name = fields.Char(string="Name", required=True)
     employee_uid = fields.Char(string="Employee ID", readonly=True)
     image = fields.Binary(string="Image")
-    small_image = fields.Binary(string="Image")
 
     # Contact
     email = fields.Char(string="Email")

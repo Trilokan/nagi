@@ -49,52 +49,38 @@
     <!--Journal-->
     <record id="sales_journal" model="hos.journal">
         <field name="name">Sales</field>
-        <field name="code">SAL</field>
+        <field name="code">SJ</field>
     </record>
 
-    <record id="sales_refund_journal" model="hos.journal">
-        <field name="name">Sales Refund</field>
-        <field name="code">SALR</field>
+    <record id="sales_return_journal" model="hos.journal">
+        <field name="name">Sales Return</field>
+        <field name="code">SRJ</field>
     </record>
 
     <record id="purchase_journal" model="hos.journal">
         <field name="name">Purchase</field>
-        <field name="code">PU</field>
+        <field name="code">PJ</field>
     </record>
 
-    <record id="purchase_refund_journal" model="hos.journal">
-        <field name="name">Purchase Refund</field>
-        <field name="code">PUR</field>
+    <record id="purchase_return_journal" model="hos.journal">
+        <field name="name">Purchase Return</field>
+        <field name="code">PRJ</field>
     </record>
 
-    <record id="assert_journal" model="hos.journal">
-        <field name="name">Assert</field>
-        <field name="code">ASST</field>
+    <record id="cash_receipts_journal" model="hos.journal">
+        <field name="name">Cash Receipts</field>
+        <field name="code">CRJ</field>
     </record>
 
-    <record id="stores_journal" model="hos.journal">
-        <field name="name">Stores</field>
-        <field name="code">ST</field>
+    <record id="cash_payments_journal" model="hos.journal">
+        <field name="name">Cash Payments</field>
+        <field name="code">CPJ</field>
     </record>
 
-    <record id="bank_journal" model="hos.journal">
-        <field name="name">Bank</field>
-        <field name="code">BNK</field>
+    <record id="general_journal" model="hos.journal">
+        <field name="name">General</field>
+        <field name="code">GJ</field>
     </record>
 
-    <record id="cash_journal" model="hos.journal">
-        <field name="name">Cash</field>
-        <field name="code">CASH</field>
-    </record>
-
-    <record id="miscellaneous_journal" model="hos.journal">
-        <field name="name">miscellaneous</field>
-        <field name="code">MISC</field>
-    </record>
-
-    <record id="Payroll_journal" model="hos.journal">
-        <field name="name">Payroll</field>
-        <field name="code">PAY</field>
-    </record>
 
 </odoo>

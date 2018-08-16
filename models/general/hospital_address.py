@@ -17,6 +17,6 @@ class Address(surya.Sarpam):
     locality = fields.Char(string="locality")
     landmark = fields.Char(string="landmark")
     city = fields.Char(string="City")
-    state_id = fields.Many2one(comodel_name="hos.state", string="State")
+    state_id = fields.Many2one(comodel_name="res.country.state", string="State")
     country_id = fields.Many2one(comodel_name="res.country", string="Country")
     pin_code = fields.Char(string="Pincode")

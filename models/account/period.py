@@ -18,16 +18,18 @@ class Period(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
 
+    _sql_constraints = [('unique_period', 'unique (name)', 'Error! Monthly period must be unique')]
+
     @api.multi
     def trigger_period_open(self):
         self.check_progress([("progress", "=", "open")])
-        writter = "Period Open by {0}".format(self.env.user.name)
+        writter = "Period opened by {0}".format(self.env.user.name)
         self.write({"progress": "open", "writter": writter})
 
     @api.multi
     def trigger_period_closed(self):
         self.check_progress([("progress", "=", "open"), ("id", "!=", self.id)])
-        writter = "Period Open by {0}".format(self.env.user.name)
+        writter = "Period closed by {0}".format(self.env.user.name)
         self.write({"progress": "closed", "writter": writter})
 
     def check_progress(self, data):
@@ -51,7 +53,7 @@ class Period(surya.Sarpam):
         if from_date.strftime("%m-%Y") == next_till_date.strftime("%m-%Y"):
             raise exceptions.ValidationError("Error! Period must be within a month")
 
-        vals["name"] = "{0} To {1}".format(from_date.strftime("%d-%m-%Y"), till_date.strftime("%d-%m-%Y"))
+        vals["name"] = "{0} {1}".format(from_date.strftime("%B"), from_date.strftime("%Y"))
 
         year = self.env["year.year"].search([("name", "=", from_date.strftime("%Y"))])
         if year:

@@ -92,7 +92,7 @@ class SaleOrder(surya.Sarpam):
             if (rec.quantity > 0) and (rec.unit_price > 0):
                 hos_move.append((0, 0, {"reference": self.name,
                                         "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                        "destination_location_id": self.env.user.company_id.location_id.id,
+                                        "destination_location_id": self.env.user.company_id.store_location_id.id,
                                         "picking_type": "in",
                                         "product_id": rec.product_id.id,
                                         "requested_quantity": rec.quantity}))
@@ -105,7 +105,7 @@ class SaleOrder(surya.Sarpam):
             data["date"] = datetime.now().strftime("%Y-%m-%d")
             data["so_id"] = self.id
             data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
-            data["destination_location_id"] = self.env.user.company_id.location_id.id
+            data["destination_location_id"] = self.env.user.company_id.store_location_id.id
             data["picking_category"] = "so"
             picking_id = self.env["hos.picking"].create(data)
             return True
@@ -120,7 +120,7 @@ class SaleOrder(surya.Sarpam):
             if (rec.quantity > 0) and (rec.unit_price > 0):
                 hos_move.append((0, 0, {"reference": self.name,
                                         "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                        "destination_location_id": self.env.user.company_id.location_id.id,
+                                        "destination_location_id": self.env.user.company_id.store_location_id.id,
                                         "picking_type": "in",
                                         "product_id": rec.product_id.id,
                                         "requested_quantity": rec.quantity,
@@ -134,7 +134,7 @@ class SaleOrder(surya.Sarpam):
             data["date"] = datetime.now().strftime("%Y-%m-%d")
             data["so_id"] = self.id
             data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
-            data["destination_location_id"] = self.env.user.company_id.location_id.id
+            data["destination_location_id"] = self.env.user.company_id.store_location_id.id
             data["picking_category"] = "so"
             picking_id = self.env["hos.picking"].create(data)
             picking_id.trigger_move()

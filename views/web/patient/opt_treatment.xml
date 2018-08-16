@@ -56,29 +56,7 @@
                                 <field name="diagnosis_ids" widget="many2many_tags" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
                                 <field name="diagnosis"/>
                             </group>
-                            <separator string="Medicine Suggestion" style="text-align:center;"/>
-                            <field name="medicine_suggestion_ids" attrs="{'readonly': [('progress', '!=', 'on_progress')]}">
-                                <tree editable="bottom" create="false">
-                                    <field name="mark"/>
-                                    <field name="product_id"/>
-                                </tree>
-                            </field>
                             <button name="trigger_add_prescription" string="Add To Prescription" type="object"/>
-                            <separator string="Prescription" style="text-align:center;"/>
-                            <group>
-                                <field name="lab_suggestion_ids" widget="many2many_tags" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
-                                <field name="days" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
-                            </group>
-                            <field name="opt_prescription_ids" attrs="{'readonly': [('progress', '!=', 'on_progress')]}">
-                                <tree editable="bottom">
-                                    <field name="product_id"/>
-                                    <field name="morning"/>
-                                    <field name="noon"/>
-                                    <field name="evening"/>
-                                    <field name="days"/>
-                                    <field name="treatment_id" invisible="1"/>
-                                </tree>
-                            </field>
                         </page>
                         <page string="report">
                             <field name="report" readonly="1"/>

@@ -98,7 +98,7 @@ class PurchaseOrder(surya.Sarpam):
             if (rec.accepted_quantity > 0) and (rec.unit_price > 0):
                 hos_move.append((0, 0, {"reference": self.name,
                                         "source_location_id": self.env.user.company_id.purchase_location_id.id,
-                                        "destination_location_id": self.env.user.company_id.location_id.id,
+                                        "destination_location_id": self.env.user.company_id.store_location_id.id,
                                         "picking_type": "in",
                                         "product_id": rec.product_id.id,
                                         "requested_quantity": rec.accepted_quantity}))
@@ -111,7 +111,7 @@ class PurchaseOrder(surya.Sarpam):
             data["date"] = datetime.now().strftime("%Y-%m-%d")
             data["po_id"] = self.id
             data["source_location_id"] = self.env.user.company_id.purchase_location_id.id
-            data["destination_location_id"] = self.env.user.company_id.location_id.id
+            data["destination_location_id"] = self.env.user.company_id.store_location_id.id
             data["picking_category"] = "po"
             picking_id = self.env["hos.picking"].create(data)
             return True

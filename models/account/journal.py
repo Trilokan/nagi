@@ -9,6 +9,6 @@ class Journal(surya.Sarpam):
     _name = "hos.journal"
 
     name = fields.Char(string="Journal", required=True)
-    code = fields.Char(string="Code")
+    code = fields.Char(string="Code", required=True)
 
 
