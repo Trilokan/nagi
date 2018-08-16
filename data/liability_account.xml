@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Liability Account -->
+    <record id="liability_account" model="hos.account.sample">
+        <field name="name">Liability</field>
+        <field name="code">200</field>
+    </record>
+
+    <record id="accounts_payable_liability_account" model="hos.account.sample">
+        <field name="name">Accounts Payable</field>
+        <field name="code">201</field>
+    </record>
+
+    <record id="tax_payable_liability_account" model="hos.account.sample">
+        <field name="name">Tax Payable</field>
+        <field name="code">202</field>
+    </record>
+
+    <record id="wages_payable_liability_account" model="hos.account.sample">
+        <field name="name">Wages Payable</field>
+        <field name="code">203</field>
+    </record>
+
+    <record id="salaries_payable_liability_account" model="hos.account.sample">
+        <field name="name">Salaries Payable</field>
+        <field name="code">204</field>
+    </record>
+
+
+</odoo>

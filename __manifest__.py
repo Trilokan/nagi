@@ -19,6 +19,11 @@
         'data/hospital.xml',
         'data/employee.xml',
         'data/account.xml',
+        'data/asset_account.xml',
+        'data/liability_account.xml',
+        'data/revenue_account.xml',
+        'data/expense_account.xml',
+        'data/capital_account.xml',
 
         # Account
         'views/web/account/account.xml',
@@ -157,7 +162,7 @@
         'views/web/pharmacy/material_delivery.xml',
 
         # Menu
-        # 'views/web/menu/account.xml',
+        'views/web/menu/account.xml',
         # 'views/web/menu/hospital.xml',
         # 'views/web/menu/reception.xml',
         # 'views/web/menu/patient.xml',

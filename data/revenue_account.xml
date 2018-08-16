@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Revenue Account -->
+    <record id="revenue_account" model="hos.account.sample">
+        <field name="name">Revenue</field>
+        <field name="code">300</field>
+        <field name="parent_id">300</field>
+    </record>
+
+    <record id="service_charge_revenue_account" model="hos.account.sample">
+        <field name="name">Service Charge</field>
+        <field name="code">301</field>
+    </record>
+
+
+</odoo>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Expense Account -->
+    <record id="expense_account" model="hos.account.sample">
+        <field name="name">Expense</field>
+        <field name="code">400</field>
+    </record>
+
+    <record id="tax_expense_account" model="hos.account.sample">
+        <field name="name">Tax Expense</field>
+        <field name="code">401</field>
+    </record>
+
+    <record id="bank_charges_expense_account" model="hos.account.sample">
+        <field name="name">Bank Charges</field>
+        <field name="code">402</field>
+    </record>
+
+    <record id="rent_expense_account" model="hos.account.sample">
+        <field name="name">Rent Expense</field>
+        <field name="code">403</field>
+    </record>
+
+    <record id="utility_expense_account" model="hos.account.sample">
+        <field name="name">Utilities Expense</field>
+        <field name="code">404</field>
+    </record>
+
+    <record id="salary_expense_account" model="hos.account.sample">
+        <field name="name">Salaries Expense</field>
+        <field name="code">405</field>
+    </record>
+
+    <record id="wage_expense_account" model="hos.account.sample">
+        <field name="name">Wages Expense</field>
+        <field name="code">406</field>
+    </record>
+
+    <record id="depreciation_expense_account" model="hos.account.sample">
+        <field name="name">Depreciation Expense</field>
+        <field name="code">407</field>
+    </record>
+
+    <record id="other_expense_account" model="hos.account.sample">
+        <field name="name">Other Expense</field>
+        <field name="code">408</field>
+    </record>
+
+
+</odoo>

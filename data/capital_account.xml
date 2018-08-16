@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Capital Account -->
+    <record id="capital_account" model="hos.account.sample">
+        <field name="name">Capital</field>
+        <field name="code">500</field>
+    </record>
+
+
+</odoo>

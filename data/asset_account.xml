@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Asset Account -->
+    <record id="asset_account" model="hos.account.sample">
+        <field name="name">Assets</field>
+        <field name="code">100</field>
+    </record>
+
+    <record id="bank_asset_account" model="hos.account.sample">
+        <field name="name">Bank</field>
+        <field name="code">101</field>
+    </record>
+
+    <record id="cash_asset_account" model="hos.account.sample">
+        <field name="name">Cash</field>
+        <field name="code">102</field>
+    </record>
+
+    <record id="equipment_asset_account" model="hos.account.sample">
+        <field name="name">Equipment</field>
+        <field name="code">103</field>
+    </record>
+
+    <record id="furniture_asset_account" model="hos.account.sample">
+        <field name="name">Furniture</field>
+        <field name="code">104</field>
+    </record>
+
+    <record id="depreciation_asset_account" model="hos.account.sample">
+        <field name="name">Depreciation</field>
+        <field name="code">105</field>
+    </record>
+
+    <record id="petty_cash_asset_account" model="hos.account.sample">
+        <field name="name">Petty Cash</field>
+        <field name="code">106</field>
+    </record>
+
+    <record id="accounts_receivable_liability_account" model="hos.account.sample">
+        <field name="name">Accounts Receivable</field>
+        <field name="code">107</field>
+    </record>
+
+
+</odoo>

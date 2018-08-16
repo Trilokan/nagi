@@ -7,23 +7,35 @@
               parent="menu_account"
               sequence="10"/>
 
+    <menuitem id="account_account_year_year"
+              name="Year"
+              action="action_year_year"
+              parent="sub_menu_account_account"
+              sequence="10"/>
+
+    <menuitem id="account_account_period_period"
+              name="Period"
+              action="action_period_period"
+              parent="sub_menu_account_account"
+              sequence="20"/>
+
     <menuitem id="account_account_hos_account"
               name="Account"
               action="action_hos_account"
               parent="sub_menu_account_account"
-              sequence="10"/>
+              sequence="30"/>
 
     <menuitem id="account_account_hos_journal"
               name="Journal"
               action="action_hos_journal"
               parent="sub_menu_account_account"
-              sequence="20"/>
+              sequence="40"/>
 
     <menuitem id="account_account_hos_tax"
               name="Tax"
               action="action_hos_tax"
               parent="sub_menu_account_account"
-              sequence="30"/>
+              sequence="50"/>
 
     <!--Transaction-->
     <menuitem id="sub_menu_account_transaction"
