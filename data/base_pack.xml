@@ -63,6 +63,11 @@
         <field name="number_increment">1</field>
     </record>
 
-
+    <record id="store_location" model="hos.location">
+        <field name="name">Store</field>
+        <field name="code">STORE</field>
+        <field name="location_left">10</field>
+        <field name="location_right">20</field>
+    </record>
 
 </odoo>

@@ -1,24 +1,25 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
+from odoo import fields
 from .. import surya
 
 
 class HospitalLocation(surya.Sarpam):
     _name = "hos.location"
-    _inherit = "mail.thread"
     _rec_name = "code"
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", compute="_get_code")
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
+
     location_right = fields.Integer(string="Parent Right", required=True)
     location_left = fields.Integer(string="Parent Left", required=True)
-    writter = fields.Text(string="Writter", track_visibility="always")
 
-    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Group Code must be unique'),
-                        ('unique_name', 'unique (name)', 'Error! Group must be unique')]
+    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Location code must be unique'),
+                        ('unique_name', 'unique (name)', 'Error! Product Location must be unique')]
 
     def _get_code(self):
         for record in self:
@@ -32,8 +33,3 @@ class HospitalLocation(surya.Sarpam):
                 name = "{0}{1}/".format(name, rec.name)
 
             record.code = name
-
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Product Location Created by {0}".format(self.env.user.name)
-        vals["company_id"] = self.env.user.company_id.id
-        return vals

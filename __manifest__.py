@@ -13,7 +13,7 @@
     'data': [
         'views/assert_backend.xml',
         'menu/web_menu.xml',
-        # 'data/base_pack.xml',
+        'data/base_pack.xml',
         'data/time_management.xml',
         'data/purchase.xml',
         'data/hospital.xml',

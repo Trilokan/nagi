@@ -9,7 +9,6 @@ import json
 
 class Product(surya.Sarpam):
     _name = "hos.product"
-    _inherit = "mail.thread"
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", readonly=True)
@@ -22,16 +21,18 @@ class Product(surya.Sarpam):
                                     string="Warehouse",
                                     domain=lambda self: self._get_warehouse_ids(),
                                     readonly=True)
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
+
     min_stock = fields.Integer(string="Min Stock")
     max_stock = fields.Integer(string="Max Stock")
-    writter = fields.Text(string="Writter", track_visibility="always")
 
     _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Code must be unique'),
                         ('unique_name', 'unique (name)', 'Error! Product must be unique')]
 
     def _get_warehouse_ids(self):
-
         location_left = self.env.user.company_id.virtual_location_left
         location_right = self.env.user.company_id.virtual_location_right
 
@@ -49,19 +50,17 @@ class Product(surya.Sarpam):
                                     sub_group_id.code,
                                     self.env["ir.sequence"].next_by_code(self._name))
 
-        print code
         vals["code"] = code
-        vals["writter"] = "Product Created by {0}".format(self.env.user.name)
-        vals["company_id"] = self.env.user.company_id.id
         return vals
 
     def default_rec_creation(self, rec):
-        location_id = self.env.user.company_id.store_location_id
+        store_location_id = self.env.user.company_id.store_location_id
 
-        if not location_id:
+        if not store_location_id:
             raise exceptions.ValidationError("Default Product Location is not set")
 
-        self.env["hos.warehouse"].create({"product_id": rec.id, "location_id": location_id.id})
+        self.env["hos.warehouse"].create({"product_id": rec.id,
+                                          "location_id": store_location_id.id})
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -80,5 +79,3 @@ class Product(surya.Sarpam):
             name = "[{0}] {1}".format(record.code, record.name)
             result.append((record.id, name))
         return result
-
-

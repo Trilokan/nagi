@@ -7,18 +7,14 @@ from .. import surya
 # Category
 class ProductCategory(surya.Sarpam):
     _name = "hos.product.category"
-    _inherit = "mail.thread"
     _description = "Lab-test/Product/Ambulance/Treatment"
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
-    writter = fields.Text(string="Writter", track_visibility="always")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
-    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Group Code must be unique'),
-                        ('unique_name', 'unique (name)', 'Error! Group must be unique')]
-
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Product Group Created by {0}".format(self.env.user.name)
-        vals["company_id"] = self.env.user.company_id.id
-        return vals
+    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Category Code must be unique'),
+                        ('unique_name', 'unique (name)', 'Error! Product Category must be unique')]

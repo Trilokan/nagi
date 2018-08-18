@@ -4,6 +4,7 @@ from . import year
 from . import period
 from . import tax
 from . import account
+from . import sample_account
 from . import journal
 from . import journal_entry
 from . import journal_item
