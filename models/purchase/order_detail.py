@@ -22,7 +22,6 @@ class PurchaseDetail(surya.Sarpam):
     unit_price = fields.Float(string='Unit Price', default=0)
 
     discount = fields.Float(string='Discount', default=0)
-    freight = fields.Float(string='Freight', default=0)
     discount_amount = fields.Float(string='Discount Amount', default=0, readonly=True)
     discounted_amount = fields.Float(string='Discounted Amount', readonly=True, help='Amount after discount')
     tax_id = fields.Many2one(comodel_name='hos.tax', string='Tax', required=True)
@@ -32,7 +31,6 @@ class PurchaseDetail(surya.Sarpam):
     tax_amount = fields.Float(string='Tax Amount', default=0, readonly=True)
     taxed_amount = fields.Float(string='Taxed Amount', default=0, readonly=True)
     untaxed_amount = fields.Float(string='Tax Amount', default=0, readonly=True)
-    freight_amount = fields.Float(string='Freight Amount', default=0, readonly=True)
     total_amount = fields.Float(string='Total', default=0, readonly=True)
     quote_detail_id = fields.Many2one(comodel_name='quote.detail', string='Quotation')
     order_id = fields.Many2one(comodel_name='purchase.order', string='Purchase Order')
@@ -47,13 +45,13 @@ class PurchaseDetail(surya.Sarpam):
                                                 self.accepted_quantity,
                                                 self.discount,
                                                 self.tax_id.value,
-                                                self.freight,
                                                 self.tax_id.state)
         self.write(data)
 
     @api.constrains("requested_quantity", "accepted_quantity")
     def check_requested_quantity_greater_than_quantity(self):
         for rec in self:
-            if rec.requested_quantity >= rec.accepted_quantity:
+            print rec.requested_quantity, rec.accepted_quantity
+            if rec.requested_quantity < rec.accepted_quantity:
                 raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
 

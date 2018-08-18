@@ -67,8 +67,7 @@ class HosPicking(surya.Sarpam):
                                               "quantity": rec.quantity,
                                               "unit_price": order_detail.unit_price,
                                               "discount": order_detail.discount,
-                                              "tax_id": order_detail.tax_id.id,
-                                              "freight": order_detail.freight}))
+                                              "tax_id": order_detail.tax_id.id}))
 
         if invoice_detail:
             data["date"] = datetime.now().strftime("%Y-%m-%d")
@@ -155,8 +154,7 @@ class HosPicking(surya.Sarpam):
                                               "quantity": rec.quantity,
                                               "unit_price": order_detail.unit_price,
                                               "discount": order_detail.discount,
-                                              "tax_id": order_detail.tax_id.id,
-                                              "freight": order_detail.freight}))
+                                              "tax_id": order_detail.tax_id.id}))
 
         if invoice_detail:
             data["date"] = datetime.now().strftime("%Y-%m-%d")

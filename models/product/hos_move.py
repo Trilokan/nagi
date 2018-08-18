@@ -112,7 +112,7 @@ class StockMove(surya.Sarpam):
     def check_requested_quantity_greater_than_quantity(self):
         for rec in self:
             if rec.picking_id.po_id:
-                if rec.requested_quantity >= rec.quantity:
+                if rec.requested_quantity < rec.quantity:
                     raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
 
 

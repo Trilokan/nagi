@@ -29,7 +29,6 @@ class PurchaseOrder(surya.Sarpam):
     progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
     comment = fields.Text(string='Comment')
 
-    freight_amount = fields.Float(string="Freight Amount", readonly=True,)
     discount_amount = fields.Float(string='Discount Amount', readonly=True, help='Discount value')
     discounted_amount = fields.Float(string='Discounted Amount', readonly=True, help='Amount after discount')
     tax_amount = fields.Float(string='Tax Amount', readonly=True, help='Tax value')
@@ -60,7 +59,7 @@ class PurchaseOrder(surya.Sarpam):
             rec.detail_calculation()
 
         discount_amount = discounted_amount = tax_amount = untaxed_amount = taxed_amount \
-            = cgst = sgst = igst = freight_amount = total_amount = 0
+            = cgst = sgst = igst = total_amount = 0
         for rec in recs:
             discount_amount = discount_amount + rec.discount_amount
             discounted_amount = discounted_amount + rec.discounted_amount
@@ -71,7 +70,6 @@ class PurchaseOrder(surya.Sarpam):
             sgst = sgst + rec.sgst
             igst = igst + rec.igst
 
-            freight_amount = freight_amount + rec.freight_amount
             total_amount = total_amount + rec.total_amount
         gross_amount = round(total_amount)
         round_off_amount = round(total_amount) - total_amount
@@ -84,7 +82,6 @@ class PurchaseOrder(surya.Sarpam):
                     "cgst": cgst,
                     "sgst": sgst,
                     "igst": igst,
-                    "freight_amount": freight_amount,
                     "total_amount": total_amount,
                     "gross_amount": gross_amount,
                     "round_off_amount": round_off_amount})

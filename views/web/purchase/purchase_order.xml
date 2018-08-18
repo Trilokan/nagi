@@ -46,7 +46,6 @@
                                     <field name="unit_price"/>
                                     <field name="discount"/>
                                     <field name="tax_id"/>
-                                    <field name="freight"/>
                                     <field name="total_amount"/>
                                     <field name="quote_detail_id" invisible="1"/>
                                     <field name="progress" invisible="1"/>
@@ -93,10 +92,6 @@
 								<th>Discounted Amount</th>
 								<td><field name="discounted_amount" nolabel="1"/></td>
 							</tr>
-                            <tr>
-                                <th>Freight Charges</th>
-                                <td><field name="freight_amount" nolabel="1"/></td>
-                            </tr>
 						</table>
 					</div>
 

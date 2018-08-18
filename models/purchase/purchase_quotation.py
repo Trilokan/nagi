@@ -20,6 +20,7 @@ class PurchaseQuote(surya.Sarpam):
     quote_detail = fields.One2many(comodel_name='quote.detail',
                                    inverse_name='quote_id',
                                    string='Quotation Details')
+
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
@@ -55,6 +56,9 @@ class QuoteDetail(surya.Sarpam):
     po_detail = fields.One2many(comodel_name='purchase.detail',
                                 inverse_name='quote_detail_id',
                                 string='Purchase Order Detail')
+    purchase_history = fields.One2many(comodel_name='purchase.history',
+                                       inverse_name='quote_detail_id',
+                                       string='Purchase History')
     comment = fields.Text(string='Comment')
     quote_id = fields.Many2one(comodel_name='purchase.quote', string='Quotation')
 
@@ -66,7 +70,7 @@ class QuoteDetail(surya.Sarpam):
 
             if order:
                 order_detail = self.env["purchase.detail"].search([("product_id", "=", self.product_id.id),
-                                                                ("order_id", "=", order.id)])
+                                                                   ("order_id", "=", order.id)])
 
                 if not order_detail:
                     self.env["purchase.detail"].create({"vendor_id": vendor.id,
@@ -91,3 +95,15 @@ class QuoteDetail(surya.Sarpam):
                         "order_detail": order_detail}
 
                 self.env["purchase.order"].create(data)
+
+
+class PurchaseHistory(surya.Sarpam):
+    _name = 'purchase.history'
+    _description = 'Purchase History'
+
+    date = fields.Date(string="Date", readonly=True)
+    vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
+    quantity = fields.Float(string="Quantity", readonly=True)
+    unit_price = fields.Float(string="Unit Price", readonly=True)
+
+    quote_detail_id = fields.Many2one(comodel_name='quote.detail', string='Quotation Detail')
