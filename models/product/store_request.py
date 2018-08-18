@@ -26,6 +26,10 @@ class StoreRequest(surya.Sarpam):
     request_detail = fields.One2many(comodel_name="store.request.detail",
                                      inverse_name="request_id",
                                      string="Request Detail")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def default_vals_creation(self, vals):
@@ -88,7 +92,6 @@ class StoreRequest(surya.Sarpam):
                                               "product_id": rec.product_id.id,
                                               "requested_quantity": rec.quantity,
                                               "picking_type": "internal",
-                                              "unit_price": 0,
                                               "source_location_id": self.env.user.company_id.store_location_id.id,
                                               "destination_location_id": self.env.user.location_id.id}))
 

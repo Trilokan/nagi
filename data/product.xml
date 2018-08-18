@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="store_location" model="hos.location">
+        <field name="name">Store</field>
+        <field name="location_left">10</field>
+        <field name="location_right">20</field>
+    </record>
+
+    <!--Product/ Stores-->
+    <record id="hos_product_sequence" model="ir.sequence">
+        <field name="name">Hospital Product</field>
+        <field name="code">hos.product</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="stock_adjustment_sequence" model="ir.sequence">
+        <field name="name">Stock Adjustment</field>
+        <field name="code">picking.sa</field>
+        <field name="prefix">SA/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_request_sequence" model="ir.sequence">
+        <field name="name">Store Request</field>
+        <field name="code">store.request</field>
+        <field name="prefix">SR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="store_issue_sequence" model="ir.sequence">
+        <field name="name">Store Issue</field>
+        <field name="code">picking.si</field>
+        <field name="prefix">SI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
+    <!--Product movement IN/ Internal/ OUT-->
+    <record id="hos_move_in_sequence" model="ir.sequence">
+        <field name="name">Product IN</field>
+        <field name="code">hos.move.in</field>
+        <field name="prefix">IN/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_move_internal_sequence" model="ir.sequence">
+        <field name="name">Product Internal</field>
+        <field name="code">hos.move.internal</field>
+        <field name="prefix">INT/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_move_out_sequence" model="ir.sequence">
+        <field name="name">Product OUT</field>
+        <field name="code">hos.move.out</field>
+        <field name="prefix">OUT/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!--Purchase-->
+    <record id="purchase_indent_sequence" model="ir.sequence">
+        <field name="name">Purchase Indent</field>
+        <field name="code">purchase.indent</field>
+        <field name="prefix">PI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="purchase_quotation_sequence" model="ir.sequence">
+        <field name="name">Purchase Quotation</field>
+        <field name="code">purchase.quotation</field>
+        <field name="prefix">QR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="purchase_order_sequence" model="ir.sequence">
+        <field name="name">Purchase Order</field>
+        <field name="code">purchase.order</field>
+        <field name="prefix">PO/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_invoice_po_sequence" model="ir.sequence">
+        <field name="name">Hospital Invoice Purchase</field>
+        <field name="code">hos.invoice.po</field>
+        <field name="prefix">INV/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="hos_invoice_dpo_sequence" model="ir.sequence">
+        <field name="name">Hospital Invoice Direct Purchase</field>
+        <field name="code">hos.invoice.po</field>
+        <field name="prefix">INV/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="material_receipt_sequence" model="ir.sequence">
+        <field name="name">Material Receipt</field>
+        <field name="code">picking.po</field>
+        <field name="prefix">MR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!--Sale-->
+    <record id="sale_order_sequence" model="ir.sequence">
+        <field name="name">Sale Order</field>
+        <field name="code">sale.order</field>
+        <field name="prefix">SO/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
+</odoo>

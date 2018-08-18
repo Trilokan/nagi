@@ -31,7 +31,9 @@
                     <div id="s_header">
                         <h1>Stock Move</h1>
                     </div>
-                    <field name="progress" widget="statusbar"/>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
                         <field name="name" attrs="{'readonly': [('progress', '=', 'moved')]}"/>
@@ -48,6 +50,10 @@
                                 attrs="{'invisible': [('progress', '=', 'moved')]}"/>
                     </footer>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

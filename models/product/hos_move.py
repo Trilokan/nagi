@@ -51,12 +51,12 @@ class StockMove(surya.Sarpam):
 
     def get_balance_quantity(self):
         destination_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
-                                                         ("destination_location_id", "=", self.source_location_id.id),
-                                                         ("progress", "=", "moved")])
+                                                       ("destination_location_id", "=", self.source_location_id.id),
+                                                       ("progress", "=", "moved")])
 
         source_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
-                                                    ("source_location_id", "=", self.source_location_id.id),
-                                                    ("progress", "=", "moved")])
+                                                  ("source_location_id", "=", self.source_location_id.id),
+                                                  ("progress", "=", "moved")])
         quantity_in = quantity_out = 0
 
         for rec in destination_ids:

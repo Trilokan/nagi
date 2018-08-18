@@ -57,7 +57,7 @@ class HospitalInvoice(surya.Sarpam):
     # Account_detail
 
     def default_vals_creation(self, vals):
-        code = "{0}.{1}".format("hos.purchase.invoice", vals["invoice_type"])
+        code = "{0}.{1}".format("hos.invoice", vals["invoice_type"])
         vals['name'] = self.env['ir.sequence'].next_by_code("hos.purchase.invoice")
         vals['company_id'] = self.env.user.company_id.id
         vals['writter'] = self.env.user.name
