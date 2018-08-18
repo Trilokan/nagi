@@ -10,6 +10,7 @@ PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
 PICKING_CATEGORY = [("sa", "Stock Adjustment"),
                     ("si", "Store Issue"),
                     ("po", "Purchase Order"),
+                    ("dpo", "Direct Purchase"),
                     ("por", "Purchase Order Return"),
                     ("so", "Sale Order"),
                     ("sor", "Sale Order Return")]
@@ -34,14 +35,17 @@ class HosPicking(surya.Sarpam):
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
                                          string="Source Location",
+                                         default=lambda self: self.env.user.company_id.purchase_location_id.id,
                                          required=True)
     destination_location_id = fields.Many2one(comodel_name="hos.location",
                                               string="Destination location",
+                                              default=lambda self: self.env.user.company_id.store_location_id.id,
                                               required=True)
     writter = fields.Text(string="Writter", track_visibility='always')
     po_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
     so_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
     back_order_id = fields.Many2one(comodel_name="hos.picking", string="Back Order")
+    create_invoice_flag = fields.Boolean(string="Create Invoice")
 
     def default_vals_creation(self, vals):
         code = "picking.{0}".format(vals["picking_category"])
@@ -83,6 +87,8 @@ class HosPicking(surya.Sarpam):
             invoice_id = self.env["hos.invoice"].create(data)
             invoice_id.total_calculation()
 
+            self.write({"create_invoice_flag": True})
+
     @api.multi
     def trigger_create_direct_invoice(self):
         data = {}
@@ -104,6 +110,8 @@ class HosPicking(surya.Sarpam):
 
             invoice_id = self.env["hos.invoice"].create(data)
             invoice_id.total_calculation()
+
+            self.write({"create_invoice_flag": True})
 
     def generate_incoming_shipment(self):
         data = {}

@@ -32,9 +32,11 @@
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="person_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="picking_type" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="picking_type" invisible="1"/>
                         <field name="source_location_id" invisible="1"/>
                         <field name="destination_location_id" invisible="1"/>
+                        <field name="picking_category" invisible="1"/>
+                        <field name="create_invoice_flag" invisible="1"/>
                     </group>
                     <notebook>
                         <page string="Material Detail">
@@ -60,7 +62,9 @@
                     <footer>
                         <button name="trigger_move" string="Accept" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                        <button name="trigger_create_direct_invoice" string="Create Invoice" type="object"/>
+                        <button name="trigger_create_direct_invoice"
+                                string="Create Invoice" type="object"
+                                attrs="{'invisible': ['|',('progress', '=', 'draft'),('create_invoice_flag','!=',False)]}"/>
                     </footer>
                 </sheet>
                 <div class="oe_chatter">
@@ -77,8 +81,8 @@
         <field name="res_model">hos.picking</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
-        <field name="domain">[('picking_type', '=', 'in')]</field>
-        <field name="context">{'default_picking_type': 'in'}</field>
+        <field name="domain">[('picking_category', '=', 'dpo')]</field>
+        <field name="context">{'default_picking_category': 'dpo', 'default_picking_type': 'in'}</field>
         <field name="view_id" ref="view_hos_picking_direct_material_receipt_tree"/>
     </record>
 

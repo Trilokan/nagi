@@ -166,7 +166,7 @@
         # 'views/web/menu/hospital.xml',
         # 'views/web/menu/reception.xml',
         # 'views/web/menu/patient.xml',
-        # 'views/web/menu/employee.xml',
+        'views/web/menu/employee.xml',
         'views/web/menu/product.xml',
         'views/web/menu/procurement.xml',
         'views/web/menu/base_packs.xml',

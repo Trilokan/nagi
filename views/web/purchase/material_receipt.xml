@@ -35,6 +35,7 @@
                         <field name="reference" readonly="1"/>
                         <field name="picking_type" readonly="1"/>
                         <field name="po_id" readonly="1"/>
+                        <field name="create_invoice_flag" invisible="1"/>
                     </group>
                     <notebook>
                         <page string="Material Detail">
@@ -54,7 +55,7 @@
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                         <button name="trigger_create_purchase_invoice"
                                 string="Create Invoice" type="object"
-                                attrs="{'invisible': [('progress', '!=', 'moved')]}"/>
+                                attrs="{'invisible': ['|',('progress', '=', 'draft'),('create_invoice_flag','!=',False)]}"/>
                         <button name="trigger_revert"
                                 string="Revert" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'moved')]}"/>
