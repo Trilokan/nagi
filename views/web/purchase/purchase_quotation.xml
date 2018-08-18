@@ -69,9 +69,12 @@
                                         <separator string="Purchase History"/>
                                         <field name="purchase_history">
                                             <tree create="false" edit="false" delete="false">
+                                                <field name="date"/>
+                                                <field name="name"/>
                                                 <field name="vendor_id"/>
                                                 <field name="quantity"/>
                                                 <field name="unit_price"/>
+                                                <field name="discount"/>
                                             </tree>
                                         </field>
                                     </sheet>

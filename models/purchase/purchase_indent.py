@@ -75,6 +75,22 @@ class PurchaseIndent(surya.Sarpam):
         self.write({"progress": "cancelled",
                     "writter": writter})
 
+    def get_last_5_invoice_transaction(self, product_id):
+        history = []
+        recs = self.env["invoice.detail"].search([("product_id", "=", product_id),
+                                                  ("invoice_id.invoice_type", "in", ["po", "dpo"])])
+
+        for rec in recs:
+            if len(history) < 5:
+                history.append((0, 0, {"date": rec.invoice_id.date,
+                                       "name": rec.invoice_id.name,
+                                       "vendor_id": rec.invoice_id.person_id.id,
+                                       "quantity": rec.quantity,
+                                       "unit_price": rec.unit_price,
+                                       "discount": rec.discount}))
+
+        return history
+
     @api.multi
     def create_quote(self, writter):
 
@@ -84,7 +100,8 @@ class PurchaseIndent(surya.Sarpam):
         for rec in recs:
             if rec.quantity > 0:
                 quote_detail.append((0, 0, {"product_id": rec.product_id.id,
-                                            "quantity": rec.quantity}))
+                                            "quantity": rec.quantity,
+                                            "purchase_history": self.get_last_5_invoice_transaction(rec.product_id.id)}))
 
         data = {"indent_id": self.id,
                 "quote_detail": quote_detail,

@@ -49,13 +49,13 @@ class StockMove(surya.Sarpam):
     def _get_destination_location_id(self):
         return self.env.context.get("destination_location_id")
 
-    def get_balance_quantity(self):
+    def get_balance_quantity(self, location):
         destination_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
-                                                       ("destination_location_id", "=", self.source_location_id.id),
+                                                       ("destination_location_id", "=", location),
                                                        ("progress", "=", "moved")])
 
         source_ids = self.env["hos.move"].search([("product_id", "=", self.product_id.id),
-                                                  ("source_location_id", "=", self.source_location_id.id),
+                                                  ("source_location_id", "=", location),
                                                   ("progress", "=", "moved")])
         quantity_in = quantity_out = 0
 
@@ -70,9 +70,23 @@ class StockMove(surya.Sarpam):
         return balance
 
     @api.multi
+    def trigger_revert(self):
+        writter = "Stock Moved reverted by {0}".format(self.env.user.name)
+        location = self.destination_location_id.id
+        quantity = self.get_balance_quantity(location)
+
+        if self.picking_type in ["in", "internal"]:
+            if quantity < self.quantity:
+                raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
+                                                 format(self.product_id.name))
+
+        self.write({"progress": "draft", "writter": writter})
+
+    @api.multi
     def trigger_move(self):
         writter = "Stock Moved by {0}".format(self.env.user.name)
-        quantity = self.get_balance_quantity()
+        location = self.source_location_id.id
+        quantity = self.get_balance_quantity(location)
 
         if self.picking_type in ["internal", "out"]:
             if quantity < self.quantity:

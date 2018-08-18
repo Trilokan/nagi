@@ -102,8 +102,10 @@ class PurchaseHistory(surya.Sarpam):
     _description = 'Purchase History'
 
     date = fields.Date(string="Date", readonly=True)
+    name = fields.Char(string="Invoice", readonly=True)
     vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
     quantity = fields.Float(string="Quantity", readonly=True)
     unit_price = fields.Float(string="Unit Price", readonly=True)
+    discount = fields.Float(string="Discount", readonly=True)
 
     quote_detail_id = fields.Many2one(comodel_name='quote.detail', string='Quotation Detail')

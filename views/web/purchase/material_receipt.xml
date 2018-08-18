@@ -52,7 +52,12 @@
                     <footer>
                         <button name="trigger_move" string="Accept" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                        <button name="trigger_create_purchase_invoice" string="Create Invoice" type="object"/>
+                        <button name="trigger_create_purchase_invoice"
+                                string="Create Invoice" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'moved')]}"/>
+                        <button name="trigger_revert"
+                                string="Revert" type="object"
+                                attrs="{'invisible': [('progress', '!=', 'moved')]}"/>
                     </footer>
                 </sheet>
                 <div class="oe_chatter">

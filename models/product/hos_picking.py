@@ -179,3 +179,19 @@ class HosPicking(surya.Sarpam):
         self.generate_incoming_shipment()
         self.write({"progress": "moved", "writter": writter})
 
+    @api.multi
+    def trigger_revert(self):
+        # Invoice to be reverted
+
+        invoice = self.env["hos.invoice"].search([("picking_id", "=", self.id),
+                                                  ("progress", "in", ["draft", "approved"])])
+        if invoice:
+            raise exceptions.ValidationError("Error! Please cancel the invoice before Stock reverting")
+
+        writter = "Stock Picked reverted by {0}".format(self.env.user.name)
+        recs = self.picking_detail
+
+        for rec in recs:
+            rec.trigger_revert()
+
+        self.write({"progress": "draft", "writter": writter})

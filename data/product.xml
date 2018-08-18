@@ -111,8 +111,8 @@
 
     <record id="hos_invoice_dpo_sequence" model="ir.sequence">
         <field name="name">Hospital Invoice Direct Purchase</field>
-        <field name="code">hos.invoice.po</field>
-        <field name="prefix">INV/</field>
+        <field name="code">hos.invoice.dpo</field>
+        <field name="prefix">DINV/</field>
         <field name="padding">6</field>
         <field name="number_next">1</field>
         <field name="number_increment">1</field>
