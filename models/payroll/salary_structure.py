@@ -36,8 +36,6 @@ class SalaryStructure(surya.Sarpam):
 
         self.write({"progress": "confirmed", "writter": writter})
 
-    _sql_constraints = [('rule_uniq', 'unique(rule_id, structure_id)', 'Error! In Salary Details..')]
-
 
 class SalaryStructureDetail(surya.Sarpam):
     _name = "salary.structure.detail"

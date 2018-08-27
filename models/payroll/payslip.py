@@ -53,11 +53,13 @@ class Payslip(surya.Sarpam):
         sorted(recs, key=lambda x: x.sequence)
 
         person = self.employee_id.person_id
-        total_days = self.month_id.get_total_days(person)
+        total_days = self.month_id.get_days_in_month()
+        schedule_days = self.month_id.get_total_days(person)
         total_present = self.month_id.get_present_days(person)
         total_absent = self.month_id.get_absent_days(person)
         total_holidays = self.month_id.get_holidays(person)
         total_holiday_present = self.month_id.get_holidays_present(person)
+        total_lop_days = self.month_id.get_lop_days(person)
 
         lop = self.env["leave.item"].search([("person_id", "=", person.id),
                                              ("period_id", "=", self.month_id.period_id.id),
@@ -70,7 +72,8 @@ class Payslip(surya.Sarpam):
                         "payslip_id": self.id,
                         "pay_order": rec.sequence,
                         "total_days": total_days,
-                        "lop_days": lop.credit,
+                        "schedule_days": schedule_days,
+                        "lop_days": total_lop_days,
                         "present_days": total_present,
                         "absent_days": total_absent,
                         "total_holidays": total_holidays,
@@ -120,6 +123,7 @@ class PayslipDetail(surya.Sarpam):
     pay_order = fields.Integer(string="Pay Order", readonly=True)
     pay_type = fields.Selection(PAY_TYPE, string='Pay Type', readonly=True)
     total_days = fields.Float(string="Total Days", readonly=True)
+    schedule_days = fields.Float(string="Scheduled Days", readonly=True)
     lop_days = fields.Float(string="Lop Days", readonly=True)
     present_days = fields.Float(string="Present Days", readonly=True)
     absent_days = fields.Float(string="Absent Days", readonly=True)
@@ -128,8 +132,9 @@ class PayslipDetail(surya.Sarpam):
     payslip_id = fields.Many2one(comodel_name="pay.slip", string="payslip")
 
     def calculate_amount(self):
-        amount = (self.unit_price / self.total_days) * self.lop_days
-        self.write({"amount": self.unit_price - amount})
+        unit_price = self.unit_price / 30
+        amount = (unit_price * self.schedule_days) - (unit_price * self.lop_days)
+        self.write({"amount": amount})
 
     _sql_constraints = [('salary_details_uniq', 'unique(code, payslip_id)', 'Salary details should not duplicated')]
 
