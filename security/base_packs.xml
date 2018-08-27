@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+   <data  noupdate="0">
+
+       <record model="ir.module.category" id="module_base_pack">
+           <field name="name">Base Pack</field>
+           <field name="description">Hospital Payroll</field>
+           <field name="sequence">4</field>
+       </record>
+
+       <record id="group_base_pack_admin" model="res.groups">
+            <field name="name">Base Pack - Administrator</field>
+            <field name="category_id" ref="module_base_pack"/>
+       </record>
+
+       <record id="group_base_pack_user" model="res.groups">
+            <field name="name">Base Pack - User</field>
+            <field name="category_id" ref="module_base_pack"/>
+       </record>
+
+
+   </data>
+</odoo>

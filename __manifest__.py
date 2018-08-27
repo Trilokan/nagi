@@ -27,6 +27,13 @@
 
         'data/employee_cr.xml',
 
+        'security/base_packs.xml',
+        'security/employee.xml',
+        'security/payroll.xml',
+        'security/time_leave_management.xml',
+        'security/recruitment.xml',
+        'security/ir.model.access.csv',
+
         # Account
         'views/web/account/account.xml',
         'views/web/account/pre_defined_account.xml',

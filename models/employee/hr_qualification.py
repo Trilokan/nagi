@@ -18,3 +18,4 @@ class HRQualification(surya.Sarpam):
     result = fields.Selection(selection=RESULT_INFO, string='Pass/Fail', required=True)
     enrollment_year = fields.Integer(string="Enrollment Year", required=True)
     completed_year = fields.Integer(string="Completed Year")
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)

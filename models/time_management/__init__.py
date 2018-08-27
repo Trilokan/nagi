@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 
-
-
 from . import shift
 from . import time_configuration
 from . import week_schedule
