@@ -109,6 +109,7 @@
         'views/web/leave_management/leave_voucher.xml',
         'views/web/leave_management/leave_type.xml',
         'views/web/leave_management/leave_level.xml',
+        'views/web/leave_management/leave_availability.xml',
 
         # Payroll
         'views/web/payroll/hr_pay_update_wiz.xml',

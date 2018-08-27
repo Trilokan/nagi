@@ -25,6 +25,7 @@ class LeaveItem(surya.Sarpam):
     journal_id = fields.Many2one(comodel_name="leave.journal", string="Journal Entry")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="journal_id.progress")
     comment = fields.Text(string="Comment")
+    leave_order = fields.Integer(string="Leave Order", default=0)
 
     def default_vals_creation(self, vals):
         vals["name"] = self.env['ir.sequence'].next_by_code(self._name)

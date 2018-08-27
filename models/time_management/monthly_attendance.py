@@ -23,6 +23,15 @@ class MonthAttendance(surya.Sarpam):
 
     _sql_constraints = [('unique_period_id', 'unique (period_id)', 'Error! Month must be unique')]
 
+    def get_days_in_month(self):
+        from_date = self.period_id.from_date
+        till_date = self.period_id.till_date
+
+        from_date_obj = datetime.strptime(from_date, "%Y-%m-%d")
+        till_date_obj = datetime.strptime(till_date, "%Y-%m-%d")
+
+        return (till_date_obj - from_date_obj).days
+
     def get_total_days(self, person):
         total_days = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
                                                                       ("attendance_id.month_id", "=", self.id),
@@ -55,6 +64,13 @@ class MonthAttendance(surya.Sarpam):
 
         return absent + (0.5 * half_day)
 
+    def get_working_days(self, person):
+        working_day = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
+                                                                   ("attendance_id.month_id", "=", self.id),
+                                                                   ("day_progress", "=", "working_day")])
+
+        return working_day
+
     def get_holidays(self, person):
         holiday = self.env["time.attendance.detail"].search_count([("person_id", "=", person.id),
                                                                    ("attendance_id.month_id", "=", self.id),
@@ -74,6 +90,30 @@ class MonthAttendance(surya.Sarpam):
                                                                     ("availability_progress", "=", "half_day")])
 
         return full_day + (0.5 * half_day)
+
+    def get_lop_days(self, person):
+        total = 0
+        recs = self.env["leave.item"].search([("period_id", "=", self.period_id.id),
+                                              ("person_id", "=", person.id),
+                                              ("leave_account_id", "=", self.env.user.company_id.leave_lop_id.id)])
+
+        for rec in recs:
+            total = total + rec.credit
+
+        return total
+
+    def get_leave_available(self, person):
+        employee_id = self.env["hr.employee"].search([("person_id", "=", person.id)])
+        leave_account_id = employee_id.leave_account_id.id
+        recs = self.env["leave.item"].search([("leave_account_id", "=", leave_account_id),
+                                              ("debit", ">", 0),
+                                              ("reconcile_id", "=", False)])
+
+        available = 0
+        for rec in recs:
+            available = available + rec.debit
+
+        return available
 
     def generate_header(self, date_list):
         header = ""
@@ -204,6 +244,7 @@ class MonthAttendance(surya.Sarpam):
                 journal_detail["description"] = "{0} Leave Credit".format(config.leave_type_id.name)
                 journal_detail["debit"] = config.leave_credit
                 journal_detail["reference"] = self.period_id.name
+                journal_detail["leave_order"] = config.leave_order
 
                 leave_item.append((0, 0, journal_detail))
 
@@ -216,6 +257,7 @@ class MonthAttendance(surya.Sarpam):
                 journal_detail["description"] = "Leave Credit"
                 journal_detail["credit"] = config.leave_credit
                 journal_detail["reference"] = self.period_id.name
+                journal_detail["leave_order"] = config.leave_order
 
                 leave_item.append((0, 0, journal_detail))
 

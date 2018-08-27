@@ -81,6 +81,8 @@ class LeaveVoucher(surya.Sarpam):
                                                   ("debit", ">", 0),
                                                   ("reconcile_id", "=", False)])
 
+            recs.sorted(key=lambda r: r.leave_order)
+
             for rec in recs:
                 data = {}
 
@@ -91,6 +93,7 @@ class LeaveVoucher(surya.Sarpam):
                 data["leave_available"] = rec.debit
                 data["item_id"] = rec.id
                 data["voucher_type"] = "credit"
+                data["leave_order"] = rec.leave_order
                 res_cr.append(data)
 
             self.voucher_detail = res_cr
@@ -99,6 +102,7 @@ class LeaveVoucher(surya.Sarpam):
         leave_item = []
 
         journal_detail = {}
+
         journal_detail["date"] = datetime.now().strftime("%Y-%m-%d")
         journal_detail["period_id"] = self.period_id.id
         journal_detail["name"] = self.env['ir.sequence'].next_by_code("leave.item")
@@ -147,13 +151,13 @@ class LeaveVoucher(surya.Sarpam):
                 journal_detail["company_id"] = self.env.user.company_id.id
                 journal_detail["person_id"] = self.person_id.id
                 journal_detail["description"] = "Leave Debit"
-                journal_detail["debit"] = rec.leave_available
+                journal_detail["credit"] = rec.leave_available
                 journal_detail["leave_account_id"] = employee_id.leave_account_id.id
                 journal_detail["reconcile_id"] = reconcile_id.id
 
                 leave_item.append((0, 0, journal_detail))
 
-                if rec.leave_reconcile > 0:
+                if (rec.leave_reconcile > 0) and ((rec.leave_available - rec.leave_reconcile) > 0):
                     rec.item_id.write({"reconcile_id": reconcile_id.id})
 
                     journal_detail = {}
@@ -165,6 +169,7 @@ class LeaveVoucher(surya.Sarpam):
                     journal_detail["description"] = "Leave Debit"
                     journal_detail["debit"] = rec.leave_available - rec.leave_reconcile
                     journal_detail["leave_account_id"] = employee_id.leave_account_id.id
+                    journal_detail["leave_order"] = rec.leave_order
 
                     leave_item.append((0, 0, journal_detail))
 
@@ -222,4 +227,5 @@ class LeaveVoucherLine(surya.Sarpam):
     leave_available = fields.Float(string="Leave Available")
     reconcile = fields.Boolean(string="Reconcile")
     leave_reconcile = fields.Float(string="Leave Reconcile")
+    leave_order = fields.Float(string="Leave Order")
 

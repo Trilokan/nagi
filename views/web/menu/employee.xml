@@ -205,6 +205,12 @@
               parent="menu_employee_leave_management"
               sequence="90"/>
 
+    <menuitem id="sub_menu_leave_availability"
+              name="Leave Availability"
+              action="action_leave_availability"
+              parent="menu_employee_leave_management"
+              sequence="100"/>
+
     <!-- Payroll -->
     <menuitem id="menu_employee_payroll"
               name="Payroll Management"
