@@ -20,6 +20,7 @@ class Payslip(surya.Sarpam):
     payslip_details = fields.One2many(comodel_name="payslip.detail",
                                       inverse_name="payslip_id",
                                       string="Pay Slip Details")
+    payslip_report = fields.Html(string="Payslip Report", readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
 

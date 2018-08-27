@@ -32,6 +32,7 @@
                                 <tree>
                                     <field name="code"/>
                                     <field name="total_days"/>
+                                    <field name="schedule_days"/>
                                     <field name="present_days"/>
                                     <field name="lop_days"/>
                                     <field name="amount"/>
