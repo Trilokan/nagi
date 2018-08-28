@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
-from .. import surya
+from odoo import fields, models
 
 
-class HospitalLocation(surya.Sarpam):
+# Location
+class HospitalLocation(models.Model):
     _name = "hos.location"
     _rec_name = "code"
 

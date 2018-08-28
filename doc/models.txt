@@ -1,0 +1,118 @@
+Employee Rights
+
+
+    :General Rights to employee to read master
+
+hr.employee
+hr.category
+hr.department
+hr.designation
+hr.experience
+hr.qualification
+hr.account.info
+hr.personal.info
+
+
+    :General Rights to employee to read master
+
+leave.configuration
+leave.level
+leave.account
+leave.type
+leave.journal
+leave.item
+leave.voucher
+leave.application
+compoff.application
+permission.application
+
+
+    :General Rights to employee to read master
+vacancy.position
+
+   :Restricted Rights to HR
+
+resume.bank
+appointment.contact
+appointment.experience
+appointment.qualification
+appointment.order
+appointment.order.salary
+interview.schedule
+interview.schedule.detail
+
+    :General Rights to employee to read master
+
+time.configuration
+time.shift
+shift.change
+week.schedule
+week.schedule.detail
+week.off.detail
+month.attendance
+add.employee.shift
+holiday.change
+
+
+    :General Rights to employee to read master
+
+pay.slip
+
+   :Restricted Rights to HR
+
+salary.structure
+salary.rule
+salary.rule.code
+salary.rule.slab
+payroll.generation
+hr.pay
+
+
+
+# Product
+
+    :Rights - Store Admin, Store Manager, Store User, HOD, User
+
+store.request
+store.request.detail
+purchase.indent
+purchase.indent.detail
+
+product.group
+product.sub.group
+hos.product.category
+hos.uom
+hos.tax
+hos.product
+hos.warehouse
+hos.location
+hos.assert
+hos.picking
+hos.move
+
+
+    :Rights - Purchase Admin, Purchase Manager,Purchase User, HOD, User
+
+purchase.quote
+quote.detail
+purchase.order
+purchase.detail
+hos.invoice
+invoice.detail
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

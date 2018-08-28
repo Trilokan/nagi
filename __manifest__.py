@@ -27,11 +27,7 @@
 
         'data/employee_cr.xml',
 
-        'security/base_packs.xml',
-        'security/employee.xml',
-        'security/payroll.xml',
-        'security/time_leave_management.xml',
-        'security/recruitment.xml',
+        'security/hospital.xml',
         'security/ir.model.access.csv',
 
         # Account

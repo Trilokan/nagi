@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
-from .. import surya
+from odoo import fields, models
 
 
 # Category
-class ProductCategory(surya.Sarpam):
+class ProductCategory(models.Model):
     _name = "hos.product.category"
     _description = "Lab-test/Product/Ambulance/Treatment"
 

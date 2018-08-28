@@ -48,7 +48,7 @@
                                              'picking_type': picking_type,
                                              'date': date}"
                                    attrs="{'readonly': [('progress', '=', 'moved')]}">
-                                <tree editable="bottom" create="false" delete="false">
+                                <tree create="false" delete="false">
                                     <field name="id" invisible="1"/>
                                     <field name="product_id" readonly="1"/>
                                     <field name="uom_id" readonly="1"/>
@@ -59,6 +59,33 @@
                                     <field name="picking_type" invisible="1"/>
                                     <field name="date" invisible="1"/>
                                 </tree>
+                                <form create="false" delete="false">
+                                    <group>
+                                        <field name="id" invisible="1"/>
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="requested_quantity" readonly="1"/>
+                                        <field name="quantity"/>
+                                        <field name="source_location_id" invisible="1"/>
+                                        <field name="destination_location_id" invisible="1"/>
+                                        <field name="picking_type" invisible="1"/>
+                                        <field name="date" invisible="1"/>
+                                    </group>
+                                    <notebook>
+                                        <page string="Batch Detail">
+                                            <field name="move_detail">
+                                                <tree editable="bottom">
+                                                    <field name="batch_no"/>
+                                                    <field name="manufactured_date"/>
+                                                    <field name="expiry_date"/>
+                                                    <field name="mrp_rate"/>
+                                                    <field name="unit_price"/>
+                                                    <field name="quantity"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
                             </field>
                         </page>
                     </notebook>

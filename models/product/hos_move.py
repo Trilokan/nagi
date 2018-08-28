@@ -34,6 +34,10 @@ class StockMove(surya.Sarpam):
                                     string="Picking Type",
                                     required=True,
                                     default=lambda self: self._get_picking_type())
+    move_detail = fields.One2many(comodel_name="hos.move.line",
+                                  inverse_name="move_id",
+                                  string="Move Detail")
+
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
 
@@ -93,6 +97,7 @@ class StockMove(surya.Sarpam):
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
                                                  format(self.product_id.name))
 
+        self.check_move_detail()
         self.write({"progress": "moved", "writter": writter})
 
     def default_vals_creation(self, vals):
@@ -124,9 +129,35 @@ class StockMove(surya.Sarpam):
 
     @api.constrains("requested_quantity", "quantity")
     def check_requested_quantity_greater_than_quantity(self):
+        print "tt"
         for rec in self:
             if rec.picking_id.po_id:
                 if rec.requested_quantity < rec.quantity:
                     raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
+
+            move_details = rec.move_detail
+            move_detail_qty = 0
+            for move_detail in move_details:
+                move_detail_qty = move_detail_qty + move_detail.quantity
+
+            print move_detail_qty
+
+            if move_detail_qty:
+                if move_detail_qty != rec.quantity:
+                    raise exceptions.ValidationError("Error! Batch Quantity must be equal")
+
+    def check_move_detail(self):
+        move_details = self.move_detail
+        move_detail_qty = 0
+        for move_detail in move_details:
+            move_detail_qty = move_detail_qty + move_detail.quantity
+
+        print move_detail_qty
+
+        if move_detail_qty:
+            if move_detail_qty != self.quantity:
+                raise exceptions.ValidationError("Error! Batch Quantity must be equal")
+
+
 
 

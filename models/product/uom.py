@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields
-from .. import surya
+from odoo import fields, models
+
 
 # Product UOM
-
-
-class UOM(surya.Sarpam):
+class UOM(models.Model):
     _name = "hos.uom"
     _rec_name = "code"
 

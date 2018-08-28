@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
-from .. import surya
-import json
+from odoo import fields, models, api, exceptions, _
+
+
 # Product
-
-
-class Product(surya.Sarpam):
+class Product(models.Model):
     _name = "hos.product"
 
     name = fields.Char(string="Name", required=True)
@@ -43,25 +40,6 @@ class Product(surya.Sarpam):
 
         return [("id", "not in", virtual_location.ids)]
 
-    def default_vals_creation(self, vals):
-        group_id = self.env["product.group"].search([("id", "=", vals["group_id"])])
-        sub_group_id = self.env["product.sub.group"].search([("id", "=", vals["sub_group_id"])])
-        code = "{0}/{1}/{2}".format(group_id.code,
-                                    sub_group_id.code,
-                                    self.env["ir.sequence"].next_by_code(self._name))
-
-        vals["code"] = code
-        return vals
-
-    def default_rec_creation(self, rec):
-        store_location_id = self.env.user.company_id.store_location_id
-
-        if not store_location_id:
-            raise exceptions.ValidationError("Default Product Location is not set")
-
-        self.env["hos.warehouse"].create({"product_id": rec.id,
-                                          "location_id": store_location_id.id})
-
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
         args = args or []
@@ -79,3 +57,26 @@ class Product(surya.Sarpam):
             name = "[{0}] {1}".format(record.code, record.name)
             result.append((record.id, name))
         return result
+
+    @api.model
+    def create(self, vals):
+        group_id = self.env["product.group"].search([("id", "=", vals["group_id"])])
+        sub_group_id = self.env["product.sub.group"].search([("id", "=", vals["sub_group_id"])])
+        code = "{0}/{1}/{2}".format(group_id.code,
+                                    sub_group_id.code,
+                                    self.env["ir.sequence"].next_by_code(self._name))
+
+        vals["code"] = code
+        rec = super(Product, self).create(vals)
+
+        # Warehouse Creation
+        store_location_id = self.env.user.company_id.store_location_id
+
+        if not store_location_id:
+            raise exceptions.ValidationError("Default Product Location is not set")
+
+        self.env["hos.warehouse"].create({"product_id": rec.id,
+                                          "location_id": store_location_id.id})
+
+        return rec
+

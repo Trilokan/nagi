@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api
-from .. import surya
+from odoo import fields, api, models
+
 
 # Product Group
-
-
-class ProductGroup(surya.Sarpam):
+class ProductGroup(models.Model):
     _name = "product.group"
 
     name = fields.Char(string="Name", required=True)

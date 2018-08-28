@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api
-from .. import surya
-
+from odoo import fields, api, models
 
 STATE_INFO = [("inter_state", "Inter state"), ("outer_state", "Outer State")]
 
 
 # Tax
-class Tax(surya.Sarpam):
+class Tax(models.Model):
     _name = "hos.tax"
 
     name = fields.Char(string="Name", required=True)

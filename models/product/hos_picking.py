@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
 from .. import surya
-import json
+
 
 PROGRESS_INFO = [("draft", "Draft"), ("moved", "Moved")]
 PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
