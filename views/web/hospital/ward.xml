@@ -32,7 +32,6 @@
                                     <field name="patient_id"/>
                                     <field name="name"/>
                                     <field name="status"/>
-                                    <field name="progress"/>
                                     <templates>
                                         <t t-name="kanban-box">
                                             <div class="oe_kanban_global_click" style="border-left: 6px solid #4CAF50; background-color: #f0eeee;">

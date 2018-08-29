@@ -28,7 +28,6 @@
                         <field name="ward_id"/>
                         <field name="patient_id"/>
                         <field name="status"/>
-                        <field name="progress"/>
                     </group>
                 </sheet>
             </form>

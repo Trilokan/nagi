@@ -71,11 +71,6 @@
                         <field name="admission_date" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                         <field name="admission_status" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                     </group>
-                    <group>
-                        <field name="admission_reason" placeholder="Reason For Admission.."
-                               attrs="{'readonly': [('admission_progress', '!=', 'draft')]}" string="Reason"/>
-                        <field name="admission_attachment_ids" widget="many2many_binary" string="Attachment"/>
-                    </group>
 
                     <notebook>
                         <page string="Contact Details">
@@ -113,6 +108,9 @@
                         </page>
                         <page string="Admission Details">
                             <group col="4">
+                                <field name="admission_reason" placeholder="Reason For Admission.."
+                                       attrs="{'readonly': [('admission_progress', '!=', 'draft')]}" string="Reason"/>
+                                <field name="admission_attachment_ids" widget="many2many_binary" string="Attachment"/>
                                 <field name="ward_id" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                 <field name="bed_id" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>
                                 <field name="paid_amount" attrs="{'readonly': [('admission_progress', '!=', 'draft')]}"/>

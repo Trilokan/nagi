@@ -30,7 +30,7 @@
                     </group>
                     <notebook>
                         <page string="Batch">
-                            <field name="batch_ids" domain="[('quantity', '>', 0)]">
+                            <field name="batch_ids">
                                 <tree>
                                     <field name="batch_no"/>
                                     <field name="quantity"/>
