@@ -63,6 +63,8 @@
                                     <field name="assert_id" invisible="1"/>
                                 </tree>
                             </field>
+                        </page>
+                        <page string="Reminder">
                             <field name="notification_details" attrs="{'readonly': [('progress', '!=', 'draft')]}">
                                 <tree editable="bottom">
                                     <field name="date"/>

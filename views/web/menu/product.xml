@@ -49,9 +49,9 @@
               parent="menu_product"
               sequence="20"/>
 
-    <menuitem id="product_inventory_hos_picking_stock_adjustment"
+    <menuitem id="product_inventory_hos_move_stock_adjustment"
               name="Stock Adjustment"
-              action="action_hos_picking_stock_adjustment"
+              action="action_hos_move_stock_adjustment"
               parent="sub_menu_product_inventory"
               sequence="10"/>
 
