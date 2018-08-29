@@ -40,6 +40,7 @@ class StockMove(models.Model):
     move_detail = fields.One2many(comodel_name="hos.move.line",
                                   inverse_name="move_id",
                                   string="Move Detail")
+    is_adjust = fields.Boolean(string="Adjust")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
