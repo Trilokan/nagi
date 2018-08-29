@@ -1,26 +1,31 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 
-# Product Group
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
                  ("approved", "Approved"),
                  ("cancelled", "Cancelled")]
 
 
-class StoreRequest(surya.Sarpam):
+# Product Group
+class StoreRequest(models.Model):
     _name = "store.request"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", readonly=True)
-    date = fields.Date(string="Date", readonly=True)
-    requested_by = fields.Many2one(comodel_name="hos.person", string="Requested By", readonly=True)
-    approved_by = fields.Many2one(comodel_name="hos.person", string="Approved By", readonly=True)
+    date = fields.Date(string="Date",
+                       default=datetime.now().strftime("%Y-%m-%d"),
+                       readonly=True)
+    requested_by = fields.Many2one(comodel_name="hos.person",
+                                   string="Requested By",
+                                   default=lambda self: self.env.user.person_id.id,
+                                   readonly=True)
+    approved_by = fields.Many2one(comodel_name="hos.person",
+                                  string="Approved By",
+                                  readonly=True)
     department_id = fields.Many2one(comodel_name="hr.department", string="Department", readonly=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     request_detail = fields.One2many(comodel_name="store.request.detail",
@@ -32,26 +37,12 @@ class StoreRequest(surya.Sarpam):
                                  readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
-    def default_vals_creation(self, vals):
-        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-
-        requested_by = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        employee_id = self.env["hr.employee"].search([("person_id", "=", self.env.user.person_id.id)])
-
-        vals["requested_by"] = requested_by.id
-        vals["department_id"] = employee_id.department_id.id
-        return vals
-
     @api.multi
     def check_quantity(self):
-        recs = self.request_detail
+        recs = self.env["store.request.detail"].search([("request_id", "=", self.id),
+                                                 ("quantity", ">", 0)])
 
-        quantity = 0
-        for rec in recs:
-            quantity = quantity + rec.quantity
-
-        if quantity <= 0:
+        if not recs:
             raise exceptions.ValidationError("Error! No Products Found")
 
     @api.multi
@@ -60,7 +51,6 @@ class StoreRequest(surya.Sarpam):
 
         requested_by = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
         employee_id = self.env["hr.employee"].search([("person_id", "=", self.env.user.person_id.id)])
-
         writter = "Store Requested by {0} on {1}".format(requested_by.name,
                                                          datetime.now().strftime("%d-%m-%Y %H:%M"))
 
@@ -76,6 +66,19 @@ class StoreRequest(surya.Sarpam):
                                                                  datetime.now().strftime("%d-%m-%Y %H:%M"))
 
         self.write({"progress": "cancelled",
+                    "writter": writter})
+
+    @api.multi
+    def trigger_approve(self):
+        self.check_quantity()
+
+        approved_by = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
+        writter = "Store Request approved by {0} on {1}".format(approved_by.name,
+                                                                datetime.now().strftime("%d-%m-%Y %H:%M"))
+
+        self.create_issue(writter)
+        self.write({"progress": "approved",
+                    "approved_by": approved_by.id,
                     "writter": writter})
 
     @api.multi
@@ -107,21 +110,16 @@ class StoreRequest(surya.Sarpam):
 
         self.env["hos.picking"].create(data)
 
-    @api.multi
-    def trigger_approve(self):
-        self.check_quantity()
+    @api.model
+    def create(self, vals):
+        employee_id = self.env["hr.employee"].search([("person_id", "=", self.env.user.person_id.id)])
+        vals["department_id"] = employee_id.department_id.id
+        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
 
-        approved_by = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        writter = "Store Request approved by {0} on {1}".format(approved_by.name,
-                                                                datetime.now().strftime("%d-%m-%Y %H:%M"))
-
-        self.create_issue(writter)
-        self.write({"progress": "approved",
-                    "approved_by": approved_by.id,
-                    "writter": writter})
+        return super(StoreRequest, self).create(vals)
 
 
-class StoreRequestDetail(surya.Sarpam):
+class StoreRequestDetail(models.Model):
     _name = "store.request.detail"
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)

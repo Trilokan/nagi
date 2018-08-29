@@ -25,6 +25,7 @@ class Product(models.Model):
 
     min_stock = fields.Integer(string="Min Stock")
     max_stock = fields.Integer(string="Max Stock")
+    is_batch = fields.Boolean(string="Batch")
 
     _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Code must be unique'),
                         ('unique_name', 'unique (name)', 'Error! Product must be unique')]

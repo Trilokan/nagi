@@ -1,18 +1,18 @@
 
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 
-class PurchaseQuote(surya.Sarpam):
+class PurchaseQuote(models.Model):
     _name = "purchase.quote"
     _rec_name = "indent_id"
     _inherit = "mail.thread"
 
-    date = fields.Date(string='Date', readonly=True)
+    date = fields.Date(string='Date',
+                       default=datetime.now().strftime("%Y-%m-%d"),
+                       readonly=True)
     indent_id = fields.Many2one(comodel_name='purchase.indent',
                                 string='Purchase Indent',
                                 readonly=True)
@@ -20,17 +20,14 @@ class PurchaseQuote(surya.Sarpam):
     quote_detail = fields.One2many(comodel_name='quote.detail',
                                    inverse_name='quote_id',
                                    string='Quotation Details')
-
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 string="Company",
+                                 readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
 
     _sql_constraints = [('unique_indent', 'unique (indent_id)',
                          'Error! indent should not be repeated')]
-
-    def default_vals_creation(self, vals):
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["company_id"] = self.env.user.company_id.id
-        return vals
 
     @api.multi
     def trigger_order_creation(self):
@@ -45,7 +42,7 @@ class PurchaseQuote(surya.Sarpam):
         self.write({"writter": writter})
 
 
-class QuoteDetail(surya.Sarpam):
+class QuoteDetail(models.Model):
     _name = 'quote.detail'
     _description = 'Quotation Details'
 
@@ -97,7 +94,7 @@ class QuoteDetail(surya.Sarpam):
                 self.env["purchase.order"].create(data)
 
 
-class PurchaseHistory(surya.Sarpam):
+class PurchaseHistory(models.Model):
     _name = 'purchase.history'
     _description = 'Purchase History'
 
@@ -107,5 +104,4 @@ class PurchaseHistory(surya.Sarpam):
     quantity = fields.Float(string="Quantity", readonly=True)
     unit_price = fields.Float(string="Unit Price", readonly=True)
     discount = fields.Float(string="Discount", readonly=True)
-
     quote_detail_id = fields.Many2one(comodel_name='quote.detail', string='Quotation Detail')

@@ -40,13 +40,39 @@
                     <notebook>
                         <page string="Material Detail">
                             <field name="picking_detail" attrs="{'readonly': [('progress', '!=', 'draft')]}">
-                                <tree editable="bottom" create="false" delete="false">
+                                <tree create="false" delete="false">
                                     <field name="product_id" readonly="1"/>
                                     <field name="uom_id" readonly="1"/>
                                     <field name="requested_quantity" string="Requested Quantity" readonly="1"/>
                                     <field name="quantity" string="Accepted Quantity" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                                     <field name="progress" invisible="1"/>
                                 </tree>
+                                <form create="false" delete="false">
+                                    <group>
+                                        <field name="product_id" readonly="1"/>
+                                        <field name="uom_id" readonly="1"/>
+                                        <field name="requested_quantity" string="Requested Quantity" readonly="1"/>
+                                        <field name="quantity" string="Accepted Quantity" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                                        <field name="progress" invisible="1"/>
+                                        <field name="is_batch" invisible="1"/>
+                                    </group>
+                                    <notebook>
+                                        <page string="Batch" attrs="{'invisible': [('is_batch', '=', False)]}">
+                                            <field name="move_detail"
+                                                   attrs="{'invisible': [('is_batch', '=', False)], 'readonly': [('progress', '!=', 'draft')]}">
+                                                <tree editable="bottom">
+                                                    <field name="batch_no"/>
+                                                    <field name="manufactured_date"/>
+                                                    <field name="expiry_date"/>
+                                                    <field name="mrp_rate"/>
+                                                    <field name="unit_price"/>
+                                                    <field name="quantity"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+
                             </field>
                         </page>
                     </notebook>

@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 # Purchase Indent
 PROGRESS_INFO = [('draft', 'Draft'),
@@ -11,12 +9,14 @@ PROGRESS_INFO = [('draft', 'Draft'),
                  ('cancelled', 'Cancelled')]
 
 
-class PurchaseOrder(surya.Sarpam):
+class PurchaseOrder(models.Model):
     _name = "purchase.order"
     _inherit = "mail.thread"
 
     name = fields.Char(string='Name', readonly=True)
-    date = fields.Date(string="Date", readonly=True)
+    date = fields.Date(string="Date",
+                       default=datetime.now().strftime("%Y-%m-%d"),
+                       readonly=True)
     vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
     indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent", readonly=True)
     quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation", readonly=True)
@@ -39,14 +39,11 @@ class PurchaseOrder(surya.Sarpam):
     igst = fields.Float(string='IGST', readonly=True)
     gross_amount = fields.Float(string='Gross Amount', readonly=True)
     round_off_amount = fields.Float(string='Round-Off', readonly=True)
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
     writter = fields.Text(string="Writter", track_visibility='always')
-
-    def default_vals_creation(self, vals):
-        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["company_id"] = self.env.user.company_id.id
-        return vals
 
     @api.multi
     def total_calculation(self):
@@ -131,3 +128,7 @@ class PurchaseOrder(surya.Sarpam):
 
         self.write({"progress": "cancelled", "writter": writter})
 
+    @api.model
+    def create(self, vals):
+        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
+        return super(PurchaseOrder, self).create(vals)

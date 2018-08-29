@@ -9,7 +9,6 @@
             <tree string="Quotation">
                 <field name="date"/>
                 <field name="indent_id"/>
-                <field name="progress"/>
             </tree>
         </field>    
     </record>

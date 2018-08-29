@@ -51,7 +51,7 @@ class PurchaseDetail(surya.Sarpam):
     @api.constrains("requested_quantity", "accepted_quantity")
     def check_requested_quantity_greater_than_quantity(self):
         for rec in self:
-            print rec.requested_quantity, rec.accepted_quantity
+
             if rec.requested_quantity < rec.accepted_quantity:
                 raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
 

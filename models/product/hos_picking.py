@@ -2,7 +2,6 @@
 
 from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
 
 
 PROGRESS_INFO = [("draft", "Draft"), ("moved", "Moved")]
@@ -17,42 +16,43 @@ PICKING_CATEGORY = [("sa", "Stock Adjustment"),
 
 
 # Stock Picking
-class HosPicking(surya.Sarpam):
+class Picking(models.Model):
     _name = "hos.picking"
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
     name = fields.Char(string="Name", readonly=True)
-    person_id = fields.Many2one(comodel_name="hos.person", string="Partner", readonly=True)
+    person_id = fields.Many2one(comodel_name="hos.person",
+                                string="Partner",
+                                readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     reason = fields.Text(string="Reason")
     picking_detail = fields.One2many(comodel_name="hos.move",
                                      inverse_name="picking_id",
                                      string="Stock Move")
-    picking_type = fields.Selection(selection=PICKING_TYPE, string="Picking Type", required=True)
-    picking_category = fields.Selection(selection=PICKING_CATEGORY, string="Picking Category")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
-    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    picking_type = fields.Selection(selection=PICKING_TYPE,
+                                    string="Picking Type",
+                                    required=True)
+    picking_category = fields.Selection(selection=PICKING_CATEGORY,
+                                        string="Picking Category")
+    progress = fields.Selection(selection=PROGRESS_INFO,
+                                string="Progress",
+                                default="draft")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
                                          string="Source Location",
-                                         default=lambda self: self.env.user.company_id.purchase_location_id.id,
                                          required=True)
     destination_location_id = fields.Many2one(comodel_name="hos.location",
                                               string="Destination location",
-                                              default=lambda self: self.env.user.company_id.store_location_id.id,
                                               required=True)
     writter = fields.Text(string="Writter", track_visibility='always')
     po_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
     so_id = fields.Many2one(comodel_name="sale.order", string="Sale Order")
     back_order_id = fields.Many2one(comodel_name="hos.picking", string="Back Order")
     create_invoice_flag = fields.Boolean(string="Create Invoice")
-
-    def default_vals_creation(self, vals):
-        code = "picking.{0}".format(vals["picking_category"])
-        vals["name"] = self.env['ir.sequence'].next_by_code(code)
-        vals["company_id"] = self.env.user.company_id.id
-        vals["writter"] = "Created by {0}".format(self.env.user.name)
-        return vals
 
     # Purchase
     @api.multi
@@ -203,3 +203,11 @@ class HosPicking(surya.Sarpam):
             rec.trigger_revert()
 
         self.write({"progress": "draft", "writter": writter})
+
+    @api.model
+    def create(self, vals):
+        code = "picking.{0}".format(vals["picking_category"])
+        vals["name"] = self.env['ir.sequence'].next_by_code(code)
+        vals["writter"] = "Created by {0}".format(self.env.user.name)
+
+        return super(Picking, self).create(vals)

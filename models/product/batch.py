@@ -9,7 +9,7 @@ from .. import surya, calculation
 class Batch(models.Model):
     _name = "hos.batch"
 
-    batch_no = fields.Char(string="Batch", readonly=True)
+    batch_no = fields.Char(string="Batch", readonly=False)
     warehouse_id = fields.Many2one(comodel_name="hos.warehouse", string="Warehouse")
     quantity = fields.Float(string="Quantity", compute="_get_stock")
 

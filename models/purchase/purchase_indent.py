@@ -1,55 +1,51 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 
-# Product Group
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
                  ("approved", "Approved"),
                  ("cancelled", "Cancelled")]
 
 
-class PurchaseIndent(surya.Sarpam):
+# Purchase Indent
+class PurchaseIndent(models.Model):
     _name = "purchase.indent"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", readonly=True)
-    date = fields.Date(string="Date", readonly=True)
-    requested_by = fields.Many2one(comodel_name="hos.person", string="Requested By", readonly=True)
-    approved_by = fields.Many2one(comodel_name="hos.person", string="Approved By", readonly=True)
-    department_id = fields.Many2one(comodel_name="hr.department", string="Department", readonly=True)
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    date = fields.Date(string="Date",
+                       default=datetime.now().strftime("%Y-%m-%d"),
+                       readonly=True)
+    requested_by = fields.Many2one(comodel_name="hos.person",
+                                   default=lambda self: self.env.user.person_id.id,
+                                   string="Requested By",
+                                   readonly=True)
+    approved_by = fields.Many2one(comodel_name="hos.person",
+                                  string="Approved By",
+                                  readonly=True)
+    department_id = fields.Many2one(comodel_name="hr.department",
+                                    string="Department",
+                                    readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
     indent_detail = fields.One2many(comodel_name="purchase.indent.detail",
                                     inverse_name="indent_id",
                                     string="Indent Detail")
-    company_id = fields.Many2one(comodel_name="res.company", string="Company")
+    progress = fields.Selection(selection=PROGRESS_INFO,
+                                string="Progress",
+                                default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
-
-    def default_vals_creation(self, vals):
-        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-
-        requested_by = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        employee_id = self.env["hr.employee"].search([("person_id", "=", self.env.user.person_id.id)])
-
-        vals["requested_by"] = requested_by.id
-        vals["department_id"] = employee_id.department_id.id
-        vals["company_id"] = self.env.user.company_id.id
-        return vals
 
     @api.multi
     def check_quantity(self):
-        recs = self.indent_detail
+        recs = self.env["purchase.indent.detail"].search([("indent_id", "=", self.id), ("quantity", ">", 0)])
 
-        quantity = 0
-        for rec in recs:
-            quantity = quantity + rec.quantity
-
-        if quantity <= 0:
+        if not recs:
             raise exceptions.ValidationError("Error! No Products Found")
 
     @api.multi
@@ -82,12 +78,9 @@ class PurchaseIndent(surya.Sarpam):
 
         for rec in recs:
             if len(history) < 5:
-                history.append((0, 0, {"date": rec.invoice_id.date,
-                                       "name": rec.invoice_id.name,
-                                       "vendor_id": rec.invoice_id.person_id.id,
-                                       "quantity": rec.quantity,
-                                       "unit_price": rec.unit_price,
-                                       "discount": rec.discount}))
+                data = rec.copy_data()
+                data['vendor_id'] = data.pop('person_id')
+                history.append((0, 0, data))
 
         return history
 
@@ -122,8 +115,16 @@ class PurchaseIndent(surya.Sarpam):
                     "approved_by": approved_by.id,
                     "writter": writter})
 
+    @api.model
+    def create(self, vals):
+        employee_id = self.env["hr.employee"].search([("person_id", "=", self.env.user.person_id.id)])
+        vals["department_id"] = employee_id.department_id.id
+        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
 
-class PurchaseIndentDetail(surya.Sarpam):
+        return super(PurchaseIndent, self).create(vals)
+
+
+class PurchaseIndentDetail(models.Model):
     _name = "purchase.indent.detail"
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)

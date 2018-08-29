@@ -85,6 +85,12 @@
               parent="sub_menu_product_inventory"
               sequence="60"/>
 
+    <menuitem id="product_inventory_hos_batch"
+              name="batch"
+              action="action_hos_batch"
+              parent="sub_menu_product_inventory"
+              sequence="70"/>
+
     <!--Assert-->
     <menuitem id="sub_menu_product_assert"
               name="Assert"

@@ -135,6 +135,7 @@
         'views/web/product/hos_move.xml',
         'views/web/product/store_request.xml',
         'views/web/product/store_issue.xml',
+        'views/web/product/batch.xml',
 
         # Purchase
         'views/web/purchase/purchase_indent.xml',

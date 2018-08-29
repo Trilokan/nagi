@@ -36,6 +36,7 @@
                             <group>
                                 <field name="min_stock"/>
                                 <field name="max_stock"/>
+                                <field name="is_batch"/>
                             </group>
                             <field name="warehouse_ids">
                                 <tree>
