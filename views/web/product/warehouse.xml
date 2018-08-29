@@ -9,7 +9,6 @@
             <tree string="Warehouse" create="false" edit="false" delete="false">
                 <field name="product_id"/>
                 <field name="location_id"/>
-                <field name="progress"/>
             </tree>
         </field>
     </record>
@@ -29,6 +28,16 @@
                         <field name="location_id"/>
                         <field name="quantity"/>
                     </group>
+                    <notebook>
+                        <page string="Batch">
+                            <field name="batch_ids">
+                                <tree>
+                                    <field name="batch_no"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

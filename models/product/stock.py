@@ -1,0 +1,26 @@
+# -*- coding: utf-8 -*-
+
+from odoo import fields, models, api, exceptions, _
+from datetime import datetime
+from .. import surya, calculation
+
+
+# Stock
+class Stock(models.Model):
+    _name = "hos.stock"
+
+    def get_stock(self, model, search_source, search_destination):
+        source_ids = self.env[model].search(search_source)
+        destination_ids = self.env[model].search(search_destination)
+
+        quantity_in = quantity_out = 0
+
+        for rec in destination_ids:
+            quantity_in = quantity_in + rec.quantity
+
+        for rec in source_ids:
+            quantity_out = quantity_out + rec.quantity
+
+        quantity = quantity_in - quantity_out
+
+        return quantity

@@ -12,3 +12,5 @@ from . import hos_move_line
 from . import store_request
 from . import category
 from . import hos_assert
+from . import batch
+from . import stock
