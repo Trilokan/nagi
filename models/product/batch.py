@@ -8,23 +8,17 @@ from .. import surya, calculation
 # Batch
 class Batch(models.Model):
     _name = "hos.batch"
+    _rec_name = "batch_no"
 
-    batch_no = fields.Char(string="Batch", readonly=False)
-    warehouse_id = fields.Many2one(comodel_name="hos.warehouse", string="Warehouse")
-    quantity = fields.Float(string="Quantity", compute="_get_stock")
+    """Always shows current stock only 
+       Created from stock move line when moved"""
 
-    def _get_stock(self):
-        for record in self:
-            model = "hos.move.line"
-            source = [("batch_no", "=", record.batch_no),
-                      ("move_id.product_id", "=", record.warehouse_id.product_id.id),
-                      ("move_id.source_location_id", "=", record.warehouse_id.location_id.id),
-                      ("move_id.progress", "=", "moved")]
-
-            destination = [("batch_no", "=", record.batch_no),
-                           ("move_id.product_id", "=", record.warehouse_id.product_id.id),
-                           ("move_id.destination_location_id", "=", record.warehouse_id.location_id.id),
-                           ("move_id.progress", "=", "moved")]
-
-            record.quantity = self.env["hos.stock"].get_stock(model, source, destination)
+    batch_no = fields.Char(string="Batch", readonly=True)
+    manufactured_date = fields.Date(string="Manufacturing Date", required=True)
+    expiry_date = fields.Date(string="Expiry Date", required=True)
+    mrp_rate = fields.Float(string="MRP", default=0)
+    unit_price = fields.Float(string="Unit Price", default=0)
+    quantity = fields.Float(string="Quantity", readonly=True)
+    product_id = fields.Many2one(comodel_name="hos.product", string="Product", readonly=True)
+    location_id = fields.Many2one(comodel_name="hos.location", string="Location", readonly=True)
 

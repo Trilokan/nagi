@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
 
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
@@ -14,11 +13,11 @@ JOURNEY_INFO = [("hospital_transfer", "Hospital Transfer"),
 
 
 # Ambulance
-class Ambulance(surya.Sarpam):
+class Ambulance(models.Model):
     _name = "hos.ambulance"
     _inherit = "mail.thread"
 
-    date = fields.Date(string="Date")
+    date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     name = fields.Char(string="Name", readonly=True)
 
     source_location = fields.Text(string="Source Location")
@@ -70,9 +69,9 @@ class Ambulance(surya.Sarpam):
         # Generate Whatsapp to the driver and staff
         pass
 
-    def default_vals_creation(self, vals):
+    def create(self, vals):
         writter = "Ambulance Form Created By {0}".format(self.env.user.name)
         vals["name"] = self.env['ir.sequence'].next_by_code('hos.ambulance')
-        return vals
+        return super(Ambulance, self).create(vals)
 
 

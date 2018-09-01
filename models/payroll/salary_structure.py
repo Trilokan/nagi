@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
-
-
-# Salary Structure
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed')]
 PAY_TYPE = [('allowance', 'Allowance'), ('deduction', 'Deduction')]
 
 
-class SalaryStructure(surya.Sarpam):
+# Salary Structure
+class SalaryStructure(models.Model):
     _name = "salary.structure"
     _inherit = "mail.thread"
 
@@ -23,21 +19,21 @@ class SalaryStructure(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
 
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Salary Structure is confirmed by {0}".format(self.env.user.name)
-        return vals
-
     @api.multi
     def trigger_confirm(self):
         if not self.detail_ids:
             raise exceptions.ValidationError("Error! Salary Rules Not found")
 
         writter = "Salary Structure is confirmed by {0}".format(self.env.user.name)
-
         self.write({"progress": "confirmed", "writter": writter})
 
+    @api.model
+    def create(self, vals):
+        vals["writter"] = "Salary Structure is confirmed by {0}".format(self.env.user.name)
+        return super(SalaryStructure, self).create(vals)
 
-class SalaryStructureDetail(surya.Sarpam):
+
+class SalaryStructureDetail(models.Model):
     _name = "salary.structure.detail"
 
     rule_id = fields.Many2one(comodel_name="salary.rule", string="Salary Rule", required=True)

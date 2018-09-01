@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
 
 ADMISSION_PROGRESS_INFO = [("draft", "Draft"),
                            ("admitted", "Admitted")]
@@ -16,7 +15,7 @@ ADMISSION_STATUS = [("emergency", "Emergency"), ("normal", "Normal")]
 
 
 # Admission
-class Admission(surya.Sarpam):
+class Admission(models.Model):
     _name = "hos.admission"
     _inherit = "mail.thread"
 
@@ -76,10 +75,10 @@ class Admission(surya.Sarpam):
         writter = "Admitted by {0}".format(self.env.user.name)
         self.write({"admission_progress": "admitted", "writter": writter})
 
-    def default_vals_creation(self, vals):
+    def create(self, vals):
         vals["writter"] = "Admission form created by {0}".format(self.env.user.name)
         vals["name"] = self.env['ir.sequence'].next_by_code('hos.ambulance')
-        return vals
+        return super(Admission, self).create(vals)
 
     def reset_to_draft(self, vals):
         writter = "Admission form resetted by {0}".format(self.env.user.name)

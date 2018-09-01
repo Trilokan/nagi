@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 SCHEDULE_INFO = [("draft", "Draft"),
                  ("on_process", "On Process"),
@@ -16,12 +14,12 @@ SCHEDULE_DETAIL_INFO = [("selected", "Selected"),
 
 
 # Interview Schedule
-class InterviewSchedule(surya.Sarpam):
+class InterviewSchedule(models.Model):
     _name = "interview.schedule"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", required=True)
-    date = fields.Date(string="Date", required=True)
+    date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     vacancy_id = fields.Many2one(comodel_name="vacancy.position", string="Vacancy Position", required=True)
     designation_id = fields.Many2one(comodel_name="hr.designation", string="Designation")
     progress = fields.Selection(selection=SCHEDULE_INFO, string="Progress", default='draft')
@@ -29,12 +27,12 @@ class InterviewSchedule(surya.Sarpam):
     scheduled_detail = fields.One2many(comodel_name="interview.schedule.detail",
                                        string="Scheduled Detail",
                                        inverse_name="scheduled_id")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     writter = fields.Text(string="Writter", track_visibility="always")
-
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Interview schedule created by {0}".format(self.env.user.name)
-        return vals
 
     @api.multi
     def trigger_confirm(self):
@@ -58,8 +56,13 @@ class InterviewSchedule(surya.Sarpam):
                 "progress": "completed"}
         self.write(data)
 
+    @api.model
+    def create(self, vals):
+        vals["writter"] = "Interview schedule created by {0}".format(self.env.user.name)
+        return super(InterviewSchedule, self).create(vals)
 
-class InterviewScheduledDetail(surya.Sarpam):
+
+class InterviewScheduledDetail(models.Model):
     _name = "interview.schedule.detail"
     _inherit = "mail.thread"
 

@@ -1,34 +1,26 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
-from .. import surya
-import json
+from odoo import fields, models, api, exceptions, _
 
-
-# Shift Master
-
-PROGRESS_INFO = [('draft', 'draft'), ('confirmed', 'Confirmed')]
 END_INFO = [('current_day', 'Current Day'), ('next_day', 'Next Day')]
 
 
-class Shift(surya.Sarpam):
+# Shift Master
+class Shift(models.Model):
     _name = "time.shift"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Shift", required=True)
     total_hours = fields.Float(string="Total Hours", readonly=True)
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     end_day = fields.Selection(selection=END_INFO, string="Ends On", default="current_day")
     from_hours = fields.Integer(string="From Hours")
     from_minutes = fields.Integer(string="From Minutes")
     till_hours = fields.Integer(string="Till Hours")
     till_minutes = fields.Integer(string="Till Minutes")
-    writter = fields.Text(string="Writter", track_visibility="always")
-
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Shift Created by {0}".format(self.env.user.name)
-        return vals
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     @api.multi
     def trigger_calculate(self):
@@ -38,9 +30,3 @@ class Shift(surya.Sarpam):
             self.total_hours = float(total_till_hours - total_from_hours) / 60
         elif self.end_day == 'next_day':
             self.total_hours = 24 - (float(total_from_hours - total_till_hours) / 60)
-
-    @api.multi
-    def trigger_confirm(self):
-        self.trigger_calculate()
-        self.write({"progress": "confirmed",
-                    "writter": "Shift Created by {0}".format(self.env.user.name)})

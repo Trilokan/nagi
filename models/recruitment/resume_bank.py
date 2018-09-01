@@ -1,22 +1,19 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api
 from datetime import datetime
-from .. import surya
-import json
-from lxml import etree
 
 MARITAL_INFO = [('single', 'Single'), ('married', 'Married'), ('divorced', 'Divorced')]
 GENDER_INFO = [('male', 'Male'), ('female', 'Female')]
 
 
 # Resume Bank
-class ResumeBank(surya.Sarpam):
+class ResumeBank(models.Model):
     _name = "resume.bank"
     _inherit = "hos.address"
 
     name = fields.Char(string="Name", required=True)
-    date = fields.Date(string="Date")
+    date = fields.Date(string="Date", default=datetime.now().strftime("%Y-%m-%d"))
     candidate_uid = fields.Char(string="Candidate ID", readonly=True)
     aadhar_card = fields.Char(string="Aadhar Card")
     image = fields.Binary(string="Image")
@@ -50,9 +47,13 @@ class ResumeBank(surya.Sarpam):
     # Resume
     resume = fields.Binary(string="Resume")
     writter = fields.Text(string="Writter", track_visibility="always")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
-    def default_vals_creation(self, vals):
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
+    @api.model
+    def create(self, vals):
         vals["candidate_uid"] = self.env['ir.sequence'].sudo().next_by_code(self._name)
         vals["writter"] = "Resume Created by {0}".format(self.env.user.name)
-        return vals
+        return super(ResumeBank, self).create(vals)

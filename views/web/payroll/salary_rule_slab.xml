@@ -27,7 +27,6 @@
                     <div id="s_header">
                         <h1>Salary Slab</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
                     <group col="4">
                         <field name="range_from"/>
                         <field name="range_till"/>

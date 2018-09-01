@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
+from odoo import fields, models, api, exceptions
 
-
-# Salary Rule Slab
 SLAB_TYPE = [('fixed', 'Fixed'), ('formula', 'Formula')]
 
 
-class SalaryRuleSlab(surya.Sarpam):
+# Salary Rule Slab
+class SalaryRuleSlab(models.Model):
     _name = "salary.rule.slab"
     _inherit = "mail.thread"
 
@@ -22,3 +19,7 @@ class SalaryRuleSlab(surya.Sarpam):
     rule_id = fields.Many2one(comodel_name="salary.rule", string="Salary Rule")
     writter = fields.Text(string="Writter", track_visibility='always')
 
+    @api.model
+    def create(self, vals):
+        vals["writter"] = "Salary Rule Slab created by {0}".format(self.env.user.name)
+        return super(SalaryRuleSlab, self).create(vals)

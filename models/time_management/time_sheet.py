@@ -1,20 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime, timedelta
-from .. import surya
-import json
+
 TIME_DELAY_HRS = 5
 TIME_DELAY_MIN = 30
-
-
-# Time Sheet
 
 PROGRESS_INFO = [('in', 'In'), ('out', 'Out')]
 PROCESS_INFO = [('manual', 'Manual'), ('automatic', 'Automatic')]
 
 
-class TimeSheet(surya.Sarpam):
+# Time Sheet
+class TimeSheet(models.Model):
     _name = "time.sheet"
     _rec_name = "person_id"
     _inherit = "mail.thread"
@@ -25,7 +22,8 @@ class TimeSheet(surya.Sarpam):
     process = fields.Selection(PROCESS_INFO, string='Process', default="manual", readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
-    def default_vals_creation(self, vals):
+    @api.model
+    def create(self, vals):
         vals["writter"] = "Time sheet Updated by {0}".format(self.writter)
         current_time = datetime.strptime(vals['date'], "%Y-%m-%d %H:%M:%S")
         time = current_time.strftime("%Y-%m-%d %H:%M:%S")
@@ -50,4 +48,4 @@ class TimeSheet(surya.Sarpam):
                 if expected_from_time_grace <= current_time <= expected_till_time_grace:
                     rec.write({"actual_till_time": time})
 
-        return vals
+        return super(TimeSheet, self).create(vals)

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from .. import surya
+from odoo import fields, models, api, exceptions
 from datetime import datetime
 
 PROGRESS_INFO = [("draft", "Draft"), ("posted", "Posted")]
@@ -9,7 +8,7 @@ VOUCHER_INFO = [("credit", "Credit"), ("debit", "Debit")]
 
 
 # Leave Voucher
-class LeaveVoucher(surya.Sarpam):
+class LeaveVoucher(models.Model):
     _name = "leave.voucher"
 
     date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
@@ -215,7 +214,7 @@ class LeaveVoucher(surya.Sarpam):
         return vals
 
 
-class LeaveVoucherLine(surya.Sarpam):
+class LeaveVoucherLine(models.Model):
     _name = "leave.voucher.line"
 
     date = fields.Date(string="Date", required=True)

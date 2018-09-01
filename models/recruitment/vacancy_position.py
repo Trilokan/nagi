@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api
 from datetime import datetime
-from .. import surya
-import json
 
 PROGRESS_INFO = [("draft", "Draft"),
                  ("opened", "Position Opened"),
@@ -11,12 +9,12 @@ PROGRESS_INFO = [("draft", "Draft"),
 
 
 # Vacancy Position
-class VacancyPosition(surya.Sarpam):
+class VacancyPosition(models.Model):
     _name = "vacancy.position"
     _inherit = "mail.thread"
 
-    name = fields.Char(string="Name", required=True)
-    date = fields.Date(string="Date")
+    name = fields.Char(string="Name", readonly=True)
+    date = fields.Date(string="Date", default=datetime.now().strftime("%Y-%m-%d"))
     position_id = fields.Many2one(comodel_name="hr.designation", string="Position", required=True)
     department_id = fields.Many2one(comodel_name="hr.department", string="Department")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
@@ -26,6 +24,10 @@ class VacancyPosition(surya.Sarpam):
     qualification = fields.Html(string="Qualification")
     comment = fields.Text(string="Comment")
     writter = fields.Text(string="Writter", track_visibility="always")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     @api.multi
     def trigger_open(self):
@@ -41,9 +43,8 @@ class VacancyPosition(surya.Sarpam):
 
         self.write(data)
 
-    def default_vals_creation(self, vals):
-        if not "date" in vals:
-            vals["date"] = datetime.now().strftime("%Y-%m-%d")
+    @api.model
+    def create(self, vals):
         vals["writter"] = "Vacancy position created by {0}".format(self.env.user.name)
-
-        return vals
+        vals["name"] = self.env['ir.sequence'].sudo().next_by_code(self._name)
+        return super(VacancyPosition, self).create(vals)

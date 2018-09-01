@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
+from odoo import fields, models, api, exceptions
 
-# payroll Generation
 PROGRESS_INFO = [('draft', 'Draft'), ('generated', 'Generated')]
 
 
-class PayrollGeneration(surya.Sarpam):
+# payroll Generation
+class PayrollGeneration(models.Model):
     _name = "payroll.generation"
     _inherit = "mail.thread"
     _rec_name = "month_id"

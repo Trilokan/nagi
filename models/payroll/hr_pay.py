@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed')]
 
 
 # HR Pay
-class HRPay(surya.Sarpam):
+class HRPay(models.Model):
     _name = "hr.pay"
     _inherit = "mail.thread"
     _rec_name = "employee_id"
@@ -26,16 +24,16 @@ class HRPay(surya.Sarpam):
 
     _sql_constraints = [('name_uniq', 'unique(employee_id)', 'Payscale is already configured')]
 
-    def default_vals_creation(self, vals):
-        employee_id = self.env["hr.employee"].search([("id", "=", vals["employee_id"])])
-
-        vals["writter"] = "Pay detail for {0} with basic {1} Created by {2}".format(employee_id.name,
-                                                                                    vals["basic"],
-                                                                                    self.env.user.name)
-        return vals
-
     def trigger_confirm(self):
         writter = "Pay detail for {0} with basic {1} Created by {2}".format(self.employee_id.name,
                                                                             self.basic,
                                                                             self.env.user.name)
         self.write({"progress": "confirmed", "writter": writter})
+
+    @api.model
+    def create(self, vals):
+        employee_id = self.env["hr.employee"].search([("id", "=", vals["employee_id"])])
+        writter = "Pay detail for {0} with basic {1} Created by {2}"
+        vals["writter"] = writter.format(employee_id.name, vals["basic"], self.env.user.name)
+
+        return super(HRPay, self).create(vals)

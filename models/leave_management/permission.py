@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
+from odoo import fields, models, api, exceptions
 
-
-# Permission
 PROGRESS_INFO = [('draft', 'Draft'),
                  ('confirmed', 'Waiting For Approval'),
                  ('cancelled', 'Cancelled'),
                  ('approved', 'Approved')]
 
 
-class Permission(surya.Sarpam):
+# Permission
+class Permission(models.Model):
     _name = "permission.application"
     _inherit = "mail.thread"
 
@@ -22,12 +19,6 @@ class Permission(surya.Sarpam):
     reason = fields.Text(string="Reason", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
-
-    def default_vals_creation(self, vals):
-        person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        vals["person_id"] = person_id.id
-        vals["writter"] = "Permission created by {0}".format(self.env.user.name)
-        return vals
 
     @api.multi
     def trigger_confirmed(self):
@@ -50,3 +41,9 @@ class Permission(surya.Sarpam):
 
         self.write(data)
 
+    @api.model
+    def create(self, vals):
+        person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
+        vals["person_id"] = person_id.id
+        vals["writter"] = "Permission created by {0}".format(self.env.user.name)
+        return super(Permission, self).create(vals)

@@ -52,8 +52,7 @@ class Assert(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility="always")
 
-    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Group Code must be unique'),
-                        ('unique_name', 'unique (name)', 'Error! Group must be unique')]
+    _sql_constraints = [('unique_name', 'unique (name)', 'Error! Assert must be unique')]
 
     def default_vals_creation(self, vals):
         vals["name"] = self.env["ir.sequence"].next_by_code(self._name)

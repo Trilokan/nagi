@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
-from .. import surya
-import json
+from odoo import fields, models, api, exceptions, _
 
 
 # Contacts
-class AppointmentContact(surya.Sarpam):
+class AppointmentContact(models.Model):
     _name = "appointment.contact"
     _inherit = "hos.address"
 
@@ -15,7 +12,7 @@ class AppointmentContact(surya.Sarpam):
 
 
 # Experience
-class AppointmentExperience(surya.Sarpam):
+class AppointmentExperience(models.Model):
     _name = "appointment.experience"
 
     appointment_id = fields.Many2one(comodel_name="appointment.order", string="Appointment Order")
@@ -29,7 +26,7 @@ RESULT_INFO = [("pass", "Pass"), ("fail", "Fail"), ("discontinued", "Discontinue
 
 
 # Qualification
-class AppointmentQualification(surya.Sarpam):
+class AppointmentQualification(models.Model):
     _name = "appointment.qualification"
 
     appointment_id = fields.Many2one(comodel_name="appointment.order", string="Appointment Order")

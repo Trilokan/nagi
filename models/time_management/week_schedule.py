@@ -1,18 +1,15 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
+from odoo import fields, models, api, exceptions
 from datetime import datetime, timedelta
-from .. import surya
-
-
-# Week Schedule
 
 PROGRESS_INFO = [('draft', 'Draft'), ('scheduled', 'Scheduled')]
 TIME_DELAY_HRS = 5
 TIME_DELAY_MIN = 30
 
 
-class WeekSchedule(surya.Sarpam):
+# Week Schedule
+class WeekSchedule(models.Model):
     _name = "week.schedule"
     _inherit = "mail.thread"
 
@@ -25,6 +22,10 @@ class WeekSchedule(surya.Sarpam):
                                  inverse_name="schedule_id",
                                  string="Week-Off Detail")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
     writter = fields.Text(string="Writter", track_visibility="always")
 
     def check_lines(self):
@@ -134,7 +135,7 @@ class WeekSchedule(surya.Sarpam):
                 raise exceptions.ValidationError("Error! Week-Off date must be within a week")
 
 
-class WeekScheduleDetail(surya.Sarpam):
+class WeekScheduleDetail(models.Model):
     _name = "week.schedule.detail"
 
     shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", required=True)
@@ -142,9 +143,13 @@ class WeekScheduleDetail(surya.Sarpam):
                                   domain=[("is_employee", "=", True)])
     schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
 
-class WeekOffDetail(surya.Sarpam):
+class WeekOffDetail(models.Model):
     _name = "week.off.detail"
 
     date = fields.Date(string="Date", required=True)
@@ -152,4 +157,7 @@ class WeekOffDetail(surya.Sarpam):
                                   domain=[("is_employee", "=", True)])
     schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
-
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)

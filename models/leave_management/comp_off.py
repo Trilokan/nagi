@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
-
-
-# Leave
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'),
                  ('confirmed', 'Waiting For Approval'),
@@ -15,7 +10,8 @@ PROGRESS_INFO = [('draft', 'Draft'),
 DAY_TYPE = [('full_day', 'Full Day'), ('half_day', 'Half Day')]
 
 
-class CompOff(surya.Sarpam):
+# Comp-Off
+class CompOff(models.Model):
     _name = "compoff.application"
     _inherit = "mail.thread"
 
@@ -25,13 +21,6 @@ class CompOff(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     co_type = fields.Selection(selection=DAY_TYPE, string="Type", default="full_day", required=True)
     writter = fields.Text(string="Writter", track_visibility="always")
-
-    def default_vals_creation(self, vals):
-        self.check_month()
-        person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
-        vals["person_id"] = person_id.id
-        vals["writter"] = "Comp-Off application created by {0}".format(self.env.user.name)
-        return vals
 
     def check_month(self):
         attendance = self.env["time.attendance.detail"].search([("attendance_id.date", "=", self.date)])
@@ -78,7 +67,7 @@ class CompOff(surya.Sarpam):
         if self.co_type == "full_day":
             value = 1
         elif self.co_type == "half_day":
-            value = 1
+            value = 0.5
         else:
             value = 0
 
@@ -113,3 +102,10 @@ class CompOff(surya.Sarpam):
 
         self.env["leave.journal"].create(journal)
 
+    @api.model
+    def create(self, vals):
+        self.check_month()
+        person_id = self.env["hos.person"].search([("id", "=", self.env.user.person_id.id)])
+        vals["person_id"] = person_id.id
+        vals["writter"] = "Comp-Off application created by {0}".format(self.env.user.name)
+        return super(CompOff, self).create(vals)

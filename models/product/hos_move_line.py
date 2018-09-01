@@ -17,35 +17,46 @@ class StockMoveLine(models.Model):
     quantity = fields.Float(string="Quantity", default=0)
     move_id = fields.Many2one(comodel_name="hos.move", string="Move Lines")
 
-    def check_batch(self, vals):
-        warehouse = self.env["hos.warehouse"]
+    def update_destination_batch(self):
         batch = self.env["hos.batch"]
+        product_id = self.move_id.product_id.id
+        destination_id = self.move_id.destination_location_id.id
 
-        move_id = self.env["hos.move"].search([("id", "=", vals["move_id"])])
-        source = warehouse.search([("product_id", "=", move_id.product_id.id),
-                                   ("location_id", "=", move_id.source_location_id.id)])
+        destination_batch = batch.search([("product_id", "=", product_id),
+                                          ("location_id", "=", destination_id),
+                                          ("batch_no", "=", self.batch_no)])
 
-        source_batch = batch.search([("warehouse_id", "=", source.id),
-                                     ("batch_no", "=", vals["batch_no"])])
+        if destination_batch:
+            destination_batch.quantity = destination_batch.quantity + self.quantity
+        else:
+            batch.create({"product_id": product_id,
+                          "batch_no": self.batch_no,
+                          "manufactured_date": self.manufactured_date,
+                          "expiry_date": self.expiry_date,
+                          "mrp_rate": self.mrp_rate,
+                          "unit_price": self.unit_price,
+                          "quantity": self.quantity})
 
-        if not source_batch:
-            batch.create({"warehouse_id": source.id,
-                          "batch_no": vals["batch_no"]})
+    def update_source_batch(self):
+        batch = self.env["hos.batch"]
+        product_id = self.move_id.product_id.id
+        source_id = self.move_id.source_location_id.id
 
-        destination = warehouse.search([("product_id", "=", move_id.product_id.id),
-                                        ("location_id", "=", move_id.destination_location_id.id)])
+        source_batch = batch.search([("product_id", "=", product_id),
+                                     ("location_id", "=", source_id),
+                                     ("batch_no", "=", self.batch_no)])
 
-        destination_batch = batch.search([("warehouse_id", "=", destination.id),
-                                          ("batch_no", "=", vals["batch_no"])])
-
-        if not destination_batch:
-            batch.create({"warehouse_id": destination.id,
-                          "batch_no": vals["batch_no"]})
+        if source_batch:
+            if source_batch.quantity < self.quantity:
+                raise exceptions.ValidationError("Error! Batch stock not available")
+            else:
+                source_batch.quantity = source_batch.quantity - self.quantity
+        else:
+            raise exceptions.ValidationError("Error! Batch stock not available")
 
     @api.model
     def create(self, vals):
         if "quantity" in vals:
             if vals["quantity"] > 0:
-                self.check_batch(vals)
                 return super(StockMoveLine, self).create(vals)
 

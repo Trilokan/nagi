@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
-
-
-# Salary Rule
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed')]
 RULE_TYPE = [('fixed', 'Fixed'), ('formula', 'Formula'), ('slab', 'Slab')]
 
 
-class SalaryRule(surya.Sarpam):
+# Salary Rule
+class SalaryRule(models.Model):
     _name = "salary.rule"
     _inherit = "mail.thread"
 
@@ -23,10 +19,6 @@ class SalaryRule(surya.Sarpam):
     slab_ids = fields.One2many(comodel_name="salary.rule.slab", inverse_name="rule_id", string="Slab")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
-
-    def default_vals_creation(self, vals):
-        vals["writter"] = "Salary Rule confirm by {0}".format(self.env.user.name)
-        return vals
 
     @api.multi
     def trigger_confirm(self):
@@ -45,3 +37,8 @@ class SalaryRule(surya.Sarpam):
         writter = "Salary Rule confirm by {0}".format(self.env.user.name)
 
         self.write({"progress": "confirmed", "writter": writter})
+
+    @api.model
+    def create(self, vals):
+        vals["writter"] = "Salary Rule confirm by {0}".format(self.env.user.name)
+        return super(SalaryRule, self).create(vals)

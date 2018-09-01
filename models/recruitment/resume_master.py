@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
-from .. import surya
-import json
+from odoo import fields, models
 
 
 # Contacts
-class ResumeContact(surya.Sarpam):
+class ResumeContact(models.Model):
     _name = "resume.contact"
     _inherit = "hos.address"
 
@@ -15,8 +12,7 @@ class ResumeContact(surya.Sarpam):
 
 
 # Experience
-
-class ResumeExperience(surya.Sarpam):
+class ResumeExperience(models.Model):
     _name = "resume.experience"
 
     resume_id = fields.Many2one(comodel_name="resume.bank", string="Resume Bank")
@@ -30,7 +26,7 @@ RESULT_INFO = [('pass', 'Pass'), ('fail', 'Fail'), ('discontinued', 'Discontinue
 
 
 # Qualification
-class ResumeQualification(surya.Sarpam):
+class ResumeQualification(models.Model):
     _name = "resume.qualification"
 
     resume_id = fields.Many2one(comodel_name="resume.bank", string="Resume Bank")

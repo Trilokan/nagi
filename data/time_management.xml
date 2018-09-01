@@ -5,28 +5,24 @@
         <field name="name">IN Grace Time</field>
         <field name="code">100</field>
         <field name="value">60</field>
-        <field name="progress">confirmed</field>
     </record>
 
     <record id="time_configuration_out_grace_time" model="time.configuration">
         <field name="name">OUT Grace Time</field>
         <field name="code">101</field>
         <field name="value">60</field>
-        <field name="progress">confirmed</field>
     </record>
 
     <record id="time_configuration_full_day" model="time.configuration">
         <field name="name">Full Day</field>
         <field name="code">102</field>
         <field name="value">8</field>
-        <field name="progress">confirmed</field>
     </record>
 
     <record id="time_configuration_half_day" model="time.configuration">
         <field name="name">Half Day</field>
         <field name="code">103</field>
         <field name="value">4</field>
-        <field name="progress">confirmed</field>
     </record>
 
     <record id="monthly_leave_credit" model="leave.account">

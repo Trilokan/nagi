@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, models
-from datetime import datetime, timedelta
-from .. import surya
-
-
-# Payslip
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'), ('generated', 'Generated')]
 PAY_TYPE = [('allowance', 'Allowance'), ('deduction', 'Deduction')]
 
 
+# Pay Update
 class HRPayWiz(models.TransientModel):
     _name = "hr.pay.wizard"
 

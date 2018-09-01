@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime, timedelta
-from .. import surya
-from lxml import etree
 
-
-# Week Schedule
 
 PROGRESS_INFO = [('draft', 'draft'), ('open', 'Open'), ('closed', 'Closed')]
 
 
-class MonthAttendance(surya.Sarpam):
+# Week Schedule
+class MonthAttendance(models.Model):
     _name = "month.attendance"
     _rec_name = "period_id"
 
@@ -20,6 +17,10 @@ class MonthAttendance(surya.Sarpam):
                                    inverse_name="month_id",
                                    string="Month Detail")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', default="draft")
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     _sql_constraints = [('unique_period_id', 'unique (period_id)', 'Error! Month must be unique')]
 

@@ -1,23 +1,21 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
+from odoo import fields, models, api, exceptions
 from datetime import datetime, timedelta
-from .. import surya
+
 TIME_DELAY_HRS = 5
 TIME_DELAY_MIN = 30
-
-
-# Week Schedule
 
 PROGRESS_INFO = [('draft', 'Draft'), ('employee_added_to_shift', 'Employee Added to Shift')]
 
 
-class AddEmployeeToShift(surya.Sarpam):
+# Add Employee to Shift
+class AddEmployeeToShift(models.Model):
     _name = "add.employee.shift"
     _inherit = "mail.thread"
     _rec_name = "person_id"
 
-    date = fields.Date(string="Date", required=True)
+    date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", required=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Employee", required=True)
     reason = fields.Text(string="Reason", required=True)
@@ -73,5 +71,3 @@ class AddEmployeeToShift(surya.Sarpam):
         self.check_duplicate()
         self.add_attendance()
         self.write({'progress': 'employee_added_to_shift'})
-
-

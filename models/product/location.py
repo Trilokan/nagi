@@ -18,8 +18,7 @@ class HospitalLocation(models.Model):
     location_right = fields.Integer(string="Parent Right", required=True)
     location_left = fields.Integer(string="Parent Left", required=True)
 
-    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Location code must be unique'),
-                        ('unique_name', 'unique (name)', 'Error! Product Location must be unique')]
+    _sql_constraints = [('unique_name', 'unique (name)', 'Error! Product Location must be unique')]
 
     def _get_code(self):
         for record in self:

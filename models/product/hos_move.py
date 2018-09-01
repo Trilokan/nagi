@@ -55,11 +55,13 @@ class StockMove(models.Model):
 
     @api.multi
     def trigger_revert(self):
+        self.generate_warehouse()
+        self.check_batch()
+
         writter = "Stock Moved reverted by {0}".format(self.env.user.name)
         location = self.destination_location_id.id
         quantity = self.get_balance_quantity(location)
 
-        self.check_batch()
         if self.picking_type in ["in", "internal"]:
             if quantity < self.quantity:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
@@ -69,38 +71,45 @@ class StockMove(models.Model):
 
     @api.multi
     def trigger_move(self):
+        self.generate_warehouse()
+        self.check_batch()
+
         writter = "Stock Moved by {0}".format(self.env.user.name)
         location = self.source_location_id.id
         quantity = self.get_balance_quantity(location)
 
-        self.check_batch()
         if self.picking_type in ["internal", "out"]:
             if quantity < self.quantity:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
                                                  format(self.product_id.name))
 
+        recs = self.move_detail
+        for rec in recs:
+            rec.update_source_batch()
+            rec.update_destination_batch()
+
         self.write({"progress": "moved", "writter": writter})
 
-    def check_warehouse(self, vals):
+    def generate_warehouse(self):
         warehouse = self.env["hos.warehouse"]
-        source = warehouse.search([("product_id", "=", vals["product_id"]),
-                                   ("location_id", "=", vals["source_location_id"])])
+        source = warehouse.search([("product_id", "=", self.product_id.id),
+                                   ("location_id", "=", self.source_location_id.id)])
 
         if not source:
-            warehouse.create({"product_id": vals["product_id"],
-                              "location_id": vals["source_location_id"]})
+            warehouse.create({"product_id": self.product_id.id,
+                              "location_id": self.source_location_id.id})
 
-        destination = warehouse.search([("product_id", "=", vals["product_id"]),
-                                        ("location_id", "=", vals["destination_location_id"])])
+        destination = warehouse.search([("product_id", "=", self.product_id.id),
+                                        ("location_id", "=", self.destination_location_id.id)])
 
         if not destination:
-            warehouse.create({"product_id": vals["product_id"],
-                              "location_id": vals["destination_location_id"]})
+            warehouse.create({"product_id": self.product_id.id,
+                              "location_id": self.destination_location_id.id})
 
     def check_batch(self):
         if self.product_id.is_batch:
             if not self.move_detail:
-                raise exceptions.ValidationError("Error! Product neeed Batch need")
+                raise exceptions.ValidationError("Error! Product need Batch need")
 
             move_detail_qty = 0
             for move_detail in self.move_detail:
@@ -118,7 +127,6 @@ class StockMove(models.Model):
 
     @api.model
     def create(self, vals):
-        self.check_warehouse(vals)
         code = "{0}.{1}".format(self._name, vals["picking_type"])
         vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["writter"] = "Created by {0}".format(self.env.user.name)

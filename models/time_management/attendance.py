@@ -1,19 +1,16 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime, timedelta
-from .. import surya
-import json
 
-
-# Attendance
 
 PROGRESS_INFO = [('draft', 'Draft'), ('verified', 'Verified')]
 AVAIL_PROGRESS = [('full_day', 'Full Day'), ('half_day', 'Half Day'), ('absent', 'Absent')]
 DAY_PROGRESS = [('holiday', 'Holiday'), ('working_day', 'Working Day')]
 
 
-class TimeAttendance(surya.Sarpam):
+# Attendance
+class TimeAttendance(models.Model):
     _name = "time.attendance"
     _rec_name = "date"
 
@@ -30,6 +27,10 @@ class TimeAttendance(surya.Sarpam):
     employee_count = fields.Integer(string="Employee Count", readonly=True)
     week_off_count = fields.Integer(string="Week-Off Count", readonly=True)
     working_count = fields.Integer(string="Working Count", readonly=True)
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     @api.multi
     def trigger_progress(self):
@@ -65,7 +66,7 @@ class TimeAttendance(surya.Sarpam):
                          'Error! Date should not be repeated')]
 
 
-class TimeAttendanceDetail(surya.Sarpam):
+class TimeAttendanceDetail(models.Model):
     _name = "time.attendance.detail"
 
     shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", readonly=True)
@@ -80,6 +81,10 @@ class TimeAttendanceDetail(surya.Sarpam):
     day_progress = fields.Selection(DAY_PROGRESS, string='Day Status', readonly=True)
     availability_progress = fields.Selection(AVAIL_PROGRESS, string='Availability Status')
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='attendance_id.progress')
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     @api.multi
     def update_hours(self):

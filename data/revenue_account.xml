@@ -5,7 +5,6 @@
     <record id="revenue_account" model="hos.account.sample">
         <field name="name">Revenue</field>
         <field name="code">300</field>
-        <field name="parent_id">300</field>
     </record>
 
     <record id="service_charge_revenue_account" model="hos.account.sample">

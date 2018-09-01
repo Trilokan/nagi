@@ -1,17 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
-from datetime import datetime, timedelta
-from .. import surya
-
-
-# Payslip
+from odoo import fields, models, api, exceptions
 
 PROGRESS_INFO = [('draft', 'Draft'), ('generated', 'Generated')]
 PAY_TYPE = [('allowance', 'Allowance'), ('deduction', 'Deduction')]
 
 
-class Payslip(surya.Sarpam):
+# Payslip
+class Payslip(models.Model):
     _name = "pay.slip"
     _inherit = "mail.thread"
 
@@ -115,7 +111,7 @@ class Payslip(surya.Sarpam):
         return pay
 
 
-class PayslipDetail(surya.Sarpam):
+class PayslipDetail(models.Model):
     _name = "payslip.detail"
 
     code = fields.Many2one(comodel_name="salary.rule.code", string="Code", readonly=True)
@@ -138,6 +134,4 @@ class PayslipDetail(surya.Sarpam):
         self.write({"amount": amount})
 
     _sql_constraints = [('salary_details_uniq', 'unique(code, payslip_id)', 'Salary details should not duplicated')]
-
-
 

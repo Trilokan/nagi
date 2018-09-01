@@ -10,11 +10,6 @@ class HospitalWarehouse(models.Model):
 
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", readonly=True)
     location_id = fields.Many2one(comodel_name="hos.location", string="Location", readonly=True)
-    batch_ids = fields.One2many(comodel_name="hos.batch",
-                                inverse_name="warehouse_id",
-                                domain=lambda self: self._get_batch_ids(),
-                                string="Batch")
-
     quantity = fields.Float(string="Quantity", compute="_get_stock")
     company_id = fields.Many2one(comodel_name="res.company",
                                  string="Company",
@@ -23,17 +18,6 @@ class HospitalWarehouse(models.Model):
 
     _sql_constraints = [('unique_product_location', 'unique (product_id, location_id)',
                          'Error! Product location must be unique')]
-
-    def _get_batch_ids(self):
-        location_left = self.env.user.company_id.virtual_location_left
-        location_right = self.env.user.company_id.virtual_location_right
-
-        domain = [('location_id.location_left', '>=', location_left),
-                  ('location_id.location_right', '<=', location_right)]
-
-        zero = self.env["hos.batch"].search([("quantity", "=", 0)])
-
-        return [("id", "not in", zero.ids)]
 
     def _get_stock(self):
         for record in self:
@@ -47,4 +31,3 @@ class HospitalWarehouse(models.Model):
                            ("progress", "=", "moved")]
 
             record.quantity = self.env["hos.stock"].get_stock(model, source, destination)
-

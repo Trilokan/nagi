@@ -9,7 +9,6 @@
             <tree string="Shift">
                 <field name="name"/>
                 <field name="total_hours" widget="float_time"/>
-                <field name="progress"/>
                 <field name="end_day"/>
                 <field name="from_hours"/>
                 <field name="from_minutes"/>
@@ -29,14 +28,11 @@
                     <div id="s_header">
                         <h1>Shift Details</h1>
                     </div>
-                    <div id="p_header">
-                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
-                    </div>
                     <group>
                         <group>
-                            <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                            <field name="total_hours" widget="float_time" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                            <field name="end_day" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                            <field name="name"/>
+                            <field name="total_hours" readonly="1"/>
+                            <field name="end_day"/>
                         </group>
 
                         <group>
@@ -49,20 +45,19 @@
                                     </tr>
                                     <tr>
                                         <th>Start Time</th>
-                                        <td><field name="from_hours" nolabel="1" attrs="{'readonly': [('progress', '!=', 'draft')]}"/></td>
-                                        <td><field name="from_minutes" nolabel="1" attrs="{'readonly': [('progress', '!=', 'draft')]}"/></td>
+                                        <td><field name="from_hours" nolabel="1"/></td>
+                                        <td><field name="from_minutes" nolabel="1"/></td>
                                     </tr>
                                     <tr>
                                         <th>End Time</th>
-                                        <td><field name="till_hours" nolabel="1" attrs="{'readonly': [('progress', '!=', 'draft')]}"/></td>
-                                        <td><field name="till_minutes" nolabel="1" attrs="{'readonly': [('progress', '!=', 'draft')]}"/></td>
+                                        <td><field name="till_hours" nolabel="1"/></td>
+                                        <td><field name="till_minutes" nolabel="1"/></td>
                                     </tr>
                                 </table>
                             </div>
                         </group>
                     </group>
-                    <button name="trigger_calculate" string="Check" type="object" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <button name="trigger_confirm" string="Confirm" type="object" attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    <button name="trigger_calculate" string="Check" type="object"/>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

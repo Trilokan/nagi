@@ -28,16 +28,6 @@
                         <field name="location_id"/>
                         <field name="quantity"/>
                     </group>
-                    <notebook>
-                        <page string="Batch">
-                            <field name="batch_ids">
-                                <tree>
-                                    <field name="batch_no"/>
-                                    <field name="quantity"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>

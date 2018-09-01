@@ -1,27 +1,29 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions
+from odoo import fields, models, api, exceptions
 from datetime import datetime, timedelta
-from .. import surya
+
 TIME_DELAY_HRS = 5
 TIME_DELAY_MIN = 30
-
-
-# Week Schedule
 
 PROGRESS_INFO = [('draft', 'Draft'), ('shift_changed', 'Shift Changed')]
 
 
-class ShiftChange(surya.Sarpam):
+# Week Schedule
+class ShiftChange(models.Model):
     _name = "shift.change"
     _inherit = "mail.thread"
     _rec_name = "person_id"
 
-    date = fields.Date(string="Date", required=True)
+    date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", required=True)
     person_id = fields.Many2one(comodel_name="hos.person", string="Employee", required=True)
     reason = fields.Text(string="Reason", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft", track_visibility='always')
+    company_id = fields.Many2one(comodel_name="res.company",
+                                 string="Company",
+                                 default=lambda self: self.env.user.company_id.id,
+                                 readonly=True)
 
     def update_attendance(self):
         current_date_obj = datetime.strptime(self.date, "%Y-%m-%d")

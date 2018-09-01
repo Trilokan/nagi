@@ -24,13 +24,10 @@
                     <div id="s_header">
                         <h1>Time Configuration</h1>
                     </div>
-                    <div id="p_header">
-                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
-                    </div>
                     <group>
-                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="code" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="value" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="name"/>
+                        <field name="code"/>
+                        <field name="value"/>
                     </group>
                 </sheet>
             </form>
