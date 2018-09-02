@@ -2,15 +2,14 @@
 <odoo>
 
     <menuitem id="menu_hospital" name="Hospital Management" sequence="10"/>
-    <menuitem id="menu_reception" name="Reception" sequence="20"/>
-    <menuitem id="menu_patient" name="Patient" sequence="30"/>
-    <menuitem id="menu_pharmacy" name="Pharmacy" sequence="40"/>
-    <menuitem id="menu_laboratory" name="Laboratory" sequence="50"/>
-    <menuitem id="menu_employee" name="Employee" sequence="60"/>
-    <menuitem id="menu_product" name="Product" sequence="70"/>
-    <menuitem id="menu_procurement" name="Procurement" sequence="80"/>
-    <menuitem id="menu_account" name="Account" sequence="90"/>
-    <menuitem id="menu_base_pack" name="Base" sequence="100"/>
+    <menuitem id="menu_patient" name="Patient" sequence="20"/>
+    <menuitem id="menu_pharmacy" name="Pharmacy" sequence="30"/>
+    <menuitem id="menu_laboratory" name="Laboratory" sequence="40"/>
+    <menuitem id="menu_employee" name="Employee" sequence="50"/>
+    <menuitem id="menu_product" name="Product" sequence="60"/>
+    <menuitem id="menu_procurement" name="Procurement" sequence="70"/>
+    <menuitem id="menu_account" name="Account" sequence="80"/>
+    <menuitem id="menu_base_pack" name="Base" sequence="90"/>
 
 
 </odoo>

@@ -56,7 +56,6 @@ class StockMove(models.Model):
     @api.multi
     def trigger_revert(self):
         self.generate_warehouse()
-        self.check_batch()
 
         writter = "Stock Moved reverted by {0}".format(self.env.user.name)
         location = self.destination_location_id.id
@@ -72,7 +71,6 @@ class StockMove(models.Model):
     @api.multi
     def trigger_move(self):
         self.generate_warehouse()
-        self.check_batch()
 
         writter = "Stock Moved by {0}".format(self.env.user.name)
         location = self.source_location_id.id
@@ -82,11 +80,6 @@ class StockMove(models.Model):
             if quantity < self.quantity:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
                                                  format(self.product_id.name))
-
-        recs = self.move_detail
-        for rec in recs:
-            rec.update_source_batch()
-            rec.update_destination_batch()
 
         self.write({"progress": "moved", "writter": writter})
 
@@ -106,18 +99,6 @@ class StockMove(models.Model):
             warehouse.create({"product_id": self.product_id.id,
                               "location_id": self.destination_location_id.id})
 
-    def check_batch(self):
-        if self.product_id.is_batch:
-            if not self.move_detail:
-                raise exceptions.ValidationError("Error! Product need Batch need")
-
-            move_detail_qty = 0
-            for move_detail in self.move_detail:
-                move_detail_qty = move_detail_qty + move_detail.quantity
-
-            if move_detail_qty != self.quantity:
-                raise exceptions.ValidationError("Error! Batch Quantity must be equal")
-
     @api.constrains("requested_quantity", "quantity")
     def check_requested_quantity_greater_than_quantity(self):
         for rec in self:
@@ -132,3 +113,22 @@ class StockMove(models.Model):
         vals["writter"] = "Created by {0}".format(self.env.user.name)
 
         return super(StockMove, self).create(vals)
+
+    @api.multi
+    def open_wiz(self):
+        view = self.env.ref('nagi.view_hos_batch_form')
+
+        context = self.env.context.copy()
+        context.update({"product_id": self.product_id.id,
+                        "location_id": self.source_location_id.id})
+
+        return {
+            'name': 'Resume',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view.id,
+            'res_model': 'hos.batch',
+            'type': 'ir.actions.act_window',
+            'context': context,
+            'target': 'new'
+        }
