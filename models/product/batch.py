@@ -22,35 +22,75 @@ class Batch(models.TransientModel):
                                    string="Batch Detail",
                                    default=lambda self: self.get_batch())
 
+    def get_batch_quantity(self, product_id, location_id, batch_no):
+        model = "hos.move.line"
+        source = [("move_id.product_id", "=", product_id),
+                  ("move_id.source_location_id", "=", location_id),
+                  ("move_id.progress", "=", "moved"),
+                  ("batch_no", "=", batch_no)]
+
+        destination = [("move_id.product_id", "=", product_id),
+                       ("move_id.destination_location_id", "=", location_id),
+                       ("move_id.progress", "=", "moved"),
+                       ("batch_no", "=", batch_no)]
+
+        quantity = self.env["hos.stock"].get_stock(model, source, destination)
+        return quantity
+
     def get_batch(self):
-        # model = "hos.move.line"
-        # source = [("move_id.product_id", "=", self.product_id.id),
-        #           ("move_id.source_location_id", "=", self.location_id.id),
-        #           ("move_id.progress", "=", "moved")]
-        #
-        # destination = [("move_id.product_id", "=", self.product_id.id),
-        #                ("move_id.destination_location_id", "=", self.location_id.id),
-        #                ("move_id.progress", "=", "moved")]
-        #
-        # record.quantity = self.env["hos.stock"].get_stock(model, source, destination)
-        return [(0, 0, {"batch_no": "op",
-                                     "manufactured_date": datetime.now().strftime("%Y-%m-%d"),
-                                     "expiry_date": datetime.now().strftime("%Y-%m-%d")})]
+
+        batch_list = []
+        batch_detail = []
+
+        product_id = self.env.context.get("product_id", False)
+        location_id = self.env.context.get("location_id", False)
+
+        if product_id and location_id:
+
+            batch_ids = self.env["hos.move.line"].search([("move_id.product_id", "=", product_id),
+                                                          ("move_id.destination_location_id", "=", location_id),
+                                                          ("move_id.progress", "=", "moved")])
+
+            for rec in batch_ids:
+                if rec.batch_no not in batch_list:
+                    batch_list.append(rec.batch_no)
+
+            for batch_no in batch_list:
+                quantity = self.get_batch_quantity(product_id, location_id, batch_no)
+                if quantity > 0:
+                    move_id = self.env["hos.move.line"].search([("batch_no", "=", batch_no)], limit=1)
+
+                    data = {"batch_no": move_id.batch_no,
+                            "manufactured_date": move_id.manufactured_date,
+                            "expiry_date": move_id.expiry_date,
+                            "mrp_rate": move_id.mrp_rate,
+                            "unit_price": move_id.unit_price,
+                            "quantity": quantity}
+
+                    batch_detail.append((0, 0, data))
+
+        return batch_detail
 
     def trigger_update(self):
-        id = self.env.context.get("active_id", False)
-        move_id = self.env["hos.move"].search([("id", "=", id)])
+        move_detail = []
+        move_id = self.env.context.get("active_id", False)
+        move_obj = self.env["hos.move"].search([("id", "=", move_id)])
 
         recs = self.batch_detail
 
         for rec in recs:
             if rec.check:
-                move_id.move_detail.create({"batch_no": rec.batch_no,
-                                            "manufactured_date": rec.manufactured_date,
-                                            "expiry_date": rec.expiry_date,
-                                            "mrp_rate": rec.mrp_rate,
-                                            "unit_price": rec.unit_price,
-                                            "quantity": rec.quantity})
+
+                data = {"batch_no": rec.batch_no,
+                        "manufactured_date": rec.manufactured_date,
+                        "expiry_date": rec.expiry_date,
+                        "mrp_rate": rec.mrp_rate,
+                        "unit_price": rec.unit_price,
+                        "quantity": rec.quantity}
+
+                move_detail.append((0, 0, data))
+
+        move_obj.move_detail = move_detail
 
 
 class BatchDetail(models.TransientModel):
