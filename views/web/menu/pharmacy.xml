@@ -2,12 +2,12 @@
 <odoo>
 
     <menuitem id="sub_menu_pharmacy_pharmacy"
-              name="Pharmacy"
+              name="Sale"
               parent="menu_pharmacy"
               sequence="10"/>
 
     <menuitem id="pharmacy_pharmacy_sale_order_1"
-              name="Pharmacy"
+              name="Sale"
               action="action_sale_order"
               parent="sub_menu_pharmacy_pharmacy"
               sequence="10"/>

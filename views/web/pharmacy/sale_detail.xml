@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_sale_detail_tree" model="ir.ui.view">
+        <field name="name">sale.detail.tree</field>
+        <field name="model">sale.detail</field>
+        <field name="arch" type="xml">
+            <tree string="Sale Order">
+                <field name="product_id"/>
+                <field name="uom_id"/>
+                <field name="unit_price"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_sale_detail_form" model="ir.ui.view">
+        <field name="name">sale.detail.form</field>
+        <field name="model">sale.detail</field>
+        <field name="arch" type="xml">
+            <form string="Sale Order">
+                <sheet>
+                    <group col="4">
+                        <field name="product_id"/>
+                        <field name="uom_id"/>
+                        <field name="unit_price"/>
+                        <field name="quantity"/>
+                        <field name="discount"/>
+                        <field name="tax_id"/>
+                        <field name="total_amount"/>
+                    </group>
+                    <button name="open_batch_wizard" string="Batch" type="object"/>
+                    <notebook>
+                        <page string="Batch Detail">
+                            <field name="batch_detail">
+                                <tree editable="bottom">
+                                    <field name="batch_no"/>
+                                    <field name="manufactured_date"/>
+                                    <field name="expiry_date"/>
+                                    <field name="mrp_rate"/>
+                                    <field name="unit_price"/>
+                                    <field name="quantity"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Sale Order Retail-->
+    <record id="action_sale_detail" model="ir.actions.act_window">
+        <field name="name">Sale Detail</field>
+        <field name="res_model">sale.detail</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+</odoo>

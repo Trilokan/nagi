@@ -35,14 +35,13 @@
                     <notebook>
                         <page string="Order Detail">
                             <field name="order_detail" attrs="{'readonly': [('progress', '!=', 'draft')]}">
-                                <tree editable="bottom">
+                                <tree>
                                     <field name="product_id"/>
                                     <field name="uom_id" readonly="1"/>
                                     <field name="quantity"/>
                                     <field name="unit_price"/>
                                     <field name="discount"/>
                                     <field name="tax_id"/>
-                                    <field name="freight"/>
                                     <field name="total_amount"/>
                                     <field name="progress" invisible="1"/>
                                 </tree>
@@ -67,10 +66,6 @@
 									<td><field name="sgst" nolabel="1"/></td>
 									<td><field name="cgst" nolabel="1"/></td>
 									<td><field name="igst" nolabel="1"/></td>
-								</tr>
-								<tr>
-									<th>Freight Charges</th>
-									<td><field name="freight_amount" nolabel="1"/></td>
 								</tr>
 							</tbody>
 						</table>

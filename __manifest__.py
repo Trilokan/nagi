@@ -165,17 +165,18 @@
 
         # Pharmacy
         'views/web/pharmacy/sale_order.xml',
+        'views/web/pharmacy/sale_detail.xml',
         'views/web/pharmacy/material_delivery.xml',
 
         # Menu
         'views/web/menu/account.xml',
         # 'views/web/menu/hospital.xml',
-        'views/web/menu/patient.xml',
+        # 'views/web/menu/patient.xml',
         'views/web/menu/employee.xml',
         'views/web/menu/product.xml',
         'views/web/menu/procurement.xml',
         'views/web/menu/base_packs.xml',
-        # 'views/web/menu/pharmacy.xml',
+        'views/web/menu/pharmacy.xml',
         # 'views/web/menu/laboratory.xml',
 
 

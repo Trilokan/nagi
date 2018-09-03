@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, exceptions, api, _
-from .. import surya
+from odoo import fields, models, exceptions, api, _
 from datetime import datetime
 
 PROGRESS_INFO = [("draft", "Draft"), ("confirm", "Confirm"), ("cancel", "Cancel")]
 
 
 # Sale order
-class SaleOrder(surya.Sarpam):
+class SaleOrder(models.Model):
     _name = "sale.order"
     _inherit = "mail.thread"
 
@@ -29,19 +28,11 @@ class SaleOrder(surya.Sarpam):
     cgst = fields.Float(string="CGST", readonly=True)
     sgst = fields.Float(string="SGST", readonly=True)
     igst = fields.Float(string="IGST", readonly=True)
-    freight_amount = fields.Float(string="Freight Amount", readonly=True)
     total_amount = fields.Float(string="Total Amount", readonly=True)
     round_off_amount = fields.Float(string="Round-Off", readonly=True)
     gross_amount = fields.Float(stringt="Gross Amount", readonly=True)
 
     writter = fields.Text(string="Writter", track_visibility='always')
-
-    def default_vals_creation(self, vals):
-        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
-        vals["date"] = datetime.now().strftime("%Y-%m-%d")
-        vals["company_id"] = self.env.user.company_id.id
-        vals["progress"] = "draft"
-        return vals
 
     @api.multi
     def total_calculation(self):
@@ -54,7 +45,7 @@ class SaleOrder(surya.Sarpam):
             rec.detail_calculation()
 
         discount_amount = discounted_amount = tax_amount = untaxed_amount = taxed_amount \
-            = cgst = sgst = igst = freight_amount = total_amount = 0
+            = cgst = sgst = igst = total_amount = 0
         for rec in recs:
             discount_amount = discount_amount + rec.discount_amount
             discounted_amount = discounted_amount + rec.discounted_amount
@@ -65,7 +56,6 @@ class SaleOrder(surya.Sarpam):
             sgst = sgst + rec.sgst
             igst = igst + rec.igst
 
-            freight_amount = freight_amount + rec.freight_amount
             total_amount = total_amount + rec.total_amount
         gross_amount = round(total_amount)
         round_off_amount = round(total_amount) - total_amount
@@ -78,7 +68,6 @@ class SaleOrder(surya.Sarpam):
                     "cgst": cgst,
                     "sgst": sgst,
                     "igst": igst,
-                    "freight_amount": freight_amount,
                     "total_amount": total_amount,
                     "gross_amount": gross_amount,
                     "round_off_amount": round_off_amount})
@@ -173,3 +162,10 @@ class SaleOrder(surya.Sarpam):
         writter = "SO cancel by {0}".format(self.env.user.name)
         self.write({"progress": "cancel", "writter": writter})
 
+    @api.model
+    def create(self, vals):
+        vals["name"] = self.env['ir.sequence'].next_by_code(self._name)
+        vals["date"] = datetime.now().strftime("%Y-%m-%d")
+        vals["company_id"] = self.env.user.company_id.id
+        vals["progress"] = "draft"
+        return super(SaleOrder, self).create(vals)

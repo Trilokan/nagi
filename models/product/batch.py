@@ -72,25 +72,28 @@ class Batch(models.TransientModel):
         return batch_detail
 
     def trigger_update(self):
-        move_detail = []
+        model = self.env.context.get("active_model", False)
         move_id = self.env.context.get("active_id", False)
-        move_obj = self.env["hos.move"].search([("id", "=", move_id)])
+        move_detail = []
 
-        recs = self.batch_detail
+        if model and move_id:
+            move_obj = self.env[model].search([("id", "=", move_id)])
 
-        for rec in recs:
-            if rec.check:
+            recs = self.batch_detail
 
-                data = {"batch_no": rec.batch_no,
-                        "manufactured_date": rec.manufactured_date,
-                        "expiry_date": rec.expiry_date,
-                        "mrp_rate": rec.mrp_rate,
-                        "unit_price": rec.unit_price,
-                        "quantity": rec.quantity}
+            for rec in recs:
+                if rec.check:
 
-                move_detail.append((0, 0, data))
+                    data = {"batch_no": rec.batch_no,
+                            "manufactured_date": rec.manufactured_date,
+                            "expiry_date": rec.expiry_date,
+                            "mrp_rate": rec.mrp_rate,
+                            "unit_price": rec.unit_price,
+                            "quantity": rec.quantity}
 
-        move_obj.move_detail = move_detail
+                    move_detail.append((0, 0, data))
+
+            move_obj.move_detail = move_detail
 
 
 class BatchDetail(models.TransientModel):
