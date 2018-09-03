@@ -25,26 +25,27 @@
                     <div id="s_header">
                         <h1>Out-Patient Treatment</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;" invisible="1"/>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
 
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
                     </div>
-                    <div class="oe_right oe_button_box" name="button_box">
-                        <field name="date" attrs="{'readonly': [('progress', '=', )]}"/>
-                    </div>
+
                     <field name="name" readonly="1"/>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
                             <label for="patient_id" string="Name" class="oe_edit_only"/>
                             <h1>
-                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}" attrs="{'readonly': [('progress', '!=', 'on_progress')]}"/>
+                                <field name="patient_id" class="oe_inline" modifiers="{'required': true}"/>
                             </h1>
                             <label for="patient_uid" string="Patient ID" class="oe_edit_only"/>
                             <h2><field name="patient_uid"/></h2>
                         </div>
                     </div>
                     <group col="4">
+                        <field name="date"/>
                         <field name="email"/>
                         <field name="mobile"/>
                         <field name="patient_type" invisible="0"/>

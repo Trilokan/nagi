@@ -52,6 +52,9 @@ class Treatment(surya.Sarpam):
     patient_type = fields.Selection(selection=PATIENT_TYPE, string="Type")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="on_process")
 
+    def trigger_prescription(self):
+        pass
+
 
 class TreatmentDetail(surya.Sarpam):
     _name = "treatment.detail"

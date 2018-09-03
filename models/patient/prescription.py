@@ -33,7 +33,7 @@ class PrescriptionDetail(surya.Sarpam):
     evening = fields.Boolean(string="Evening")
     medicine_type = fields.Selection(selection=MEDICINE_TYPE, string="Medicine Type")
     prescription_id = fields.Many2one(comodel_name="prescription.detail", string="Prescription")
-
+    days = fields.Integer(string="Days")
 
 
 

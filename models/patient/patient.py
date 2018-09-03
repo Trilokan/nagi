@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
+from odoo import fields, models, api, exceptions, _
 from datetime import datetime
-from .. import surya
-import json
 
 BLOOD_GROUP = [('a+', 'A+'), ('b+', 'B+'), ('ab+', 'AB+'), ('o+', 'O+'),
                ('a-', 'A-'), ('b-', 'B-'), ('ab-', 'AB-'), ('o-', 'O-')]
@@ -11,7 +9,7 @@ GENDER = [('male', 'Male'), ('female', 'Female')]
 MARITAL_STATUS = [('single', 'Single'), ('married', 'Married'), ('divorced', 'Divorced')]
 
 
-class Patient(surya.Sarpam):
+class Patient(models.Model):
     _name = "hos.patient"
     _inherit = "hos.address"
 

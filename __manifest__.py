@@ -57,10 +57,9 @@
         'views/web/patient/patient.xml',
         'views/web/patient/symptoms.xml',
         'views/web/patient/diagnosis.xml',
-        # 'views/web/patient/opt_treatment.xml',
-        # 'views/web/patient/opt_prescription.xml',
-        # 'views/web/patient/ipt_treatment.xml',
-        # 'views/web/patient/ipt_prescription.xml',
+        'views/web/patient/opt_treatment.xml',
+        'views/web/patient/ipt_treatment.xml',
+        'views/web/patient/prescription.xml',
 
         # Hospital
         'views/web/hospital/admission.xml',
@@ -170,8 +169,8 @@
 
         # Menu
         'views/web/menu/account.xml',
-        'views/web/menu/hospital.xml',
-        # 'views/web/menu/patient.xml',
+        # 'views/web/menu/hospital.xml',
+        'views/web/menu/patient.xml',
         'views/web/menu/employee.xml',
         'views/web/menu/product.xml',
         'views/web/menu/procurement.xml',

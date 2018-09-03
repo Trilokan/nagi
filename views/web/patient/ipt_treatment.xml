@@ -25,14 +25,15 @@
                     <div id="s_header">
                         <h1>In-Patient Treatment</h1>
                     </div>
-                    <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
 
                     <div>
                         <field name="image" widget="image" class="oe_avatar oe_left" modifiers="{}"/>
                     </div>
-                    <div class="oe_right oe_button_box" name="button_box">
-                        <field name="date"/>
-                    </div>
+
                     <field name="name" readonly="1"/>
                     <div style="margin-left: 100px;">
                         <div class="oe_title">
@@ -45,26 +46,34 @@
                         </div>
                     </div>
                     <group col="4">
+                        <field name="date"/>
                         <field name="email"/>
                         <field name="mobile"/>
                         <field name="patient_type" invisible="0"/>
                     </group>
                     <notebook>
-                        <page string="report">
+                        <page string="Report">
                             <field name="report" readonly="1"/>
                         </page>
                         <page string="Treatment Detail">
-                            <field name="ipt_treatment_ids">
-                                <tree>
+                            <group>
+                                <field name="symptoms_ids" widget="many2many_tags"/>
+                                <field name="diagnosis_ids" widget="many2many_tags"/>
+                            </group>
+                            <field name="treatment_ids">
+                                <tree editable="bottom">
                                     <field name="date"/>
                                     <field name="product_id"/>
-                                    <field name="description"/>
                                     <field name="comment"/>
                                     <field name="treatment_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
-                        <page string="Notification">
+                        <page string="Prescription">
+                            <field name="prescription_ids"/>
+                            <button name="trigger_prescription" string="Add Prescription" type="object"/>
+                        </page>
+                        <page string="Reminder">
                             <field name="notification_ids">
                                 <tree>
                                     <field name="date"/>
@@ -83,7 +92,7 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button name="trigger_prescription" string="Prescription" type="object"/>
+
                         <button name="trigger_patient_history" string="Patient History" type="object"/>
                         <!--<button name="" string="" type="object"/>-->
                         <!--<button name="" string="" type="object"/>-->

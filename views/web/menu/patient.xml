@@ -13,66 +13,71 @@
               parent="sub_menu_patient_patient"
               sequence="10"/>
 
+    <!--Reception-->
+    <menuitem id="sub_menu_patient_reception"
+              name="Reception"
+              parent="menu_patient"
+              sequence="20"/>
+
+    <menuitem id="patient_reception_hos_doctor_availability"
+              name="Doctor Availability"
+              action="action_hos_doctor_availability"
+              parent="sub_menu_patient_reception"
+              sequence="10"/>
+
+    <menuitem id="patient_reception_hos_schedule"
+              name="Appointment"
+              action="action_hos_schedule_patient_appointment"
+              parent="sub_menu_patient_reception"
+              sequence="20"/>
+
+    <menuitem id="patient_reception_hos_notes"
+              name="Notes"
+              action="action_hos_notes"
+              parent="sub_menu_patient_reception"
+              sequence="30"/>
+
+    <menuitem id="patient_reception_hos_notification"
+              name="Reminder"
+              action="action_hos_notification"
+              parent="sub_menu_patient_reception"
+              sequence="40"/>
+
     <!-- OPT -->
     <menuitem id="sub_menu_patient_opt"
               name="OUT Patient"
               parent="menu_patient"
-              sequence="20"/>
+              sequence="30"/>
 
-    <menuitem id="patient_opt_hos_doctor_availability"
-              name="Doctor Availability"
-              action="action_hos_doctor_availability"
+    <menuitem id="patient_opt_patient_treatment_opt"
+              name="General Treatment"
+              action="action_patient_treatment_opt"
               parent="sub_menu_patient_opt"
               sequence="10"/>
 
-    <menuitem id="patient_opt_hos_schedule_patient_appointment"
-              name="Appointment"
-              action="action_hos_schedule_patient_appointment"
+    <menuitem id="patient_opt_patient_prescription"
+              name="Prescription"
+              action="action_patient_prescription"
               parent="sub_menu_patient_opt"
               sequence="20"/>
 
-    <menuitem id="sub_menu_patient_treatment_opt"
+    <!-- IPT -->
+    <menuitem id="sub_menu_patient_ipt"
+              name="IPT Patient"
+              parent="menu_patient"
+              sequence="40"/>
+
+    <menuitem id="patient_ipt_patient_treatment_ipt"
               name="Treatment"
-              action="action_patient_treatment_opt"
-              parent="menu_patient_opt"
+              action="action_patient_treatment_ipt"
+              parent="sub_menu_patient_ipt"
+              sequence="10"/>
+
+    <menuitem id="patient_ipt_patient_prescription"
+              name="Prescription"
+              action="action_patient_prescription"
+              parent="sub_menu_patient_ipt"
               sequence="20"/>
-
-    <!---->
-    <!--&lt;!&ndash; IPT &ndash;&gt;-->
-    <!--<menuitem id="menu_patient_ipt"-->
-              <!--name="IN Patient"-->
-              <!--parent="menu_patient"-->
-              <!--sequence="30"/>-->
-
-    <!--<menuitem id="sub_menu_patient_treatment_ipt"-->
-              <!--name="Treatment"-->
-              <!--action="action_patient_treatment_ipt"-->
-              <!--parent="menu_patient_ipt"-->
-              <!--sequence="10"/>-->
-    <!---->
-    <!--<menuitem id="sub_menu_hos_notes_ipt"-->
-              <!--name="Notes"-->
-              <!--action="action_hos_notes"-->
-              <!--parent="menu_patient_ipt"-->
-              <!--sequence="30"/>-->
-
-    <!--<menuitem id="sub_menu_hos_notification_ipt"-->
-              <!--name="Reminder"-->
-              <!--action="action_hos_notification"-->
-              <!--parent="menu_patient_ipt"-->
-              <!--sequence="40"/>-->
-    <!---->
-    <!--&lt;!&ndash;Prescription&ndash;&gt;-->
-    <!--<menuitem id="menu_patient_prescription"-->
-              <!--name="IN Patient"-->
-              <!--parent="menu_patient"-->
-              <!--sequence="30"/>-->
-
-    <!--<menuitem id="sub_menu_ipt_prescription"-->
-              <!--name="Prescription"-->
-              <!--action="action_ipt_prescription"-->
-              <!--parent="menu_patient_ipt"-->
-              <!--sequence="20"/>-->
 
     <!--&lt;!&ndash;Billing&ndash;&gt;-->
     <!--<menuitem id="menu_patient_bill"-->
@@ -92,23 +97,23 @@
               <!--parent="menu_patient_bill"-->
               <!--sequence="20"/>-->
 
-    <!--&lt;!&ndash;Configuration: &ndash;&gt;-->
-    <!--<menuitem id="menu_patient_configuration"-->
-              <!--name="Configuration"-->
-              <!--parent="menu_patient"-->
-              <!--sequence="50"/>-->
+    <!--Configuration: -->
+    <menuitem id="menu_patient_configuration"
+              name="Configuration"
+              parent="menu_patient"
+              sequence="50"/>
 
-    <!--<menuitem id="sub_menu_patient_symptoms_ipt"-->
-              <!--name="Symptoms"-->
-              <!--action="action_patient_symptoms"-->
-              <!--parent="menu_patient_configuration"-->
-              <!--sequence="40"/>-->
+    <menuitem id="patient_configuration_patient_symptoms"
+              name="Symptoms"
+              action="action_patient_symptoms"
+              parent="menu_patient_configuration"
+              sequence="10"/>
 
-    <!--<menuitem id="sub_menu_patient_diagnosis_ipt"-->
-              <!--name="Diagnosis"-->
-              <!--action="action_patient_diagnosis"-->
-              <!--parent="menu_patient_configuration"-->
-              <!--sequence="40"/>-->
+    <menuitem id="patient_configuration_patient_diagnosis"
+              name="Diagnosis"
+              action="action_patient_diagnosis"
+              parent="menu_patient_configuration"
+              sequence="20"/>
 
 
 </odoo>

@@ -1,13 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from odoo import fields, api, exceptions, _
-from datetime import datetime
-from .. import surya
-import json
+from odoo import fields, models
 
 
 # Symptoms
-class Symptoms(surya.Sarpam):
+class Symptoms(models.Model):
     _name = "patient.symptoms"
     _inherit = "mail.thread"
 
