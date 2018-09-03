@@ -58,6 +58,7 @@
                     </notebook>
                     <footer>
                         <button name="trigger_generate" string="Generate" type="object"
+                                groups="nagi.group_payroll_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                         <field name="progress" widget="statusbar"/>
                     </footer>

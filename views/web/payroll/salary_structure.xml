@@ -19,10 +19,7 @@
         <field name="model">salary.structure</field>
         <field name="arch" type="xml">
             <form string="Salary Structure">
-                <header>
-                    <button name="trigger_confirm" string="Confirm" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                </header>
+
                 <sheet>
                     <div id="s_header">
                         <h1>Salary Structure</h1>
@@ -60,6 +57,11 @@
                             </field>
                         </page>
                     </notebook>
+                    <footer>
+                        <button name="trigger_confirm" string="Confirm" type="object"
+                                groups="nagi.group_payroll_hr,nagi.group_employee_admin"
+                                attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    </footer>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

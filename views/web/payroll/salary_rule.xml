@@ -58,6 +58,7 @@
                     </notebook>
                     <footer>
                         <button name="trigger_confirm" string="Confirm" type="object"
+                                groups="nagi.group_payroll_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     </footer>
                 </sheet>

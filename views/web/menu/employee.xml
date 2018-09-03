@@ -215,48 +215,56 @@
     <menuitem id="menu_employee_payroll"
               name="Payroll Management"
               parent="menu_employee"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="50"/>
 
     <menuitem id="sub_menu_hr_pay_wizard"
               name="Employee Pay Update"
               action="action_hr_pay_wizard"
               parent="menu_employee_payroll"
+              groups="nagi.group_employee_admin"
               sequence="10"/>
 
     <menuitem id="sub_menu_hr_pay"
               name="Employee Pay"
               action="action_hr_pay"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="20"/>
 
     <menuitem id="sub_menu_pay_slip"
               name="Payslip"
               action="action_pay_slip"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="30"/>
 
     <menuitem id="sub_menu_payroll_generation"
               name="Payroll Generation"
               action="action_payroll_generation"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="40"/>
 
     <menuitem id="sub_menu_salary_structure"
               name="Salary Structure"
               action="action_salary_structure"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="50"/>
 
     <menuitem id="sub_menu_salary_rule"
               name="Salary Rule"
               action="action_salary_rule"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="60"/>
 
     <menuitem id="sub_menu_salary_rule_slab"
               name="Salary Slab"
               action="action_salary_rule_slab"
               parent="menu_employee_payroll"
+              groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="70"/>
 
 

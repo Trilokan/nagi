@@ -32,11 +32,13 @@
                     </group>
                     <footer>
                         <button name="trigger_confirm" string="Confirm" type="object"
+                                groups="nagi.group_payroll_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                         <button class="oe_stat_button" name="%(action_hr_pay_wizard)d" type="action"
                                 context="{'employee_id': employee_id,
                                           'structure_id': structure_id,
                                           'basic': basic }"
+                                groups="nagi.group_payroll_hr,nagi.group_employee_admin"
                                 string="Salary Update"/>
                     </footer>
                 </sheet>
