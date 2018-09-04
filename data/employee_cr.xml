@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="leave_level_1" model="leave.level">
+        <field name="name">Level 1</field>
+        <field name="code">L1</field>
+    </record>
+
+    <record id="leave_level_2" model="leave.level">
+        <field name="name">Level 2</field>
+        <field name="code">L2</field>
+    </record>
+
+    <record id="leave_level_3" model="leave.level">
+        <field name="name">Level 3</field>
+        <field name="code">L 3</field>
+    </record>
+
+    <record id="leave_level_4" model="leave.level">
+        <field name="name">Level 4</field>
+        <field name="code">L 4</field>
+    </record>
+
+    <record id="leave_type_cl" model="leave.type">
+        <field name="name">Casual Leave</field>
+        <field name="code">CL</field>
+    </record>
+
+    <record id="leave_type_sl" model="leave.type">
+        <field name="name">Sick Leave</field>
+        <field name="code">SL</field>
+    </record>
+
+    <record id="leave_type_el" model="leave.type">
+        <field name="name">Earned Leave</field>
+        <field name="code">EL</field>
+    </record>
+
+    <record id="leave_type_pl" model="leave.type">
+        <field name="name">Parent Leave</field>
+        <field name="code">PL</field>
+    </record>
+
+    <record id="leave_conf_l1_cl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">10</field>
+        <field name="leave_type_id" ref="leave_type_cl"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="leave_conf_l2_cl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">10</field>
+        <field name="leave_type_id" ref="leave_type_cl"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="leave_conf_l3_cl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">10</field>
+        <field name="leave_type_id" ref="leave_type_cl"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="leave_conf_l4_cl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">10</field>
+        <field name="leave_type_id" ref="leave_type_cl"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+    <record id="leave_conf_l1_sl" model="leave.configuration">
+        <field name="leave_credit">1</field>
+        <field name="leave_order">20</field>
+        <field name="leave_type_id" ref="leave_type_sl"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="leave_conf_l2_sl" model="leave.configuration">
+        <field name="leave_credit">1</field>
+        <field name="leave_order">60</field>
+        <field name="leave_type_id" ref="leave_type_sl"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="leave_conf_l3_sl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">120</field>
+        <field name="leave_type_id" ref="leave_type_sl"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="leave_conf_l4_sl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">20</field>
+        <field name="leave_type_id" ref="leave_type_sl"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+    <record id="leave_conf_l1_el" model="leave.configuration">
+        <field name="leave_credit">3</field>
+        <field name="leave_order">20</field>
+        <field name="leave_type_id" ref="leave_type_el"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="leave_conf_l2_el" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">20</field>
+        <field name="leave_type_id" ref="leave_type_el"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="leave_conf_l3_el" model="leave.configuration">
+        <field name="leave_credit">1</field>
+        <field name="leave_order">30</field>
+        <field name="leave_type_id" ref="leave_type_el"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="leave_conf_l4_el" model="leave.configuration">
+        <field name="leave_credit">1</field>
+        <field name="leave_order">30</field>
+        <field name="leave_type_id" ref="leave_type_el"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+    <record id="leave_conf_l1_pl" model="leave.configuration">
+        <field name="leave_credit">0</field>
+        <field name="leave_order">40</field>
+        <field name="leave_type_id" ref="leave_type_pl"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="leave_conf_l2_pl" model="leave.configuration">
+        <field name="leave_credit">0</field>
+        <field name="leave_order">40</field>
+        <field name="leave_type_id" ref="leave_type_pl"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="leave_conf_l3_pl" model="leave.configuration">
+        <field name="leave_credit">2</field>
+        <field name="leave_order">40</field>
+        <field name="leave_type_id" ref="leave_type_pl"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="leave_conf_l4_pl" model="leave.configuration">
+        <field name="leave_credit">1</field>
+        <field name="leave_order">40</field>
+        <field name="leave_type_id" ref="leave_type_pl"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+
+    <record id="emp_1" model="hr.employee">
+        <field name="name">Emp 1</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="emp_2" model="hr.employee">
+        <field name="name">Emp 2</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="emp_3" model="hr.employee">
+        <field name="name">Emp 3</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="emp_4" model="hr.employee">
+        <field name="name">Emp 4</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_1"/>
+    </record>
+
+    <record id="emp_5" model="hr.employee">
+        <field name="name">Emp 5</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="emp_6" model="hr.employee">
+        <field name="name">Emp 6</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="emp_7" model="hr.employee">
+        <field name="name">Emp 7</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="emp_8" model="hr.employee">
+        <field name="name">Emp 8</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_2"/>
+    </record>
+
+    <record id="emp_9" model="hr.employee">
+        <field name="name">Emp 9</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="emp_10" model="hr.employee">
+        <field name="name">Emp 10</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_3"/>
+    </record>
+
+    <record id="emp_11" model="hr.employee">
+        <field name="name">Emp 11</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+    <record id="emp_12" model="hr.employee">
+        <field name="name">Emp 12</field>
+        <field name="mobile">12345</field>
+        <field name="employee_category_id" ref="employee_category_staff"/>
+        <field name="leave_level_id" ref="leave_level_4"/>
+    </record>
+
+</odoo>

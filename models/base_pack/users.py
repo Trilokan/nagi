@@ -10,7 +10,7 @@ class HospitalUsers(surya.Sarpam):
     _inherit = "res.users"
 
     location_id = fields.Many2one(comodel_name="hos.location", string="Location")
-    name = fields.Char(string="Name", readonly=True)
+    name = fields.Char(string="Name", required=True)
     email = fields.Char(string="E-mail", readonly=True)
     mobile = fields.Char(string="Mobile", readonly=True)
     alternate_contact = fields.Char(string="Alternate Contact", readonly=True)

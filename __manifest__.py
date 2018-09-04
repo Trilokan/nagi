@@ -25,6 +25,8 @@
         'data/expense_account.xml',
         'data/capital_account.xml',
 
+        'data/employee_cr.xml',
+
         # Account
         'views/web/account/account.xml',
         'views/web/account/pre_defined_account.xml',
