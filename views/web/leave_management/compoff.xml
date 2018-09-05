@@ -38,12 +38,14 @@
                     </group>
                     <footer>
                         <button name="trigger_confirmed" string="Confirm" type="object"
+                                groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                         <button name="trigger_cancelled" string="Cancel" type="object"
+                                groups="nagi.group_time_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
                         <button name="trigger_approved" string="Approve" type="object"
+                                groups="nagi.group_time_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '!=', 'confirmed')]}"/>
-
                     </footer>
                 </sheet>
             </form>

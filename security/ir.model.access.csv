@@ -123,9 +123,9 @@ leave_type_group_employee_user,leave.type.group.employee.user,nagi.model_leave_t
 leave_journal_group_employee_user,leave.journal.group.employee.user,nagi.model_leave_journal,group_employee_user,1,0,0,0
 leave_item_group_employee_user,leave.item.group.employee.user,nagi.model_leave_item,group_employee_user,1,0,0,0
 leave_voucher_group_employee_user,leave.voucher.group.employee.user,nagi.model_leave_voucher,group_employee_user,1,0,0,0
-leave_application_group_employee_user,leave.application.group.employee.user,nagi.model_leave_application,group_employee_user,1,0,0,0
-compoff_application_group_time_hr,compoff.application.group.time.hr,nagi.model_compoff_application,group_employee_user,1,0,0,0
-permission_application_group_time_hr,permission.application.group.time.hr,nagi.model_permission_application,group_employee_user,1,0,0,0
+leave_application_group_employee_user,leave.application.group.employee.user,nagi.model_leave_application,group_employee_user,1,1,1,0
+compoff_application_group_time_hr,compoff.application.group.time.hr,nagi.model_compoff_application,group_employee_user,1,1,1,0
+permission_application_group_time_hr,permission.application.group.time.hr,nagi.model_permission_application,group_employee_user,1,1,1,0
 vacancy_position_group_employee_user,leave.application.group.employee.user,nagi.model_vacancy_position,group_employee_user,1,0,0,0
 time_configuration_group_employee_user,time.configuration.group.employee.user,nagi.model_time_configuration,group_employee_user,1,0,0,0
 time_shift_group_employee_user,time.shift.group.employee.user,nagi.model_time_shift,group_employee_user,1,0,0,0

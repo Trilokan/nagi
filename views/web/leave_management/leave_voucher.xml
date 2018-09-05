@@ -48,6 +48,7 @@
                         </tree>
                     </field>
                     <button name="trigger_posting" string="Confirm" type="object"
+                            groups="nagi.group_time_hr,nagi.group_employee_admin"
                             attrs="{'invisible': [('progress', '=', 'posted')]}"/>
                 </sheet>
             </form>

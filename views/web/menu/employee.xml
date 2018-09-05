@@ -160,66 +160,77 @@
     <menuitem id="menu_employee_leave_management"
               name="Leave Management"
               parent="menu_employee"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="40"/>
 
     <menuitem id="sub_menu_leave_account"
               name="Leave Account"
               action="action_leave_account"
               parent="menu_employee_leave_management"
+              groups="nagi.group_employee_admin"
               sequence="10"/>
 
     <menuitem id="sub_menu_leave_level"
               name="Leave Level"
               action="action_leave_level"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="20"/>
 
     <menuitem id="sub_menu_leave_type"
               name="Leave Type"
               action="action_leave_type"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="30"/>
 
     <menuitem id="sub_menu_leave_configuration"
               name="Leave Configuration"
               action="action_leave_configuration"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="40"/>
 
     <menuitem id="sub_menu_leave_application"
               name="Leave Application"
               action="action_leave_application"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="50"/>
 
     <menuitem id="sub_menu_compoff_application"
               name="Comp-Off Application"
               action="action_compoff_application"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="60"/>
 
     <menuitem id="sub_menu_permission_application"
               name="Permission Application"
               action="action_permission_application"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="70"/>
 
     <menuitem id="sub_menu_leave_journal"
               name="Leave Journal"
               action="action_leave_journal"
               parent="menu_employee_leave_management"
+              groups="nagi.group_employee_admin"
               sequence="80"/>
 
     <menuitem id="sub_menu_leave_voucher"
               name="Leave Voucher"
               action="action_leave_voucher"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="90"/>
 
     <menuitem id="sub_menu_leave_availability"
               name="Leave Availability"
               action="action_leave_availability"
               parent="menu_employee_leave_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="100"/>
 
     <!-- Payroll -->
@@ -229,54 +240,47 @@
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
               sequence="50"/>
 
-    <menuitem id="sub_menu_hr_pay_wizard"
-              name="Employee Pay Update"
-              action="action_hr_pay_wizard"
-              parent="menu_employee_payroll"
-              groups="nagi.group_employee_admin"
-              sequence="10"/>
-
     <menuitem id="sub_menu_hr_pay"
               name="Employee Pay"
               action="action_hr_pay"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="20"/>
+              sequence="10"/>
 
     <menuitem id="sub_menu_pay_slip"
               name="Payslip"
               action="action_pay_slip"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="30"/>
+              sequence="20"/>
 
     <menuitem id="sub_menu_payroll_generation"
               name="Payroll Generation"
               action="action_payroll_generation"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="40"/>
+              sequence="30"/>
 
     <menuitem id="sub_menu_salary_structure"
               name="Salary Structure"
               action="action_salary_structure"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="50"/>
+              sequence="40"/>
 
     <menuitem id="sub_menu_salary_rule"
               name="Salary Rule"
               action="action_salary_rule"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="60"/>
+              sequence="50"/>
 
     <menuitem id="sub_menu_salary_rule_slab"
               name="Salary Slab"
               action="action_salary_rule_slab"
               parent="menu_employee_payroll"
               groups="nagi.group_payroll_hr,nagi.group_employee_admin"
-              sequence="70"/>
+              sequence="60"/>
 
 
 </odoo>
