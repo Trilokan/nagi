@@ -74,7 +74,7 @@
                                     </group>
                                     <notebook>
                                         <page string="Batch Detail">
-                                            <field name="move_detail">
+                                            <field name="move_split">
                                                 <tree editable="bottom">
                                                     <field name="batch_no"/>
                                                     <field name="manufactured_date"/>

@@ -8,7 +8,6 @@
         <field name="arch" type="xml">
             <tree string="Batch">
                 <field name="product_id"/>
-                <field name="location_id"/>
             </tree>
         </field>
     </record>
@@ -25,24 +24,13 @@
                     </div>
                     <group>
                         <field name="product_id"/>
-                        <field name="location_id"/>
-                        <button name="trigger_update" string="Update" type="object"/>
+                        <field name="batch_no" readonly="1"/>
+                        <field name="manufactured_date" readonly="1"/>
+                        <field name="expiry_date" readonly="1"/>
+                        <field name="mrp_rate" readonly="1"/>
+                        <field name="unit_price" readonly="1"/>
+                        <field name="quantity" readonly="1"/>
                     </group>
-                    <notebook>
-                        <page string="Batch Detail">
-                            <field name="batch_detail">
-                                <tree editable="bottom">
-                                    <field name="check" string=""/>
-                                    <field name="batch_no" readonly="1"/>
-                                    <field name="manufactured_date" readonly="1"/>
-                                    <field name="expiry_date" readonly="1"/>
-                                    <field name="mrp_rate" readonly="1"/>
-                                    <field name="unit_price" readonly="1"/>
-                                    <field name="quantity" readonly="1"/>
-                                </tree>
-                            </field>
-                        </page>
-                    </notebook>
                 </sheet>
             </form>
         </field>

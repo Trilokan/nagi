@@ -37,9 +37,17 @@ class StockMove(models.Model):
     picking_type = fields.Selection(selection=PICKING_TYPE,
                                     string="Picking Type",
                                     required=True)
-    move_detail = fields.One2many(comodel_name="hos.move.line",
-                                  inverse_name="move_id",
-                                  string="Move Detail")
+    move_split = fields.One2many(comodel_name="hos.move",
+                                 inverse_name="split_id",
+                                 string="Move Split")
+    split_id = fields.Many2one(comodel_name="hos.move", string="Move")
+    batch_id = fields.Many2one(comodel_name="hos.batch", string="Batch")
+    batch_no = fields.Char(string="Batch", readonly=True)
+    manufactured_date = fields.Date(string="Manufacturing Date", required=True)
+    expiry_date = fields.Date(string="Expiry Date", required=True)
+    mrp_rate = fields.Float(string="MRP", default=0)
+    unit_price = fields.Float(string="Unit Price", default=0)
+
     is_adjust = fields.Boolean(string="Adjust")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
@@ -54,24 +62,8 @@ class StockMove(models.Model):
         return self.env["hos.stock"].get_stock(model, search_criteria, search_criteria)
 
     @api.multi
-    def trigger_revert(self):
-        self.generate_warehouse()
-
-        writter = "Stock Moved reverted by {0}".format(self.env.user.name)
-        location = self.destination_location_id.id
-        quantity = self.get_balance_quantity(location)
-
-        if self.picking_type in ["in", "internal"]:
-            if quantity < self.quantity:
-                raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
-                                                 format(self.product_id.name))
-
-        self.write({"progress": "draft", "writter": writter})
-
-    @api.multi
     def trigger_move(self):
         self.generate_warehouse()
-        self.check_batch()
 
         writter = "Stock Moved by {0}".format(self.env.user.name)
         location = self.source_location_id.id
@@ -99,18 +91,6 @@ class StockMove(models.Model):
         if not destination:
             warehouse.create({"product_id": self.product_id.id,
                               "location_id": self.destination_location_id.id})
-
-    def check_batch(self):
-        if self.product_id.is_batch:
-            if not self.move_detail:
-                raise exceptions.ValidationError("Error! Product need Batch need")
-
-            move_detail_qty = 0
-            for move_detail in self.move_detail:
-                move_detail_qty = move_detail_qty + move_detail.quantity
-
-            if move_detail_qty != self.quantity:
-                raise exceptions.ValidationError("Error! Batch Quantity must be equal")
 
     @api.constrains("requested_quantity", "quantity")
     def check_requested_quantity_greater_than_quantity(self):
