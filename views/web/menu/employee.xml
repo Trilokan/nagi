@@ -83,66 +83,77 @@
     <menuitem id="menu_employee_time_management"
               name="Time Management"
               parent="menu_employee"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="30"/>
 
     <menuitem id="sub_menu_time_shift"
               name="Shift Timing"
               action="action_time_shift"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="10"/>
 
     <menuitem id="sub_menu_time_configuration"
               name="Time Configuration"
               action="action_time_configuration"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="20"/>
 
     <menuitem id="sub_menu_week_schedule"
               name="Week Schedule"
               action="action_week_schedule"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="30"/>
 
     <menuitem id="sub_menu_month_attendance"
               name="Month Attendance"
               action="action_month_attendance"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="40"/>
 
     <menuitem id="sub_menu_time_attendance"
               name="Attendance"
               action="action_time_attendance"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="50"/>
 
     <menuitem id="sub_menu_shift_change"
               name="Shift Change"
               action="action_shift_change"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="60"/>
 
     <menuitem id="sub_menu_holiday_change"
               name="Holiday Change"
               action="action_holiday_change"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="70"/>
 
     <menuitem id="sub_menu_add_employee_to_shift"
               name="Add Employee To Shift"
               action="action_add_employee_to_shift"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin"
               sequence="80"/>
 
     <menuitem id="sub_menu_time_sheet"
               name="Time Sheet"
               action="action_time_sheet"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="90"/>
 
     <menuitem id="sub_menu_time_sheet_application"
               name="Time Sheet Application"
               action="action_time_sheet_application"
               parent="menu_employee_time_management"
+              groups="nagi.group_time_hr,nagi.group_employee_admin,nagi.group_employee_user"
               sequence="100"/>
 
     <!-- Leave Management -->

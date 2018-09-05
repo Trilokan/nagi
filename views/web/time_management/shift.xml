@@ -57,7 +57,8 @@
                             </div>
                         </group>
                     </group>
-                    <button name="trigger_calculate" string="Check" type="object"/>
+                    <button name="trigger_calculate" string="Check" type="object"
+                            groups="nagi.group_time_hr,nagi.group_employee_admin"/>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>

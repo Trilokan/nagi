@@ -36,6 +36,7 @@
                     </group>
                     <footer>
                         <button name="trigger_approve" string="Approve" type="object"
+                                groups="nagi.group_time_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '=', 'holiday_changed')]}"/>
                     </footer>
 

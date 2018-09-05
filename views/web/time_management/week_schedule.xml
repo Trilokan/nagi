@@ -71,6 +71,7 @@
                     </notebook>
                     <footer>
                         <button name="trigger_schedule" string="Schedule" type="object"
+                                groups="nagi.group_time_hr,nagi.group_employee_admin"
                                 attrs="{'invisible': [('progress', '=', 'scheduled')]}"/>
                     </footer>
                 </sheet>

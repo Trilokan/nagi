@@ -36,6 +36,9 @@ compoff_application_group_time_hr,compoff.application.group.time.hr,nagi.model_c
 permission_application_group_time_hr,permission.application.group.time.hr,nagi.model_permission_application,group_employee_admin,1,1,1,1
 time_configuration_group_employee_admin,time.configuration.group.employee.admin,nagi.model_time_configuration,group_employee_admin,1,1,1,1
 time_shift_group_employee_admin,time.shift.group.employee.admin,nagi.model_time_shift,group_employee_admin,1,1,1,1
+time_sheet_group_employee_admin,time.sheet.group.employee.admin,nagi.model_time_sheet,group_employee_admin,1,1,1,1
+time_attendance_group_employee_admin,time.attendance.group.employee.admin,nagi.model_time_attendance,group_employee_admin,1,1,1,1
+time_attendance_detail_group_employee_admin,time.attendance.detail.group.employee.admin,nagi.model_time_attendance_detail,group_employee_admin,1,1,1,1
 shift_change_group_employee_admin,shift.change.group.employee.admin,nagi.model_shift_change,group_employee_admin,1,1,1,1
 holiday_change_group_employee_admin,holiday.change.group.employee.admin,nagi.model_holiday_change,group_employee_admin,1,1,1,1
 week_schedule_group_employee_admin,week.schedule.group.employee.admin,nagi.model_week_schedule,group_employee_admin,1,1,1,1
@@ -79,6 +82,9 @@ compoff_application_group_time_hr,compoff.application.group.time.hr,nagi.model_c
 permission_application_group_time_hr,permission.application.group.time.hr,nagi.model_permission_application,group_time_hr,1,1,1,0
 time_configuration_group_time_hr,time.configuration.group.time.hr,nagi.model_time_configuration,group_time_hr,1,1,1,0
 time_shift_group_time_hr,time.shift.group.time.hr,nagi.model_time_shift,group_time_hr,1,1,1,0
+time_sheet_group_time_hr,time.sheet.group.time.hr,nagi.model_time_sheet,group_time_hr,1,1,1,0
+time_attendance_group_time_hr,time.attendance.group.time.hr,nagi.model_time_attendance,group_time_hr,1,1,1,0
+time_attendance_detail_group_time_hr,time.attendance.detail.group.time.hr,nagi.model_time_attendance_detail,group_time_hr,1,1,1,0
 shift_change_group_time_hr,shift.change.group.time.hr,nagi.model_shift_change,group_time_hr,1,1,1,0
 holiday_change_group_time_hr,holiday.change.group.time.hr,nagi.model_holiday_change,group_time_hr,1,1,1,0
 week_schedule_group_time_hr,week.schedule.group.time.hr,nagi.model_week_schedule,group_time_hr,1,1,1,0
@@ -123,6 +129,9 @@ permission_application_group_time_hr,permission.application.group.time.hr,nagi.m
 vacancy_position_group_employee_user,leave.application.group.employee.user,nagi.model_vacancy_position,group_employee_user,1,0,0,0
 time_configuration_group_employee_user,time.configuration.group.employee.user,nagi.model_time_configuration,group_employee_user,1,0,0,0
 time_shift_group_employee_user,time.shift.group.employee.user,nagi.model_time_shift,group_employee_user,1,0,0,0
+time_sheet_group_employee_user,time.sheet.group.employee.user,nagi.model_time_sheet,group_employee_user,1,1,1,0
+time_attendance_group_employee_user,time.attendance.group.employee.user,nagi.model_time_attendance,group_employee_user,1,0,0,0
+time_attendance_detail_group_employee_user,time.attendance.detail.group.employee.user,nagi.model_time_attendance_detail,group_employee_user,1,1,0,0
 shift_change_group_employee_user,shift.change.group.employee.user,nagi.model_shift_change,group_employee_user,1,0,0,0
 holiday_change_group_employee_user,holiday.change.group.employee.user,nagi.model_holiday_change,group_employee_user,1,0,0,0
 week_schedule_group_employee_user,week.schedule.group.employee.user,nagi.model_week_schedule,group_employee_user,1,0,0,0
