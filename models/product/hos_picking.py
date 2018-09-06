@@ -54,6 +54,8 @@ class Picking(models.Model):
     back_order_id = fields.Many2one(comodel_name="hos.picking", string="Back Order")
     create_invoice_flag = fields.Boolean(string="Create Invoice")
 
+    is_adjust = fields.Boolean(string="Adjust")
+
     # Purchase
     @api.multi
     def trigger_create_purchase_invoice(self):

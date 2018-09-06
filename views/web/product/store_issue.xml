@@ -70,7 +70,6 @@
                                         <field name="destination_location_id" invisible="1"/>
                                         <field name="picking_type" invisible="1"/>
                                         <field name="date" invisible="1"/>
-                                        <button name="open_batch_wizard" string="Batch" type="object"/>
                                     </group>
                                     <notebook>
                                         <page string="Batch Detail">
