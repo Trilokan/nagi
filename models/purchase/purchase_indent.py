@@ -78,7 +78,7 @@ class PurchaseIndent(models.Model):
 
         for rec in recs:
             if len(history) < 5:
-                data = rec.copy_data()
+                data = rec.copy_data()[0]
                 data['vendor_id'] = data.pop('person_id')
                 history.append((0, 0, data))
 

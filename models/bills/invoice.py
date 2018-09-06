@@ -119,6 +119,7 @@ class HospitalInvoice(surya.Sarpam):
 class InvoiceDetail(surya.Sarpam):
     _name = "invoice.detail"
 
+    person_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
     product_id = fields.Many2one(comodel_name="hos.product", string="Description", required=True)
     uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
     unit_price = fields.Float(string="Unit Price")

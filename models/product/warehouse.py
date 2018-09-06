@@ -21,13 +21,14 @@ class HospitalWarehouse(models.Model):
 
     def _get_stock(self):
         for record in self:
-            model = "hos.move"
             source = [("product_id", "=", record.product_id.id),
                       ("source_location_id", "=", record.location_id.id),
-                      ("progress", "=", "moved")]
+                      ("progress", "=", "moved"),
+                      ("batch_id", "=", False)]
 
             destination = [("product_id", "=", record.product_id.id),
                            ("destination_location_id", "=", record.location_id.id),
-                           ("progress", "=", "moved")]
+                           ("progress", "=", "moved"),
+                           ("batch_id", "=", False)]
 
-            record.quantity = self.env["hos.stock"].get_stock(model, source, destination)
+            record.quantity = self.env["hos.stock"].get_stock(source, destination)

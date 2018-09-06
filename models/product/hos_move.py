@@ -19,10 +19,12 @@ class StockMove(models.Model):
     name = fields.Char(string="Name", readonly=True)
     reference = fields.Char(string="Reference", readonly=True)
     picking_id = fields.Many2one(comodel_name="hos.picking", string="Stock Picking")
-    product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
+    product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True,
+                                 default=lambda self: self.env.context.get("product_id", False))
     uom_id = fields.Many2one(comodel_name="hos.uom", string="UOM", related="product_id.uom_id")
     is_batch = fields.Boolean(string="Batch", related="product_id.is_batch")
-    requested_quantity = fields.Float(string="Requested Quantity", readonly=True, default=0)
+    requested_quantity = fields.Float(string="Requested Quantity", readonly=True,
+                                      default=0)
     quantity = fields.Float(string="Approved Quantity", required=True, default=0)
     company_id = fields.Many2one(comodel_name="res.company",
                                  string="Company",
@@ -30,36 +32,73 @@ class StockMove(models.Model):
                                  readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
                                          string="Source Location",
+                                         default=lambda self: self.env.context.get("source_location_id", False),
                                          required=True)
     destination_location_id = fields.Many2one(comodel_name="hos.location",
                                               string="Destination location",
+                                              default=lambda self: self.env.context.get("destination_location_id", False),
                                               required=True)
     picking_type = fields.Selection(selection=PICKING_TYPE,
                                     string="Picking Type",
+                                    default=lambda self: self.env.context.get("picking_type", False),
                                     required=True)
     move_split = fields.One2many(comodel_name="hos.move",
                                  inverse_name="split_id",
                                  string="Move Split")
+    batch_split = fields.One2many(comodel_name="dum.batch",
+                                  inverse_name="move_id",
+                                  string="Batch Split")
     split_id = fields.Many2one(comodel_name="hos.move", string="Move")
     batch_id = fields.Many2one(comodel_name="hos.batch", string="Batch")
-    batch_no = fields.Char(string="Batch", readonly=True)
-    manufactured_date = fields.Date(string="Manufacturing Date", required=True)
-    expiry_date = fields.Date(string="Expiry Date", required=True)
-    mrp_rate = fields.Float(string="MRP", default=0)
-    unit_price = fields.Float(string="Unit Price", default=0)
+    manufactured_date = fields.Date(string="Manufacturing Date", related="batch_id.manufactured_date")
+    expiry_date = fields.Date(string="Expiry Date", related="batch_id.expiry_date")
+    mrp_rate = fields.Float(string="MRP", related="batch_id.mrp_rate")
+    unit_price = fields.Float(string="Unit Price", related="batch_id.unit_price")
 
     is_adjust = fields.Boolean(string="Adjust")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
 
-    def get_balance_quantity(self, location):
-        model = "hos.move"
-        search_criteria = [("product_id", "=", self.product_id.id),
-                           ("destination_location_id", "=", location),
-                           ("progress", "=", "moved")]
+    def get_balance_quantity(self, location, batch=False):
 
-        return self.env["hos.stock"].get_stock(model, search_criteria, search_criteria)
+        source = [("product_id", "=", self.product_id.id),
+                  ("source_location_id", "=", location),
+                  ("progress", "=", "moved"),
+                  ("batch_id", "=", batch)]
+
+        destination = [("product_id", "=", self.product_id.id),
+                       ("destination_location_id", "=", location),
+                       ("progress", "=", "moved"),
+                       ("batch_id", "=", batch)]
+
+        return self.env["hos.stock"].get_stock(source, destination)
+
+    def generate_batch(self):
+        for rec in self.batch_split:
+            batch = {"product_id": self.product_id.id,
+                     "batch_no": rec.batch_no,
+                     "manufactured_date": rec.manufactured_date,
+                     "expiry_date": rec.expiry_date,
+                     "mrp_rate": rec.mrp_rate,
+                     "unit_price": rec.unit_price}
+
+            batch_id = self.env["hos.batch"].search([("batch_no", "=", rec.batch_no)])
+
+            if not batch_id.id:
+                batch_id = self.env["hos.batch"].create(batch)
+
+            move = {"product_id": self.product_id.id,
+                    "source_location_id": self.source_location_id.id,
+                    "destination_location_id": self.destination_location_id.id,
+                    "picking_type": self.picking_type,
+                    "batch_id": batch_id.id,
+                    "date": self.date,
+                    "reference": self.reference,
+                    "quantity": rec.quantity,
+                    "progress": "moved"}
+
+            self.env["hos.move"].create(move)
 
     @api.multi
     def trigger_move(self):
@@ -73,6 +112,22 @@ class StockMove(models.Model):
             if quantity < self.quantity:
                 raise exceptions.ValidationError("Error! Product {0} has not enough stock to move".
                                                  format(self.product_id.name))
+
+            batch_total = 0
+            for rec in self.move_split:
+                batch_quantity = self.get_balance_quantity(location, rec.batch_id.id)
+                batch_total = batch_total + batch_quantity
+
+                if batch_quantity < rec.quantity:
+                    raise exceptions.ValidationError("Error! Product {0} with {1} has not enough stock to move".
+                                                     format(self.product_id.name, rec.batch_id.batch_no))
+
+        if self.picking_type in ["in"]:
+            self.generate_batch()
+
+        if self.is_batch:
+            if not self.batch_split:
+                raise exceptions.ValidationError("Error! Product needs batch")
 
         self.write({"progress": "moved", "writter": writter})
 
@@ -93,11 +148,11 @@ class StockMove(models.Model):
                               "location_id": self.destination_location_id.id})
 
     @api.constrains("requested_quantity", "quantity")
-    def check_requested_quantity_greater_than_quantity(self):
-        for rec in self:
-            if rec.picking_id.po_id:
-                if rec.requested_quantity < rec.quantity:
-                    raise exceptions.ValidationError("Error! Approved Quantity must be lower than requested quantity")
+    def check_requested_quantity(self):
+        if self.picking_id.picking_category in ["si", "po"]:
+            if self.requested_quantity < self.quantity:
+                error_msg = "Error! Approved/Store Quantity must be lower than requested quantity"
+                raise exceptions.ValidationError(error_msg)
 
     @api.model
     def create(self, vals):
@@ -106,22 +161,3 @@ class StockMove(models.Model):
         vals["writter"] = "Created by {0}".format(self.env.user.name)
 
         return super(StockMove, self).create(vals)
-
-    @api.multi
-    def open_batch_wizard(self):
-        view = self.env.ref('nagi.view_hos_batch_form')
-
-        context = self.env.context.copy()
-        context.update({"product_id": self.product_id.id,
-                        "location_id": self.source_location_id.id})
-
-        return {
-            'name': 'Resume',
-            'view_type': 'form',
-            'view_mode': 'form',
-            'view_id': view.id,
-            'res_model': 'hos.batch',
-            'type': 'ir.actions.act_window',
-            'context': context,
-            'target': 'new'
-        }

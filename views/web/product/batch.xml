@@ -24,13 +24,18 @@
                     </div>
                     <group>
                         <field name="product_id"/>
-                        <field name="batch_no" readonly="1"/>
-                        <field name="manufactured_date" readonly="1"/>
-                        <field name="expiry_date" readonly="1"/>
-                        <field name="mrp_rate" readonly="1"/>
-                        <field name="unit_price" readonly="1"/>
-                        <field name="quantity" readonly="1"/>
+                        <field name="batch_no"/>
+                        <field name="manufactured_date"/>
+                        <field name="expiry_date"/>
+                        <field name="mrp_rate"/>
+                        <field name="unit_price"/>
+                        <field name="quantity"/>
                     </group>
+                    <notebook>
+                        <page string="Stock Detail">
+                            <field name="batch_detail" readonly="1"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>

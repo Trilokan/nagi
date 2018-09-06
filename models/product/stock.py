@@ -9,9 +9,9 @@ from .. import surya, calculation
 class Stock(models.Model):
     _name = "hos.stock"
 
-    def get_stock(self, model, search_source, search_destination):
-        source_ids = self.env[model].search(search_source)
-        destination_ids = self.env[model].search(search_destination)
+    def get_stock(self, search_source, search_destination):
+        source_ids = self.env["hos.move"].search(search_source)
+        destination_ids = self.env["hos.move"].search(search_destination)
 
         quantity_in = quantity_out = 0
 
