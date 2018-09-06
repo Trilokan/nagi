@@ -55,7 +55,7 @@ class StockMove(models.Model):
     mrp_rate = fields.Float(string="MRP", related="batch_id.mrp_rate")
     unit_price = fields.Float(string="Unit Price", related="batch_id.unit_price")
 
-    is_adjust = fields.Boolean(string="Adjust")
+    is_adjust = fields.Boolean(string="Adjust", related="picking_id.is_adjust")
 
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Text(string="Writter", track_visibility='always')
@@ -156,6 +156,7 @@ class StockMove(models.Model):
 
     @api.model
     def create(self, vals):
+        print vals
         code = "{0}.{1}".format(self._name, vals["picking_type"])
         vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["writter"] = "Created by {0}".format(self.env.user.name)
