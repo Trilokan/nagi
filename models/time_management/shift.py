@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import fields, models, api, exceptions, _
+from datetime import datetime, timedelta
 
 END_INFO = [('current_day', 'Current Day'), ('next_day', 'Next Day')]
 
@@ -24,9 +25,19 @@ class Shift(models.Model):
 
     @api.multi
     def trigger_calculate(self):
-        total_from_hours = (self.from_hours * 60) + self.from_minutes
-        total_till_hours = (self.till_hours * 60) + self.till_minutes
-        if self.end_day == 'current_day':
-            self.total_hours = float(total_till_hours - total_from_hours) / 60
-        elif self.end_day == 'next_day':
-            self.total_hours = 24 - (float(total_from_hours - total_till_hours) / 60)
+
+        today = datetime.strptime("2018-01-01 00:00:00", "%Y-%m-%d %H:%M:%S")
+
+        from_date = today + timedelta(hours=self.from_hours) + timedelta(minutes=self.from_minutes)
+        till_date = today + timedelta(hours=self.till_hours) + timedelta(minutes=self.till_minutes)
+
+        if self.end_day == 'next_day':
+            till_date = till_date + timedelta(days=1)
+
+        secs = (till_date - from_date).seconds
+
+        minutes = ((secs / 60) % 60) / 60.0
+        hours = secs / 3600
+
+        self.total_hours = hours + minutes
+

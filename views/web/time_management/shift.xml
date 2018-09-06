@@ -31,7 +31,7 @@
                     <group>
                         <group>
                             <field name="name"/>
-                            <field name="total_hours" readonly="1"/>
+                            <field name="total_hours" readonly="1" widget="float_time"/>
                             <field name="end_day"/>
                         </group>
 
