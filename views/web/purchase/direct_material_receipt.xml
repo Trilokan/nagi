@@ -58,7 +58,8 @@
                                 </tree>
                                 <form>
                                     <group>
-                                        <field name="product_id" required="1"/>
+                                        <field name="product_id" required="1"
+                                               domain="[('category_id.name', 'in', ['Medicine', 'Equipment'])]"/>
                                         <field name="uom_id" readonly="1"/>
                                         <field name="quantity" string="Accepted Quantity" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                                         <field name="progress" invisible="1"/>
@@ -68,23 +69,18 @@
                                         <field name="destination_location_id" invisible="1"/>
                                         <field name="picking_type" invisible="1"/>
                                     </group>
-                                    <notebook>
-                                        <page string="Batch" attrs="{'invisible': [('is_batch', '=', False)]}">
-                                            <field name="batch_split"
-                                                   attrs="{'invisible': [('is_batch', '=', False)], 'readonly': [('progress', '!=', 'draft')]}">
-                                                <tree editable="bottom">
-                                                    <field name="batch_no"/>
-                                                    <field name="manufactured_date"/>
-                                                    <field name="expiry_date"/>
-                                                    <field name="mrp_rate"/>
-                                                    <field name="unit_price"/>
-                                                    <field name="quantity"/>
-                                                </tree>
-                                            </field>
-                                        </page>
-                                    </notebook>
+                                    <field name="batch_split"
+                                           attrs="{'invisible': [('is_batch', '=', False)], 'readonly': [('progress', '!=', 'draft')]}">
+                                        <tree editable="bottom">
+                                            <field name="batch_no"/>
+                                            <field name="manufactured_date"/>
+                                            <field name="expiry_date"/>
+                                            <field name="mrp_rate"/>
+                                            <field name="unit_price"/>
+                                            <field name="quantity"/>
+                                        </tree>
+                                    </field>
                                 </form>
-
                             </field>
                         </page>
                     </notebook>

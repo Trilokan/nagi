@@ -63,10 +63,14 @@ class Picking(models.Model):
         picking_category = self.env.context.get("default_picking_category", False)
         if picking_category == "sa":
             return self.env.user.company_id.purchase_location_id.id
+        elif picking_category == "dpo":
+            return self.env.user.company_id.purchase_location_id.id
 
     def get_destination_location_id(self):
         picking_category = self.env.context.get("default_picking_category", False)
         if picking_category == "sa":
+            return self.env.user.company_id.store_location_id.id
+        elif picking_category == "dpo":
             return self.env.user.company_id.store_location_id.id
 
     # Purchase

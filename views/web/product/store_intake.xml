@@ -98,7 +98,7 @@
                         </page>
                     </notebook>
                     <footer>
-                        <button name="trigger_move" string="Issue" type="object"
+                        <button name="trigger_move" string="Intake" type="object"
                                 attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
                     </footer>
                 </sheet>

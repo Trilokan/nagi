@@ -96,9 +96,13 @@ class StockMove(models.Model):
                     "date": self.date,
                     "reference": self.reference,
                     "quantity": rec.quantity,
+                    "split_id": self.id,
                     "progress": "moved"}
 
             self.env["hos.move"].create(move)
+
+        for rec in self.move_split:
+            rec.write({"progress": "moved"})
 
     @api.multi
     def trigger_move(self):
@@ -122,8 +126,7 @@ class StockMove(models.Model):
                     raise exceptions.ValidationError("Error! Product {0} with {1} has not enough stock to move".
                                                      format(self.product_id.name, rec.batch_id.batch_no))
 
-        if self.picking_type in ["in"]:
-            self.generate_batch()
+        self.generate_batch()
 
         if self.is_batch and self.quantity:
             if not self.move_split:
@@ -156,7 +159,6 @@ class StockMove(models.Model):
 
     @api.model
     def create(self, vals):
-        print vals
         code = "{0}.{1}".format(self._name, vals["picking_type"])
         vals["name"] = self.env['ir.sequence'].next_by_code(code)
         vals["writter"] = "Created by {0}".format(self.env.user.name)
