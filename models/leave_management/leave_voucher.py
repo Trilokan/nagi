@@ -10,6 +10,7 @@ VOUCHER_INFO = [("credit", "Credit"), ("debit", "Debit")]
 # Leave Voucher
 class LeaveVoucher(models.Model):
     _name = "leave.voucher"
+    _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True, default=datetime.now().strftime("%Y-%m-%d"))
     name = fields.Char(string="Name", readonly=True)
@@ -216,6 +217,7 @@ class LeaveVoucher(models.Model):
 
 class LeaveVoucherLine(models.Model):
     _name = "leave.voucher.line"
+    _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
     name = fields.Char(string="Name")
@@ -227,4 +229,6 @@ class LeaveVoucherLine(models.Model):
     reconcile = fields.Boolean(string="Reconcile")
     leave_reconcile = fields.Float(string="Leave Reconcile")
     leave_order = fields.Float(string="Leave Order")
+    company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    writter = fields.Text(string="Writter", track_visibility="always")
 

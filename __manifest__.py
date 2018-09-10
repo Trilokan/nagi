@@ -15,7 +15,6 @@
         'menu/web_menu.xml',
         'data/base_pack.xml',
         'data/product.xml',
-        'data/time_management.xml',
         'data/hospital.xml',
         'data/employee.xml',
         'data/account.xml',
@@ -26,6 +25,16 @@
         'data/capital_account.xml',
 
         'data/employee_cr.xml',
+
+        'data/hos.location.csv',
+        'data/hos.uom.csv',
+        'data/hos.product.csv',
+
+        'sequence/product.xml',
+        'sequence/purchase.xml',
+        'sequence/employee.xml',
+        'sequence/hospital.xml',
+
 
         'security/hospital.xml',
         'security/ir.model.access.csv',

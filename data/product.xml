@@ -1,141 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <data noupdate="1">
 
-    <record id="store_location" model="hos.location">
-        <field name="name">Store</field>
-        <field name="location_left">10</field>
-        <field name="location_right">20</field>
-    </record>
+        <!--Group-->
+        <record id="general_group" model="product.group">
+            <field name="name">General</field>
+            <field name="code">GEN</field>
+        </record>
 
-    <!--Product/ Stores-->
-    <record id="hos_product_sequence" model="ir.sequence">
-        <field name="name">Hospital Product</field>
-        <field name="code">hos.product</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+        <!--Sub-Group-->
+        <record id="general_sub_group" model="product.sub.group">
+            <field name="name">General</field>
+            <field name="code">GEN</field>
+            <field name="group_id" ref="nagi.general_group"/>
+        </record>
 
-    <record id="stock_adjustment_sequence" model="ir.sequence">
-        <field name="name">Stock Adjustment</field>
-        <field name="code">picking.sa</field>
-        <field name="prefix">SA/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+        <!--Category-->
+        <record id="medicine_category" model="hos.product.category">
+            <field name="name">Medicine</field>
+            <field name="code">MED</field>
+        </record>
 
-    <record id="store_request_sequence" model="ir.sequence">
-        <field name="name">Store Request</field>
-        <field name="code">store.request</field>
-        <field name="prefix">SR/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+        <record id="equipment_category" model="hos.product.category">
+            <field name="name">Equipment</field>
+            <field name="code">EQU</field>
+        </record>
 
-    <record id="store_issue_sequence" model="ir.sequence">
-        <field name="name">Store Issue</field>
-        <field name="code">picking.si</field>
-        <field name="prefix">SI/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+        <record id="service_category" model="hos.product.category">
+            <field name="name">Service</field>
+            <field name="code">SER</field>
+        </record>
+
+        <record id="tax_category" model="hos.product.category">
+            <field name="name">Tax</field>
+            <field name="code">TAX</field>
+        </record>
+
+        <record id="treatment_category" model="hos.product.category">
+            <field name="name">Treatment</field>
+            <field name="code">TRT</field>
+        </record>
+
+        <record id="laboratory_category" model="hos.product.category">
+            <field name="name">Laboratory</field>
+            <field name="code">LAB</field>
+        </record>
+
+        <record id="freight_category" model="hos.product.category">
+            <field name="name">Freight</field>
+            <field name="code">FRE</field>
+        </record>
+
+        <record id="discount_category" model="hos.product.category">
+            <field name="name">Discount</field>
+            <field name="code">Disc</field>
+        </record>
+
+        <record id="miscellaneous_category" model="hos.product.category">
+            <field name="name">Miscellaneous</field>
+            <field name="code">MISC</field>
+        </record>
+
+        <record id="others_category" model="hos.product.category">
+            <field name="name">Others</field>
+            <field name="code">OTH</field>
+        </record>
+
+        <!--Tax-->
+        <record id="gst_0_tax" model="hos.tax">
+            <field name="name">GST</field>
+            <field name="code">GST 0</field>
+            <field name="rate">0</field>
+        </record>
+
+        <record id="gst_5_tax" model="hos.tax">
+            <field name="name">GST</field>
+            <field name="code">GST 5</field>
+            <field name="rate">5</field>
+        </record>
+
+        <record id="gst_12_tax" model="hos.tax">
+            <field name="name">GST</field>
+            <field name="code">GST 12</field>
+            <field name="rate">12</field>
+        </record>
+
+        <record id="gst_18_tax" model="hos.tax">
+            <field name="name">GST</field>
+            <field name="code">GST 18</field>
+            <field name="rate">18</field>
+        </record>
+
+        <record id="gst_28_tax" model="hos.tax">
+            <field name="name">GST</field>
+            <field name="code">GST 28</field>
+            <field name="rate">28</field>
+        </record>
 
 
-    <!--Product movement IN/ Internal/ OUT-->
-    <record id="hos_move_in_sequence" model="ir.sequence">
-        <field name="name">Product IN</field>
-        <field name="code">hos.move.in</field>
-        <field name="prefix">IN/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="hos_move_internal_sequence" model="ir.sequence">
-        <field name="name">Product Internal</field>
-        <field name="code">hos.move.internal</field>
-        <field name="prefix">INT/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="hos_move_out_sequence" model="ir.sequence">
-        <field name="name">Product OUT</field>
-        <field name="code">hos.move.out</field>
-        <field name="prefix">OUT/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <!--Purchase-->
-    <record id="purchase_indent_sequence" model="ir.sequence">
-        <field name="name">Purchase Indent</field>
-        <field name="code">purchase.indent</field>
-        <field name="prefix">PI/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="purchase_quotation_sequence" model="ir.sequence">
-        <field name="name">Purchase Quotation</field>
-        <field name="code">purchase.quotation</field>
-        <field name="prefix">QR/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="purchase_order_sequence" model="ir.sequence">
-        <field name="name">Purchase Order</field>
-        <field name="code">purchase.order</field>
-        <field name="prefix">PO/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="hos_invoice_po_sequence" model="ir.sequence">
-        <field name="name">Hospital Invoice Purchase</field>
-        <field name="code">hos.invoice.po</field>
-        <field name="prefix">INV/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="hos_invoice_dpo_sequence" model="ir.sequence">
-        <field name="name">Hospital Invoice Direct Purchase</field>
-        <field name="code">hos.invoice.dpo</field>
-        <field name="prefix">DINV/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <record id="material_receipt_sequence" model="ir.sequence">
-        <field name="name">Material Receipt</field>
-        <field name="code">picking.po</field>
-        <field name="prefix">MR/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
-
-    <!--Sale-->
-    <record id="sale_order_sequence" model="ir.sequence">
-        <field name="name">Sale Order</field>
-        <field name="code">sale.order</field>
-        <field name="prefix">SO/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+    </data>
 
 
 </odoo>

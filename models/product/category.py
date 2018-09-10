@@ -14,6 +14,7 @@ class ProductCategory(models.Model):
                                  string="Company",
                                  default=lambda self: self.env.user.company_id.id,
                                  readonly=True)
+    account_id = fields.Many2one(comodel_name="hos.account", string="Account")
 
     _sql_constraints = [('unique_code', 'unique (code)', 'Error! Product Category Code must be unique'),
                         ('unique_name', 'unique (name)', 'Error! Product Category must be unique')]

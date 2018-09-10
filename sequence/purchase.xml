@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!--Purchase-->
+        <record id="purchase_indent_sequence" model="ir.sequence">
+            <field name="name">Purchase Indent</field>
+            <field name="code">purchase.indent</field>
+            <field name="prefix">PI/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="purchase_quotation_sequence" model="ir.sequence">
+            <field name="name">Purchase Quotation</field>
+            <field name="code">purchase.quotation</field>
+            <field name="prefix">QR/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="purchase_order_sequence" model="ir.sequence">
+            <field name="name">Purchase Order</field>
+            <field name="code">purchase.order</field>
+            <field name="prefix">PO/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="purchase_return_sequence" model="ir.sequence">
+            <field name="name">Purchase Return</field>
+            <field name="code">purchase.return</field>
+            <field name="prefix">PRN/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="material_receipt_sequence" model="ir.sequence">
+            <field name="name">Material Receipt</field>
+            <field name="code">picking.po</field>
+            <field name="prefix">MR/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="direct_material_receipt_sequence" model="ir.sequence">
+            <field name="name">Direct Material Receipt</field>
+            <field name="code">picking.dpo</field>
+            <field name="prefix">DMR/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="material_return_sequence" model="ir.sequence">
+            <field name="name">Material Return</field>
+            <field name="code">picking.prn</field>
+            <field name="prefix">MRN/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="hos_invoice_purchase_order_sequence" model="ir.sequence">
+            <field name="name">Hospital Invoice Purchase</field>
+            <field name="code">hos.invoice.po</field>
+            <field name="prefix">INV/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="hos_invoice_direct_purchase_order_sequence" model="ir.sequence">
+            <field name="name">Hospital Invoice Direct Purchase</field>
+            <field name="code">hos.invoice.dpo</field>
+            <field name="prefix">DINV/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+        <record id="hos_invoice_purchase_return_sequence" model="ir.sequence">
+            <field name="name">Hospital Invoice Purchase Return</field>
+            <field name="code">hos.invoice.prn</field>
+            <field name="prefix">RINV/</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+        </record>
+
+    </data>
+
+
+</odoo>

@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Recruitment : Resume Bank -->
-    <record id="resume_bank_sequence" model="ir.sequence">
-        <field name="name">Resume Bank</field>
-        <field name="code">resume.bank</field>
-        <field name="prefix">RB/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+    <data noupdate="1">
 
-    <!-- Recruitment : Appointment Order -->
-    <record id="appointment_order_sequence" model="ir.sequence">
-        <field name="name">Appointment Order</field>
-        <field name="code">appointment.order</field>
-        <field name="prefix">AO/</field>
-        <field name="padding">6</field>
-        <field name="number_next">1</field>
-        <field name="number_increment">1</field>
-    </record>
+        <!--Category-->
+        <record id="employee_category_doctor" model="hr.category">
+            <field name="name">Doctor</field>
+        </record>
 
-    <record id="employee_category_doctor" model="hr.category">
-        <field name="name">Doctor</field>
-    </record>
+        <record id="employee_category_staff" model="hr.category">
+            <field name="name">Staff</field>
+        </record>
 
-    <record id="employee_category_staff" model="hr.category">
-        <field name="name">Staff</field>
-    </record>
+        <record id="employee_category_driver" model="hr.category">
+            <field name="name">Driver</field>
+        </record>
 
-    <record id="employee_category_driver" model="hr.category">
-        <field name="name">Driver</field>
-    </record>
+        <!--Time Management-->
+        <record id="time_configuration_in_grace_time" model="time.configuration">
+            <field name="name">IN Grace Time</field>
+            <field name="code">100</field>
+            <field name="value">60</field>
+        </record>
 
+        <record id="time_configuration_out_grace_time" model="time.configuration">
+            <field name="name">OUT Grace Time</field>
+            <field name="code">101</field>
+            <field name="value">60</field>
+        </record>
+
+        <record id="time_configuration_full_day" model="time.configuration">
+            <field name="name">Full Day</field>
+            <field name="code">102</field>
+            <field name="value">8</field>
+        </record>
+
+        <record id="time_configuration_half_day" model="time.configuration">
+            <field name="name">Half Day</field>
+            <field name="code">103</field>
+            <field name="value">4</field>
+        </record>
+
+        <!--Leave Management-->
+        <record id="monthly_leave_credit" model="leave.account">
+            <field name="name">Monthly Leave Credit</field>
+            <field name="code">103</field>
+        </record>
+
+        <record id="monthly_leave_lop" model="leave.account">
+            <field name="name">Monthly Leave LOP</field>
+            <field name="code">104</field>
+        </record>
+
+        <record id="monthly_leave_debit" model="leave.account">
+            <field name="name">Monthly Leave Debit</field>
+            <field name="code">105</field>
+        </record>
+
+    </data>
 
 </odoo>

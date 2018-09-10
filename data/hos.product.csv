@@ -1,0 +1,7 @@
+id,name,code,group_id,sub_group_id,uom_id,category_id
+cgst_product,CGST,CGST,General,General,NOS,Tax
+sgst_product,SGST,SGST,General,General,NOS,Tax
+igst_product,IGST,IGST,General,General,NOS,Tax
+discount_product,Discount,Discount,General,General,NOS,Discount
+frieght_product,Freight,Freight,General,General,NOS,Freight
+service_charge_product,Service Charge,Service Charge,General,General,NOS,Service

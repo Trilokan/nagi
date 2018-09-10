@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Recruitment : Resume Bank -->
+    <record id="resume_bank_sequence" model="ir.sequence">
+        <field name="name">Resume Bank</field>
+        <field name="code">resume.bank</field>
+        <field name="prefix">RB/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <!-- Recruitment : Appointment Order -->
+    <record id="appointment_order_sequence" model="ir.sequence">
+        <field name="name">Appointment Order</field>
+        <field name="code">appointment.order</field>
+        <field name="prefix">AO/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_account_sequence" model="ir.sequence">
+        <field name="name">Leave Account</field>
+        <field name="code">leave.account</field>
+        <field name="prefix">LA/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_journal_sequence" model="ir.sequence">
+        <field name="name">Leave Journal</field>
+        <field name="code">leave.journal</field>
+        <field name="prefix">LJ/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_item_sequence" model="ir.sequence">
+        <field name="name">Leave Item</field>
+        <field name="code">leave.item</field>
+        <field name="prefix">LI/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_reconcile_sequence" model="ir.sequence">
+        <field name="name">Leave Reconcile</field>
+        <field name="code">leave.reconcile</field>
+        <field name="prefix">LR/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+    <record id="leave_voucher_sequence" model="ir.sequence">
+        <field name="name">Leave Voucher</field>
+        <field name="code">leave.voucher</field>
+        <field name="prefix">LV/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+
+</odoo>

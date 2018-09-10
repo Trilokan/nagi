@@ -1,0 +1,8 @@
+id,name,location_left,location_right
+hospital_location,Hospital Location,1,100
+virtual_location,Virtual Location,1,10
+virtual_location_purchase,Purchase,1,5
+virtual_location_pharmacy,Pharmacy,6,10
+store_location,Store,11,30
+pharmacy_location,Pharmacy,11,15
+scrap_location,Scrap,90,100

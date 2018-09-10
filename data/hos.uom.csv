@@ -1,0 +1,13 @@
+id,name,code
+number_uom,Number,NOS
+milliliter_uom,Milliliter,ML
+liter_uom,Liter,Ltr
+package_uom,Package,PKG
+millimeter_uom,Millimeter,MM
+centimeter_uom,Centimeter,CM
+meter_uom,Meter,Mtr
+square_feet_uom,Square Feet,SqFt
+feet_uom,Feet,FT
+box_uom,Box,BOX
+kilogram_uom,Kilogram,KG
+gram_uom,Gram,GM
