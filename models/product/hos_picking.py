@@ -8,6 +8,7 @@ PROGRESS_INFO = [("draft", "Draft"), ("moved", "Moved")]
 PICKING_TYPE = [("in", "IN"), ("internal", "Internal"), ("out", "OUT")]
 PICKING_CATEGORY = [("sa", "Stock Adjustment"),
                     ("si", "Store Issue"),
+                    ("sin", "Store Intake"),
                     ("po", "Purchase Order"),
                     ("dpo", "Direct Purchase"),
                     ("por", "Purchase Order Return"),
@@ -44,9 +45,11 @@ class Picking(models.Model):
                                  readonly=True)
     source_location_id = fields.Many2one(comodel_name="hos.location",
                                          string="Source Location",
+                                         default=lambda self: self.get_source_location_id(),
                                          required=True)
     destination_location_id = fields.Many2one(comodel_name="hos.location",
                                               string="Destination location",
+                                              default=lambda self: self.get_destination_location_id(),
                                               required=True)
     writter = fields.Text(string="Writter", track_visibility='always')
     po_id = fields.Many2one(comodel_name="purchase.order", string="Purchase Order")
@@ -55,6 +58,16 @@ class Picking(models.Model):
     create_invoice_flag = fields.Boolean(string="Create Invoice")
 
     is_adjust = fields.Boolean(string="Adjust")
+
+    def get_source_location_id(self):
+        picking_category = self.env.context.get("default_picking_category", False)
+        if picking_category == "sa":
+            return self.env.user.company_id.purchase_location_id.id
+
+    def get_destination_location_id(self):
+        picking_category = self.env.context.get("default_picking_category", False)
+        if picking_category == "sa":
+            return self.env.user.company_id.store_location_id.id
 
     # Purchase
     @api.multi

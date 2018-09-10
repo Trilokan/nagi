@@ -39,6 +39,8 @@ class HospitalPerson(surya.Sarpam):
     mobile = fields.Char(string="Mobile", required=True)
     alternate_contact = fields.Char(string="Alternate Contact")
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    state_id = fields.Many2one(comodel_name="res.country.state", string="State", required=True,
+                               default=lambda self: self.env.user.company_id.state_id.id)
 
     payable_id = fields.Many2one(comodel_name="hos.account", string="Accounts Payable")
     receivable_id = fields.Many2one(comodel_name="hos.account", string="Accounts Receivable")

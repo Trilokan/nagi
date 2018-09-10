@@ -143,6 +143,8 @@
         'views/web/product/hos_move.xml',
         'views/web/product/store_request.xml',
         'views/web/product/store_issue.xml',
+        'views/web/product/store_return.xml',
+        'views/web/product/store_intake.xml',
         'views/web/product/batch.xml',
 
         # Purchase

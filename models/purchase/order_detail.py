@@ -44,8 +44,8 @@ class PurchaseDetail(surya.Sarpam):
         data = calculation.purchase_calculation(self.unit_price,
                                                 self.accepted_quantity,
                                                 self.discount,
-                                                self.tax_id.value,
-                                                self.tax_id.state)
+                                                self.tax_id.rate,
+                                                self.vendor_id.state)
         self.write(data)
 
     @api.constrains("requested_quantity", "accepted_quantity")

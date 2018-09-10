@@ -2,14 +2,14 @@
 <odoo>
 
     <!-- Tree -->
-    <record id="view_store_request_tree" model="ir.ui.view">
-        <field name="name">store.request.tree</field>
-        <field name="model">store.request</field>
+    <record id="view_store_return_tree" model="ir.ui.view">
+        <field name="name">store.return.tree</field>
+        <field name="model">store.return</field>
         <field name="arch" type="xml">
-            <tree string="Store Request">
+            <tree string="Store Return">
                 <field name="name"/>
                 <field name="date"/>
-                <field name="requested_by"/>
+                <field name="returned_by"/>
                 <field name="approved_by"/>
                 <field name="department_id"/>
                 <field name="progress"/>
@@ -18,14 +18,14 @@
     </record>
 
     <!-- Form -->
-    <record id="view_store_request_form" model="ir.ui.view">
-        <field name="name">store.request.form</field>
-        <field name="model">store.request</field>
+    <record id="view_store_return_form" model="ir.ui.view">
+        <field name="name">store.return.form</field>
+        <field name="model">store.return</field>
         <field name="arch" type="xml">
-            <form string="Store Request">
+            <form string="Store Return">
                 <sheet>
                     <div id="s_header">
-                        <h1>Store Request</h1>
+                        <h1>Store Return</h1>
                     </div>
                     <div id="p_header">
                         <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
@@ -33,20 +33,20 @@
                     <h2><field name="name"/></h2>
                     <group col="4">
                         <field name="date"/>
-                        <field name="requested_by"/>
+                        <field name="returned_by"/>
                         <field name="approved_by"/>
                         <field name="department_id"/>
                     </group>
                     <notebook>
-                        <page string="Request Detail">
-                            <field name="request_detail" attrs="{'readonly': [('progress', 'in', ['approved', 'cancelled'])]}">
+                        <page string="Return Detail">
+                            <field name="return_detail" attrs="{'readonly': [('progress', 'in', ['approved', 'cancelled'])]}">
                                 <tree editable="bottom">
                                     <field name="product_id"
                                            domain="[('category_id.name', 'in', ['Medicine', 'Equipment'])]"
                                            attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                                     <field name="uom_id" readonly="1"/>
                                     <field name="quantity"/>
-                                    <field name="request_id" invisible="1"/>
+                                    <field name="return_id" invisible="1"/>
                                     <field name="progress" invisible="1"/>
                                 </tree>
                             </field>
@@ -70,9 +70,9 @@
     </record>
 
     <!-- Action -->
-    <record id="action_store_request" model="ir.actions.act_window">
-        <field name="name">Store Request</field>
-        <field name="res_model">store.request</field>
+    <record id="action_store_return" model="ir.actions.act_window">
+        <field name="name">Store Return</field>
+        <field name="res_model">store.return</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>

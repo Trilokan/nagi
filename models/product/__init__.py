@@ -9,6 +9,7 @@ from . import warehouse
 from . import hos_picking
 from . import hos_move
 from . import store_request
+from . import store_return
 from . import category
 from . import hos_assert
 from . import batch

@@ -40,6 +40,7 @@
                                 <field name="tin_no"/>
                                 <field name="pan_no"/>
                                 <field name="contact_person"/>
+                                <field name="state_id"/>
                                 <field name="email"/>
                                 <field name="mobile"/>
                                 <field name="alternate_contact"/>

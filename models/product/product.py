@@ -41,16 +41,6 @@ class Product(models.Model):
 
         return [("id", "not in", virtual_location.ids)]
 
-    @api.model
-    def name_search(self, name, args=None, operator='ilike', limit=100):
-        args = args or []
-        recs = self.browse()
-        if name:
-            recs = self.search(['|', ('name', '=', name), ('code', '=', name)] + args, limit=limit)
-        if not recs:
-            recs = self.search(['|', ('name', operator, name), ('code', operator, name)] + args, limit=limit)
-        return recs.name_get()
-
     @api.multi
     def name_get(self):
         result = []

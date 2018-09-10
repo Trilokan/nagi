@@ -19,6 +19,7 @@ class HospitalCompany(surya.Sarpam):
 
     # Tax
     tax_default_id = fields.Many2one(comodel_name="hos.tax", string="Default Tax")
+    state_id = fields.Many2one(comodel_name="res.country.state", string="State")
 
     # Leave
     leave_lop_id = fields.Many2one(comodel_name="leave.account", string="Loss Of Pay")
