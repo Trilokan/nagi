@@ -109,23 +109,29 @@
               parent="menu_product"
               sequence="30"/>
 
+    <menuitem id="product_assert_hos_move"
+              name="Assert Capitalisation"
+              action="action_hos_move_assert_capitalisation"
+              parent="sub_menu_product_assert"
+              sequence="10"/>
+
     <menuitem id="product_assert_hos_assert"
               name="Assert"
               action="action_hos_assert"
               parent="sub_menu_product_assert"
-              sequence="10"/>
+              sequence="20"/>
 
     <menuitem id="product_assert_assert_service"
               name="Assert Service"
               action="action_assert_service"
               parent="sub_menu_product_assert"
-              sequence="20"/>
+              sequence="30"/>
 
     <menuitem id="product_assert_assert_reminder"
               name="Assert Reminder"
               action="action_assert_reminder"
               parent="sub_menu_product_assert"
-              sequence="30"/>
+              sequence="40"/>
 
 
 </odoo>

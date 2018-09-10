@@ -146,6 +146,7 @@
         'views/web/product/store_return.xml',
         'views/web/product/store_intake.xml',
         'views/web/product/batch.xml',
+        'views/web/product/assert_capitalisation.xml',
 
         # Purchase
         'views/web/purchase/purchase_indent.xml',

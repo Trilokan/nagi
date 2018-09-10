@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hos_move_assert_capitalisation_tree" model="ir.ui.view">
+        <field name="name">hos.move.tree</field>
+        <field name="model">hos.move</field>
+        <field name="arch" type="xml">
+            <tree string="Assert Capitalisation">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="product_id"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hos_move_assert_capitalisation_form" model="ir.ui.view">
+        <field name="name">hos.move.form</field>
+        <field name="model">hos.move</field>
+        <field name="arch" type="xml">
+            <form string="Assert Capitalisation">
+                <sheet>
+                    <div id="s_header">
+                        <h1>Assert Capitalisation</h1>
+                    </div>
+                    <div id="p_header">
+                        <field name="progress" widget="statusbar" style="float: right;padding: 20px;"/>
+                    </div>
+
+                    <h2><field name="name" readonly="1"/></h2>
+                    <group>
+                        <field name="date"/>
+                        <field name="product_id"/>
+                    </group>
+                    <field name="assert_split"/>
+
+
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Stock Adjustment-->
+    <record id="action_hos_move_assert_capitalisation" model="ir.actions.act_window">
+        <field name="name">Assert Capitalisation</field>
+        <field name="res_model">hos.move</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('assert_split', '!=', False)]</field>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_move_assert_capitalisation_form">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_hos_move_assert_capitalisation_form" />
+        <field name="act_window_id" ref="action_hos_move_assert_capitalisation"/>
+    </record>
+
+    <record model="ir.actions.act_window.view" id="action_hos_move_assert_capitalisation_tree">
+        <field eval="1" name="sequence"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_hos_move_assert_capitalisation_tree"/>
+        <field name="act_window_id" ref="action_hos_move_assert_capitalisation"/>
+    </record>
+
+
+</odoo>
+

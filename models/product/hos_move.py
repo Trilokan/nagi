@@ -48,6 +48,9 @@ class StockMove(models.Model):
     batch_split = fields.One2many(comodel_name="dum.batch",
                                   inverse_name="move_id",
                                   string="Batch Split")
+    assert_split = fields.One2many(comodel_name="hos.assert",
+                                   inverse_name="move_id",
+                                   string="Assert Split")
     split_id = fields.Many2one(comodel_name="hos.move", string="Move")
     batch_id = fields.Many2one(comodel_name="hos.batch", string="Batch")
     manufactured_date = fields.Date(string="Manufacturing Date", related="batch_id.manufactured_date")

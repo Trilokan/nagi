@@ -14,6 +14,7 @@ class Assert(surya.Sarpam):
     date = fields.Date(string="Date")
     name = fields.Char(string="Name", readonly=True)
     company_id = fields.Many2one(comodel_name="res.company", string="Company", readonly=True)
+    move_id = fields.Many2one(comodel_name="hos.move", string="Move")
 
     # Manufacturing Details
     product_id = fields.Many2one(comodel_name="hos.product", string="Product", required=True)
