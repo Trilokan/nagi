@@ -11,9 +11,9 @@ def purchase_calculation(unit_price, quantity, discount, tax, tax_state):
 
     cgst = sgst = igst = 0
     if tax_state == 'inter_state':
-        sgst = tax_amount
+        igst = tax_amount
     elif tax_state == 'outer_state':
-        cgst = igst = tax_amount / 2
+        cgst = sgst = tax_amount / 2
 
     return {"cgst": cgst,
             "sgst": sgst,

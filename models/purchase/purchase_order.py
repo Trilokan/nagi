@@ -29,16 +29,27 @@ class PurchaseOrder(models.Model):
     progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
     comment = fields.Text(string='Comment')
 
-    discount_amount = fields.Float(string='Discount Amount', readonly=True, help='Discount value')
     discounted_amount = fields.Float(string='Discounted Amount', readonly=True, help='Amount after discount')
-    tax_amount = fields.Float(string='Tax Amount', readonly=True, help='Tax value')
     taxed_amount = fields.Float(string='Taxed Amount', readonly=True, help='Tax after discounted amount')
     untaxed_amount = fields.Float(string='Untaxed Amount', readonly=True)
     sgst = fields.Float(string='SGST', readonly=True)
     cgst = fields.Float(string='CGST', readonly=True)
     igst = fields.Float(string='IGST', readonly=True)
-    gross_amount = fields.Float(string='Gross Amount', readonly=True)
+
+    sub_total_amount = fields.Float(string='Sub Total', readonly=True)
+    discount_amount = fields.Float(string='Discount Amount', readonly=True, help='Discount value')
+    total_amount = fields.Float(string='Total', readonly=True)
+    tax_amount = fields.Float(string='Tax Amount', readonly=True, help='Tax value')
     round_off_amount = fields.Float(string='Round-Off', readonly=True)
+    grand_total_amount = fields.Float(string='Grand Total', readonly=True)
+
+    expected_delivery = fields.Char(string='Expected Delivery')
+    freight = fields.Char(string='Freight')
+    payment = fields.Char(string='Payment')
+    insurance = fields.Char(string='Insurance')
+    certificate = fields.Char(string='Certificate')
+    warranty = fields.Char(string='Warranty')
+
     company_id = fields.Many2one(comodel_name="res.company",
                                  string="Company",
                                  default=lambda self: self.env.user.company_id.id,
@@ -56,7 +67,8 @@ class PurchaseOrder(models.Model):
             rec.detail_calculation()
 
         discount_amount = discounted_amount = tax_amount = untaxed_amount = taxed_amount \
-            = cgst = sgst = igst = total_amount = 0
+            = cgst = sgst = igst = sub_total_amount = 0
+
         for rec in recs:
             discount_amount = discount_amount + rec.discount_amount
             discounted_amount = discounted_amount + rec.discounted_amount
@@ -66,10 +78,11 @@ class PurchaseOrder(models.Model):
             cgst = cgst + rec.cgst
             sgst = sgst + rec.sgst
             igst = igst + rec.igst
+            sub_total_amount = sub_total_amount + rec.total_amount
 
-            total_amount = total_amount + rec.total_amount
-        gross_amount = round(total_amount)
-        round_off_amount = round(total_amount) - total_amount
+        total_amount = sub_total_amount - discount_amount
+        grand_total_amount = round(total_amount + tax_amount)
+        round_off_amount = round(total_amount + tax_amount) - (total_amount + tax_amount)
 
         self.write({"discount_amount": discount_amount,
                     "discounted_amount": discounted_amount,
@@ -79,8 +92,9 @@ class PurchaseOrder(models.Model):
                     "cgst": cgst,
                     "sgst": sgst,
                     "igst": igst,
+                    "sub_total_amount": sub_total_amount,
                     "total_amount": total_amount,
-                    "gross_amount": gross_amount,
+                    "grand_total_amount": grand_total_amount,
                     "round_off_amount": round_off_amount})
 
     def trigger_grn(self):
