@@ -17,33 +17,24 @@ class PurchaseOrder(models.Model):
     date = fields.Date(string="Date",
                        default=datetime.now().strftime("%Y-%m-%d"),
                        readonly=True)
-    vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
-    indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent", readonly=True)
-    quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation", readonly=True)
-    vendor_ref = fields.Char(string="Vendor Ref")
-    processed_by = fields.Many2one(comodel_name="hos.person", string="Processed By", readonly=True)
-    processed_on = fields.Date(string='Processed On', readonly=True)
-    order_detail = fields.One2many(comodel_name='purchase.detail',
-                                   inverse_name='order_id',
-                                   string='Order Detail')
-    progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
-    comment = fields.Text(string='Comment')
-
-    discount_amount = fields.Float(string='Discount Amount', readonly=True, help='Discount value')
-    discounted_amount = fields.Float(string='Discounted Amount', readonly=True, help='Amount after discount')
-    tax_amount = fields.Float(string='Tax Amount', readonly=True, help='Tax value')
-    taxed_amount = fields.Float(string='Taxed Amount', readonly=True, help='Tax after discounted amount')
-    untaxed_amount = fields.Float(string='Untaxed Amount', readonly=True)
-    sgst = fields.Float(string='SGST', readonly=True)
-    cgst = fields.Float(string='CGST', readonly=True)
-    igst = fields.Float(string='IGST', readonly=True)
-    gross_amount = fields.Float(string='Gross Amount', readonly=True)
-    round_off_amount = fields.Float(string='Round-Off', readonly=True)
     company_id = fields.Many2one(comodel_name="res.company",
                                  string="Company",
                                  default=lambda self: self.env.user.company_id.id,
                                  readonly=True)
+    vendor_id = fields.Many2one(comodel_name="hos.person", string="Vendor", readonly=True)
+    vendor_ref = fields.Char(string="Vendor Ref")
+    indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent", readonly=True)
+    quote_id = fields.Many2one(comodel_name="purchase.quote", string="Quotation", readonly=True)
+    order_detail = fields.One2many(comodel_name='purchase.detail',
+                                   inverse_name='order_id',
+                                   string='Order Detail')
+    amount_detail = fields.One2many(comodel_name='amount.detail',
+                                    inverse_name='order_id',
+                                    string='Amount Detail')
+    total_amount = fields.Float(string="Total Amount")
+    comment = fields.Text(string='Comment')
     writter = fields.Text(string="Writter", track_visibility='always')
+    progress = fields.Selection(PROGRESS_INFO, default='draft', string='Progress')
 
     @api.multi
     def total_calculation(self):
@@ -55,33 +46,29 @@ class PurchaseOrder(models.Model):
         for rec in recs:
             rec.detail_calculation()
 
-        discount_amount = discounted_amount = tax_amount = untaxed_amount = taxed_amount \
-            = cgst = sgst = igst = total_amount = 0
+        data = {}
+
+        data["discount_amount"] = 0
+        data["tax_amount"] = 0
+        data["cgst"] = 0
+        data["sgst"] = 0
+        data["igst"] = 0
+        data["total_amount"] = 0
+        data["gross_amount"] = 0
+        data["round_off_amount"] = 0
+
         for rec in recs:
-            discount_amount = discount_amount + rec.discount_amount
-            discounted_amount = discounted_amount + rec.discounted_amount
-            tax_amount = tax_amount + rec.tax_amount
-            untaxed_amount = untaxed_amount + rec.untaxed_amount
-            taxed_amount = taxed_amount + rec.taxed_amount
-            cgst = cgst + rec.cgst
-            sgst = sgst + rec.sgst
-            igst = igst + rec.igst
+            data["discount_amount"] = data["discount_amount"] + rec.discount_amount
+            data["tax_amount"] = data["tax_amount"] + rec.tax_amount
+            data["cgst"] = data["cgst"] + rec.cgst
+            data["sgst"] = data["sgst"] + rec.sgst
+            data["igst"] = data["igst"] + rec.igst
 
-            total_amount = total_amount + rec.total_amount
-        gross_amount = round(total_amount)
-        round_off_amount = round(total_amount) - total_amount
+            data["total_amount"] = data["total_amount"] + rec.total_amount
+            data["gross_amount"] = round(data["total_amount"])
+            data["round_off_amount"] = round(data["total_amount"]) - data["total_amount"]
 
-        self.write({"discount_amount": discount_amount,
-                    "discounted_amount": discounted_amount,
-                    "tax_amount": tax_amount,
-                    "untaxed_amount": untaxed_amount,
-                    "taxed_amount": taxed_amount,
-                    "cgst": cgst,
-                    "sgst": sgst,
-                    "igst": igst,
-                    "total_amount": total_amount,
-                    "gross_amount": gross_amount,
-                    "round_off_amount": round_off_amount})
+        self.write(data)
 
     def trigger_grn(self):
         data = {}

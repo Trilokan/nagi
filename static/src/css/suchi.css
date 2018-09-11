@@ -1,0 +1,4 @@
+.custom_purchase_order > .o_form_field > .o_list_editable > .table-responsive > table > thead {display: none;}
+
+.custom_purchase_order > .o_form_field > .o_list_editable > .table-responsive > table {float: right;
+                                                                                       width: 50%;}

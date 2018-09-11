@@ -28,7 +28,6 @@
 
         'data/hos.location.csv',
         'data/hos.uom.csv',
-        'data/hos.product.csv',
 
         'sequence/product.xml',
         'sequence/purchase.xml',

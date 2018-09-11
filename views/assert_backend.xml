@@ -6,6 +6,7 @@
             <link rel="stylesheet" href="/nagi/static/src/css/time_bar.css"/>
             <link rel="stylesheet" href="/nagi/static/src/css/status_bar.less"/>
             <link rel="stylesheet" href="/nagi/static/src/css/matrix.css"/>
+            <link rel="stylesheet" href="/nagi/static/src/css/suchi.css"/>
         </xpath>
     </template>
 </odoo>
