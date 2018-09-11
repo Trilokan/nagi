@@ -12,6 +12,5 @@ from . import journal_reconcile
 from . import pre_defined_account
 from . import leave
 from . import voucher
-from . import hos_amount
 
 
