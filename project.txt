@@ -1,0 +1,58 @@
+Project Nagi:
+
+September 13, 2018 ---- Hospital
+
+	Base
+	Admission
+	Discharge
+	Operation
+	Doctor Availability
+	Patient/ Doctor Schedule
+	Wards
+	Beds
+	Contact			
+
+
+September 14, 2018 ---- Employee
+
+	Recruitment
+	Time Management
+	Leave Management
+	Payroll
+
+	
+September 15, 2018 ---- Patient
+
+	OPT
+	IPT
+
+
+September 16, 2018 ---- Purchase
+
+	Indent
+	Quotation
+	Order
+	Return
+	Material Receipt
+	Invoice
+
+
+September 17, 2018 ---- Product, Stores, Assert
+
+	Product
+	Store Request
+	Store Return
+	Assert Capitalisation
+
+
+September 18, 2018 ---- Pharmacy
+
+	Invoice
+
+
+September 19 - 20, 2018 ---- Accounting
+
+	Journal Entries
+	Journal Items
+	Voucher
+	
